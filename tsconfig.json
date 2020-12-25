@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
 
-  "include": ["src/**/*", "templates/*"],
+  "include": ["src/**/**/*"],
   "exclude": ["node_modules/*", "__sapper__/*", "public/*"],
   "compilerOptions": {
     "lib": [
@@ -12,6 +12,6 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "strictNullChecks": true,
-    "types": ["node", "jest", "dom-mediacapture-record"]
+    "types": ["node", "jest"]
   }
 }

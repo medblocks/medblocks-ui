@@ -13,7 +13,7 @@
     
     // Currently only simple templates
     export let displayTitle = true
-    export const CAN_ADD = true
+    export const CAN_ADD = false
     
     let store: Writable<keyValue> = getContext('store')
     let readOnly: boolean = getContext('readOnly')
@@ -48,10 +48,11 @@
         throw new Error("Group component got tree not of type group");
     }    
 </script>
+
 {#if repeatable}
 {#each [...Array(count).keys()] as index}
     <h4 class="has-text-weight-bold is-size-6 mb-3 mt-5 has-text-grey">{label || ''}</h4>
-    <div class="field" transition:slide="{{duration: 300 }}" style="box-sizing: border-box;">
+    <div class="field" style="box-sizing: border-box;">
         <svelte:self path={`${path}:${index}`} repeatable={false} {type} {label} {children} displayTitle={false}></svelte:self>
     </div>
     {/each}
@@ -60,10 +61,11 @@
         {#if count > 1}
         <button class:is-hidden={readOnly} transition:scale class="button is-small is-danger is-light" on:click={reduceCount} type="button"><i class="icon icon-arrow-up"></i></button>
         {/if}
-        <button class:is-hidden={readOnly} class="button is-small is-success is-light" on:click={increaseCount} type="button"><i class="icon icon-arrow-down"></i></button>
+        <button class:is-hidden={readOnly} class="button is-sma ll is-success is-light" on:click={increaseCount} type="button"><i class="icon icon-arrow-down"></i></button>
     </div>
     {/if}
 {:else}
+
 {#each children as child}
 {#if child.type === 'Group'}
             <svelte:self {...child} path={path+child.path}></svelte:self>

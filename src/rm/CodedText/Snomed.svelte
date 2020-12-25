@@ -142,7 +142,7 @@
             <Error>Default value of terminology not set</Error>
         {/if}
         <div class="container">
-            <aside transition:fade={{ duration: 150 }} class="box menu" class:is-hidden={!searchTerm || $state === State.Error}>
+            <aside class="box menu" class:is-hidden={!searchTerm || $state === State.Error}>
                 <ul class="menu-list">   
                 {#if $results.length === 0 && $state !== State.Initial}
                     <li><a class:has-text-grey={$state === State.Loading} href="#/">No results found</a></li>

@@ -13,6 +13,7 @@ import EhrUri from '../rm/EhrUri.svelte';
 import Duration from '../rm/Duration.svelte';
 import Date from '../rm/Date.svelte';
 import Proportion from '../rm/Proportion.svelte';
+import Ordinal from '../rm/Ordinal.svelte';
     export let tree: Tree;
     export let type: string;
     export let path: string;
@@ -27,6 +28,8 @@ import Proportion from '../rm/Proportion.svelte';
     <Quantity {path} {tree}></Quantity>
 {:else if tree.rmType === 'DV_CODED_TEXT'}
     <CodedText {path} {tree}></CodedText>
+{:else if tree.rmType === 'DV_ORDINAL'}
+    <Ordinal {path} {tree}></Ordinal>
 {:else if tree.rmType === 'DV_TEXT'}
     <Text {path} {tree}></Text>
 {:else if tree.rmType === 'DV_COUNT'}

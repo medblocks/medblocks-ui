@@ -9,7 +9,8 @@ export interface Input {
     type: string,
     list?: {
         value: string,
-        label?: string
+        label?: string,
+        ordinal?: number
     }[],
     defaultValue?: any,
     terminology?: string

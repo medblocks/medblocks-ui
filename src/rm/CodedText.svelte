@@ -23,6 +23,8 @@ import Error from "./helpers/Error.svelte";
 {#if terminology}
     {#if terminology === "SNOMED-CT"}
         <Snomed {path} {tree} terminologyUrl="http://localhost:9200/"></Snomed>
+    {:else if terminology === "openehr"}
+        <input hidden>
     {:else}
     <div class="field">
         {#if readOnly}
