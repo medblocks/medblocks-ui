@@ -1,0 +1,1652 @@
+{
+  "templateId" : "EHRN Complaints.v0",
+  "version" : "2.3",
+  "defaultLanguage" : "en",
+  "languages" : [ "en" ],
+  "tree" : {
+    "id" : "encounter",
+    "name" : "Encounter",
+    "localizedName" : "Encounter",
+    "rmType" : "COMPOSITION",
+    "nodeId" : "openEHR-EHR-COMPOSITION.encounter.v1",
+    "min" : 1,
+    "max" : 1,
+    "localizedNames" : {
+      "en" : "Encounter"
+    },
+    "localizedDescriptions" : {
+      "en" : "Interaction, contact or care event between a subject of care and healthcare provider(s)."
+    },
+    "aqlPath" : "",
+    "children" : [ {
+      "id" : "context",
+      "rmType" : "EVENT_CONTEXT",
+      "nodeId" : "",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/context",
+      "children" : [ {
+        "id" : "start_time",
+        "name" : "Start_time",
+        "rmType" : "DV_DATE_TIME",
+        "min" : 1,
+        "max" : 1,
+        "aqlPath" : "/context/start_time",
+        "inputs" : [ {
+          "type" : "DATETIME"
+        } ],
+        "inContext" : true
+      }, {
+        "id" : "setting",
+        "name" : "Setting",
+        "rmType" : "DV_CODED_TEXT",
+        "min" : 1,
+        "max" : 1,
+        "aqlPath" : "/context/setting",
+        "inputs" : [ {
+          "suffix" : "code",
+          "type" : "TEXT"
+        }, {
+          "suffix" : "value",
+          "type" : "TEXT"
+        } ],
+        "inContext" : true
+      } ]
+    }, {
+      "id" : "story_history",
+      "name" : "Story/History",
+      "localizedName" : "Story/History",
+      "rmType" : "OBSERVATION",
+      "nodeId" : "openEHR-EHR-OBSERVATION.story.v1",
+      "min" : 0,
+      "max" : -1,
+      "localizedNames" : {
+        "en" : "Story/History"
+      },
+      "localizedDescriptions" : {
+        "en" : "The subjective clinical history of the subject of care as recorded directly by the subject, or reported to a clinician by the subject or a carer."
+      },
+      "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]",
+      "children" : [ {
+        "id" : "story",
+        "name" : "Story",
+        "localizedName" : "Story",
+        "rmType" : "DV_TEXT",
+        "nodeId" : "at0004",
+        "min" : 0,
+        "max" : -1,
+        "localizedNames" : {
+          "en" : "Story"
+        },
+        "localizedDescriptions" : {
+          "en" : "Narrative description of the story or clinical history for the subject of care."
+        },
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value",
+        "inputs" : [ {
+          "type" : "TEXT"
+        } ]
+      }, {
+        "id" : "issue_presented_by_a_person",
+        "name" : "Issue presented by a person",
+        "localizedName" : "Issue presented by a person",
+        "rmType" : "CLUSTER",
+        "nodeId" : "openEHR-EHR-CLUSTER.issue.v1",
+        "min" : 0,
+        "max" : -1,
+        "localizedNames" : {
+          "en" : "Issue presented by a person"
+        },
+        "localizedDescriptions" : {
+          "en" : "An issue, symptom, or complaint presented to the health provider seeking explanation, education, understanding, investigation or treatment"
+        },
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.issue.v1]",
+        "children" : [ {
+          "id" : "issue",
+          "name" : "Issue",
+          "localizedName" : "Issue",
+          "rmType" : "DV_TEXT",
+          "nodeId" : "at0001",
+          "min" : 1,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Issue"
+          },
+          "localizedDescriptions" : {
+            "en" : "The issue as presented by the person"
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.issue.v1]/items[at0001]/value",
+          "inputs" : [ {
+            "type" : "TEXT"
+          } ]
+        }, {
+          "id" : "detail",
+          "name" : "Detail",
+          "localizedName" : "Detail",
+          "rmType" : "DV_TEXT",
+          "nodeId" : "at0002",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Detail"
+          },
+          "localizedDescriptions" : {
+            "en" : "Detailed information about the issue or health problem"
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.issue.v1]/items[at0002]/value",
+          "inputs" : [ {
+            "type" : "TEXT"
+          } ]
+        } ]
+      }, {
+        "id" : "symptom_sign",
+        "name" : "Symptom/Sign",
+        "localizedName" : "Symptom/Sign",
+        "rmType" : "CLUSTER",
+        "nodeId" : "openEHR-EHR-CLUSTER.symptom_sign.v1",
+        "min" : 0,
+        "max" : -1,
+        "localizedNames" : {
+          "en" : "Symptom/Sign"
+        },
+        "localizedDescriptions" : {
+          "en" : "Reported observation of a physical or mental disturbance in an individual."
+        },
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]",
+        "children" : [ {
+          "id" : "symptom_sign_name",
+          "name" : "Symptom/Sign name",
+          "localizedName" : "Symptom/Sign name",
+          "rmType" : "DV_TEXT",
+          "nodeId" : "at0001",
+          "min" : 1,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Symptom/Sign name"
+          },
+          "localizedDescriptions" : {
+            "en" : "The name of the reported symptom or sign."
+          },
+          "annotations" : {
+            "comment" : "Symptom name should be coded with a terminology, where possible."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0001]/value",
+          "inputs" : [ {
+            "type" : "TEXT"
+          } ],
+          "termBindings" : {
+            "SNOMED-CT" : {
+              "value" : "[SNOMED-CT::19019007]",
+              "terminologyId" : "SNOMED-CT"
+            }
+          }
+        }, {
+          "id" : "nil_significant",
+          "name" : "Nil significant",
+          "localizedName" : "Nil significant",
+          "rmType" : "DV_BOOLEAN",
+          "nodeId" : "at0035",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Nil significant"
+          },
+          "localizedDescriptions" : {
+            "en" : "The identified symptom or sign was reported as not being present to any significant degree."
+          },
+          "annotations" : {
+            "comment" : "Record as True if the subject of care has reported the symptom as not significant. For example: if the individual has never experienced the symptom it is appropriate to record 'nil significant'; or if the individual commonly experiences the symptom, in some circumstances it may be considered appropriate to record 'nil significant' if the individual has experienced no deviation from their 'normal' baseline."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0035]/value",
+          "inputs" : [ {
+            "type" : "BOOLEAN",
+            "list" : [ {
+              "value" : "true",
+              "label" : "true"
+            } ]
+          } ]
+        }, {
+          "id" : "description",
+          "name" : "Description",
+          "localizedName" : "Description",
+          "rmType" : "DV_TEXT",
+          "nodeId" : "at0002",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Description"
+          },
+          "localizedDescriptions" : {
+            "en" : "Narrative description about the reported symptom or sign."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0002]/value",
+          "inputs" : [ {
+            "type" : "TEXT"
+          } ],
+          "termBindings" : {
+            "SNOMED-CT" : {
+              "value" : "[SNOMED-CT::162408000]",
+              "terminologyId" : "SNOMED-CT"
+            }
+          }
+        }, {
+          "id" : "body_site",
+          "name" : "Body site",
+          "localizedName" : "Body site",
+          "rmType" : "DV_TEXT",
+          "nodeId" : "at0151",
+          "min" : 0,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Body site"
+          },
+          "localizedDescriptions" : {
+            "en" : "Simple body site where the symptom or sign was reported."
+          },
+          "annotations" : {
+            "comment" : "Occurrences of this data element are set to 0..* to allow multiple body sites to be separated out in a template if desired. This allows for representation of clinical scenarios where a symptom or sign needs to be recorded in multiple locations or identifying both the originating and distal site in pain radiation, but where all of the other attributes such as impact and duration are identical. If the requirements for recording the body site are determined at run-time by the application or require more complex modelling such as relative locations then use the CLUSTER.anatomical_location or CLUSTER.relative_location within the Detailed anatomical location' SLOT in this archetype. \r\nIf the anatomical location is included in the Symptom name via precoordinated codes, this data element becomes redundant.  If the anatomical location is recorded using the 'Structured body site' SLOT, then use of this data element is not allowed - record only the simple 'Body site' OR 'Structured body site', but not both."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0151]/value",
+          "inputs" : [ {
+            "type" : "TEXT"
+          } ]
+        }, {
+          "id" : "anatomical_location",
+          "name" : "Anatomical location",
+          "localizedName" : "Anatomical location",
+          "rmType" : "CLUSTER",
+          "nodeId" : "openEHR-EHR-CLUSTER.anatomical_location.v1",
+          "min" : 0,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Anatomical location"
+          },
+          "localizedDescriptions" : {
+            "en" : "A physical site on or within the human body."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]",
+          "children" : [ {
+            "id" : "body_site_name",
+            "name" : "Body site name",
+            "localizedName" : "Body site name",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0001",
+            "min" : 1,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Body site name"
+            },
+            "localizedDescriptions" : {
+              "en" : "Identification of a single physical site either on, or within, the human body."
+            },
+            "annotations" : {
+              "comment" : "This data element is the only mandated data point in this archetype and should be used as the primary data point to record an anatomical location with a commonly used name. It is strongly recommended that 'Body site name' be recorded as specifically as is anatomically possible. For example: record 'upper eyelid' rather than recording 'eyelid' with 'upper' as a qualifier; 'fifth rib' rather than 'rib' with a numeric qualifier. Use the other data elements for laterality, aspect, region and anatomical line to provide more detail. This data element should be coded with a terminology capable of triggering decision support, where possible - an appropriate termset for use here could comprise individual concepts or a list of precoordinated terms. Free text should be used only if there is no appropriate terminology available. "
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0001]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "specific_site",
+            "name" : "Specific site",
+            "localizedName" : "Specific site",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0065",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Specific site"
+            },
+            "localizedDescriptions" : {
+              "en" : "Additional detail using a specific region or a point on, or within, the identified body site."
+            },
+            "annotations" : {
+              "comment" : "Use to increase precision of identification of the body site, if required. For example, the upper right quadrant or McBurney's point on the abdominal wall or interphalangeal joint of the great toe. If the 'Body site name' data element uses pre-coordinated terms that include the specific site, then this data element is redundant."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0065]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "laterality",
+            "name" : "Laterality",
+            "localizedName" : "Laterality",
+            "rmType" : "DV_CODED_TEXT",
+            "nodeId" : "at0002",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Laterality"
+            },
+            "localizedDescriptions" : {
+              "en" : "The side of the body on which the identified  body site is located."
+            },
+            "annotations" : {
+              "comment" : "If the identified body site has no laterality, this data element should not have a value. \nIf the 'Body site name' data element uses pre-coordinated terms that include laterality, then this data element is redundant."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]/value",
+            "inputs" : [ {
+              "suffix" : "code",
+              "type" : "CODED_TEXT",
+              "list" : [ {
+                "value" : "at0003",
+                "label" : "Left",
+                "localizedLabels" : {
+                  "en" : "Left"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Left side of the body."
+                },
+                "termBindings" : {
+                  "SNOMED-CT" : {
+                    "value" : "[SNOMED-CT::419161000]",
+                    "terminologyId" : "SNOMED-CT"
+                  }
+                }
+              }, {
+                "value" : "at0004",
+                "label" : "Right",
+                "localizedLabels" : {
+                  "en" : "Right"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Right side of the body."
+                },
+                "termBindings" : {
+                  "SNOMED-CT" : {
+                    "value" : "[SNOMED-CT::419465000]",
+                    "terminologyId" : "SNOMED-CT"
+                  }
+                }
+              } ]
+            } ],
+            "termBindings" : {
+              "SNOMED-CT" : {
+                "value" : "[SNOMED-CT::272741003]",
+                "terminologyId" : "SNOMED-CT"
+              }
+            }
+          }, {
+            "id" : "aspect",
+            "name" : "Aspect",
+            "localizedName" : "Aspect",
+            "rmType" : "DV_CODED_TEXT",
+            "nodeId" : "at0064",
+            "min" : 0,
+            "max" : 2,
+            "localizedNames" : {
+              "en" : "Aspect"
+            },
+            "localizedDescriptions" : {
+              "en" : "Qualifying detail about the specific aspect of the identified body site."
+            },
+            "annotations" : {
+              "comment" : "Use to increase precision of identification of the body site, if required. Common aspects have been included as a value set, which can be extended over time, plus a free text option. Assumes that the body is being described while in the anatomical position. For example: proximal urethra; plantar aspect of the left thumb. Multiple aspects can also be described, if required, by allowing for 0..2 occurrences. For example: a lesion may be on the left anterior/lateral (ie anterolateral) chest wall. If the 'Body site name' data element uses pre-coordinated terms that include the aspect, then this data element is redundant."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0064]/value",
+            "inputs" : [ {
+              "suffix" : "code",
+              "type" : "CODED_TEXT",
+              "list" : [ {
+                "value" : "at0067",
+                "label" : "Medial",
+                "localizedLabels" : {
+                  "en" : "Medial"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Towards the midline of the body site."
+                }
+              }, {
+                "value" : "at0068",
+                "label" : "Lateral",
+                "localizedLabels" : {
+                  "en" : "Lateral"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Towards the side, or edge, of the body site."
+                }
+              }, {
+                "value" : "at0069",
+                "label" : "Superior",
+                "localizedLabels" : {
+                  "en" : "Superior"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Above the body site, often meaning towards the head."
+                }
+              }, {
+                "value" : "at0070",
+                "label" : "Inferior",
+                "localizedLabels" : {
+                  "en" : "Inferior"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Below the body site, often meaning towards the feet."
+                }
+              }, {
+                "value" : "at0071",
+                "label" : "Anterior",
+                "localizedLabels" : {
+                  "en" : "Anterior"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Towards the front, or ventral surface, of  the body site."
+                }
+              }, {
+                "value" : "at0072",
+                "label" : "Posterior",
+                "localizedLabels" : {
+                  "en" : "Posterior"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Towards the back, or dorsal surface, of the body site."
+                }
+              }, {
+                "value" : "at0073",
+                "label" : "Proximal",
+                "localizedLabels" : {
+                  "en" : "Proximal"
+                },
+                "localizedDescriptions" : {
+                  "en" : "More central or closer to the point of attachment, and usually describing part of a limb, digit or appendage."
+                }
+              }, {
+                "value" : "at0074",
+                "label" : "Distal",
+                "localizedLabels" : {
+                  "en" : "Distal"
+                },
+                "localizedDescriptions" : {
+                  "en" : "More peripheral, or further from the point of attachment, and usually describing part of a limb, digit or appendage."
+                }
+              }, {
+                "value" : "at0075",
+                "label" : "Palmar",
+                "localizedLabels" : {
+                  "en" : "Palmar"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Towards the palm of the hand."
+                }
+              }, {
+                "value" : "at0076",
+                "label" : "Plantar",
+                "localizedLabels" : {
+                  "en" : "Plantar"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Towards the sole of the foot."
+                }
+              }, {
+                "value" : "at0077",
+                "label" : "Mid",
+                "localizedLabels" : {
+                  "en" : "Mid"
+                },
+                "localizedDescriptions" : {
+                  "en" : "In the middle of the body site."
+                }
+              }, {
+                "value" : "at0078",
+                "label" : "Oral",
+                "localizedLabels" : {
+                  "en" : "Oral"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Towards the mouth. Usually used to describe locations within the digestive system."
+                }
+              }, {
+                "value" : "at0079",
+                "label" : "Anal",
+                "localizedLabels" : {
+                  "en" : "Anal"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Towards the anus. Usually used to describe locations within the digestive system."
+                }
+              } ],
+              "listOpen" : true
+            }, {
+              "suffix" : "other",
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "anatomical_line",
+            "name" : "Anatomical Line",
+            "localizedName" : "Anatomical Line",
+            "rmType" : "DV_CODED_TEXT",
+            "nodeId" : "at0055",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Anatomical Line"
+            },
+            "localizedDescriptions" : {
+              "en" : "Additional detail using theoretical lines drawn through anatomical structures used to provide a consistent reference point on the human body."
+            },
+            "annotations" : {
+              "comment" : "Common anatomical lines have been included as a value set, which can be extended over time, plus a free text option. The additional use of this data element allows for recording of the typical position of the heart's apex beat at 5th intercostal space, left side, and mid-clavicular line. If the 'Body site name' data element uses pre-coordinated terms that include anatomical line, then this data element is redundant."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0055]/value",
+            "inputs" : [ {
+              "suffix" : "code",
+              "type" : "CODED_TEXT",
+              "list" : [ {
+                "value" : "at0062",
+                "label" : "Midline",
+                "localizedLabels" : {
+                  "en" : "Midline"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Line running vertically which divides the body into left and right portions, passing through the head, spinal cord, and umbilicus. Alternatively it can refer to a line dividing a body part into two equal portions, for example a digit."
+                }
+              }, {
+                "value" : "at0056",
+                "label" : "Midaxillary line",
+                "localizedLabels" : {
+                  "en" : "Midaxillary line"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Line running vertically down the surface of the body, passing through the apex of the axilla."
+                }
+              }, {
+                "value" : "at0057",
+                "label" : "Anterior axillary line",
+                "localizedLabels" : {
+                  "en" : "Anterior axillary line"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Line running vertically down the surface of the body, passing through the anterior axillary skinfold."
+                }
+              }, {
+                "value" : "at0058",
+                "label" : "Posterior axillary line",
+                "localizedLabels" : {
+                  "en" : "Posterior axillary line"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Line running vertically down the surface of the body, passing through the posterior axillary skinfold."
+                }
+              }, {
+                "value" : "at0059",
+                "label" : "Mid-clavicular line",
+                "localizedLabels" : {
+                  "en" : "Mid-clavicular line"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Line running vertically down the surface of the body, parallel to the midline and passing through the midpoint of the clavicle."
+                }
+              }, {
+                "value" : "at0060",
+                "label" : "Mid-pupillary line",
+                "localizedLabels" : {
+                  "en" : "Mid-pupillary line"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Line running vertically down the face through the midpoint of the pupil when looking directly forward."
+                }
+              }, {
+                "value" : "at0063",
+                "label" : "Mid-scapular line",
+                "localizedLabels" : {
+                  "en" : "Mid-scapular line"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Line running vertically down the posterior surface of the body, parallel to the midline and passing through the inferior point of the scapula."
+                }
+              } ],
+              "listOpen" : true
+            }, {
+              "suffix" : "other",
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "description",
+            "name" : "Description",
+            "localizedName" : "Description",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0023",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Description"
+            },
+            "localizedDescriptions" : {
+              "en" : "Narrative description that can be used to further refine and support the 'Body site name'."
+            },
+            "annotations" : {
+              "comment" : "For example: adjacent to the vermilion border; a tattoo covers the bottom half of this area."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0023]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          } ]
+        }, {
+          "id" : "episodicity",
+          "name" : "Episodicity",
+          "localizedName" : "Episodicity",
+          "rmType" : "DV_CODED_TEXT",
+          "nodeId" : "at0175",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Episodicity"
+          },
+          "localizedDescriptions" : {
+            "en" : "Category of this episode for the identified symptom or sign."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0175]/value",
+          "inputs" : [ {
+            "suffix" : "code",
+            "type" : "CODED_TEXT",
+            "list" : [ {
+              "value" : "at0176",
+              "label" : "New",
+              "localizedLabels" : {
+                "en" : "New"
+              },
+              "localizedDescriptions" : {
+                "en" : "A new episode of the symptom or sign - either the first ever occurrence or a reoccurrence where the previous episode had completely resolved."
+              }
+            }, {
+              "value" : "at0178",
+              "label" : "Ongoing",
+              "localizedLabels" : {
+                "en" : "Ongoing"
+              },
+              "localizedDescriptions" : {
+                "en" : "This symptom or sign is ongoing, effectively a single, continuous episode."
+              }
+            }, {
+              "value" : "at0177",
+              "label" : "Indeterminate",
+              "localizedLabels" : {
+                "en" : "Indeterminate"
+              },
+              "localizedDescriptions" : {
+                "en" : "It is not possible to determine if this occurrence of the symptom or sign is new or ongoing."
+              }
+            } ]
+          } ]
+        }, {
+          "id" : "first_ever",
+          "name" : "First ever?",
+          "localizedName" : "First ever?",
+          "rmType" : "DV_BOOLEAN",
+          "nodeId" : "at0186",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "First ever?"
+          },
+          "localizedDescriptions" : {
+            "en" : "Is this the first ever occurrence of this symptom or sign?"
+          },
+          "annotations" : {
+            "comment" : "Record as True if this is the first ever occurrence of this symptom or sign."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0186]/value",
+          "inputs" : [ {
+            "type" : "BOOLEAN",
+            "list" : [ {
+              "value" : "true",
+              "label" : "true"
+            } ]
+          } ]
+        }, {
+          "id" : "episode_onset",
+          "name" : "Episode onset",
+          "localizedName" : "Episode onset",
+          "rmType" : "DV_DATE_TIME",
+          "nodeId" : "at0152",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Episode onset"
+          },
+          "localizedDescriptions" : {
+            "en" : "The onset for this episode of the symptom or sign."
+          },
+          "annotations" : {
+            "comment" : "While partial dates are permitted, the exact date and time of onset can be recorded, if appropriate. If this symptom or sign is experienced for the first time or is a re-occurrence, this date is used to represent the onset of this episode. If this symptom or sign is ongoing, this data element may be redundant if it has been recorded previously."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0152]/value",
+          "inputs" : [ {
+            "type" : "DATETIME"
+          } ]
+        }, {
+          "id" : "onset_type",
+          "name" : "Onset type",
+          "localizedName" : "Onset type",
+          "rmType" : "DV_TEXT",
+          "nodeId" : "at0164",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Onset type"
+          },
+          "localizedDescriptions" : {
+            "en" : "Description of the onset of the symptom or sign."
+          },
+          "annotations" : {
+            "comment" : "The type of the onset can be coded with a terminology, if desired. For example: gradual; or sudden."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0164]/value",
+          "inputs" : [ {
+            "type" : "TEXT"
+          } ]
+        }, {
+          "id" : "duration",
+          "name" : "Duration",
+          "localizedName" : "Duration",
+          "rmType" : "DV_DURATION",
+          "nodeId" : "at0028",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Duration"
+          },
+          "localizedDescriptions" : {
+            "en" : "The duration of this episode of the symptom or sign since onset."
+          },
+          "annotations" : {
+            "comment" : "If 'Date/time of onset' and 'Date/time of resolution' are used in systems, this data element may be calculated, or alternatively, be considered redundant in this scenario."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0028]/value",
+          "inputs" : [ {
+            "suffix" : "year",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            },
+            "defaultValue" : 0
+          }, {
+            "suffix" : "month",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            },
+            "defaultValue" : 0
+          }, {
+            "suffix" : "day",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            },
+            "defaultValue" : 0
+          }, {
+            "suffix" : "week",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            },
+            "defaultValue" : 0
+          }, {
+            "suffix" : "hour",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            },
+            "defaultValue" : 0
+          }, {
+            "suffix" : "minute",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            },
+            "defaultValue" : 0
+          }, {
+            "suffix" : "second",
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            },
+            "defaultValue" : 0
+          } ],
+          "termBindings" : {
+            "SNOMED-CT" : {
+              "value" : "[SNOMED-CT::162442009]",
+              "terminologyId" : "SNOMED-CT"
+            }
+          }
+        }, {
+          "id" : "severity_category",
+          "name" : "Severity category",
+          "localizedName" : "Severity category",
+          "rmType" : "DV_CODED_TEXT",
+          "nodeId" : "at0021",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Severity category"
+          },
+          "localizedDescriptions" : {
+            "en" : "Category representing the overall severity of the symptom or sign."
+          },
+          "annotations" : {
+            "comment" : "Defining values such as mild, moderate or severe in such a way that is applicable to multiple symptoms or signs plus allows multiple users to interpret and record them consistently is not easy. Some organisations extend the value set further with inclusion of additional values such as 'Trivial' and 'Very severe', and/or 'Mild-Moderate' and 'Moderate-Severe', adds to the definitional difficulty and may also worsen inter-recorder reliability issues. Use of 'Life-threatening' and 'Fatal' is also often considered as part of this value set, although from a pure point of view it may actually reflect an outcome rather than a severity. In view of the above, keeping to a well-defined but smaller list is preferred and so the mild/moderate/severe value set is offered, however the choice of other text allows for other value sets to be included at this data element in a template. Note: more specific grading of severity can be recorded using the 'Specific details' SLOT."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0021]/value",
+          "inputs" : [ {
+            "suffix" : "code",
+            "type" : "CODED_TEXT",
+            "list" : [ {
+              "value" : "at0023",
+              "label" : "Mild",
+              "localizedLabels" : {
+                "en" : "Mild"
+              },
+              "localizedDescriptions" : {
+                "en" : "The intensity of the symptom or sign does not cause interference with normal activity."
+              },
+              "termBindings" : {
+                "SNOMED-CT" : {
+                  "value" : "[SNOMED-CT::162468002]",
+                  "terminologyId" : "SNOMED-CT"
+                }
+              }
+            }, {
+              "value" : "at0024",
+              "label" : "Moderate",
+              "localizedLabels" : {
+                "en" : "Moderate"
+              },
+              "localizedDescriptions" : {
+                "en" : "The intensity of the symptom or sign causes interference with normal activity."
+              },
+              "termBindings" : {
+                "SNOMED-CT" : {
+                  "value" : "[SNOMED-CT::162469005]",
+                  "terminologyId" : "SNOMED-CT"
+                }
+              }
+            }, {
+              "value" : "at0025",
+              "label" : "Severe",
+              "localizedLabels" : {
+                "en" : "Severe"
+              },
+              "localizedDescriptions" : {
+                "en" : "The intensity of the symptom or sign causes prevents normal activity."
+              },
+              "termBindings" : {
+                "SNOMED-CT" : {
+                  "value" : "[SNOMED-CT::162470006]",
+                  "terminologyId" : "SNOMED-CT"
+                }
+              }
+            } ],
+            "listOpen" : true
+          }, {
+            "suffix" : "other",
+            "type" : "TEXT"
+          } ],
+          "termBindings" : {
+            "SNOMED-CT" : {
+              "value" : "[SNOMED-CT::162465004]",
+              "terminologyId" : "SNOMED-CT"
+            }
+          }
+        }, {
+          "id" : "severity_rating",
+          "name" : "Severity rating",
+          "localizedName" : "Severity rating",
+          "rmType" : "DV_QUANTITY",
+          "nodeId" : "at0026",
+          "min" : 0,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Severity rating"
+          },
+          "localizedDescriptions" : {
+            "en" : "Numerical rating scale representing the overall severity of the symptom or sign."
+          },
+          "annotations" : {
+            "comment" : "Symptom severity can be rated by the individual by recording a score from 0 (ie symptom not present) to 10.0 (ie symptom is as severe as the individual can imagine). This score can be represented in the user interface as a visual analogue scale. The data element has occurrences set to 0..* to allow for variations such as 'maximal severity' or 'average severity' to be included in a template."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0026]/value",
+          "inputs" : [ {
+            "suffix" : "magnitude",
+            "type" : "DECIMAL",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0.0,
+                "maxOp" : "<=",
+                "max" : 10.0
+              },
+              "precision" : {
+                "minOp" : ">=",
+                "min" : 1,
+                "maxOp" : "<=",
+                "max" : 1
+              }
+            }
+          }, {
+            "suffix" : "unit",
+            "type" : "CODED_TEXT",
+            "list" : [ {
+              "value" : "1",
+              "label" : "1",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0.0,
+                  "maxOp" : "<=",
+                  "max" : 10.0
+                },
+                "precision" : {
+                  "minOp" : ">=",
+                  "min" : 1,
+                  "maxOp" : "<=",
+                  "max" : 1
+                }
+              }
+            } ]
+          } ]
+        }, {
+          "id" : "progression",
+          "name" : "Progression",
+          "localizedName" : "Progression",
+          "rmType" : "DV_CODED_TEXT",
+          "nodeId" : "at0180",
+          "min" : 0,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Progression"
+          },
+          "localizedDescriptions" : {
+            "en" : "Description progression of the symptom or sign at the time of reporting."
+          },
+          "annotations" : {
+            "comment" : "Occurrences of this data element are set to 0..* to allow multiple types of progression to be separated out in a template if desired - for example, severity or frequency."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0180]/value",
+          "inputs" : [ {
+            "suffix" : "code",
+            "type" : "CODED_TEXT",
+            "list" : [ {
+              "value" : "at0183",
+              "label" : "Worsening",
+              "localizedLabels" : {
+                "en" : "Worsening"
+              },
+              "localizedDescriptions" : {
+                "en" : "The severity of the symptom or sign has worsened overall during this episode."
+              }
+            }, {
+              "value" : "at0182",
+              "label" : "Unchanged",
+              "localizedLabels" : {
+                "en" : "Unchanged"
+              },
+              "localizedDescriptions" : {
+                "en" : "The severity of the symptom or sign has not changed overall during this episode."
+              }
+            }, {
+              "value" : "at0181",
+              "label" : "Improving",
+              "localizedLabels" : {
+                "en" : "Improving"
+              },
+              "localizedDescriptions" : {
+                "en" : "The severity of the symptom or sign has improved overall during this episode."
+              }
+            }, {
+              "value" : "at0184",
+              "label" : "Resolved",
+              "localizedLabels" : {
+                "en" : "Resolved"
+              },
+              "localizedDescriptions" : {
+                "en" : "The severity of the symptom or sign has resolved."
+              }
+            } ]
+          } ]
+        }, {
+          "id" : "pattern",
+          "name" : "Pattern",
+          "localizedName" : "Pattern",
+          "rmType" : "DV_TEXT",
+          "nodeId" : "at0003",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Pattern"
+          },
+          "localizedDescriptions" : {
+            "en" : "Narrative description about the pattern of the symptom or sign during this episode."
+          },
+          "annotations" : {
+            "comment" : "For example: pain could be described as constant or intermittent."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0003]/value",
+          "inputs" : [ {
+            "type" : "TEXT"
+          } ]
+        }, {
+          "id" : "modifying_factor",
+          "name" : "Modifying factor",
+          "localizedName" : "Modifying factor",
+          "rmType" : "CLUSTER",
+          "nodeId" : "at0018",
+          "min" : 0,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Modifying factor"
+          },
+          "localizedDescriptions" : {
+            "en" : "Detail about how a specific factor effects the identified symptom or sign during this episode."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0018]",
+          "children" : [ {
+            "id" : "factor",
+            "name" : "Factor",
+            "localizedName" : "Factor",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0019",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Factor"
+            },
+            "localizedDescriptions" : {
+              "en" : "Name of the modifying factor."
+            },
+            "annotations" : {
+              "comment" : "Examples of modifying factor: lying on multiple pillows, eating or administration of a specific medication."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0018]/items[at0019]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "effect",
+            "name" : "Effect",
+            "localizedName" : "Effect",
+            "rmType" : "DV_CODED_TEXT",
+            "nodeId" : "at0017",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Effect"
+            },
+            "localizedDescriptions" : {
+              "en" : "Perceived effect of the modifying factor on the symptom or sign."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0018]/items[at0017]/value",
+            "inputs" : [ {
+              "suffix" : "code",
+              "type" : "CODED_TEXT",
+              "list" : [ {
+                "value" : "at0159",
+                "label" : "Relieves",
+                "localizedLabels" : {
+                  "en" : "Relieves"
+                },
+                "localizedDescriptions" : {
+                  "en" : "The factor decreases the severity or impact of the symptom or sign, but does not fully resolve it."
+                }
+              }, {
+                "value" : "at0156",
+                "label" : "No effect",
+                "localizedLabels" : {
+                  "en" : "No effect"
+                },
+                "localizedDescriptions" : {
+                  "en" : "The factor has no impact on the symptom or sign."
+                }
+              }, {
+                "value" : "at0158",
+                "label" : "Worsens",
+                "localizedLabels" : {
+                  "en" : "Worsens"
+                },
+                "localizedDescriptions" : {
+                  "en" : "The factor increases the severity or impact of the symptom or sign."
+                }
+              } ]
+            } ]
+          }, {
+            "id" : "description",
+            "name" : "Description",
+            "localizedName" : "Description",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0056",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Description"
+            },
+            "localizedDescriptions" : {
+              "en" : "Narrative description of the effect of the modifying factor on the symptom or sign."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0018]/items[at0056]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          } ]
+        }, {
+          "id" : "precipitating_factor",
+          "name" : "Precipitating factor",
+          "localizedName" : "Precipitating factor",
+          "rmType" : "CLUSTER",
+          "nodeId" : "at0165",
+          "min" : 0,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Precipitating factor"
+          },
+          "localizedDescriptions" : {
+            "en" : "Identification of factors or events that trigger the onset or commencement of the symptom or sign."
+          },
+          "annotations" : {
+            "comment" : "For example: onset of headache occurred one week prior to menstruation; or onset of headache occurred one hour after fall of bicycle."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0165,'Precipitating factor']",
+          "children" : [ {
+            "id" : "factor",
+            "name" : "Factor",
+            "localizedName" : "Factor",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0170",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Factor"
+            },
+            "localizedDescriptions" : {
+              "en" : "Name of the health event, symptom, reported sign or other factor."
+            },
+            "annotations" : {
+              "comment" : "For example: onset of another symptom; onset of menstruation; or fall off bicycle."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0165,'Precipitating factor']/items[at0170]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "time_interval",
+            "name" : "Time interval",
+            "localizedName" : "Time interval",
+            "rmType" : "DV_DURATION",
+            "nodeId" : "at0171",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Time interval"
+            },
+            "localizedDescriptions" : {
+              "en" : "The interval of time between the occurrence or onset of the factor and onset/resolution of the symptom or sign."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0165,'Precipitating factor']/items[at0171]/value",
+            "inputs" : [ {
+              "suffix" : "year",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "month",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "day",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "week",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "hour",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "minute",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "second",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            } ]
+          }, {
+            "id" : "description",
+            "name" : "Description",
+            "localizedName" : "Description",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0185",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Description"
+            },
+            "localizedDescriptions" : {
+              "en" : "Narrative description about the effect of the factor on the identified symptom or sign."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0165,'Precipitating factor']/items[at0185]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          } ]
+        }, {
+          "id" : "resolving_factor",
+          "name" : "Resolving factor",
+          "localizedName" : "Resolving factor",
+          "rmType" : "CLUSTER",
+          "nodeId" : "at0165",
+          "min" : 0,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Resolving factor"
+          },
+          "localizedDescriptions" : {
+            "en" : "Identification of factors or events that trigger resolution or cessation of the symptom or sign."
+          },
+          "annotations" : {
+            "comment" : "For example: onset of headache occurred one week prior to menstruation; or onset of headache occurred one hour after fall of bicycle."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0165,'Resolving factor']",
+          "children" : [ {
+            "id" : "factor",
+            "name" : "Factor",
+            "localizedName" : "Factor",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0170",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Factor"
+            },
+            "localizedDescriptions" : {
+              "en" : "Name of the health event, symptom, reported sign or other factor."
+            },
+            "annotations" : {
+              "comment" : "For example: onset of another symptom; onset of menstruation; or fall off bicycle."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0165,'Resolving factor']/items[at0170]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "time_interval",
+            "name" : "Time interval",
+            "localizedName" : "Time interval",
+            "rmType" : "DV_DURATION",
+            "nodeId" : "at0171",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Time interval"
+            },
+            "localizedDescriptions" : {
+              "en" : "The interval of time between the occurrence or onset of the factor and onset/resolution of the symptom or sign."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0165,'Resolving factor']/items[at0171]/value",
+            "inputs" : [ {
+              "suffix" : "year",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "month",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "day",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "week",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "hour",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "minute",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            }, {
+              "suffix" : "second",
+              "type" : "INTEGER",
+              "validation" : {
+                "range" : {
+                  "minOp" : ">=",
+                  "min" : 0
+                }
+              },
+              "defaultValue" : 0
+            } ]
+          }, {
+            "id" : "description",
+            "name" : "Description",
+            "localizedName" : "Description",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0185",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Description"
+            },
+            "localizedDescriptions" : {
+              "en" : "Narrative description about the effect of the factor on the identified symptom or sign."
+            },
+            "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0165,'Resolving factor']/items[at0185]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          } ]
+        }, {
+          "id" : "impact",
+          "name" : "Impact",
+          "localizedName" : "Impact",
+          "rmType" : "DV_TEXT",
+          "nodeId" : "at0155",
+          "min" : 0,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Impact"
+          },
+          "localizedDescriptions" : {
+            "en" : "Description of the impact of this symptom or sign."
+          },
+          "annotations" : {
+            "comment" : "Assessment of impact could consider the severity, duration and frequency of the symptom as well as the type of impact including, but not limited to, functional, social and emotional impact. Occurrences of this data element are set to 0..* to allow multiple types of impact to be separated out in a template if desired. Examples for functional impact from hearing loss may include: 'Difficulty Hearing in Quiet Environment'; 'Difficulty Hearing the TV or Radio'; 'Difficulty Hearing Group Conversation'; and 'Difficulty Hearing on Phone'."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0155]/value",
+          "inputs" : [ {
+            "type" : "TEXT"
+          } ]
+        }, {
+          "id" : "episode_description",
+          "name" : "Episode description",
+          "localizedName" : "Episode description",
+          "rmType" : "DV_TEXT",
+          "nodeId" : "at0037",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Episode description"
+          },
+          "localizedDescriptions" : {
+            "en" : "Narrative description about the course of the symptom or sign during this episode."
+          },
+          "annotations" : {
+            "comment" : "For example: a text description of the immediate onset of the symptom, activities that worsened or relieved the symptom, whether it is improving or worsening and how it resolved over weeks."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0037]/value",
+          "inputs" : [ {
+            "type" : "TEXT"
+          } ]
+        }, {
+          "id" : "resolution_date_time",
+          "name" : "Resolution date/time",
+          "localizedName" : "Resolution date/time",
+          "rmType" : "DV_DATE_TIME",
+          "nodeId" : "at0161",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Resolution date/time"
+          },
+          "localizedDescriptions" : {
+            "en" : "The timing of the cessation of this episode of the symptom or sign."
+          },
+          "annotations" : {
+            "comment" : "If 'Date/time of onset' and 'Duration' are used in systems, this data element may be calculated, or alternatively, considered redundant. While partial dates are permitted, the exact date and time of resolution can be recorded, if appropriate."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0161]/value",
+          "inputs" : [ {
+            "type" : "DATETIME"
+          } ]
+        }, {
+          "id" : "description_of_previous_episodes",
+          "name" : "Description of previous episodes",
+          "localizedName" : "Description of previous episodes",
+          "rmType" : "DV_TEXT",
+          "nodeId" : "at0057",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Description of previous episodes"
+          },
+          "localizedDescriptions" : {
+            "en" : "Narrative description of any or all previous episodes."
+          },
+          "annotations" : {
+            "comment" : "For example: frequency/periodicity - per hour, day, week, month, year; and regularity. May include a comparison to this episode."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0057]/value",
+          "inputs" : [ {
+            "type" : "TEXT"
+          } ]
+        }, {
+          "id" : "number_of_previous_episodes",
+          "name" : "Number of previous episodes",
+          "localizedName" : "Number of previous episodes",
+          "rmType" : "DV_COUNT",
+          "nodeId" : "at0031",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Number of previous episodes"
+          },
+          "localizedDescriptions" : {
+            "en" : "The number of times this symptom or sign has previously occurred."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0031]/value",
+          "inputs" : [ {
+            "type" : "INTEGER",
+            "validation" : {
+              "range" : {
+                "minOp" : ">=",
+                "min" : 0
+              }
+            }
+          } ]
+        }, {
+          "id" : "comment",
+          "name" : "Comment",
+          "localizedName" : "Comment",
+          "rmType" : "DV_TEXT",
+          "nodeId" : "at0163",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Comment"
+          },
+          "localizedDescriptions" : {
+            "en" : "Additional narrative about the symptom or sign not captured in other fields."
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0163]/value",
+          "inputs" : [ {
+            "type" : "TEXT"
+          } ]
+        } ],
+        "termBindings" : {
+          "SNOMED-CT" : {
+            "value" : "[SNOMED-CT::19019007]",
+            "terminologyId" : "SNOMED-CT"
+          }
+        }
+      }, {
+        "id" : "time",
+        "name" : "Time",
+        "rmType" : "DV_DATE_TIME",
+        "min" : 1,
+        "max" : 1,
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/time",
+        "inputs" : [ {
+          "type" : "DATETIME"
+        } ],
+        "inContext" : true
+      }, {
+        "id" : "language",
+        "name" : "Language",
+        "rmType" : "CODE_PHRASE",
+        "min" : 1,
+        "max" : 1,
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/language",
+        "inContext" : true
+      }, {
+        "id" : "encoding",
+        "name" : "Encoding",
+        "rmType" : "CODE_PHRASE",
+        "min" : 1,
+        "max" : 1,
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/encoding",
+        "inContext" : true
+      }, {
+        "id" : "subject",
+        "name" : "Subject",
+        "rmType" : "PARTY_PROXY",
+        "min" : 1,
+        "max" : 1,
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.story.v1]/subject",
+        "inContext" : true
+      } ]
+    }, {
+      "id" : "category",
+      "rmType" : "DV_CODED_TEXT",
+      "nodeId" : "",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/category",
+      "inputs" : [ {
+        "suffix" : "code",
+        "type" : "CODED_TEXT",
+        "list" : [ {
+          "value" : "433",
+          "localizedLabels" : {
+            "en" : ""
+          }
+        } ],
+        "terminology" : "openehr"
+      } ],
+      "inContext" : true
+    }, {
+      "id" : "language",
+      "name" : "Language",
+      "rmType" : "CODE_PHRASE",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/language",
+      "inContext" : true
+    }, {
+      "id" : "territory",
+      "name" : "Territory",
+      "rmType" : "CODE_PHRASE",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/territory",
+      "inContext" : true
+    }, {
+      "id" : "composer",
+      "name" : "Composer",
+      "rmType" : "PARTY_PROXY",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/composer",
+      "inContext" : true
+    } ]
+  }
+}

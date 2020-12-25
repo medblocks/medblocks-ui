@@ -1,0 +1,109 @@
+{
+    "templateId": "physicalActivity",
+    "version": "2.3",
+    "defaultLanguage": "en",
+    "languages": [],
+    "tree": {
+        "id": "physical_activity",
+        "name": "Physical Activity",
+        "localizedName": "Physical Activity",
+        "rmType": "COMPOSITION",
+        "nodeId": "openEHR-EHR-COMPOSITION.encounter.v1",
+        "min": 1,
+        "max": 1,
+        "localizedNames": {
+            "en": "Physical Activity"
+        },
+        "localizedDescriptions": {
+            "en": "Interaction, contact or care event between a subject of care and healthcare provider(s)."
+        },
+        "aqlPath": "",
+        "children": [
+            {
+                "id": "composer",
+                "name": "composer",
+                "rmType": "PARTY_PROXY",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {},
+                "localizedDescriptions": {},
+                "aqlPath": "/composer",
+                "children": [],
+                "inputs": [],
+                "termBindings": {},
+                "dependsOn": [],
+                "proportionTypes": [],
+                "choicesInChildren": {}
+            },
+            {
+                "id": "language",
+                "name": "language",
+                "rmType": "CODE_PHRASE",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {},
+                "localizedDescriptions": {},
+                "aqlPath": "/language",
+                "children": [],
+                "inputs": [],
+                "termBindings": {},
+                "dependsOn": [],
+                "proportionTypes": [],
+                "choicesInChildren": {}
+            },
+            {
+                "id": "context",
+                "name": "context",
+                "rmType": "EVENT_CONTEXT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {},
+                "localizedDescriptions": {},
+                "aqlPath": "/context",
+                "children": [],
+                "inputs": [],
+                "termBindings": {},
+                "dependsOn": [],
+                "proportionTypes": [],
+                "choicesInChildren": {}
+            },
+            {
+                "id": "category",
+                "name": "category",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {},
+                "localizedDescriptions": {},
+                "aqlPath": "/category",
+                "children": [],
+                "inputs": [],
+                "termBindings": {},
+                "dependsOn": [],
+                "proportionTypes": [],
+                "choicesInChildren": {}
+            },
+            {
+                "id": "territory",
+                "name": "territory",
+                "rmType": "CODE_PHRASE",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {},
+                "localizedDescriptions": {},
+                "aqlPath": "/territory",
+                "children": [],
+                "inputs": [],
+                "termBindings": {},
+                "dependsOn": [],
+                "proportionTypes": [],
+                "choicesInChildren": {}
+            }
+        ],
+        "inputs": [],
+        "termBindings": {},
+        "dependsOn": [],
+        "proportionTypes": [],
+        "choicesInChildren": {}
+    }
+}

@@ -1,0 +1,1 @@
+<p class="has-text-danger"><slot></slot></p>

@@ -1,0 +1,704 @@
+{
+  "templateId" : "EHRN Anthropometry.v0",
+  "version" : "2.3",
+  "defaultLanguage" : "en",
+  "languages" : [ "en" ],
+  "tree" : {
+    "id" : "encounter",
+    "name" : "Encounter",
+    "localizedName" : "Encounter",
+    "rmType" : "COMPOSITION",
+    "nodeId" : "openEHR-EHR-COMPOSITION.encounter.v1",
+    "min" : 1,
+    "max" : 1,
+    "localizedNames" : {
+      "en" : "Encounter"
+    },
+    "localizedDescriptions" : {
+      "en" : "Interaction, contact or care event between a subject of care and healthcare provider(s)."
+    },
+    "aqlPath" : "",
+    "children" : [ {
+      "id" : "context",
+      "rmType" : "EVENT_CONTEXT",
+      "nodeId" : "",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/context",
+      "children" : [ {
+        "id" : "start_time",
+        "name" : "Start_time",
+        "rmType" : "DV_DATE_TIME",
+        "min" : 1,
+        "max" : 1,
+        "aqlPath" : "/context/start_time",
+        "inputs" : [ {
+          "type" : "DATETIME"
+        } ],
+        "inContext" : true
+      }, {
+        "id" : "setting",
+        "name" : "Setting",
+        "rmType" : "DV_CODED_TEXT",
+        "min" : 1,
+        "max" : 1,
+        "aqlPath" : "/context/setting",
+        "inputs" : [ {
+          "suffix" : "code",
+          "type" : "TEXT"
+        }, {
+          "suffix" : "value",
+          "type" : "TEXT"
+        } ],
+        "inContext" : true
+      } ]
+    }, {
+      "id" : "anthropometry",
+      "name" : "Anthropometry",
+      "localizedName" : "Anthropometry",
+      "rmType" : "SECTION",
+      "nodeId" : "openEHR-EHR-SECTION.anthropometry.v0",
+      "min" : 0,
+      "max" : -1,
+      "localizedNames" : {
+        "en" : "Anthropometry"
+      },
+      "localizedDescriptions" : {
+        "en" : "A group of observations that are recorded at the same time and record the physical measurement and proportions of a person"
+      },
+      "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]",
+      "children" : [ {
+        "id" : "height_length",
+        "name" : "Height/Length",
+        "localizedName" : "Height/Length",
+        "rmType" : "OBSERVATION",
+        "nodeId" : "openEHR-EHR-OBSERVATION.height.v1",
+        "min" : 0,
+        "max" : -1,
+        "localizedNames" : {
+          "en" : "Height/Length"
+        },
+        "localizedDescriptions" : {
+          "en" : "Height, or body length, is measured from crown of head to sole of foot.  Height is measured with the individual in a standing position and body length in a recumbent position."
+        },
+        "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.height.v1]",
+        "children" : [ {
+          "id" : "any_event",
+          "name" : "Any event",
+          "localizedName" : "Any event",
+          "rmType" : "EVENT",
+          "nodeId" : "at0002",
+          "min" : 1,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Any event"
+          },
+          "localizedDescriptions" : {
+            "en" : "Any timed measurement of height or body length."
+          },
+          "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.height.v1]/data[at0001]/events[at0002]",
+          "children" : [ {
+            "id" : "height_length",
+            "name" : "Height/Length",
+            "localizedName" : "Height/Length",
+            "rmType" : "DV_QUANTITY",
+            "nodeId" : "at0004",
+            "min" : 1,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Height/Length"
+            },
+            "localizedDescriptions" : {
+              "en" : "The length of the body from crown of head to sole of foot."
+            },
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.height.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value",
+            "inputs" : [ {
+              "suffix" : "magnitude",
+              "type" : "DECIMAL"
+            }, {
+              "suffix" : "unit",
+              "type" : "CODED_TEXT",
+              "list" : [ {
+                "value" : "cm",
+                "label" : "cm",
+                "validation" : {
+                  "range" : {
+                    "minOp" : ">=",
+                    "min" : 0.0,
+                    "maxOp" : "<=",
+                    "max" : 1000.0
+                  }
+                }
+              }, {
+                "value" : "in",
+                "label" : "in",
+                "validation" : {
+                  "range" : {
+                    "minOp" : ">=",
+                    "min" : 0.0,
+                    "maxOp" : "<=",
+                    "max" : 250.0
+                  }
+                }
+              } ]
+            } ]
+          }, {
+            "id" : "comment",
+            "name" : "Comment",
+            "localizedName" : "Comment",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0018",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Comment"
+            },
+            "localizedDescriptions" : {
+              "en" : "Comment about the measurement of body height/length."
+            },
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.height.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0018]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "position",
+            "name" : "Position",
+            "localizedName" : "Position",
+            "rmType" : "DV_CODED_TEXT",
+            "nodeId" : "at0014",
+            "min" : 0,
+            "max" : 1,
+            "dependsOn" : [ "height_length", "comment" ],
+            "localizedNames" : {
+              "en" : "Position"
+            },
+            "localizedDescriptions" : {
+              "en" : "Position of individual when measured."
+            },
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.height.v1]/data[at0001]/events[at0002]/state[at0013]/items[at0014]/value",
+            "inputs" : [ {
+              "suffix" : "code",
+              "type" : "CODED_TEXT",
+              "list" : [ {
+                "value" : "at0016",
+                "label" : "Standing",
+                "localizedLabels" : {
+                  "en" : "Standing"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Height is measured standing on both feet with weight distributed evenly, heels together and both buttocks and heels in contact with a vertical back board."
+                }
+              }, {
+                "value" : "at0020",
+                "label" : "Lying",
+                "localizedLabels" : {
+                  "en" : "Lying"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Length is measured in a fully extended, recumbent position with the pelvis flat, legs extended and feet flexed."
+                }
+              } ],
+              "defaultValue" : "at0016"
+            } ]
+          }, {
+            "id" : "time",
+            "name" : "Time",
+            "rmType" : "DV_DATE_TIME",
+            "min" : 1,
+            "max" : 1,
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.height.v1]/data[at0001]/events[at0002]/time",
+            "inputs" : [ {
+              "type" : "DATETIME"
+            } ],
+            "inContext" : true
+          } ]
+        }, {
+          "id" : "language",
+          "name" : "Language",
+          "rmType" : "CODE_PHRASE",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.height.v1]/language",
+          "inContext" : true
+        }, {
+          "id" : "encoding",
+          "name" : "Encoding",
+          "rmType" : "CODE_PHRASE",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.height.v1]/encoding",
+          "inContext" : true
+        }, {
+          "id" : "subject",
+          "name" : "Subject",
+          "rmType" : "PARTY_PROXY",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.height.v1]/subject",
+          "inContext" : true
+        } ]
+      }, {
+        "id" : "body_weight",
+        "name" : "Body weight",
+        "localizedName" : "Body weight",
+        "rmType" : "OBSERVATION",
+        "nodeId" : "openEHR-EHR-OBSERVATION.body_weight.v2",
+        "min" : 0,
+        "max" : -1,
+        "localizedNames" : {
+          "en" : "Body weight"
+        },
+        "localizedDescriptions" : {
+          "en" : "Measurement of the body weight of an individual."
+        },
+        "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]",
+        "children" : [ {
+          "id" : "any_event",
+          "name" : "Any event",
+          "localizedName" : "Any event",
+          "rmType" : "EVENT",
+          "nodeId" : "at0003",
+          "min" : 0,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Any event"
+          },
+          "localizedDescriptions" : {
+            "en" : "Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time."
+          },
+          "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0003]",
+          "children" : [ {
+            "id" : "weight",
+            "name" : "Weight",
+            "localizedName" : "Weight",
+            "rmType" : "DV_QUANTITY",
+            "nodeId" : "at0004",
+            "min" : 1,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Weight"
+            },
+            "localizedDescriptions" : {
+              "en" : "The weight of the individual."
+            },
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value",
+            "inputs" : [ {
+              "suffix" : "magnitude",
+              "type" : "DECIMAL"
+            }, {
+              "suffix" : "unit",
+              "type" : "CODED_TEXT",
+              "list" : [ {
+                "value" : "kg",
+                "label" : "kg",
+                "validation" : {
+                  "range" : {
+                    "minOp" : ">=",
+                    "min" : 0.0,
+                    "maxOp" : "<=",
+                    "max" : 1000.0
+                  }
+                }
+              }, {
+                "value" : "[lb_av]",
+                "label" : "[lb_av]",
+                "localizedLabels" : {
+                  "en" : "lbm"
+                },
+                "validation" : {
+                  "range" : {
+                    "minOp" : ">=",
+                    "min" : 0.0,
+                    "maxOp" : "<=",
+                    "max" : 2000.0
+                  }
+                }
+              }, {
+                "value" : "g",
+                "label" : "g",
+                "validation" : {
+                  "range" : {
+                    "minOp" : ">=",
+                    "min" : 0.0,
+                    "maxOp" : "<=",
+                    "max" : 1000000.0
+                  }
+                }
+              } ]
+            } ]
+          }, {
+            "id" : "comment",
+            "name" : "Comment",
+            "localizedName" : "Comment",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0024",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Comment"
+            },
+            "localizedDescriptions" : {
+              "en" : "Additional narrative about the measurement of Body weight, not captured in other fields."
+            },
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0003]/data[at0001]/items[at0024]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "state_of_dress",
+            "name" : "State of dress",
+            "localizedName" : "State of dress",
+            "rmType" : "DV_CODED_TEXT",
+            "nodeId" : "at0009",
+            "min" : 0,
+            "max" : 1,
+            "dependsOn" : [ "weight", "comment" ],
+            "localizedNames" : {
+              "en" : "State of dress"
+            },
+            "localizedDescriptions" : {
+              "en" : "Description of the state of dress of the person at the time of weighing."
+            },
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0003]/state[at0008]/items[at0009]/value",
+            "inputs" : [ {
+              "suffix" : "code",
+              "type" : "CODED_TEXT",
+              "list" : [ {
+                "value" : "at0013",
+                "label" : "Naked",
+                "localizedLabels" : {
+                  "en" : "Naked"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Without any clothes."
+                }
+              }, {
+                "value" : "at0017",
+                "label" : "Nappy/diaper",
+                "localizedLabels" : {
+                  "en" : "Nappy/diaper"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Wearing only a nappy - which may add significantly to weight."
+                }
+              }, {
+                "value" : "at0011",
+                "label" : "Lightly clothed/underwear",
+                "localizedLabels" : {
+                  "en" : "Lightly clothed/underwear"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Clothing which will not add to weight significantly."
+                }
+              }, {
+                "value" : "at0028",
+                "label" : "Fully clothed, without shoes",
+                "localizedLabels" : {
+                  "en" : "Fully clothed, without shoes"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Clothing which may add significantly to weight."
+                }
+              }, {
+                "value" : "at0010",
+                "label" : "Fully clothed, including shoes",
+                "localizedLabels" : {
+                  "en" : "Fully clothed, including shoes"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Clothing which may add significantly to weight, including shoes."
+                }
+              } ]
+            } ]
+          }, {
+            "id" : "confounding_factors",
+            "name" : "Confounding factors",
+            "localizedName" : "Confounding factors",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0025",
+            "min" : 0,
+            "max" : -1,
+            "dependsOn" : [ "weight", "comment" ],
+            "localizedNames" : {
+              "en" : "Confounding factors"
+            },
+            "localizedDescriptions" : {
+              "en" : "Record any issues or factors that may impact on the measurement of body weight eg timing in menstrual cycle, timing of recent bowel motion or noting of amputation."
+            },
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0003]/state[at0008]/items[at0025]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "time",
+            "name" : "Time",
+            "rmType" : "DV_DATE_TIME",
+            "min" : 1,
+            "max" : 1,
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0003]/time",
+            "inputs" : [ {
+              "type" : "DATETIME"
+            } ],
+            "inContext" : true
+          } ]
+        }, {
+          "id" : "birth",
+          "name" : "Birth",
+          "localizedName" : "Birth",
+          "rmType" : "POINT_EVENT",
+          "nodeId" : "at0026",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Birth"
+          },
+          "localizedDescriptions" : {
+            "en" : "Usually the first weight, measured soon after birth. This event will only be used once per health record\r\n."
+          },
+          "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0026]",
+          "children" : [ {
+            "id" : "weight",
+            "name" : "Weight",
+            "localizedName" : "Weight",
+            "rmType" : "DV_QUANTITY",
+            "nodeId" : "at0004",
+            "min" : 1,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Weight"
+            },
+            "localizedDescriptions" : {
+              "en" : "The weight of the individual."
+            },
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0026]/data[at0001]/items[at0004]/value",
+            "inputs" : [ {
+              "suffix" : "magnitude",
+              "type" : "DECIMAL"
+            }, {
+              "suffix" : "unit",
+              "type" : "CODED_TEXT",
+              "list" : [ {
+                "value" : "kg",
+                "label" : "kg",
+                "validation" : {
+                  "range" : {
+                    "minOp" : ">=",
+                    "min" : 0.0,
+                    "maxOp" : "<=",
+                    "max" : 1000.0
+                  }
+                }
+              }, {
+                "value" : "[lb_av]",
+                "label" : "[lb_av]",
+                "localizedLabels" : {
+                  "en" : "lbm"
+                },
+                "validation" : {
+                  "range" : {
+                    "minOp" : ">=",
+                    "min" : 0.0,
+                    "maxOp" : "<=",
+                    "max" : 2000.0
+                  }
+                }
+              }, {
+                "value" : "g",
+                "label" : "g",
+                "validation" : {
+                  "range" : {
+                    "minOp" : ">=",
+                    "min" : 0.0,
+                    "maxOp" : "<=",
+                    "max" : 1000000.0
+                  }
+                }
+              } ]
+            } ]
+          }, {
+            "id" : "comment",
+            "name" : "Comment",
+            "localizedName" : "Comment",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0024",
+            "min" : 0,
+            "max" : 1,
+            "localizedNames" : {
+              "en" : "Comment"
+            },
+            "localizedDescriptions" : {
+              "en" : "Additional narrative about the measurement of Body weight, not captured in other fields."
+            },
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0026]/data[at0001]/items[at0024]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "state_of_dress",
+            "name" : "State of dress",
+            "localizedName" : "State of dress",
+            "rmType" : "DV_CODED_TEXT",
+            "nodeId" : "at0009",
+            "min" : 0,
+            "max" : 1,
+            "dependsOn" : [ "weight", "comment" ],
+            "localizedNames" : {
+              "en" : "State of dress"
+            },
+            "localizedDescriptions" : {
+              "en" : "Description of the state of dress of the person at the time of weighing."
+            },
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0026]/state[at0008]/items[at0009]/value",
+            "inputs" : [ {
+              "suffix" : "code",
+              "type" : "CODED_TEXT",
+              "list" : [ {
+                "value" : "at0013",
+                "label" : "Naked",
+                "localizedLabels" : {
+                  "en" : "Naked"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Without any clothes."
+                }
+              }, {
+                "value" : "at0017",
+                "label" : "Nappy/diaper",
+                "localizedLabels" : {
+                  "en" : "Nappy/diaper"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Wearing only a nappy - which may add significantly to weight."
+                }
+              }, {
+                "value" : "at0011",
+                "label" : "Lightly clothed/underwear",
+                "localizedLabels" : {
+                  "en" : "Lightly clothed/underwear"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Clothing which will not add to weight significantly."
+                }
+              }, {
+                "value" : "at0028",
+                "label" : "Fully clothed, without shoes",
+                "localizedLabels" : {
+                  "en" : "Fully clothed, without shoes"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Clothing which may add significantly to weight."
+                }
+              }, {
+                "value" : "at0010",
+                "label" : "Fully clothed, including shoes",
+                "localizedLabels" : {
+                  "en" : "Fully clothed, including shoes"
+                },
+                "localizedDescriptions" : {
+                  "en" : "Clothing which may add significantly to weight, including shoes."
+                }
+              } ]
+            } ]
+          }, {
+            "id" : "confounding_factors",
+            "name" : "Confounding factors",
+            "localizedName" : "Confounding factors",
+            "rmType" : "DV_TEXT",
+            "nodeId" : "at0025",
+            "min" : 0,
+            "max" : -1,
+            "dependsOn" : [ "weight", "comment" ],
+            "localizedNames" : {
+              "en" : "Confounding factors"
+            },
+            "localizedDescriptions" : {
+              "en" : "Record any issues or factors that may impact on the measurement of body weight eg timing in menstrual cycle, timing of recent bowel motion or noting of amputation."
+            },
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0026]/state[at0008]/items[at0025]/value",
+            "inputs" : [ {
+              "type" : "TEXT"
+            } ]
+          }, {
+            "id" : "time",
+            "name" : "Time",
+            "rmType" : "DV_DATE_TIME",
+            "min" : 1,
+            "max" : 1,
+            "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/data[at0002]/events[at0026]/time",
+            "inputs" : [ {
+              "type" : "DATETIME"
+            } ],
+            "inContext" : true
+          } ]
+        }, {
+          "id" : "language",
+          "name" : "Language",
+          "rmType" : "CODE_PHRASE",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/language",
+          "inContext" : true
+        }, {
+          "id" : "encoding",
+          "name" : "Encoding",
+          "rmType" : "CODE_PHRASE",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/encoding",
+          "inContext" : true
+        }, {
+          "id" : "subject",
+          "name" : "Subject",
+          "rmType" : "PARTY_PROXY",
+          "min" : 1,
+          "max" : 1,
+          "aqlPath" : "/content[openEHR-EHR-SECTION.anthropometry.v0]/items[openEHR-EHR-OBSERVATION.body_weight.v2]/subject",
+          "inContext" : true
+        } ]
+      } ]
+    }, {
+      "id" : "category",
+      "rmType" : "DV_CODED_TEXT",
+      "nodeId" : "",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/category",
+      "inputs" : [ {
+        "suffix" : "code",
+        "type" : "CODED_TEXT",
+        "list" : [ {
+          "value" : "433",
+          "localizedLabels" : {
+            "en" : ""
+          }
+        } ],
+        "terminology" : "openehr"
+      } ],
+      "inContext" : true
+    }, {
+      "id" : "language",
+      "name" : "Language",
+      "rmType" : "CODE_PHRASE",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/language",
+      "inContext" : true
+    }, {
+      "id" : "territory",
+      "name" : "Territory",
+      "rmType" : "CODE_PHRASE",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/territory",
+      "inContext" : true
+    }, {
+      "id" : "composer",
+      "name" : "Composer",
+      "rmType" : "PARTY_PROXY",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/composer",
+      "inContext" : true
+    } ]
+  }
+}

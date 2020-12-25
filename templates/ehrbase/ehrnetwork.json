@@ -1,0 +1,629 @@
+{
+    "templateId": "EHRN Activity summary.v1",
+    "version": "2.3",
+    "defaultLanguage": "en",
+    "languages": [],
+    "tree": {
+        "id": "activity_summary",
+        "name": "Activity summary",
+        "localizedName": "Activity summary",
+        "rmType": "COMPOSITION",
+        "nodeId": "openEHR-EHR-COMPOSITION.activity_summary.v0",
+        "min": 1,
+        "max": 1,
+        "localizedNames": {
+            "en": "Activity summary"
+        },
+        "localizedDescriptions": {
+            "en": "Generic document containing a summary of activity information about an individual."
+        },
+        "aqlPath": "",
+        "children": [
+            {
+                "id": "context",
+                "name": "context",
+                "localizedName": "context",
+                "rmType": "EVENT_CONTEXT",
+                "min": 1,
+                "max": 1,
+                "localizedNames": {},
+                "localizedDescriptions": {},
+                "aqlPath": "/context",
+                "children": [
+                    {
+                        "id": "ehrn_metadata",
+                        "name": "EHRN Metadata",
+                        "localizedName": "EHRN Metadata",
+                        "rmType": "CLUSTER",
+                        "nodeId": "openEHR-EHR-CLUSTER.ehrn_metadata.v0",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "EHRN Metadata"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Additional composition metadata options for EHR.Network to cover for what is not already available from the Reference Model COMPOSITION class."
+                        },
+                        "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.ehrn_metadata.v0]",
+                        "children": [
+                            {
+                                "id": "confidentiality_level",
+                                "name": "Confidentiality level",
+                                "localizedName": "Confidentiality level",
+                                "rmType": "DV_COUNT",
+                                "min": 1,
+                                "max": 1,
+                                "localizedNames": {
+                                    "en": "Confidentiality level"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "A term/number specifying the level of confidentiality of the Document. A number which can be mapped to the access control permissions"
+                                },
+                                "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.ehrn_metadata.v0]/items[at0001]/value",
+                                "children": [],
+                                "inputs": [],
+                                "termBindings": {},
+                                "dependsOn": [],
+                                "proportionTypes": [],
+                                "choicesInChildren": {}
+                            },
+                            {
+                                "id": "program_details",
+                                "name": "Program details",
+                                "localizedName": "Program details",
+                                "rmType": "CLUSTER",
+                                "nodeId": "at0006",
+                                "min": 0,
+                                "max": 1,
+                                "localizedNames": {
+                                    "en": "Program details"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "*"
+                                },
+                                "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.ehrn_metadata.v0]/items[at0006]",
+                                "children": [
+                                    {
+                                        "id": "tenant_name",
+                                        "name": "Tenant name",
+                                        "localizedName": "Tenant name",
+                                        "rmType": "DV_TEXT",
+                                        "min": 0,
+                                        "max": 1,
+                                        "localizedNames": {
+                                            "en": "Tenant name"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Name of theplatform tenant through which the data has been recorded "
+                                        },
+                                        "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.ehrn_metadata.v0]/items[at0006]/items[at0002]/value",
+                                        "children": [],
+                                        "inputs": [],
+                                        "termBindings": {},
+                                        "dependsOn": [],
+                                        "proportionTypes": [],
+                                        "choicesInChildren": {}
+                                    },
+                                    {
+                                        "id": "tenant_id",
+                                        "name": "Tenant ID",
+                                        "localizedName": "Tenant ID",
+                                        "rmType": "DV_TEXT",
+                                        "min": 0,
+                                        "max": 1,
+                                        "localizedNames": {
+                                            "en": "Tenant ID"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": " ID of theplatform tenant through which the data has been recorded "
+                                        },
+                                        "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.ehrn_metadata.v0]/items[at0006]/items[at0003]/value",
+                                        "children": [],
+                                        "inputs": [],
+                                        "termBindings": {},
+                                        "dependsOn": [],
+                                        "proportionTypes": [],
+                                        "choicesInChildren": {}
+                                    },
+                                    {
+                                        "id": "application_name",
+                                        "name": "Application name",
+                                        "localizedName": "Application name",
+                                        "rmType": "DV_TEXT",
+                                        "min": 0,
+                                        "max": 1,
+                                        "localizedNames": {
+                                            "en": "Application name"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Name of the application that created the composition"
+                                        },
+                                        "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.ehrn_metadata.v0]/items[at0006]/items[at0005]/value",
+                                        "children": [],
+                                        "inputs": [],
+                                        "termBindings": {},
+                                        "dependsOn": [],
+                                        "proportionTypes": [],
+                                        "choicesInChildren": {}
+                                    },
+                                    {
+                                        "id": "application_id",
+                                        "name": "Application ID",
+                                        "localizedName": "Application ID",
+                                        "rmType": "DV_TEXT",
+                                        "min": 0,
+                                        "max": 1,
+                                        "localizedNames": {
+                                            "en": "Application ID"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Registration id of the committing application"
+                                        },
+                                        "aqlPath": "/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.ehrn_metadata.v0]/items[at0006]/items[at0004]/value",
+                                        "children": [],
+                                        "inputs": [],
+                                        "termBindings": {},
+                                        "dependsOn": [],
+                                        "proportionTypes": [],
+                                        "choicesInChildren": {}
+                                    }
+                                ],
+                                "inputs": [],
+                                "termBindings": {},
+                                "dependsOn": [],
+                                "proportionTypes": [],
+                                "choicesInChildren": {}
+                            }
+                        ],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "start_time",
+                        "name": "start_time",
+                        "rmType": "DV_DATE_TIME",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {},
+                        "localizedDescriptions": {},
+                        "aqlPath": "/context/start_time",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "end_time",
+                        "name": "end_time",
+                        "rmType": "DV_DATE_TIME",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {},
+                        "localizedDescriptions": {},
+                        "aqlPath": "/context/end_time",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "health_care_facility",
+                        "name": "health_care_facility",
+                        "rmType": "PARTY_IDENTIFIED",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {},
+                        "localizedDescriptions": {},
+                        "aqlPath": "/context/health_care_facility",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "setting",
+                        "name": "setting",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {},
+                        "localizedDescriptions": {},
+                        "aqlPath": "/context/setting",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    }
+                ],
+                "inputs": [],
+                "termBindings": {},
+                "dependsOn": [],
+                "proportionTypes": [],
+                "choicesInChildren": {}
+            },
+            {
+                "id": "activity_summary",
+                "name": "Activity summary",
+                "localizedName": "Activity summary",
+                "rmType": "EVALUATION",
+                "nodeId": "openEHR-EHR-EVALUATION.activity_summary.v0",
+                "min": 0,
+                "max": -1,
+                "localizedNames": {
+                    "en": "Activity summary"
+                },
+                "localizedDescriptions": {
+                    "en": "A summary of the typical level of physical or spiritual activity undertaken by the individual."
+                },
+                "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]",
+                "children": [
+                    {
+                        "id": "type",
+                        "name": "Type",
+                        "localizedName": "Type",
+                        "rmType": "DV_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Type"
+                        },
+                        "localizedDescriptions": {
+                            "en": "*"
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]/data[at0001]/items[at0030]/value",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "activity_level",
+                        "name": "Activity level",
+                        "localizedName": "Activity level",
+                        "rmType": "DV_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Activity level"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Usual activity level of an individual."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]/data[at0001]/items[at0002]/value",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "description",
+                        "name": "Description",
+                        "localizedName": "Description",
+                        "rmType": "DV_TEXT",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Description"
+                        },
+                        "localizedDescriptions": {
+                            "en": "A narrative description about the individual's typical level of activity participation."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]/data[at0001]/items[at0003]/value",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "typical_frequency",
+                        "name": "Typical frequency",
+                        "localizedName": "Typical frequency",
+                        "rmType": "DV_QUANTITY",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Typical frequency"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Typical number of times the activity is undertaken"
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]/data[at0001]/items[at0008]/value",
+                        "children": [],
+                        "inputs": [
+                            {
+                                "suffix": "magnitude",
+                                "type": "DECIMAL",
+                                "list": []
+                            },
+                            {
+                                "suffix": "unit",
+                                "type": "CODED_TEXT",
+                                "list": [
+                                    {
+                                        "value": "1/d",
+                                        "label": "1/d",
+                                        "localizedLabels": {},
+                                        "localizedDescriptions": {},
+                                        "termBindings": {},
+                                        "currentStates": []
+                                    },
+                                    {
+                                        "value": "1/wk",
+                                        "label": "1/wk",
+                                        "localizedLabels": {},
+                                        "localizedDescriptions": {},
+                                        "termBindings": {},
+                                        "currentStates": []
+                                    },
+                                    {
+                                        "value": "1/mo",
+                                        "label": "1/mo",
+                                        "localizedLabels": {},
+                                        "localizedDescriptions": {},
+                                        "termBindings": {},
+                                        "currentStates": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "typical_duration",
+                        "name": "Typical duration",
+                        "localizedName": "Typical duration",
+                        "rmType": "DV_QUANTITY",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Typical duration"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Typical number of minutes spent of undertaking the activity"
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]/data[at0001]/items[at0007]/value",
+                        "children": [],
+                        "inputs": [
+                            {
+                                "suffix": "magnitude",
+                                "type": "DECIMAL",
+                                "list": []
+                            },
+                            {
+                                "suffix": "unit",
+                                "type": "CODED_TEXT",
+                                "list": [
+                                    {
+                                        "value": "min",
+                                        "label": "min",
+                                        "localizedLabels": {},
+                                        "localizedDescriptions": {},
+                                        "termBindings": {},
+                                        "currentStates": []
+                                    },
+                                    {
+                                        "value": "h",
+                                        "label": "h",
+                                        "localizedLabels": {},
+                                        "localizedDescriptions": {},
+                                        "termBindings": {},
+                                        "currentStates": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "barrier",
+                        "name": "Barrier",
+                        "localizedName": "Barrier",
+                        "rmType": "DV_TEXT",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Barrier"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Identified factor that prevents the individual to become more active."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]/data[at0001]/items[at0005]/value",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "enabler",
+                        "name": "Enabler",
+                        "localizedName": "Enabler",
+                        "rmType": "DV_TEXT",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Enabler"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Identified factor that may support the individual to become more active."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]/data[at0001]/items[at0006]/value",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "last_updated",
+                        "name": "Last updated",
+                        "localizedName": "Last updated",
+                        "rmType": "DV_DATE_TIME",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Last updated"
+                        },
+                        "localizedDescriptions": {
+                            "en": "The date when the physical activity summary was last updated."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]/protocol[at0014]/items[at0016]/value",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "subject",
+                        "name": "subject",
+                        "rmType": "PARTY_PROXY",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {},
+                        "localizedDescriptions": {},
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]/subject",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "language",
+                        "name": "language",
+                        "rmType": "CODE_PHRASE",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {},
+                        "localizedDescriptions": {},
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]/language",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    },
+                    {
+                        "id": "encoding",
+                        "name": "encoding",
+                        "rmType": "CODE_PHRASE",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {},
+                        "localizedDescriptions": {},
+                        "aqlPath": "/content[openEHR-EHR-EVALUATION.activity_summary.v0]/encoding",
+                        "children": [],
+                        "inputs": [],
+                        "termBindings": {},
+                        "dependsOn": [],
+                        "proportionTypes": [],
+                        "choicesInChildren": {}
+                    }
+                ],
+                "inputs": [],
+                "termBindings": {},
+                "dependsOn": [],
+                "proportionTypes": [],
+                "choicesInChildren": {}
+            },
+            {
+                "id": "composer",
+                "name": "composer",
+                "rmType": "PARTY_PROXY",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {},
+                "localizedDescriptions": {},
+                "aqlPath": "/composer",
+                "children": [],
+                "inputs": [],
+                "termBindings": {},
+                "dependsOn": [],
+                "proportionTypes": [],
+                "choicesInChildren": {}
+            },
+            {
+                "id": "language",
+                "name": "language",
+                "rmType": "CODE_PHRASE",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {},
+                "localizedDescriptions": {},
+                "aqlPath": "/language",
+                "children": [],
+                "inputs": [],
+                "termBindings": {},
+                "dependsOn": [],
+                "proportionTypes": [],
+                "choicesInChildren": {}
+            },
+            {
+                "id": "category",
+                "name": "category",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {},
+                "localizedDescriptions": {},
+                "aqlPath": "/category",
+                "children": [],
+                "inputs": [],
+                "termBindings": {},
+                "dependsOn": [],
+                "proportionTypes": [],
+                "choicesInChildren": {}
+            },
+            {
+                "id": "territory",
+                "name": "territory",
+                "rmType": "CODE_PHRASE",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {},
+                "localizedDescriptions": {},
+                "aqlPath": "/territory",
+                "children": [],
+                "inputs": [],
+                "termBindings": {},
+                "dependsOn": [],
+                "proportionTypes": [],
+                "choicesInChildren": {}
+            }
+        ],
+        "inputs": [],
+        "termBindings": {},
+        "dependsOn": [],
+        "proportionTypes": [],
+        "choicesInChildren": {}
+    }
+}
