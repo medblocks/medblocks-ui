@@ -35,25 +35,12 @@
         {/each}
         </ul>
       </div>
-    <!-- <div class="buttons" slot="templates">
-        {#each activeTemplates as template}
-            <button
-                class="button"
-                on:click={() => {
-                    forms = [...forms, template];
-                }}>{template.tree.name}</button>
-        {/each}
-    </div> -->
-    <section class="section py-2">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-half">
-                    {#if currentTemplate}
-                    <Form template={currentTemplate}/>
-                    {/if}
-                </div>
-                <div class="column" />
-            </div>
+    <div class="columns">
+        <div class="column is-half">
+            {#if currentTemplate}
+            <Form template={currentTemplate}/>
+            {/if}
         </div>
-    </section>
+        <div class="column" />
+    </div>
 </Patient>
