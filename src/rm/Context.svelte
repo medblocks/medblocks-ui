@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { keyValue, Tree } from "../types/types";
     import { initialize } from "./utils";
-    import {getContext} from "svelte"
+    import { getContext } from "svelte";
     export let tree: Tree;
     export let path: string;
     export let type: string;
@@ -47,29 +47,34 @@
         case "encoding":
             data = {
                 [path + "|code"]: "UTF-8",
-                [path + "|terminology"]: "IANA_character-sets"
-            }
+                [path + "|terminology"]: "IANA_character-sets",
+            };
             break;
         case "composer":
             data = {
-                [path + "|name"] : "Sidharth Ramesh"
-            }
+                [path + "|name"]: "Sidharth Ramesh",
+            };
             break;
         case "subject":
-            data = {}
-            break
+            data = {};
+            break;
         default:
             processed = false;
-            data = {}
+            data = {};
     }
-    let paths = Object.keys(data)
-    let {store, readOnly} = initialize(paths, tree, getContext("contextStore"))
-    if (readOnly){
-            paths.forEach(path=>{
-                store.update(s=>({...s, [path]: data[path]}))
-            })
-        }
+    let paths = Object.keys(data);
+    let { store, readOnly } = initialize(
+        paths,
+        tree,
+        getContext("contextStore")
+    );
+    if (!readOnly) {
+        paths.forEach((path) => {
+            store.update((s) => ({ ...s, [path]: data[path] }));
+        });
+    }
 </script>
+
 {#if !processed}
     <p class="has-text-danger">Context not processed: {path}</p>
     <!-- <pre>

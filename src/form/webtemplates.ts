@@ -17,12 +17,23 @@ function extractInputs(tree: Tree, path: string = '', parentName: string = ''): 
     let name: string
     name = uncleanName || localizedName || id
 
-    let inEvent: boolean = false
-    if (['EVENT', 'POINT_EVENT'].includes(rmType)) {
-        inEvent = true
+    let inGroup: boolean = false
+    let newParentName: string | undefined
+    const eventTypes = ['EVENT', 'POINT_EVENT', 'INTERVAL_EVENT']
+    if (eventTypes.includes(rmType)) {
+        inGroup = true
         name = `${parentName} (${name})`
+        // name = ''
     }
-    if (max > 1 || max == -1 || inEvent) {
+    if (['OBSERVATION'].includes(rmType)){
+        inGroup = true
+        console.log({children})
+        if (children && children?.filter(child=>eventTypes.includes(child.rmType)).length > 0) {
+            newParentName = name 
+            name = ''
+        }
+    }
+    if (max > 1 || max == -1 || inGroup) {
         let label: string|undefined
         let repeatable: boolean = false
         if (max > 1 || max == -1) {
@@ -31,12 +42,12 @@ function extractInputs(tree: Tree, path: string = '', parentName: string = ''): 
         let extractedChildren: Extracted[]
         if (children && children.length) {
             extractedChildren = children
-                .map(child => extractInputs(child, path = '', parentName = name))
+                .map(child => extractInputs(child, path = '', parentName = newParentName || name))
                 .filter(i => i)
                 .flat()
             label = name
         } else {
-            let extracted = extractInputs({...tree, max:0, id: ''}, path = '', parentName = name)
+            let extracted = extractInputs({...tree, max:0, id: ''}, path = '', parentName = newParentName || name)
             if (!Array.isArray(extracted)) {
                 extractedChildren = [extracted]
             } else {
@@ -110,4 +121,14 @@ function sanitizeValues(values: keyValue) :keyValue {
     });
     return { ...newValues };
 }
-export { generateSchema, sanitizeValues }
+
+function rehydrateValues(values:keyValue) : keyValue {
+    let newValues = {}
+    Object.entries(values).forEach(([key, value]) => {
+        let newKey = key.length && key[0] != "/" ? `/${key}` : key
+        newValues[newKey] = value
+    })
+    return newValues
+}
+
+export { generateSchema, sanitizeValues, rehydrateValues }

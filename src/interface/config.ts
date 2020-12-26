@@ -4,7 +4,9 @@ import type { Template } from "../types/types"
 export interface TemplateConfig {
     template: Template,
     active: boolean,
-    id: number
+    id: number,
+    ehr?: string,
+    terminology?: string
 }
 export const defaultConfig: Config = {
     templates: []

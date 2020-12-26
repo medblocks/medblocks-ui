@@ -55,3 +55,14 @@ export function getLabel(value: string, input: Input) :string {
     }
     throw new Error(`Cannot find list in provided input`)
 }
+
+export function getLabelOrdinal(value: number, input: Input) :string {
+    if (input.list){
+        let label = input.list.filter(option=>option.ordinal == value)[0]
+        if (label && label.label){
+            return label.label
+        }
+        throw new Error(`Cannot find label for ${value} in list`)
+    }
+    throw new Error(`Cannot find list in provided input`)
+}

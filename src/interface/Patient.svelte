@@ -3,7 +3,7 @@
 import DisplayContent from "../rm/helpers/DisplayContent.svelte";
 import DisplayLabel from "../rm/helpers/DisplayLabel.svelte";
 
-    let hospitalNumber
+    let hospitalNumber = '1234'
     let input 
 
     const getHospitalNumber = () => {
