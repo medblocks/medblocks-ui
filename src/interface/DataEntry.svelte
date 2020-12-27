@@ -31,6 +31,7 @@
             },
         ];
         currentTemplate = null
+        console.log({template, data})
     };
 </script>
 
@@ -63,7 +64,7 @@
                     on:done={(e) => createComposition(currentTemplate, e.detail)} />
             {:else}
                 {#each allData as data}
-                    {#key readOnly}
+                    {#key readOnly+JSON.stringify(data.template)}
                         <Form
                             template={data.template}
                             data={data.data}
@@ -72,7 +73,7 @@
                                 readOnly = false;
                             }}
                             on:done={(e) => createComposition(data.template, e.detail)} />
-                            <pre>{JSON.stringify(data.data)}</pre>
+                            <pre>{JSON.stringify(data.data, null, 2)}</pre>
                     {/key}
                 {/each}
             {/if}

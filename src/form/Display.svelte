@@ -8,7 +8,7 @@ import Countdown from "./Countdown.svelte";
 </script>
 
 
-{#if readOnly}
+<!-- {#if readOnly}
     <article class="message">
         <form on:submit|preventDefault={()=>dispatch('done')}>
     <div class="message-header">
@@ -24,8 +24,8 @@ import Countdown from "./Countdown.svelte";
         <slot></slot>
     </div>
         </form>
-    </article>
-{:else}
+    </article> -->
+<!-- {:else} -->
 <div class="box">
     <form on:submit|preventDefault={()=>dispatch('done')}>
     <h1 class="subtitle"><slot name="title"></slot></h1>
@@ -37,4 +37,4 @@ import Countdown from "./Countdown.svelte";
     </div>
     </form>
 </div>
-{/if}
+<!-- {/if} -->
