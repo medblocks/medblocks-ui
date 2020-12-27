@@ -1,0 +1,16 @@
+version: "3"
+services: 
+  ehrbase:
+    image: ehrbaseorg/ehrbase:next
+    environment: 
+      - DB_URL=jdbc:postgresql://ehrdb:5432/ehrbase 
+      - DB_USER=ehrbase 
+      - DB_PASS=ehrbase 
+      - SYSTEM_NAME=local.ehrbase.org
+    ports: 
+      - "8080:8080"
+  ehrdb:
+    image: ehrbaseorg/ehrbase-postgres
+    environment: 
+      - POSTGRES_PASSWORD=postgres
+    

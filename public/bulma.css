@@ -1184,12 +1184,6 @@ a.box:active {
     font-size: 0.75rem; }
   .file.is-large {
     font-size: 1.5rem; }
-  .file.has-name .file-cta {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0; }
-  .file.has-name .file-name {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0; }
   .file.is-centered {
     justify-content: center; }
   .file.is-fullwidth .file-label {

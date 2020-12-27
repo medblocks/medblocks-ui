@@ -6,7 +6,8 @@ export interface TemplateConfig {
     active: boolean,
     id: number,
     ehr?: string,
-    terminology?: string
+    terminology?: string,
+    demographics?: string
 }
 export const defaultConfig: Config = {
     templates: []

@@ -34,12 +34,6 @@
     };
 </script>
 
-<style>
-    .buttons {
-        overflow-x: scroll;
-    }
-</style>
-
 <Patient>
     <div class="tabs">
         <ul>

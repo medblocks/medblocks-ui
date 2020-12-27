@@ -25,7 +25,7 @@ $: if (files && files[0]) {
 </script>
 
 <div class="field">
-    <div class="file has-name">
+    <div class="file">
         <label class="file-label">
           <input class="file-input" type="file" bind:files>
           <span class="file-cta">
