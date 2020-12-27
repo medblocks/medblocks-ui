@@ -32,7 +32,7 @@
   transform-origin: center;
   width: 0.625em; }
 
-.box:not(:last-child), .content:not(:last-child), .table:not(:last-child), .title:not(:last-child),
+.box:not(:last-child), .content:not(:last-child), .notification:not(:last-child), .table:not(:last-child), .title:not(:last-child),
 .subtitle:not(:last-child), .message:not(:last-child), .tabs:not(:last-child) {
   margin-bottom: 1.5rem; }
 
@@ -103,8 +103,7 @@
   position: relative;
   width: 1em; }
 
-.button, .input, .textarea, .select select, .file-cta,
-.file-name {
+.button, .input, .textarea, .select select, .file-cta {
   -moz-appearance: none;
   -webkit-appearance: none;
   align-items: center;
@@ -122,12 +121,9 @@
   padding-top: calc(0.5em - 1px);
   position: relative;
   vertical-align: top; }
-  .button:focus, .input:focus, .textarea:focus, .select select:focus, .file-cta:focus,
-  .file-name:focus, .button:active, .input:active, .textarea:active, .select select:active, .file-cta:active,
-  .file-name:active {
+  .button:focus, .input:focus, .textarea:focus, .select select:focus, .file-cta:focus, .button:active, .input:active, .textarea:active, .select select:active, .file-cta:active {
     outline: none; }
-  .button[disabled], .input[disabled], .textarea[disabled], .select select[disabled], .file-cta[disabled],
-  .file-name[disabled] {
+  .button[disabled], .input[disabled], .textarea[disabled], .select select[disabled], .file-cta[disabled] {
     cursor: not-allowed; }
 
 /* Bulma Base */
@@ -732,6 +728,64 @@ a.box:active {
     height: 128px;
     width: 128px; }
 
+.notification {
+  background-color: whitesmoke;
+  border-radius: 4px;
+  position: relative;
+  padding: 1.25rem 2.5rem 1.25rem 1.5rem; }
+  .notification a:not(.button):not(.dropdown-item) {
+    color: currentColor;
+    text-decoration: underline; }
+  .notification code,
+  .notification pre {
+    background: white; }
+  .notification pre code {
+    background: transparent; }
+  .notification > .delete {
+    right: 0.5rem;
+    position: absolute;
+    top: 0.5rem; }
+  .notification .title,
+  .notification .subtitle,
+  .notification .content {
+    color: currentColor; }
+  .notification.is-white {
+    background-color: white;
+    color: #0a0a0a; }
+  .notification.is-light {
+    background-color: whitesmoke;
+    color: rgba(0, 0, 0, 0.7); }
+  .notification.is-primary {
+    background-color: #00d1b2;
+    color: #fff; }
+    .notification.is-primary.is-light {
+      background-color: #ebfffc;
+      color: #00947e; }
+  .notification.is-info {
+    background-color: #3298dc;
+    color: #fff; }
+    .notification.is-info.is-light {
+      background-color: #eef6fc;
+      color: #1d72aa; }
+  .notification.is-success {
+    background-color: #48c774;
+    color: #fff; }
+    .notification.is-success.is-light {
+      background-color: #effaf3;
+      color: #257942; }
+  .notification.is-warning {
+    background-color: #ffdd57;
+    color: rgba(0, 0, 0, 0.7); }
+    .notification.is-warning.is-light {
+      background-color: #fffbeb;
+      color: #947600; }
+  .notification.is-danger {
+    background-color: #f14668;
+    color: #fff; }
+    .notification.is-danger.is-light {
+      background-color: #feecf0;
+      color: #cc0f35; }
+
 @keyframes moveIndeterminate {
   from {
     background-position: 200% 0; }
@@ -1188,17 +1242,10 @@ a.box:active {
     justify-content: center; }
   .file.is-fullwidth .file-label {
     width: 100%; }
-  .file.is-fullwidth .file-name {
-    flex-grow: 1;
-    max-width: none; }
   .file.is-right {
     justify-content: flex-end; }
     .file.is-right .file-cta {
       border-radius: 0 4px 4px 0; }
-    .file.is-right .file-name {
-      border-radius: 4px 0 0 4px;
-      border-width: 1px 0 1px 1px;
-      order: -1; }
 
 .file-label {
   align-items: stretch;
@@ -1210,13 +1257,9 @@ a.box:active {
   .file-label:hover .file-cta {
     background-color: #eeeeee;
     color: #363636; }
-  .file-label:hover .file-name {
-    border-color: #d5d5d5; }
   .file-label:active .file-cta {
     background-color: #e8e8e8;
     color: #363636; }
-  .file-label:active .file-name {
-    border-color: #cfcfcf; }
 
 .file-input {
   height: 100%;
@@ -1227,8 +1270,7 @@ a.box:active {
   top: 0;
   width: 100%; }
 
-.file-cta,
-.file-name {
+.file-cta {
   border-color: #dbdbdb;
   border-radius: 4px;
   font-size: 1em;
@@ -1239,16 +1281,6 @@ a.box:active {
 .file-cta {
   background-color: whitesmoke;
   color: #4a4a4a; }
-
-.file-name {
-  border-color: #dbdbdb;
-  border-style: solid;
-  border-width: 1px 1px 1px 0;
-  display: block;
-  max-width: 16em;
-  overflow: hidden;
-  text-align: inherit;
-  text-overflow: ellipsis; }
 
 .label {
   color: #363636;

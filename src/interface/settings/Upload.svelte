@@ -12,6 +12,7 @@ const handleUpload = (file) => {
                 console.log("Updating template", {template})
                 dispatch('upload', template)
                 files = null
+                error = false
             } catch (e) {
                 console.error("Error parsing JSON")
                 error = true
@@ -23,7 +24,11 @@ $: if (files && files[0]) {
   handleUpload(files[0])
 }
 </script>
-
+{#if error}
+<div class="notification is-danger">
+  Unable to parse JSON. Please upload web template.
+</div>
+{/if}
 <div class="field">
     <div class="file">
         <label class="file-label">
@@ -33,11 +38,6 @@ $: if (files && files[0]) {
               Add Template
             </span>
           </span>
-          {#if files && files[0]}    
-            <span class="file-name">
-                {files[0].name}
-            </span>
-          {/if}
         </label>
       </div>
 </div>
