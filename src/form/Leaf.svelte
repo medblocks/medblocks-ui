@@ -1,7 +1,7 @@
 <script lang="ts">
     import Quantity from '../rm/Quantity.svelte'
     import CodedText from '../rm/CodedText.svelte'
-    import Text from '../rm/Text.svelte'
+    import Text from '../rm/Text/Text.svelte'
     import Snomed from '../rm/CodedText/Snomed.svelte'
     import type { Tree } from '../types/types';
 import Unknown from '../rm/Unknown.svelte';
