@@ -5,7 +5,7 @@
     import TextRead from "./Text/TextRead.svelte";
     import TextWrite from "./Text/TextWrite.svelte";
     import Unknown from "./Unknown/Unknown.svelte";
-
+    import {fade, slide} from "svelte/transition"
     export let name: string | undefined = undefined;
     export let type: string;
     export let path: string | undefined = undefined;
