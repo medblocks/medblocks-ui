@@ -1,4 +1,28 @@
+import type { Writable } from "svelte/store";
 import type { keyValue } from "../types/types";
+
+export interface Child {
+    component: string,
+    config: Config
+}
+
+export interface Config {
+    path: string,
+    store: Writable<keyValue>,
+    name: string,
+    displayLabel: boolean,
+    display: boolean,
+    displayFuntion?: ((s:keyValue)=>any),
+    computeFunction?: ((s:keyValue)=>any),
+    defaultValue: string,
+    widget: string,
+    widgetClass: string,
+    labelClass: string,
+    valueClass: string,
+    fieldClass: string,
+    errorClass: string,
+    children?: Child []
+}
 
 export function sanitizeDisplayFunction(path: string, fn: Function, store: keyValue) :boolean{
         try {

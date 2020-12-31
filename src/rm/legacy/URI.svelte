@@ -1,8 +1,8 @@
 <script lang="ts">
-import type { Tree } from "../types/types";
-import DisplayLabel from "./helpers/DisplayLabel.svelte";
-import Loading from "./helpers/Loading.svelte";
-import { initialize } from "./utils";
+import type { Tree } from "../../types/types";
+import DisplayLabel from "../helpers/DisplayLabel.svelte";
+import Loading from "../helpers/Loading.svelte";
+import { initialize } from "../utils";
 
 
     export let tree: Tree

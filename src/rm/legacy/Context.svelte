@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type { keyValue, Tree } from "../types/types";
-    import { initialize } from "./utils";
+    import type { keyValue, Tree } from "../../types/types";
+    import { initialize } from "../utils";
     import { getContext } from "svelte";
     export let tree: Tree;
     export let path: string;

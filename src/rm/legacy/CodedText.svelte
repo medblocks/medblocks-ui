@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type { Tree } from "../types/types";
-    import Snomed from "./CodedText/Snomed.svelte"
-    import DropDown from "./CodedText/DropDown.svelte"
-    import { initialize } from "./utils";
-    import DisplayLabel from "./helpers/DisplayLabel.svelte";
-import Error from "./helpers/Error.svelte";
+    import type { Tree } from "../../types/types";
+    import Snomed from "../CodedText/Snomed.svelte"
+    import DropDown from "../CodedText/DropDown.svelte"
+    import { initialize } from "../utils";
+    import DisplayLabel from "../helpers/DisplayLabel.svelte";
+import Error from "../helpers/Error.svelte";
     export let path: string
     export let tree: Tree
 

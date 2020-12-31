@@ -1,13 +1,13 @@
 <script lang="ts">
-import type { Tree } from "../types/types";
-import { initialize } from "./utils";
+import type { Tree } from "../../types/types";
+import { initialize } from "../utils";
 
 
     export let path: string
     export let tree: Tree
 
     import type { Writable } from "svelte/store";
-    import type {keyValue} from "../types/types"
+    import type {keyValue} from "../../types/types"
     let paths:string[] , store: Writable<keyValue>, readOnly:boolean
     $:{
         ({ paths, store, readOnly } = initialize(path, tree))

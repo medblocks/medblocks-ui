@@ -1,11 +1,11 @@
 <script lang="ts">
-    import type { Tree } from "../types/types";
-    import DisplayContent from "./helpers/DisplayContent.svelte";
-    import DisplayLabel from "./helpers/DisplayLabel.svelte";
-    import Error from "./helpers/Error.svelte";
-    import Loading from "./helpers/Loading.svelte";
+    import type { Tree } from "../../types/types";
+    import DisplayContent from "../helpers/DisplayContent.svelte";
+    import DisplayLabel from "../helpers/DisplayLabel.svelte";
+    import Error from "../helpers/Error.svelte";
+    import Loading from "../helpers/Loading.svelte";
 
-    import { initialize, getLabelOrdinal, getFullPaths } from "./utils";
+    import { initialize, getLabelOrdinal, getFullPaths } from "../utils";
 
     export let path: string;
     export let tree: Tree;

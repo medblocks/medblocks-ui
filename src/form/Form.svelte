@@ -9,7 +9,7 @@
         sanitizeValues,
         rehydrateValues,
     } from "./webtemplates";
-    import Context from "../rm/Context.svelte";
+    import Context from "../rm/legacy/Context.svelte";
     import Display from "./Display.svelte";
     export let template: Template;
     export let readOnly: boolean = false;

@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { initialize, getLabel } from "./utils";
-    import DisplayLabel from "./helpers/DisplayLabel.svelte";
-    import type { keyValue, Tree } from "../types/types";
-    import Error from "./helpers/Error.svelte";
-    import Loading from "./helpers/Loading.svelte";
+    import { initialize, getLabel } from "../utils";
+    import DisplayLabel from "../helpers/DisplayLabel.svelte";
+    import type { keyValue, Tree } from "../../types/types";
+    import Error from "../helpers/Error.svelte";
+    import Loading from "../helpers/Loading.svelte";
     export let path: string;
     export let tree: Tree;
     import type { Writable } from "svelte/store";

@@ -1,6 +1,6 @@
 <script lang="ts">
     import Leaf from "./Leaf.svelte";
-    import Context from "../rm/Context.svelte";
+    import Context from "../rm/legacy/Context.svelte";
     import { slide, scale } from "svelte/transition";
     import { getContext } from "svelte";
     import type { Extracted, keyValue } from "../types/types";

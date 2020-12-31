@@ -1,19 +1,19 @@
 <script lang="ts">
-    import Quantity from '../rm/Quantity.svelte'
-    import CodedText from '../rm/CodedText.svelte'
+    import Quantity from '../rm/legacy/Quantity.svelte'
+    import CodedText from '../rm/legacy/CodedText.svelte'
     import Text from '../rm/Text/Text.svelte'
     import Snomed from '../rm/CodedText/Snomed.svelte'
     import type { Tree } from '../types/types';
-import Unknown from '../rm/Unknown.svelte';
-import Count from '../rm/Count.svelte';
-import DateTime from '../rm/DateTime.svelte';
-import Boolean from '../rm/Boolean.svelte';
-import Uri from '../rm/URI.svelte';
-import EhrUri from '../rm/EhrUri.svelte';
-import Duration from '../rm/Duration.svelte';
-import Date from '../rm/Date.svelte';
-import Proportion from '../rm/Proportion.svelte';
-import Ordinal from '../rm/Ordinal.svelte';
+    import Unknown from '../rm/Unknown/Unknown.svelte';
+    import Count from '../rm/legacy/Count.svelte';
+    import DateTime from '../rm/legacy/DateTime.svelte';
+    import Boolean from '../rm/legacy/Boolean.svelte';
+    import Uri from '../rm/legacy/URI.svelte';
+    import EhrUri from '../rm/legacy/EhrUri.svelte';
+    import Duration from '../rm/legacy/Duration.svelte';
+    import Date from '../rm/legacy/Date.svelte';
+    import Proportion from '../rm/legacy/Proportion.svelte';
+    import Ordinal from '../rm/legacy/Ordinal.svelte';
     export let tree: Tree;
     export let type: string;
     export let path: string;

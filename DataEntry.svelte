@@ -1,9 +1,9 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { writable } from "svelte/store";
-    import Form from "../form/Form.svelte";
-    import type { keyValue, Template } from "../types/types";
-    import Patient from "./Patient.svelte";
+    import Form from "./src/form/Form.svelte";
+    import type { keyValue, Template } from "./src/types/types";
+    import Patient from "./src/interface/Patient.svelte";
 
     export let config;
     console.log("From data entry", config);

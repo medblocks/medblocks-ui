@@ -1,11 +1,11 @@
 <script lang="ts">
 import type { Writable } from "svelte/store";
 
-import type { keyValue, Tree } from "../types/types";
-import DisplayContent from "./helpers/DisplayContent.svelte";
-import DisplayLabel from "./helpers/DisplayLabel.svelte";
-import Loading from "./helpers/Loading.svelte";
-import { initialize } from "./utils";
+import type { keyValue, Tree } from "../../types/types";
+import DisplayContent from "../helpers/DisplayContent.svelte";
+import DisplayLabel from "../helpers/DisplayLabel.svelte";
+import Loading from "../helpers/Loading.svelte";
+import { initialize } from "../utils";
 
     export let tree: Tree
     export let path: string

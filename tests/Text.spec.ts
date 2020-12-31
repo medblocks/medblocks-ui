@@ -1,6 +1,6 @@
 import {fireEvent, render} from "@testing-library/svelte"
 import { get, writable } from "svelte/store"
-import Write from "../src/rm/Text/Write.svelte"
+import Write from "../src/rm/Text/TextWrite.svelte"
 import '@testing-library/jest-dom/extend-expect'
 import { tick } from "svelte"
 
