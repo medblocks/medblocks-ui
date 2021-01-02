@@ -62,6 +62,7 @@
                 <Form
                     template={currentTemplate}
                     configuration={testConfig}
+                    customize={true}
                     {store}
                     on:done={(e) => createComposition(currentTemplate, e.detail)} />
             {:else}
@@ -71,6 +72,7 @@
                             template={data.template}
                             data={data.data}
                             {readOnly}
+                            
                             on:close={() => {
                                 readOnly = false;
                             }}

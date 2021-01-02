@@ -19,7 +19,7 @@ import type { Template } from "../../types/types";
                 <th>Template Id</th>
                 <th>Name</th>
                 <th>Active</th>
-                <th />
+                <th>Actions</th>
             </thead>
             <tbody>
                 {#each $config.templates as template}
@@ -34,7 +34,16 @@ import type { Template } from "../../types/types";
                                     class="checkbox is-large" />
                             </div>
                         </td>
-                        <td><a class="delete" on:click={()=>deleteTemplate(template.id)}/></td>
+                        <td>
+                            <div class="buttons">
+                                <button class="button">
+                                    Customize
+                                </button>
+                                <button class="button is-danger" on:click={()=>deleteTemplate(template.id)}>
+                                    Delete
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                 {/each}
             </tbody>

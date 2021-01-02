@@ -10,7 +10,6 @@
         rehydrateValues,
     } from "./webtemplates";
     import Context from "../rm/Context.svelte";
-    import Display from "./Display.svelte";
     export let template: Template;
     export let readOnly: boolean = false;
     export let store = writable<keyValue>({});
@@ -18,6 +17,8 @@
     export let configuration: any
     let contextStore = writable<keyValue>({});
     export let data: keyValue;
+    export let customize: boolean = false
+    export let customizeFunction: Function
     let parentClass: string
     let childClass: string
     setContext("store", store);
@@ -51,18 +52,33 @@
         dispatch("done", sanitizeValues(contextCombined));
     }
 </script>
-
-<Display {readOnly} {status} on:close on:done={submit}>
-    <span slot="title">
-        {#if !error}{template.tree.name || ''}{:else}Template Error{/if}
-    </span>
+<style>
+    .bordered {
+        border-style: solid;
+        border-width: 4px;
+        border-color: lavender;
+        border-radius: 5px;
+    }
+    .tag {
+        background-color: lavender;
+        cursor: pointer;
+    }
+</style>
+{#if customize}
+    <div class="tag">GLOBAL</div>
+{/if}
+<div class="box" class:bordered={customize==true}>
+    <form on:submit|preventDefault={submit}>
+    <h1 class="subtitle">
+    {#if !error}{template.tree.name || ''}{:else}Template Error{/if}
+    </h1>
     {#if !error}
     <div class={parentClass}>
         {#each uiTemplate.schema as item}
             {#if item.type === 'Group'}
-                <Group {...item} {childClass}/>
+                <Group {...item} {childClass} {customize} {customizeFunction}/>
             {:else if item.type === 'Leaf'}
-                <Leaf {...item} />
+                <Leaf {...item} {customize} {customizeFunction}/>
             {:else if item.type === 'Context'}
                 <Context {...item} />
             {:else}
@@ -74,5 +90,10 @@
     {:else}
         <p>Invalid template</p>
     {/if}
-    <span slot="title" />
-</Display>
+    <div class="field">
+        <div class="buttons">
+            <button class="button is-fullwidth is-success">Submit</button>
+        </div>
+    </div>
+    </form>
+</div>

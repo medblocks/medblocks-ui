@@ -5,7 +5,9 @@
     export let tree: Tree;
     export let path: string;
     export let type: string;
-
+    export let aqlPath: string;
+    export let customize: boolean = false;
+    export let customizeFunction: Function
     if (type !== "Context") {
         throw new Error(`Context component got type ${type}`);
     }
@@ -74,7 +76,15 @@
         });
     }
 </script>
+<style>
+    .tag {
+        cursor: pointer;
+    }
+</style>
+{#if customize}
 
+    <div class="tag is-dark">context: {tree.id}</div>
+{/if}
 {#if !processed}
     <p class="has-text-danger">Context not processed: {path}</p>
     <!-- <pre>

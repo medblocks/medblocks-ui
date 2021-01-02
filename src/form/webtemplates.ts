@@ -60,6 +60,8 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
             type: 'Group',
             ...options,
             path: newPath,
+            rmType,
+            aqlPath,
             label,
             repeatable,
             children: extractedChildren
@@ -70,6 +72,7 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
             tree: {...tree, name},
             type: 'Context',
             path: newPath,
+            aqlPath,
             ...options
         }
     }
@@ -78,6 +81,7 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
             tree: {...tree, name},
             type: 'Leaf',
             path: newPath,
+            aqlPath,
             ...options
         }
     }
@@ -95,6 +99,7 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
             tree: {...tree, name},
             type: 'UnknownLeaf',
             path: newPath,
+            aqlPath,
             ...options
         }
     }
