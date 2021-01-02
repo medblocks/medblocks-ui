@@ -4,10 +4,12 @@ import Settings from "./interface/Settings.svelte";
 import { onMount } from "svelte";
 import { defaultConfig, getConfig } from "./interface/config";
 import { writable } from "svelte/store";
+import Customize from "./interface/Customize.svelte";
 let page = 'data'
 let components = {
     'data': DataEntry,
-    'settings': Settings
+    'settings': Settings,
+    'customize': Customize
 }
 const toggle = () => {
     if (page == 'data') {

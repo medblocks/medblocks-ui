@@ -65,6 +65,7 @@
                     customize={true}
                     {store}
                     on:done={(e) => createComposition(currentTemplate, e.detail)} />
+                    <pre>{JSON.stringify($store, null, 2)}</pre>
             {:else}
                 {#each allData as data}
                     {#key readOnly + JSON.stringify(data.template)}
@@ -77,7 +78,7 @@
                                 readOnly = false;
                             }}
                             on:done={(e) => createComposition(data.template, e.detail)} />
-                        <pre>{JSON.stringify(data.data, null, 2)}</pre>
+                        
                     {/key}
                 {/each}
             {/if}
