@@ -71,7 +71,7 @@
 </script>
 <div class={childClass}>
 {#if displayTitle && label}
-<h4 class="has-text-weight-bold is-size-6 mb-3 mt-5 has-text-grey">
+<h4 class="has-text-weight-bold is-size-6 mb-3 has-text-grey">
     {label}    
 </h4>
 {/if}

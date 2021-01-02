@@ -19,6 +19,7 @@
     let contextStore = writable<keyValue>({});
     export let data: keyValue;
     let parentClass: string
+    let childClass: string
     setContext("store", store);
     setContext("contextStore", contextStore);
     setContext("readOnly", readOnly);
@@ -28,7 +29,13 @@
         try {
             uiTemplate = generateSchema(template, configuration);
             console.log(uiTemplate);
-            parentClass = uiTemplate.options.parentClass || "field"
+             if (uiTemplate.options.horizontal){
+                 parentClass = "columns"
+                 childClass = "column"
+             } else {
+                 parentClass = "field"
+                 childClass = "field"
+             }
         } catch (e) {
             error = true;
         }
@@ -53,7 +60,7 @@
     <div class={parentClass}>
         {#each uiTemplate.schema as item}
             {#if item.type === 'Group'}
-                <Group {...item} {...item.options} />
+                <Group {...item} {childClass}/>
             {:else if item.type === 'Leaf'}
                 <Leaf {...item} />
             {:else if item.type === 'Context'}
