@@ -1,3 +1,5 @@
+import type { AnyMxRecord } from "dns";
+
 export interface Template {
     readonly tree: Tree,
     readonly templateId: string,
@@ -29,7 +31,8 @@ export interface Tree {
         [key: string]: string
     },
     inContext?: boolean,
-    inputs?: Input[]
+    inputs?: Input[],
+    aqlPath: string
 }
 
 export interface Extracted {
@@ -38,7 +41,8 @@ export interface Extracted {
     children?: Extracted[],
     tree?: Tree,
     label?: string,
-    repeatable?: boolean
+    repeatable?: boolean,
+    options: any
 }
 
 export type Status = 'initialized' | 'assigned' |'pending'| 'entered' | 'unclear'| 'unsupported' |'done' | 'cancelled'
@@ -51,4 +55,9 @@ export interface Recording {
     response: keyValue,
     assigned: string,
     user: string
+}
+
+export interface UITemplate {
+    options: any,
+    schema: Extracted[]
 }

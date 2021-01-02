@@ -1,4 +1,5 @@
-import type {Tree, Extracted, Template, keyValue} from '../types/types'
+import { config } from 'rxjs'
+import type {Tree, Extracted, Template, keyValue, UITemplate} from '../types/types'
 
 function propogateContext(tree: Tree, parentContext: boolean) :Tree {
     if (tree.id === 'context' || parentContext){
@@ -10,10 +11,10 @@ function propogateContext(tree: Tree, parentContext: boolean) :Tree {
     }
     return {...tree, children: tree.children?.map(child=>propogateContext(child, false))}
 }
-function extractInputs(tree: Tree, path: string = '', parentName: string = ''): Extracted|Extracted[] {
-    let { max, children, id, inputs, name: uncleanName, rmType, annotations, inContext, localizedName } = tree
+function extractInputs(tree: Tree, path: string, parentName: string, config: any): Extracted|Extracted[] {
+    let { max, children, id, inputs, name: uncleanName, rmType, annotations, inContext, localizedName, aqlPath } = tree
     let newPath = `${path}/${id}`
-
+    let options = config[aqlPath]
     let name: string
     name = uncleanName || localizedName || id
 
@@ -42,12 +43,12 @@ function extractInputs(tree: Tree, path: string = '', parentName: string = ''): 
         let extractedChildren: Extracted[]
         if (children && children.length) {
             extractedChildren = children
-                .map(child => extractInputs(child, path = '', parentName = newParentName || name))
+                .map(child => extractInputs(child, path = '', parentName = newParentName || name, config))
                 .filter(i => i)
                 .flat()
             label = name
         } else {
-            let extracted = extractInputs({...tree, max:0, id: ''}, path = '', parentName = newParentName || name)
+            let extracted = extractInputs({...tree, max:0, id: ''}, path = '', parentName = newParentName || name, config)
             if (!Array.isArray(extracted)) {
                 extractedChildren = [extracted]
             } else {
@@ -57,6 +58,7 @@ function extractInputs(tree: Tree, path: string = '', parentName: string = ''): 
 
         return {
             type: 'Group',
+            ...options,
             path: newPath,
             label,
             repeatable,
@@ -67,21 +69,23 @@ function extractInputs(tree: Tree, path: string = '', parentName: string = ''): 
         return {
             tree: {...tree, name},
             type: 'Context',
-            path: newPath
+            path: newPath,
+            ...options
         }
     }
     if (inputs && inputs.length) {
         return {
             tree: {...tree, name},
             type: 'Leaf',
-            path: newPath
+            path: newPath,
+            ...options
         }
     }
     
     if (children && children.length) {
         let extracted =  children
             .map(child =>
-                extractInputs(child, newPath, name))
+                extractInputs(child, newPath, name, config))
             .filter(i => i)
             .flat()
         return extracted
@@ -90,19 +94,24 @@ function extractInputs(tree: Tree, path: string = '', parentName: string = ''): 
         return {
             tree: {...tree, name},
             type: 'UnknownLeaf',
-            path: newPath
+            path: newPath,
+            ...options
         }
     }
 }
 
-function generateSchema(template: Template) :Extracted[] {
+function generateSchema(template: Template, configuration: any={}) : UITemplate {
     const { tree } = template
     const contextTree = propogateContext(tree, false)
-    let schema = extractInputs(contextTree)
+    let schema = extractInputs(contextTree, '', '', configuration)
     if (!Array.isArray(schema)){
         throw new Error('Top level template returned only one extracted')
     }
-    return schema
+    const uiTemplate = {
+        options: configuration.global || {},
+        schema
+    }
+    return uiTemplate
 }
 
 function sanitizeValues(values: keyValue) :keyValue {

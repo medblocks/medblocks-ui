@@ -10,7 +10,7 @@
     export let label: string;
     export let repeatable: boolean;
     export let children: Extracted[];
-
+    export let childClass = "field"
     // Currently only simple templates
     export let displayTitle = true;
     export const CAN_ADD = true;
@@ -69,6 +69,7 @@
         throw new Error("Group component got tree not of type group");
     }
 </script>
+<div class={childClass}>
 {#if displayTitle && label}
 <h4 class="has-text-weight-bold is-size-6 mb-3 mt-5 has-text-grey">
     {label}    
@@ -119,3 +120,4 @@
         {/if}
     {/each}
 {/if}
+</div>

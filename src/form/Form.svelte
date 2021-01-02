@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Extracted, keyValue, Template } from "../types/types";
+    import type { Extracted, keyValue, Template, UITemplate } from "../types/types";
     import Leaf from "./Leaf.svelte";
     import Group from "./Group.svelte";
     import { writable } from "svelte/store";
@@ -15,17 +15,20 @@
     export let readOnly: boolean = false;
     export let store = writable<keyValue>({});
     export let status: "pending" | "done" | "entered" = "pending";
+    export let configuration: any
     let contextStore = writable<keyValue>({});
     export let data: keyValue;
+    let parentClass: string
     setContext("store", store);
     setContext("contextStore", contextStore);
     setContext("readOnly", readOnly);
     let error = false;
-    let schema: Extracted[];
+    let uiTemplate: UITemplate;
     $: {
         try {
-            schema = generateSchema(template);
-            // console.log(schema);
+            uiTemplate = generateSchema(template, configuration);
+            console.log(uiTemplate);
+            parentClass = uiTemplate.options.parentClass || "field"
         } catch (e) {
             error = true;
         }
@@ -36,7 +39,7 @@
     const dispatch = createEventDispatcher();
 
     function submit() {
-        console.log($contextStore)
+        console.log($contextStore);
         const contextCombined = { ...$contextStore, ...$store };
         dispatch("done", sanitizeValues(contextCombined));
     }
@@ -47,9 +50,10 @@
         {#if !error}{template.tree.name || ''}{:else}Template Error{/if}
     </span>
     {#if !error}
-        {#each schema as item}
+    <div class={parentClass}>
+        {#each uiTemplate.schema as item}
             {#if item.type === 'Group'}
-                <Group {...item} />
+                <Group {...item} {...item.options} />
             {:else if item.type === 'Leaf'}
                 <Leaf {...item} />
             {:else if item.type === 'Context'}
@@ -59,6 +63,7 @@
                 <pre>{JSON.stringify(item, null, 2)}</pre>
             {/if}
         {/each}
+    </div>
     {:else}
         <p>Invalid template</p>
     {/if}

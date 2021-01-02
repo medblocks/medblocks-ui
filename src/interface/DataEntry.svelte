@@ -1,8 +1,9 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { writable } from "svelte/store";
+    import { testConfig } from "../form/configuration";
     import Form from "../form/Form.svelte";
-    import type { keyValue, Template } from "../types/types";
+    import type { keyValue, Template, UITemplate } from "../types/types";
     import Patient from "./Patient.svelte";
 
     export let config;
@@ -30,8 +31,8 @@
                 data,
             },
         ];
-        currentTemplate = null
-        console.log({template, data})
+        currentTemplate = null;
+        console.log({ template, data });
     };
 </script>
 
@@ -60,11 +61,12 @@
             {#if currentTemplate}
                 <Form
                     template={currentTemplate}
+                    configuration={testConfig}
                     {store}
                     on:done={(e) => createComposition(currentTemplate, e.detail)} />
             {:else}
                 {#each allData as data}
-                    {#key readOnly+JSON.stringify(data.template)}
+                    {#key readOnly + JSON.stringify(data.template)}
                         <Form
                             template={data.template}
                             data={data.data}
@@ -73,7 +75,7 @@
                                 readOnly = false;
                             }}
                             on:done={(e) => createComposition(data.template, e.detail)} />
-                            <pre>{JSON.stringify(data.data, null, 2)}</pre>
+                        <pre>{JSON.stringify(data.data, null, 2)}</pre>
                     {/key}
                 {/each}
             {/if}
