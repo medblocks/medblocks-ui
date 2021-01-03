@@ -5,15 +5,15 @@ export interface TemplateConfig {
     template: Template,
     active: boolean,
     id: number,
-    ehr?: string,
-    terminology?: string,
-    demographics?: string
 }
 export const defaultConfig: Config = {
-    templates: []
+    templates: [],
 }
 export interface Config {
     templates: TemplateConfig [],
+    ehr?: string,
+    terminology?: string,
+    demographics?: string
 }
 
 export const setConfig = async (config: Config) => {

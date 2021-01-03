@@ -3,7 +3,7 @@ import type { Writable } from "svelte/store";
 import type { Template } from "../../types/types";
     import type {Config, TemplateConfig} from "../config"
     export let config: Writable<Config>
-
+    import {link} from 'svelte-spa-router'
     const deleteTemplate = (id)=>{
         config.update(c=>({
             ...c,
@@ -36,9 +36,9 @@ import type { Template } from "../../types/types";
                         </td>
                         <td>
                             <div class="buttons">
-                                <button class="button">
+                                <a class="button" href="/customize/{template.id}" use:link>
                                     Customize
-                                </button>
+                                </a>
                                 <button class="button is-danger" on:click={()=>deleteTemplate(template.id)}>
                                     Delete
                                 </button>

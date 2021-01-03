@@ -4,6 +4,7 @@
     import { testConfig } from "../form/configuration";
     import Form from "../form/Form.svelte";
     import type { keyValue, Template, UITemplate } from "../types/types";
+import BackButton from "./BackButton.svelte";
     import Patient from "./Patient.svelte";
 
     export let config;
@@ -36,6 +37,7 @@
     };
 </script>
 
+<BackButton href="/settings">Settings</BackButton>
 <Patient>
     <div class="tabs">
         <ul>
@@ -62,10 +64,8 @@
                 <Form
                     template={currentTemplate}
                     configuration={testConfig}
-                    customize={true}
                     {store}
                     on:done={(e) => createComposition(currentTemplate, e.detail)} />
-                    <pre>{JSON.stringify($store, null, 2)}</pre>
             {:else}
                 {#each allData as data}
                     {#key readOnly + JSON.stringify(data.template)}

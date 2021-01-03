@@ -6,6 +6,7 @@
     import type {Config} from "./config"
     import { writable } from "svelte/store";
 import { onMount } from "svelte";
+import BackButton from "./BackButton.svelte";
     export let config
 
     $: if (JSON.stringify($config) != JSON.stringify(defaultConfig)) {
@@ -43,7 +44,7 @@ import { onMount } from "svelte";
     let inSync: boolean
     $: inSync = $config.demographics == demographics && $config.terminology == terminology && $config.ehr == ehr
 </script>
-
+<BackButton href="/">Go Back</BackButton>
 <section class="section">
     <div class="container">
         <h1 class="title">Settings</h1>
