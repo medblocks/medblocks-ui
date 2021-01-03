@@ -90,10 +90,12 @@
     
     }
 </style>
-{#if customize}
-        <span class="tag" on:click={() => customizeFunction({path, aqlPath, type})}>{rmType}</span>
+{#if customize && !repeatable}
+        <span class="tag" on:click={() => customizeFunction({path, aqlPath, type})}>
+            {rmType}
+        </span>
 {/if}
-<div class={childClass} class:bordered={customize==true}>
+<div class={childClass} class:bordered={customize && !repeatable}>
     {#if displayTitle && label}
         <h4 class="has-text-weight-bold is-size-6 mb-3 has-text-grey">
             {label}
@@ -109,7 +111,12 @@
                     {type}
                     {label}
                     {children}
-                    displayTitle={false} />
+                    displayTitle={false} 
+                    {customize}
+                    {customizeFunction}
+                    rmType={rmType + " - REPEATABLE"}
+                    {aqlPath}
+                    />
                 <hr />
             </div>
         {/each}

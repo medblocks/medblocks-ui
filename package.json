@@ -49,6 +49,7 @@
   "dependencies": {
     "axios": "^0.21.0",
     "localforage": "^1.9.0",
-    "rxjs": "^6.6.3"
+    "rxjs": "^6.6.3",
+    "svelte-spa-router": "^3.1.0"
   }
 }
