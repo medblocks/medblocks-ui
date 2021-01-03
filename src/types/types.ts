@@ -1,5 +1,3 @@
-import type { AnyMxRecord } from "dns";
-
 export interface Template {
     readonly tree: Tree,
     readonly templateId: string,
