@@ -118,8 +118,8 @@ import { copy } from "./utils";
                     {label}
                     {children}
                     displayTitle={false} 
-                    customize={true}
-                    passCustomize={true}
+                    {customize}
+                    passCustomize={customize}
                     {customizeFunction}
                     rmType={rmType}
                     {aqlPath}
