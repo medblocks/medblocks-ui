@@ -8,35 +8,11 @@ import { defaultConfig, getConfig } from "./interface/config";
 import { writable } from "svelte/store";
 import { onMount } from "svelte";
 
-let config = writable(defaultConfig)
-const loadConfig = async () => {
-        let localConfig = await getConfig()
-        config.set(localConfig)
-    }
-onMount(async ()=>{
-        await loadConfig()
-    })
 
 const routes = {
-    '/': wrap({
-        component: DataEntry,
-        props: {
-            config
-        }
-    }),
-    '/settings': wrap({
-        component: Settings,
-        props: {
-            config
-        }
-    }),
-    '/customize/:templateIndex?': wrap({
-        component: Customize,
-        props: {
-            config
-        }
-    })
-    // '/customize': Customize
+    '/': DataEntry,
+    '/settings': Settings,
+    '/customize/:templateIndex?': Customize
 }
 </script>
 

@@ -5,6 +5,7 @@
     import { getContext } from "svelte";
     import type { Extracted, keyValue } from "../types/types";
     import type { Writable } from "svelte/store";
+import { copy } from "./utils";
     export let type: string;
     export let path: string;
     export let label: string;
@@ -18,7 +19,7 @@
     // Currently only simple templates
     export let displayTitle = true;
     export const CAN_ADD = true;
-
+    export let passCustomize: boolean = false
     let store: Writable<keyValue> = getContext("store");
     let readOnly: boolean = getContext("readOnly");
     const getCountFromStore = () => {
@@ -75,10 +76,14 @@
     if (type !== "Group") {
         throw new Error("Group component got tree not of type group");
     }
+
+    
 </script>
 <style>
-    .tag {
+    .is-cyan {
         background-color: lightcyan;
+    }
+    .tag {
         cursor: pointer;
     }
     .bordered {
@@ -90,11 +95,12 @@
     
     }
 </style>
-<div class={childClass} class:bordered={customize && !repeatable}>
-    {#if customize && !repeatable}
-            <span class="tag" on:click={() => customizeFunction({path, aqlPath, type})}>
-                {rmType}
+<div class={childClass} class:bordered={customize && !passCustomize}>
+    {#if customize && !passCustomize}
+            <span class="tag is-cyan" on:click={() => customizeFunction({path, aqlPath, type, repeatable})}>
+                {rmType} {#if repeatable}- REPEATABLE{/if}
             </span>
+            <span class="button is-small is-white" on:click={()=>{copy(path)}}>📋</span>
     {/if}
     {#if displayTitle && label}
         <h4 class="has-text-weight-bold is-size-6 mb-3 has-text-grey">
@@ -112,9 +118,10 @@
                     {label}
                     {children}
                     displayTitle={false} 
-                    {customize}
+                    customize={true}
+                    passCustomize={true}
                     {customizeFunction}
-                    rmType={rmType + " - REPEATABLE"}
+                    rmType={rmType}
                     {aqlPath}
                     />
                 <hr />

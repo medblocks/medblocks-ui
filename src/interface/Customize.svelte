@@ -1,14 +1,19 @@
 <script lang="ts">
     export let params: {templateIndex?: string} = {}
-    import type { Config, TemplateConfig } from './config';
+    import type { TemplateConfig } from './config';
     import BackButton from './BackButton.svelte'
     import { writable } from 'svelte/store';
-    import type {Writable} from 'svelte/store'
     import Form from '../form/Form.svelte';
-    import { testConfig } from '../form/configuration';
-    export let config: Writable<Config>
+    import { onMount } from 'svelte';
     let selectedTemplate: TemplateConfig
+    let currentConfiguration: any
     
+    import { defaultConfig, getConfig } from "./config";
+    let config = writable(defaultConfig)
+    onMount(async ()=>{
+        config.set(await getConfig())
+    })
+
     $: {
         if ($config && params.templateIndex){
             let index = params.templateIndex
@@ -18,11 +23,18 @@
                 console.log({templateId: template.id, index})
                 return template.id==parseInt(index)
             })[0]
-            console.log(selectedTemplate)
+            if (selectedTemplate){
+                currentConfiguration = {...selectedTemplate.configuration}
+            }
         }
     }
     let store = writable({})
     let selectedElement
+    const customizeFunction = (options)=>{
+        selectedElement = options
+        console.log(options)
+    } 
+    
 </script>
 <style>
     .is-cyan {
@@ -41,13 +53,18 @@
             <div class="column">
                 <Form
                     template={selectedTemplate.template}
-                    configuration={testConfig}
+                    configuration={currentConfiguration}
                     customize={true}
+                    {customizeFunction}
                     {store} />
             </div>
             <div class="column">
                 {#if selectedElement}    
                     <h1 class="subtitle">Options</h1>
+                    <p>AQL path: {selectedElement.aqlPath}</p>
+                    <p>Simplified path: {selectedElement.path}</p>
+                    <p>Type: {selectedElement.type}</p>
+                    <button class="button" on:click={()=>{currentConfiguration = {...currentConfiguration, global: {horizontal: true}}}}>Make horizontal</button>
                     <div class="buttons">
                         <button class="button">Done</button>
                         <a class="button is-danger is-light">Go back</a>

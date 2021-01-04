@@ -1,10 +1,12 @@
 import * as localForage from "localforage"
+import { writable } from "svelte/store"
 import type { Template } from "../types/types"
 
 export interface TemplateConfig {
     template: Template,
     active: boolean,
     id: number,
+    configuration: any
 }
 export const defaultConfig: Config = {
     templates: [],

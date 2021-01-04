@@ -1,5 +1,5 @@
 export const testConfig = {
     global: {
-        horizontal: false
+        horizontal: true
     },
 }

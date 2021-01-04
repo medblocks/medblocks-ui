@@ -2,12 +2,15 @@
 
     import ListTemplates from "./settings/ListTemplates.svelte";
     import Upload from "./settings/Upload.svelte"
-    import {defaultConfig, getConfig, setConfig} from "./config"
-    import type {Config} from "./config"
+    import { onMount } from "svelte";
+    import BackButton from "./BackButton.svelte";
+    import { defaultConfig, getConfig, setConfig } from "./config";
     import { writable } from "svelte/store";
-import { onMount } from "svelte";
-import BackButton from "./BackButton.svelte";
-    export let config
+    
+    let config = writable(defaultConfig)
+    onMount(async ()=>{
+        config.set(await getConfig())
+    })
 
     $: if (JSON.stringify($config) != JSON.stringify(defaultConfig)) {
             setConfig($config)
@@ -24,12 +27,13 @@ import BackButton from "./BackButton.svelte";
                 {
                     template, 
                     id: c.templates.length +1,
-                    active: true
+                    active: true,
+                    configuration: {}
                 }
             ] 
         }))
     }
-    let ehr: string, demographics: string, terminology: string
+    let ehr: string|undefined, demographics: string|undefined, terminology: string|undefined
     onMount(()=>{
         ({ehr, demographics, terminology} = $config)
     })

@@ -14,6 +14,7 @@
     import Date from "../rm/Date.svelte";
     import Proportion from "../rm/Proportion.svelte";
     import Ordinal from "../rm/Ordinal.svelte";
+    import { copy } from "./utils";
     export let tree: Tree;
     export let type: string;
     export let path: string;
@@ -24,6 +25,14 @@
     if (type !== "Leaf") {
         throw new Error("Leaf component got tree not of type leaf");
     }
+    let copied: boolean = false
+    const copyFunc = async (path)=>{
+        await copy(path)
+        copied = true
+        setTimeout(()=>{
+            copied = false
+        }, 300)
+    }
 </script>
 <style>
     .bordered {
@@ -32,14 +41,17 @@
         border-color: blanchedalmond;
         border-radius: 5px;
     }
-    .tag {
+    .is-almond {
         background-color: blanchedalmond;
+    }
+    .tag {
         cursor: pointer;
     }
 </style>
 <div class={childClass} >
     {#if customize}
-        <span class="tag" on:click={() => customizeFunction({path, aqlPath, tree, type})}>{tree.rmType}</span>
+        <span class="tag is-almond" on:click={() => customizeFunction({path, aqlPath, tree, type: tree.rmType})}>{tree.rmType}</span>
+        <span class="button is-small is-white" on:click={()=>{copy(path)}}>📋</span>
     {/if}
     <section class:bordered={customize===true}>
     {#if tree.rmType === 'DV_QUANTITY'}

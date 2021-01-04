@@ -83,7 +83,7 @@
 </style>
 {#if customize}
 
-    <div class="tag is-dark">context: {tree.id}</div>
+    <div class="tag is-dark">{tree.id.toUpperCase()}</div>
 {/if}
 {#if !processed}
     <p class="has-text-danger">Context not processed: {path}</p>

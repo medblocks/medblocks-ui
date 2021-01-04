@@ -4,12 +4,15 @@
     import { testConfig } from "../form/configuration";
     import Form from "../form/Form.svelte";
     import type { keyValue, Template, UITemplate } from "../types/types";
-import BackButton from "./BackButton.svelte";
+    import BackButton from "./BackButton.svelte";
     import Patient from "./Patient.svelte";
-
-    export let config;
-    console.log("From data entry", config);
     let activeTemplates: Template[];
+    
+    import { defaultConfig, getConfig } from "./config";
+    let config = writable(defaultConfig)
+    onMount(async ()=>{
+        config.set(await getConfig())
+    })
     $: {
         activeTemplates = $config.templates
             .filter((t) => t.active)
