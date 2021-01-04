@@ -1,12 +1,12 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { writable } from "svelte/store";
-    import { testConfig } from "../form/configuration";
     import Form from "../form/Form.svelte";
     import type { keyValue, Template, UITemplate } from "../types/types";
+    import type {TemplateConfig} from "./config"
     import BackButton from "./BackButton.svelte";
     import Patient from "./Patient.svelte";
-    let activeTemplates: Template[];
+    let activeTemplates: TemplateConfig[];
     
     import { defaultConfig, getConfig } from "./config";
     let config = writable(defaultConfig)
@@ -14,11 +14,9 @@
         config.set(await getConfig())
     })
     $: {
-        activeTemplates = $config.templates
-            .filter((t) => t.active)
-            .map((t) => t.template);
+        activeTemplates = $config.templates.filter(t => t.active)
     }
-    let currentTemplate: Template | null;
+    let currentTemplate: TemplateConfig | null;
     let store = writable({});
     let readOnly = true;
     interface composition {
@@ -27,16 +25,18 @@
     }
     let allData: composition[] = [];
 
-    const createComposition = (template, data) => {
-        allData = [
-            ...allData,
-            {
-                template,
-                data,
-            },
-        ];
-        currentTemplate = null;
-        console.log({ template, data });
+    const createComposition = (template: TemplateConfig | null, data) => {
+        if (template) {
+            allData = [
+                ...allData,
+                {
+                    template: template.template,
+                    data,
+                },
+            ];
+            currentTemplate = null;
+            console.log({ template, data });
+        }
     };
 </script>
 
@@ -56,7 +56,7 @@
                     on:click={() => {
                         currentTemplate = template;
                     }}>
-                    <a>{template.tree.name}</a>
+                    <a>{template.template.tree.name}</a>
                 </li>
             {/each}
         </ul>
@@ -65,22 +65,17 @@
         <div class="column is-half">
             {#if currentTemplate}
                 <Form
-                    template={currentTemplate}
-                    configuration={testConfig}
+                    template={currentTemplate.template}
+                    configuration={currentTemplate.configuration}
                     {store}
-                    on:done={(e) => createComposition(currentTemplate, e.detail)} />
+                    />
             {:else}
                 {#each allData as data}
                     {#key readOnly + JSON.stringify(data.template)}
                         <Form
                             template={data.template}
                             data={data.data}
-                            {readOnly}
-                            
-                            on:close={() => {
-                                readOnly = false;
-                            }}
-                            on:done={(e) => createComposition(data.template, e.detail)} />
+                            {readOnly}/>
                         
                     {/key}
                 {/each}

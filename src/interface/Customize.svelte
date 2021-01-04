@@ -5,10 +5,13 @@
     import { writable } from 'svelte/store';
     import Form from '../form/Form.svelte';
     import { onMount } from 'svelte';
+    import { defaultConfig, getConfig, setConfig } from "./config";
+    import CustomizeBox from './customize/CustomizeBox.svelte';
+    import {push} from 'svelte-spa-router'
+
     let selectedTemplate: TemplateConfig
-    let currentConfiguration: any
+    let currentConfiguration = writable({})
     
-    import { defaultConfig, getConfig } from "./config";
     let config = writable(defaultConfig)
     onMount(async ()=>{
         config.set(await getConfig())
@@ -24,16 +27,34 @@
                 return template.id==parseInt(index)
             })[0]
             if (selectedTemplate){
-                currentConfiguration = {...selectedTemplate.configuration}
+                currentConfiguration.set(selectedTemplate.configuration || {})
             }
         }
+    }
+    $: {
+        console.log($currentConfiguration)
     }
     let store = writable({})
     let selectedElement
     const customizeFunction = (options)=>{
         selectedElement = options
-        console.log(options)
-    } 
+    }
+    const saveConfiguration = async () => {
+        const oldConfig = $config
+        const newConfig = {...oldConfig, templates: oldConfig.templates.map(template=>{
+            if (params.templateIndex && template.id==parseInt(params.templateIndex)) {
+                return {
+                    ...template,
+                    configuration: $currentConfiguration
+                }
+            } else {
+                return template
+            }
+        })}
+        await setConfig(newConfig)
+        console.log(newConfig)
+        push("/settings")
+    }
     
 </script>
 <style>
@@ -53,7 +74,7 @@
             <div class="column">
                 <Form
                     template={selectedTemplate.template}
-                    configuration={currentConfiguration}
+                    configuration={$currentConfiguration}
                     customize={true}
                     {customizeFunction}
                     {store} />
@@ -61,13 +82,10 @@
             <div class="column">
                 {#if selectedElement}    
                     <h1 class="subtitle">Options</h1>
-                    <p>AQL path: {selectedElement.aqlPath}</p>
-                    <p>Simplified path: {selectedElement.path}</p>
-                    <p>Type: {selectedElement.type}</p>
-                    <button class="button" on:click={()=>{currentConfiguration = {...currentConfiguration, global: {horizontal: true}}}}>Make horizontal</button>
+                    <CustomizeBox type={selectedElement.type} configurationStore={currentConfiguration} options={selectedElement}></CustomizeBox>
                     <div class="buttons">
-                        <button class="button">Done</button>
-                        <a class="button is-danger is-light">Go back</a>
+                        <button class="button" on:click={saveConfiguration} type="button">Save</button>
+                        <button class="button is-danger is-light" type="button">Restore previous</button>
                     </div>
                 {/if}
             </div>
