@@ -2,16 +2,17 @@
     import Leaf from "./Leaf.svelte";
     import Context from "../rm/Context.svelte";
     import { slide, scale } from "svelte/transition";
-    import { getContext } from "svelte";
     import type { Extracted, keyValue } from "../types/types";
     import type { Writable } from "svelte/store";
-import { copy } from "./utils";
+    import { copy } from "./utils";
     export let type: string;
     export let path: string;
     export let label: string;
     export let repeatable: boolean;
     export let children: Extracted[];
     export let childClass = "field";
+    export let store: Writable<keyValue>
+    export let readOnly: boolean;
     export let aqlPath: string;
     export let rmType: string
     export let customize: boolean = false;
@@ -20,8 +21,7 @@ import { copy } from "./utils";
     export let displayTitle = true;
     export const CAN_ADD = true;
     export let passCustomize: boolean = false
-    let store: Writable<keyValue> = getContext("store");
-    let readOnly: boolean = getContext("readOnly");
+
     const getCountFromStore = () => {
         const paths = Object.keys($store).filter((p) => p.startsWith(path));
         const regExp = new RegExp(`${path}:(\\d+).*`);
@@ -114,6 +114,7 @@ import { copy } from "./utils";
                 <svelte:self
                     path={`${path}:${index}`}
                     repeatable={false}
+                    {store}
                     {type}
                     {label}
                     {children}
@@ -147,11 +148,11 @@ import { copy } from "./utils";
     {:else}
         {#each children as child}
             {#if child.type === 'Group'}
-                <svelte:self {...child} path={path + child.path} {customize} {customizeFunction}/>
+                <svelte:self {...child} path={path + child.path} {customize} {customizeFunction} {store}/>
             {:else if child.type === 'Leaf'}
-                <Leaf {...child} path={path + child.path} {customize} {customizeFunction}/>
+                <Leaf {...child} path={path + child.path} {customize} {customizeFunction} {store}/>
             {:else if child.type === 'Context'}
-                <Context {...child} path={path + child.path} {customize} {customizeFunction}/>
+                <Context {...child} path={path + child.path} {customize} {customizeFunction} {store}/>
             {:else}
                 <p>Not Group or Leaf type: {child.type}</p>
                 <pre>{JSON.stringify(child, null, 2)}</pre>
