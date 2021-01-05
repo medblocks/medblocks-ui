@@ -4,8 +4,8 @@
 </script>
 
 <div class="field">
-    Type {tree.rmType} not yet implimented at <code>{path}</code>
-    <pre>
+    {tree.id}: {tree.rmType} not yet implimented
+    <!-- <pre>
         {JSON.stringify(tree, null, 2)}
-    </pre>
+    </pre> -->
 </div>

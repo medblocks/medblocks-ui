@@ -3,12 +3,12 @@
     import type { Writable } from "svelte/store";
     import { copy } from "./utils";
     import Unknown from "../rm/Unknown.svelte";
-import OrdinalWrite from "../rm/OrdinalWrite.svelte";
+    import OrdinalWrite from "../rm/OrdinalWrite.svelte";
     export let tree: Tree;
     export let type: string;
     export let path: string;
     export let aqlPath: string;
-    export let readOnly: false;
+    export let readOnly: boolean;
     export let store: Writable<keyValue>
     export let childClass: string = "field";
     export let customize: boolean = false
@@ -52,9 +52,9 @@ import OrdinalWrite from "../rm/OrdinalWrite.svelte";
 <div class={childClass} >
     {#if customize}
         <span class="tag is-almond" on:click={() => customizeFunction({path, aqlPath, tree, type: tree.rmType})}>{tree.rmType}</span>
-        <span class="button is-small is-white" on:click={()=>{copy(path)}}>📋</span>
+        <span class="button is-small is-white" on:click={()=>{copy(aqlPath)}}>📋</span>
     {/if}
     <section class:bordered={customize}>
-        <svelte:component this={getComponent(tree.rmType, readOnly)} {store} {path} {tree}/>
+        <svelte:component this={getComponent(tree.rmType, readOnly)} {...$$props}/>
     </section>
 </div>

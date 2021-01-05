@@ -8,7 +8,6 @@
     import { defaultConfig, getConfig, setConfig } from "./config";
     import CustomizeBox from './customize/CustomizeBox.svelte';
     import {push} from 'svelte-spa-router'
-
     let selectedTemplate: TemplateConfig
     let currentConfiguration = writable({})
     
@@ -71,7 +70,7 @@
         <p class="has-text-weight-semibold">Customizing: {selectedTemplate.template.templateId}</p>
         <p class="subtitle">↓ click on an <span class="tag is-cyan">ELEMENT</span> to start editing</p>
         <div class="columns">
-            <div class="column">
+            <div class="column is-half">
                 <Form
                     template={selectedTemplate.template}
                     configuration={$currentConfiguration}
@@ -79,7 +78,7 @@
                     {customizeFunction}
                     {store} />
             </div>
-            <div class="column">
+            <div class="column is-half">
                 {#if selectedElement}    
                     <h1 class="subtitle">Options</h1>
                     <CustomizeBox type={selectedElement.type} configurationStore={currentConfiguration} options={selectedElement}></CustomizeBox>

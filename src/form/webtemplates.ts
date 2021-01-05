@@ -1,4 +1,3 @@
-import { config } from 'rxjs'
 import type {Tree, Extracted, Template, keyValue, UITemplate} from '../types/types'
 
 function propogateContext(tree: Tree, parentContext: boolean) :Tree {
