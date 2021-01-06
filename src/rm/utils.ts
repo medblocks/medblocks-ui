@@ -29,7 +29,7 @@ export function destroyAction(paths: string[], store: Writable<keyValue>){
     });
 }
 
-function triggerDestroy(paths: string[], store: Writable<keyValue>){
+export function triggerDestroy(paths: string[], store: Writable<keyValue>){
     onDestroy(()=>destroyAction(paths, store))
 }
 

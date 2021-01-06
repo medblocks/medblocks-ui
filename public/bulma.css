@@ -1108,6 +1108,8 @@ a.tag:hover {
   .textarea:not([rows]) {
     max-height: 40em;
     min-height: 8em; }
+  .textarea[rows] {
+    height: initial; }
 
 .checkbox {
   cursor: pointer;

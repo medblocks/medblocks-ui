@@ -5,18 +5,15 @@
     import Error from "./helpers/Error.svelte";
     import Loading from "./helpers/Loading.svelte";
 
-    import { initialize, getLabelOrdinal, getFullPaths } from "./utils";
-
+    import {getLabelOrdinal} from "./utils";
+    export let store
     export let path: string;
     export let tree: Tree;
     // Need to add path|value = `label` and remove on component delete
-    let initialPaths: string[] = ["ordinal", "code", "value"].map(
-        (suffix) => `${path.replace("/ordinal_value", "")}|${suffix}`
-    );
+    let initialPaths: string[] = ["ordinal", "code", "value"]
 
-    let { paths, store, readOnly } = initialize(initialPaths, tree);
     let selected: number;
-    $: selected = $store[paths[0]];
+    $: selected = $store[path.replace("/ordinal_value", "") + '|ordinal'];
     $: if (!readOnly) {
         if (selected) {
             if (tree.inputs && tree.inputs[0].list) {

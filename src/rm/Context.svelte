@@ -2,11 +2,14 @@
     import type { keyValue, Tree } from "../types/types";
     import { initialize } from "./utils";
     import { getContext } from "svelte";
+import type { Writable } from "svelte/store";
     export let tree: Tree;
     export let path: string;
     export let type: string;
     export let aqlPath: string;
     export let customize: boolean = false;
+    export let readOnly: boolean;
+    export let store: Writable<keyValue>
     export let customizeFunction: Function
     if (type !== "Context") {
         throw new Error(`Context component got type ${type}`);
@@ -65,11 +68,6 @@
             data = {};
     }
     let paths = Object.keys(data);
-    let { store, readOnly } = initialize(
-        paths,
-        tree,
-        getContext("contextStore")
-    );
     if (!readOnly) {
         paths.forEach((path) => {
             store.update((s) => ({ ...s, [path]: data[path] }));
@@ -83,7 +81,7 @@
 </style>
 {#if customize}
 
-    <div class="tag is-dark">{tree.id.toUpperCase()}</div>
+    <div class="tag is-dark" on:click={customizeFunction({tree, path, type, aqlPath})}>{tree.id.toUpperCase()}</div>
 {/if}
 {#if !processed}
     <p class="has-text-danger">Context not processed: {path}</p>

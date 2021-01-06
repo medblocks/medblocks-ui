@@ -26,9 +26,6 @@
     export let customizeFunction: Function;
     let parentClass: string;
     let childClass: string;
-    setContext("store", store);
-    setContext("contextStore", contextStore);
-    setContext("readOnly", readOnly);
     let error = false;
     let uiTemplate: UITemplate;
     $: {
@@ -89,11 +86,14 @@
                             {...item}
                             {childClass}
                             {customize}
-                            {customizeFunction} />
+                            {customizeFunction} 
+                            {readOnly}
+                            {store}
+                            />
                     {:else if item.type === 'Leaf'}
-                        <Leaf {...item} {customize} {customizeFunction} />
+                        <Leaf {...item} {customize} {customizeFunction} {readOnly} {store}/>
                     {:else if item.type === 'Context'}
-                        <Context {...item} />
+                        <Context {...item} {readOnly} {store}/>
                     {:else}
                         <p>Type {item.type} not recognized</p>
                         <pre>{JSON.stringify(item, null, 2)}</pre>
