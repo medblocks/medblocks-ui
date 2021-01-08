@@ -1,12 +1,12 @@
-import OrdinalWrite from "../../src/rm/Ordinal/OrdinalWrite.svelte"
-import Leaf from "../../src/form/Leaf.svelte"
-import { fireEvent, Matcher, render, RenderResult } from "@testing-library/svelte"
-import { get, writable } from "svelte/store"
 import '@testing-library/jest-dom'
+import OrdinalWrite from "../../src/rm/Ordinal/OrdinalWrite.svelte"
+import { fireEvent, render, RenderResult } from "@testing-library/svelte"
+import { get, writable } from "svelte/store"
 import type { writableKeyValue } from "../../src/types/types"
 import { tick } from "svelte"
-import {rawTree} from "./webtemplate"
+import { rawTree } from "./webtemplate"
 import { mockChanges } from "../utils"
+import userEvent from '@testing-library/user-event'
 
 
 describe('Basic Write - OrdinalWrite', () => {
@@ -55,5 +55,18 @@ describe('Basic Write - OrdinalWrite', () => {
         })
         await tick()
         expect(select).toHaveTextContent('3. To sound')
+    })
+
+    it('must work with userInput too', async () => {
+        let select = ordinal.getByLabelText(tree.name)
+        userEvent.tab()
+        expect(select).toHaveFocus()
+        userEvent.selectOptions(select, "1")
+        await tick()
+        expect(get(store)).toEqual({
+            "testing/path|code": "at0010",
+            "testing/path|ordinal": 1,
+            "testing/path|value": "None",
+        })
     })
 })
