@@ -20,17 +20,18 @@ import { copy } from "../../form/utils";
     onMount(()=>{
         configutaionJSONlocal = configutaionJSON
     })
+    let aqlDisplay: string
+    $: aqlDisplay = options.aqlPath.replaceAll("/", "<wbr>/")
 </script>
 <div class="box">
-    <h1 class="title is-6">
-        Type: {options.type} 
-    </h1>
+    <p>Type: {options.type}</p>
+    <p>Path: {@html aqlDisplay}</p>
     <div class="field">
         <span class="button is-small is-white" on:click={()=>{copy(options.aqlPath)}}>Copy AQL path 📋</span>
     </div>
     <svelte:component this={components[options.type]} {configurationStore} {...options}></svelte:component>
     <div class="field">
-        <textarea name="" id="" cols="30" rows="10" class="textarea" bind:value={configutaionJSONlocal} />
+        <textarea name="" id="jsoneditor" cols="30" rows="10" class="textarea" bind:value={configutaionJSONlocal}/>
     </div>
     <div class="field">
         <pre>{configutaionJSON}</pre>

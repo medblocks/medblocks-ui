@@ -3,13 +3,12 @@
     import type { Writable } from "svelte/store";
     import { copy } from "./utils";
     import Unknown from "../rm/Unknown.svelte";
-    import OrdinalWrite from "../rm/OrdinalWrite.svelte";
+    import OrdinalWrite from "../rm/Ordinal/OrdinalWrite.svelte"
     export let tree: Tree;
     export let type: string;
     export let path: string;
     export let aqlPath: string;
     export let readOnly: boolean;
-    export let store: Writable<keyValue>
     export let childClass: string = "field";
     export let customize: boolean = false
     export let customizeFunction: Function
@@ -33,7 +32,6 @@
     if (type !== "Leaf") {
         throw new Error("Leaf component got tree not of type leaf");
     }
-
 </script>
 <style>
     .bordered {

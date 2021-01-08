@@ -1,9 +1,9 @@
 <script lang="ts">
     import type { Writable } from "svelte/store";
-    import type { keyValue, Tree } from "../types/types";
-    import Error from "./helpers/Error.svelte";
+    import type { keyValue, Tree } from "../../types/types";
+    import Error from "../helpers/Error.svelte";
     import { onMount } from "svelte";
-    import { triggerDestroy } from "./utils";
+    import { triggerDestroy } from "../utils";
     // Setup
     export let store: Writable<keyValue>;
     export let path: string;
