@@ -1,10 +1,10 @@
 {
-  "name": "svelte-app",
-  "version": "1.0.0",
+  "name": "medblocks-ui",
+  "version": "0.0.1",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public",
+    "start": "sirv public", 
     "test": "jest",
     "validate": "svelte-check",
     "deploy": "npm run build && firebase deploy --only hosting"

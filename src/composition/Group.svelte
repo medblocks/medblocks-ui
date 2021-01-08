@@ -4,7 +4,6 @@
     import { slide, scale } from "svelte/transition";
     import type { Extracted, keyValue } from "../types/types";
     import type { Writable } from "svelte/store";
-    import { copy } from "./utils";
     export let type: string;
     export let path: string;
     export let label: string;
@@ -100,7 +99,6 @@
             <span class="tag is-cyan" on:click={() => customizeFunction({path, aqlPath, type, repeatable})}>
                 {rmType} {#if repeatable}- REPEATABLE{/if}
             </span>
-            <span class="button is-small is-white" on:click={()=>{copy(path)}}>📋</span>
     {/if}
     {#if displayTitle && label}
         <h4 class="has-text-weight-bold is-size-6 mb-3 has-text-grey">
@@ -114,6 +112,7 @@
                 <svelte:self
                     path={`${path}:${index}`}
                     repeatable={false}
+                    {readOnly}
                     {store}
                     {type}
                     {label}
@@ -148,11 +147,11 @@
     {:else}
         {#each children as child}
             {#if child.type === 'Group'}
-                <svelte:self {...child} path={path + child.path} {customize} {customizeFunction} {store}/>
+                <svelte:self {...child} path={path + child.path} {customize} {customizeFunction} {store} {readOnly}/>
             {:else if child.type === 'Leaf'}
-                <Leaf {...child} path={path + child.path} {customize} {customizeFunction} {store}/>
+                <Leaf {...child} path={path + child.path} {customize} {customizeFunction} {store} {readOnly}/>
             {:else if child.type === 'Context'}
-                <Context {...child} path={path + child.path} {customize} {customizeFunction} {store}/>
+                <Context {...child} path={path + child.path} {customize} {customizeFunction} {store} {readOnly}/>
             {:else}
                 <p>Not Group or Leaf type: {child.type}</p>
                 <pre>{JSON.stringify(child, null, 2)}</pre>

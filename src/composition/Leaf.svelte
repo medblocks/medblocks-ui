@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { Tree, writableKeyValue } from "../types/types";
-    import { copy } from "./utils";
     import Unknown from "../rm/Unknown.svelte";
     import OrdinalWrite from "../rm/Ordinal/OrdinalWrite.svelte"
     import { sanitizeDisplayFunction } from "../rm/utils";
@@ -61,7 +60,6 @@
 <div class={childClass} >
     {#if customize}
         <span class="tag is-almond" on:click={() => customizeFunction({path, aqlPath, tree, type: tree.rmType})}>{tree.rmType}</span>
-        <span class="button is-small is-white" on:click={()=>{copy(aqlPath)}}>📋</span>
     {/if}
     <section class:bordered={customize}>
         {#if internalDisplay}

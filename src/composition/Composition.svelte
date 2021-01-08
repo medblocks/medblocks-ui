@@ -15,15 +15,16 @@
         rehydrateValues,
     } from "./webtemplates";
     import Context from "../rm/Context.svelte";
+
     export let template: Template;
     export let readOnly: boolean = false;
     export let store: writableKeyValue = writable({});
     export let configuration: any;
     export let contextStore: writableKeyValue = writable({});
-    export let initialData: keyValue;
-    export let initialContext: keyValue;
+    export let initialData: keyValue = {};
+    export let initialContext: keyValue = {};
     export let customize: boolean = false;
-    export let customizeFunction: Function;
+    export let customizeFunction: Function = console.log;
     let parentClass: string;
     let childClass: string;
     let error = false;
@@ -31,7 +32,6 @@
     $: {
         try {
             uiTemplate = generateSchema(template, configuration);
-            console.log(uiTemplate);
             if (uiTemplate.options.horizontal) {
                 parentClass = "columns";
                 childClass = "column";
@@ -52,7 +52,6 @@
     const dispatch = createEventDispatcher();
 
     function submit() {
-        console.log($contextStore);
         const contextCombined = { ...$contextStore, ...$store };
         dispatch("done", sanitizeValues(contextCombined));
     }

@@ -16,11 +16,18 @@
 <div class="box">
     <p class="label">{options.type} type</p>
     <div class="field">
-        <span
+        <div class="buttons">
+        <button
             class="button is-small"
             on:click={() => {
                 copy(options.aqlPath);
-            }}>Copy AQL path 📋</span>
+            }}>Copy AQL path 📋</button>
+        <button
+        class="button is-small"
+        on:click={() => {
+            copy(options.path);
+        }}>Copy Path 📋</button>
+        </div>
     </div>
     {#key options.aqlPath}
         <svelte:component

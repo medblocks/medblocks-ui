@@ -10,7 +10,7 @@ import type { Writable } from "svelte/store";
     export let customize: boolean = false;
     export let readOnly: boolean;
     export let store: Writable<keyValue>
-    export let customizeFunction: Function
+    export let customizeFunction: Function = (options) => console.log(options)
     if (type !== "Context") {
         throw new Error(`Context component got type ${type}`);
     }

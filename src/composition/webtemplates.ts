@@ -27,7 +27,6 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
     }
     if (['OBSERVATION'].includes(rmType)){
         inGroup = true
-        console.log({children})
         if (children && children?.filter(child=>eventTypes.includes(child.rmType)).length > 0) {
             newParentName = name 
             name = ''
