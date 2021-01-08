@@ -1,6 +1,5 @@
 <script lang="ts">
     export let configurationStore;
-    export let type;
     let global = $configurationStore.global || {};
     $: {
         configurationStore.update((c) => ({

@@ -1,6 +1,5 @@
 <script lang="ts">
     export let configurationStore
-    export let type
     export let aqlPath
     let config = $configurationStore[aqlPath] || {}
     $: {
