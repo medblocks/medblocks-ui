@@ -1,22 +1,30 @@
 <script lang="ts">
-    import type { keyValue, Tree } from "../types/types";
-    import type { Writable } from "svelte/store";
+    import type { Tree, writableKeyValue } from "../types/types";
     import { copy } from "./utils";
     import Unknown from "../rm/Unknown.svelte";
     import OrdinalWrite from "../rm/Ordinal/OrdinalWrite.svelte"
+    import { sanitizeDisplayFunction } from "../rm/utils";
     export let tree: Tree;
     export let type: string;
-    export let path: string;
-    export let aqlPath: string;
+    export let path: string = 'no-path';
+    export let aqlPath: string = 'no-aql-path';
     export let readOnly: boolean;
     export let childClass: string = "field";
     export let customize: boolean = false
-    export let customizeFunction: Function
+    export let customizeFunction: Function = (params) => console.log(params)
     export let display: boolean = true
     export let displayFunction: Function | undefined = undefined
-
+    export let store: writableKeyValue
     let internalDisplay: boolean
-    
+    $: if (displayFunction) {
+        internalDisplay = sanitizeDisplayFunction(
+            path,
+            displayFunction,
+            $store
+        );
+    } else {
+        internalDisplay = display;
+    }
     const getComponent = (rmType: string, readOnly: boolean)=>{
         const components = {
             'DV_ORDINAL': {
@@ -27,11 +35,9 @@
         if (selected) {
             selected = selected[readOnly? 'read' : 'write']
             if (selected) {
-                console.log(selected)
                 return selected
             }
         }
-        console.log("returning unknown")
         return Unknown
     }
     if (type !== "Leaf") {
@@ -59,7 +65,7 @@
     {/if}
     <section class:bordered={customize}>
         {#if internalDisplay}
-            <svelte:component this={getComponent(tree.rmType, readOnly)} {...$$restProps} {tree} {type} {path} {aqlPath}/>
+            <svelte:component this={getComponent(tree.rmType, readOnly)} {...$$restProps} {tree} {path} {store}/>
         {/if}
     </section>
 </div>
