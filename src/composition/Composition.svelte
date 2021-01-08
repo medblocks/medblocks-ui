@@ -1,14 +1,14 @@
 <script lang="ts">
     import type {
-        Extracted,
         keyValue,
         Template,
         UITemplate,
+        writableKeyValue,
     } from "../types/types";
     import Leaf from "./Leaf.svelte";
     import Group from "./Group.svelte";
     import { writable } from "svelte/store";
-    import { createEventDispatcher, setContext } from "svelte";
+    import { createEventDispatcher} from "svelte";
     import {
         generateSchema,
         sanitizeValues,
@@ -17,11 +17,11 @@
     import Context from "../rm/Context.svelte";
     export let template: Template;
     export let readOnly: boolean = false;
-    export let store = writable<keyValue>({});
-    export let status: "pending" | "done" | "entered" = "pending";
+    export let store: writableKeyValue = writable({});
     export let configuration: any;
-    let contextStore = writable<keyValue>({});
-    export let data: keyValue;
+    export let contextStore: writableKeyValue = writable({});
+    export let initialData: keyValue;
+    export let initialContext: keyValue;
     export let customize: boolean = false;
     export let customizeFunction: Function;
     let parentClass: string;
@@ -43,8 +43,11 @@
             error = true;
         }
     }
-    $: if (data) {
-        store.set(rehydrateValues(data));
+    $: if (initialData) {
+        store.set(rehydrateValues(initialData));
+    }
+    $: if (initialContext){
+        contextStore.set(initialContext)
     }
     const dispatch = createEventDispatcher();
 

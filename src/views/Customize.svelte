@@ -3,11 +3,12 @@
     import type { TemplateConfig } from './config';
     import BackButton from './BackButton.svelte'
     import { writable } from 'svelte/store';
-    import Form from '../form/Form.svelte';
     import { onMount } from 'svelte';
     import { defaultConfig, getConfig, setConfig } from "./config";
     import CustomizeBox from './customize/CustomizeBox.svelte';
+    import CustomizeDisplay from './customize/ConfigDisplay.svelte'
     import {push} from 'svelte-spa-router'
+    import Composition from '../composition/Composition.svelte';
     let selectedTemplate: TemplateConfig
     let currentConfiguration = writable({})
     
@@ -37,6 +38,9 @@
     let selectedElement
     const customizeFunction = (options)=>{
         selectedElement = options
+    }
+    const restoreDefault = () =>{
+        currentConfiguration.set({})
     }
     const saveConfiguration = async () => {
         const oldConfig = $config
@@ -71,7 +75,7 @@
         <p class="subtitle">↓ click on an <span class="tag is-cyan">ELEMENT</span> to start editing</p>
         <div class="columns">
             <div class="column is-half">
-                <Form
+                <Composition
                     template={selectedTemplate.template}
                     configuration={$currentConfiguration}
                     customize={true}
@@ -81,11 +85,13 @@
             <div class="column is-half">
                 {#if selectedElement}    
                     <h1 class="subtitle">Options</h1>
+                    
                     <CustomizeBox configurationStore={currentConfiguration} options={selectedElement}></CustomizeBox>
                     <div class="buttons">
                         <button class="button" on:click={saveConfiguration} type="button">Save</button>
-                        <button class="button is-danger is-light" type="button">Restore previous</button>
+                        <button class="button is-danger is-light" type="button" on:click={restoreDefault}>Restore default</button>
                     </div>
+                    <CustomizeDisplay configurationStore={currentConfiguration}></CustomizeDisplay>
                 {/if}
             </div>
         </div>

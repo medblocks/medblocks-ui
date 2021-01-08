@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { writable } from "svelte/store";
-    import Form from "../form/Form.svelte";
+    import Composition from "../composition/Composition.svelte";
     import type { keyValue, Template, UITemplate } from "../types/types";
     import type {TemplateConfig} from "./config"
     import BackButton from "./BackButton.svelte";
@@ -64,7 +64,7 @@
     <div class="columns">
         <div class="column is-half">
             {#if currentTemplate}
-                <Form
+                <Composition
                     template={currentTemplate.template}
                     configuration={currentTemplate.configuration}
                     {store}
@@ -72,9 +72,9 @@
             {:else}
                 {#each allData as data}
                     {#key readOnly + JSON.stringify(data.template)}
-                        <Form
+                        <Composition
                             template={data.template}
-                            data={data.data}
+                            initialData={data.data}
                             {readOnly}/>
                         
                     {/key}
