@@ -9,6 +9,7 @@
     export let path: string;
     export let tree: Tree;
     export let defaultOrdinal: number | undefined = undefined;
+    export let label: string | undefined = undefined
     export let wrapperClass: string = "field"
     export let labelClass: string = "label"
     export let selectWrapperClass: string = "select"
@@ -47,7 +48,7 @@
 </script>
 
 <div class={wrapperClass}>
-    <label class={labelClass} for={path}>{tree.name}</label>
+    <label class={labelClass} for={path}>{label || tree.name}</label>
     {#if tree.inputs && tree.inputs[0].list}
         <div class={selectWrapperClass}>
             <select
@@ -55,13 +56,9 @@
                 name="code"
                 bind:value={$store[internalPath + '|ordinal']}
                 disabled={tree.inputs[0].list.length === 1}>
-                <option value={undefined} selected disabled>
-                    Select an option
-                </option>
+                <option value={undefined} selected disabled>Select an option</option>
                 {#each tree.inputs[0].list as option}
-                    <option
-                        value={option.ordinal}
-                        label={option.ordinal ? `${option.ordinal}. ${option.label}` : option.label} />
+                    <option value={option.ordinal}>{option.ordinal ? `${option.ordinal}. ${option.label}` : option.label}</option>
                 {/each}
             </select>
         </div>

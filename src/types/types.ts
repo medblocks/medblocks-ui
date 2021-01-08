@@ -1,3 +1,5 @@
+import type { Writable } from "svelte/store"
+
 export interface Template {
     readonly tree: Tree,
     readonly templateId: string,
@@ -59,3 +61,5 @@ export interface UITemplate {
     options: any,
     schema: Extracted[]
 }
+
+export type writableKeyValue = Writable<keyValue>

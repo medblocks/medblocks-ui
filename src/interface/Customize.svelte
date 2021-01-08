@@ -81,7 +81,7 @@
             <div class="column is-half">
                 {#if selectedElement}    
                     <h1 class="subtitle">Options</h1>
-                    <CustomizeBox type={selectedElement.type} configurationStore={currentConfiguration} options={selectedElement}></CustomizeBox>
+                    <CustomizeBox configurationStore={currentConfiguration} options={selectedElement}></CustomizeBox>
                     <div class="buttons">
                         <button class="button" on:click={saveConfiguration} type="button">Save</button>
                         <button class="button is-danger is-light" type="button">Restore previous</button>

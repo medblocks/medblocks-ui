@@ -12,6 +12,11 @@
     export let childClass: string = "field";
     export let customize: boolean = false
     export let customizeFunction: Function
+    export let display: boolean = true
+    export let displayFunction: Function | undefined = undefined
+
+    let internalDisplay: boolean
+    
     const getComponent = (rmType: string, readOnly: boolean)=>{
         const components = {
             'DV_ORDINAL': {
@@ -53,6 +58,8 @@
         <span class="button is-small is-white" on:click={()=>{copy(aqlPath)}}>📋</span>
     {/if}
     <section class:bordered={customize}>
-        <svelte:component this={getComponent(tree.rmType, readOnly)} {...$$props}/>
+        {#if internalDisplay}
+            <svelte:component this={getComponent(tree.rmType, readOnly)} {...$$restProps} {tree} {type} {path} {aqlPath}/>
+        {/if}
     </section>
 </div>
