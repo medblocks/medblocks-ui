@@ -6,13 +6,14 @@
     import { onMount } from 'svelte';
     import { defaultConfig, getConfig, setConfig } from "./config";
     import CustomizeBox from './customize/CustomizeBox.svelte';
-    import CustomizeDisplay from './customize/ConfigDisplay.svelte'
+    import ConfigDisplay from './customize/ConfigDisplay.svelte'
     import {push} from 'svelte-spa-router'
     import Composition from '../composition/Composition.svelte';
     let selectedTemplate: TemplateConfig
     let currentConfiguration = writable({})
     
     let config = writable(defaultConfig)
+    let readOnly = false
     onMount(async ()=>{
         config.set(await getConfig())
     })
@@ -80,18 +81,24 @@
                     configuration={$currentConfiguration}
                     customize={true}
                     {customizeFunction}
-                    {store} />
+                    {store} 
+                    {readOnly}
+                    />
             </div>
             <div class="column is-half">
-                {#if selectedElement}    
-                    <h1 class="subtitle">Options</h1>
-                    
-                    <CustomizeBox configurationStore={currentConfiguration} options={selectedElement}></CustomizeBox>
+                {#if selectedElement}
+                    <div class="tabs">
+                        <ul>
+                          <li class:is-active={!readOnly} on:click={()=>readOnly=false}><a>Write</a></li>
+                          <li class:is-active={readOnly} on:click={()=>readOnly=true}><a>Read</a></li>
+                        </ul>
+                    </div>
+                    <CustomizeBox configurationStore={currentConfiguration} options={selectedElement} {readOnly}></CustomizeBox>
                     <div class="buttons">
                         <button class="button" on:click={saveConfiguration} type="button">Save</button>
                         <button class="button is-danger is-light" type="button" on:click={restoreDefault}>Restore default</button>
                     </div>
-                    <CustomizeDisplay configurationStore={currentConfiguration}></CustomizeDisplay>
+                    <ConfigDisplay configurationStore={currentConfiguration}/>
                 {/if}
             </div>
         </div>
