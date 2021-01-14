@@ -147,11 +147,11 @@
     {:else}
         {#each children as child}
             {#if child.type === 'Group'}
-                <svelte:self {...child} path={path + child.path} {customize} {customizeFunction} {store} {readOnly}/>
+                <svelte:self {...child} path={`${path}/${child.path}`} {customize} {customizeFunction} {store} {readOnly}/>
             {:else if child.type === 'Leaf'}
-                <Leaf {...child} path={path + child.path} {customize} {customizeFunction} {store} {readOnly}/>
+                <Leaf {...child} path={`${path}/${child.path}`} {customize} {customizeFunction} {store} {readOnly}/>
             {:else if child.type === 'Context'}
-                <Context {...child} path={path + child.path} {customize} {customizeFunction} {store} {readOnly}/>
+                <Context {...child} path={`${path}/${child.path}`} {customize} {customizeFunction} {store} {readOnly}/>
             {:else}
                 <p>Not Group or Leaf type: {child.type}</p>
                 <pre>{JSON.stringify(child, null, 2)}</pre>

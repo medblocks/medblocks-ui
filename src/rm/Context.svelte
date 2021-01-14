@@ -1,8 +1,7 @@
 <script lang="ts">
     import type { keyValue, Tree } from "../types/types";
-    import { initialize } from "./utils";
-    import { getContext } from "svelte";
-import type { Writable } from "svelte/store";
+    import { triggerDestroy } from "./utils";
+    import type { Writable } from "svelte/store";
     export let tree: Tree;
     export let path: string;
     export let type: string;
@@ -73,6 +72,7 @@ import type { Writable } from "svelte/store";
             store.update((s) => ({ ...s, [path]: data[path] }));
         });
     }
+    triggerDestroy(Object.keys(data), store)
 </script>
 <style>
     .tag {

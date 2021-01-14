@@ -1,5 +1,6 @@
 <script lang="ts">
     export let configurationStore;
+    export let aqlPath;
     let global = $configurationStore.global || {};
     $: {
         configurationStore.update((c) => ({

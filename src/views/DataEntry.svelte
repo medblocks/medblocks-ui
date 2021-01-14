@@ -64,11 +64,11 @@
     <div class="columns">
         <div class="column is-half">
             {#if currentTemplate}
-                <Composition
-                    template={currentTemplate.template}
-                    configuration={currentTemplate.configuration}
-                    {store}
-                    />
+            <Composition
+                template={currentTemplate.template}
+                configuration={currentTemplate.configuration}
+                {store}
+                />
             {:else}
                 {#each allData as data}
                     {#key readOnly + JSON.stringify(data.template)}
@@ -80,6 +80,11 @@
                     {/key}
                 {/each}
             {/if}
+        </div>
+        <div class="column is-half">
+            <pre>
+                {JSON.stringify($store, null, 2)}
+            </pre>
         </div>
     </div>
 </Patient>

@@ -3,6 +3,7 @@
     import Unknown from "../rm/Unknown.svelte";
     import OrdinalWrite from "../rm/Ordinal/OrdinalWrite.svelte"
     import { sanitizeDisplayFunction } from "../rm/utils";
+import QuantityWrite from "../rm/Quantity/QuantityWrite.svelte";
     export let tree: Tree;
     export let type: string;
     export let path: string = 'no-path';
@@ -28,6 +29,9 @@
         const components = {
             'DV_ORDINAL': {
                 write: OrdinalWrite
+            },
+            'DV_QUANTITY': {
+                write: QuantityWrite
             }
         }
         let  selected = components[rmType]

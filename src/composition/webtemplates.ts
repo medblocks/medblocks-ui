@@ -12,7 +12,7 @@ function propogateContext(tree: Tree, parentContext: boolean) :Tree {
 }
 function extractInputs(tree: Tree, path: string, parentName: string, config: any): Extracted|Extracted[] {
     let { max, children, id, inputs, name: uncleanName, rmType, annotations, inContext, localizedName, aqlPath } = tree
-    let newPath = `${path}/${id}`
+    let newPath = path ? `${path}/${id}`: `${id}`
     let options = config[aqlPath]
     let name: string
     name = uncleanName || localizedName || id
