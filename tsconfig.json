@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
 
-  "include": ["src/**/**/*", "tests/*", "tests/Ordinal/OrdinalWrite.spec.ts"],
+  "include": ["src/**/**/*", "tests/**/*",],
   "exclude": ["node_modules/*", "__sapper__/*", "public/*"],
   "compilerOptions": {
     "lib": [
