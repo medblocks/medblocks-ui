@@ -1,15 +1,13 @@
 <script lang="ts">
-    import type { Tree } from "../../types/types";
-    import DisplayContent from "../helpers/DisplayContent.svelte";
-    import DisplayLabel from "../helpers/DisplayLabel.svelte";
-    import Error from "../helpers/Error.svelte";
+    import type { Tree, writableKeyValue } from "../../types/types";
     import Loading from "../helpers/Loading.svelte";
 
     import {getLabelOrdinal} from "../utils";
-    export let store
+    export let store: writableKeyValue
     export let path: string;
     export let tree: Tree;
-    // Need to add path|value = `label` and remove on component delete
+    export let ordinalClass: string = "subtitle is-4 has-text-weight-bold"
+    export let labelClass: string = "is-6 has-text-grey has-text-weight-semibold"
     let selected: number;
     let internalPath: string
     $: internalPath = path.replace("/ordinal_value", "")
@@ -17,16 +15,16 @@
 </script>
 
 <div class="field">
-        <DisplayLabel>{tree.name}</DisplayLabel>
+        <p class={labelClass}>{tree.name}</p>
         {#if selected}
             {#if tree.inputs}
-                <DisplayContent>
+            <p class={ordinalClass}>
                     {$store[internalPath + '|ordinal']} - {getLabelOrdinal($store[internalPath + '|ordinal'], tree.inputs[0])}
-                </DisplayContent>
+            </p>
             {:else}
-                <Error>No inputs found in tree</Error>
+                <p>
+                    No inputs found in tree
+                </p>
             {/if}
-        {:else}
-            <Loading />
         {/if}
 </div>

@@ -1,7 +1,6 @@
 <script lang="ts">
     import type { Writable } from "svelte/store";
     import type { keyValue, Tree } from "../../types/types";
-    import Error from "../helpers/Error.svelte";
     import { onMount } from "svelte";
     import { triggerDestroy } from "../utils";
     // Setup
@@ -63,6 +62,6 @@
             </select>
         </div>
     {:else}
-        <Error>Tree does not have inputs/inputs does not have list</Error>
+        <p>Tree does not have inputs/inputs does not have list</p>
     {/if}
 </div>

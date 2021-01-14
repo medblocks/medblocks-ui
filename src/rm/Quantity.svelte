@@ -50,7 +50,7 @@
                             bind:value={$store[paths[1]]}
                             disabled={tree.inputs[1].list.length === 1}>
                             {#each tree.inputs[1].list as option}
-                                <option value={option.value} label={option.localizedLabels.en || option.label} />
+                                <option value={option.value} label={option.label} />
                             {/each}
                         </select>
                     </div>

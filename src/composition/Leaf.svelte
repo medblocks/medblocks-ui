@@ -4,6 +4,9 @@
     import OrdinalWrite from "../rm/Ordinal/OrdinalWrite.svelte"
     import { sanitizeDisplayFunction } from "../rm/utils";
 import QuantityWrite from "../rm/Quantity/QuantityWrite.svelte";
+import OrdinalRead from "../rm/Ordinal/OrdinalRead.svelte";
+import QuantityRead from "../rm/Quantity/QuantityRead.svelte";
+import CodedTextWrite from "../rm/CodedText/CodedTextWrite.svelte";
     export let tree: Tree;
     export let type: string;
     export let path: string = 'no-path';
@@ -28,10 +31,15 @@ import QuantityWrite from "../rm/Quantity/QuantityWrite.svelte";
     const getComponent = (rmType: string, readOnly: boolean)=>{
         const components = {
             'DV_ORDINAL': {
-                write: OrdinalWrite
+                write: OrdinalWrite,
+                read: OrdinalRead
             },
             'DV_QUANTITY': {
-                write: QuantityWrite
+                write: QuantityWrite,
+                read: QuantityRead
+            },
+            'DV_CODED_TEXT': {
+                write: CodedTextWrite,                
             }
         }
         let  selected = components[rmType]

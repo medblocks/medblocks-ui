@@ -12,15 +12,16 @@ import { triggerDestroy } from "../utils";
     let internalUnits: string
     let unitPath: string
     let magnitudePath: string
+    let magnitudeStoreValue: number
     $: unitPath = path + '|unit'
     $: magnitudePath = path + '|magnitude'
-
+    $: magnitudeStoreValue = $store[magnitudePath]
     $: {
-        if (typeof $store[magnitudePath] != 'undefined') {
-            if ($store[magnitudePath] == null){
+        if (typeof magnitudeStoreValue != 'undefined') {
+            if (magnitudeStoreValue == null){
                 store.update(s=>({...s, [magnitudePath]: undefined, [unitPath]: undefined}))
             }
-            else if ($store[path + '|unit'] != internalUnits){
+            else if ($store[unitPath] != internalUnits){
                 store.update(s=>({...s, [unitPath]: internalUnits}))
             }
             
