@@ -13,7 +13,7 @@ import { getLabel } from "../utils";
     let codePath: string
     let valuePath: string
     
-    $: terminologyPath = path + 'terminology'
+    $: terminologyPath = path + '|terminology'
     $: codePath = path + '|code'
     $: valuePath = path + '|value'
 
@@ -36,7 +36,7 @@ import { getLabel } from "../utils";
             <select id={path} bind:value={$store[codePath]} disabled={tree.inputs[0].list.length === 1}>
                 <option value={undefined} selected disabled>Select an option</option>
                 {#each tree.inputs[0].list as option}
-                <option value={option.value} label={option.label}></option>
+                <option value={option.value}>{option.label}</option>
                 {/each}
             </select>
         </div>

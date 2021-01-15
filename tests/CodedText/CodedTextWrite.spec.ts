@@ -26,46 +26,33 @@ describe('Basic Write - CodedText', () => {
         const options = ordinal.getAllByRole("option")
         expect(options.map(option => option.textContent)).toEqual([
             'Select an option',
-            '1. None',
-            '2. To pressure',
-            '3. To sound',
-            '4. Spontaneous'
+            'Present',
+            'Not detected',
         ])
     })
     it('must select correct values', async () => {
         let select = ordinal.getByLabelText(tree.name)
-        expect(select).toBeInTheDocument()
-        expect(select).toHaveTextContent('Select an option')
-        await fireEvent.change(select, { target: { value: "2" } })
-        expect(select).toHaveTextContent('2. To pressure')
+        userEvent.tab()
+        expect(select).toHaveFocus()
+        userEvent.selectOptions(select, "at1024")
+        await tick()
         expect(get(store)).toEqual({
-            'testing/path|ordinal': 2,
-            'testing/path|code': 'at0011',
-            'testing/path|value': 'To pressure'
+            'testing/path|terminology': 'local',
+            'testing/path|code': 'at1024',
+            'testing/path|value': 'Present'
         })
     })
 
     it('it must display correct value', async () => {
         let select = ordinal.getByLabelText(tree.name)
         store.set({
-            'testing/path|ordinal': 3,
-            'testing/path|code': 'at0012',
-            'testing/path|value': 'To sound'
+            'testing/path|terminology': 'local',
+            'testing/path|code': 'at1024',
+            'testing/path|value': 'Present'
         })
         await tick()
-        expect(select).toHaveTextContent('3. To sound')
+        expect(select).toHaveTextContent('Present')
     })
 
-    it('must work with userInput too', async () => {
-        let select = ordinal.getByLabelText(tree.name)
-        userEvent.tab()
-        expect(select).toHaveFocus()
-        userEvent.selectOptions(select, "1")
-        await tick()
-        expect(get(store)).toEqual({
-            "testing/path|code": "at0010",
-            "testing/path|ordinal": 1,
-            "testing/path|value": "None",
-        })
-    })
+    
 })
