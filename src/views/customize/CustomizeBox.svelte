@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Writable } from "svelte/store";
     import { copy } from "../../composition/utils";
-    import Global from "./Global.svelte";
+    import Composition from "./Global.svelte";
     import Leaf from "./Leaf.svelte";
     import OrdinalWriteCustomize from "./OrdinalWriteCustomize.svelte";
     export let readOnly: boolean;
@@ -9,11 +9,11 @@
     export let options;
     const components = {
         write: {
-            Global: Global,
+            COMPOSITION: Composition,
             DV_ORDINAL: OrdinalWriteCustomize,
         },
         read: {
-            Global
+            COMPOSITION: Composition
         }
         
     };

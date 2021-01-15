@@ -30,5 +30,7 @@ import { getLabel } from "../utils";
             {:else}
             <p>Tree does not have inputs</p>
             {/if}
+        {:else}
+            <p class={magnitudeClass}>-</p>
         {/if}
     </div>

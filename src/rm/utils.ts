@@ -1,6 +1,6 @@
 import {onDestroy, getContext} from 'svelte'
 import type { Writable } from 'svelte/store'
-import type {Tree, keyValue, Input} from '../types/types'
+import type {Tree, keyValue, Input, writableKeyValue, readableKeyValue} from '../types/types'
 
 export function getFullPaths(path: string, tree: Tree) :string[] {
     let paths: string[]
@@ -18,7 +18,7 @@ export function getFullPaths(path: string, tree: Tree) :string[] {
     throw new Error("Tree does not have inputs")
 }
 
-export function destroyAction(paths: string[], store: Writable<keyValue>){
+export function destroyAction(paths: string[], store: writableKeyValue){
     store.update((obj) => {
         let newObj = {...obj}
         paths.forEach(path=>{
@@ -29,7 +29,7 @@ export function destroyAction(paths: string[], store: Writable<keyValue>){
     });
 }
 
-export function triggerDestroy(paths: string[], store: Writable<keyValue>){
+export function triggerDestroy(paths: string[], store: writableKeyValue){
     onDestroy(()=>destroyAction(paths, store))
 }
 

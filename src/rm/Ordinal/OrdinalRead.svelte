@@ -1,12 +1,18 @@
 <script lang="ts">
     import type { Tree, writableKeyValue } from "../../types/types";
-    import Loading from "../helpers/Loading.svelte";
-
     import {getLabelOrdinal} from "../utils";
     export let store: writableKeyValue
     export let path: string;
     export let tree: Tree;
+    
+    /**
+     * The class for the <p> tag that the ordinal will be in
+     * @param {strong|bold} ordinalClass
+    */
     export let ordinalClass: string = "subtitle is-4 has-text-weight-bold"
+    /**
+     * @param {string} labelClass
+     */
     export let labelClass: string = "is-6 has-text-grey has-text-weight-semibold"
     let selected: number;
     let internalPath: string

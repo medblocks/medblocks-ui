@@ -1,7 +1,4 @@
-Essential:
-- Record time taken to finish transcription
-- Play ting sound on new transcription to operator
-
-Later:
-- Forms should handle non-processing and done responses (Don't show loading for missing attributes)
-- Don't show transcriptions already assigned to operators
+Tests:
+- Render elements essential
+- Change input must change store
+- Destroying component must remove paths

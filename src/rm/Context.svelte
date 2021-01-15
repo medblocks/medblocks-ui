@@ -1,14 +1,13 @@
 <script lang="ts">
-    import type { keyValue, Tree } from "../types/types";
+    import type { keyValue, readableKeyValue, Tree, writableKeyValue } from "../types/types";
     import { triggerDestroy } from "./utils";
-    import type { Writable } from "svelte/store";
     export let tree: Tree;
     export let path: string;
     export let type: string;
     export let aqlPath: string;
     export let customize: boolean = false;
     export let readOnly: boolean;
-    export let store: Writable<keyValue>
+    export let store: readableKeyValue
     export let customizeFunction: Function = (options) => console.log(options)
     if (type !== "Context") {
         throw new Error(`Context component got type ${type}`);
@@ -31,8 +30,8 @@
             break;
         case "setting":
             data = {
-                [path + "|code"]: "123",
-                [path + "|value"]: "some care",
+                [path + "|code"]: "238",
+                [path + "|value"]: "other care",
                 [path + "|terminology"]: "local",
             };
             break;
@@ -69,10 +68,10 @@
     let paths = Object.keys(data);
     if (!readOnly) {
         paths.forEach((path) => {
-            store.update((s) => ({ ...s, [path]: data[path] }));
+            (store as writableKeyValue).update((s) => ({ ...s, [path]: data[path] }));
         });
+        triggerDestroy(Object.keys(data), (store as writableKeyValue))
     }
-    triggerDestroy(Object.keys(data), store)
 </script>
 <style>
     .tag {

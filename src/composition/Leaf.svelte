@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Tree, writableKeyValue } from "../types/types";
+    import type { readableKeyValue, Tree, writableKeyValue } from "../types/types";
     import Unknown from "../rm/Unknown.svelte";
     import OrdinalWrite from "../rm/Ordinal/OrdinalWrite.svelte"
     import { sanitizeDisplayFunction } from "../rm/utils";
@@ -7,6 +7,7 @@ import QuantityWrite from "../rm/Quantity/QuantityWrite.svelte";
 import OrdinalRead from "../rm/Ordinal/OrdinalRead.svelte";
 import QuantityRead from "../rm/Quantity/QuantityRead.svelte";
 import CodedTextWrite from "../rm/CodedText/CodedTextWrite.svelte";
+import CodedTextRead from "../rm/CodedText/CodedTextRead.svelte";
     export let tree: Tree;
     export let type: string;
     export let path: string = 'no-path';
@@ -17,7 +18,7 @@ import CodedTextWrite from "../rm/CodedText/CodedTextWrite.svelte";
     export let customizeFunction: Function = (params) => console.log(params)
     export let display: boolean = true
     export let displayFunction: Function | undefined = undefined
-    export let store: writableKeyValue
+    export let store: writableKeyValue | readableKeyValue
     let internalDisplay: boolean
     $: if (displayFunction) {
         internalDisplay = sanitizeDisplayFunction(
@@ -39,7 +40,8 @@ import CodedTextWrite from "../rm/CodedText/CodedTextWrite.svelte";
                 read: QuantityRead
             },
             'DV_CODED_TEXT': {
-                write: CodedTextWrite,                
+                write: CodedTextWrite,
+                read: CodedTextRead            
             }
         }
         let  selected = components[rmType]

@@ -1,30 +1,29 @@
 <script lang="ts">
     import type {
+CompositionStore,
         keyValue,
-        Template,
+readableKeyValue,
+                Template,
         UITemplate,
         writableKeyValue,
     } from "../types/types";
     import Leaf from "./Leaf.svelte";
     import Group from "./Group.svelte";
-    import { writable } from "svelte/store";
+    import { writable, readable } from "svelte/store";
     import { createEventDispatcher} from "svelte";
     import {
         generateSchema,
-        sanitizeValues,
-        rehydrateValues,
     } from "./webtemplates";
     import Context from "../rm/Context.svelte";
 
     export let template: Template;
     export let readOnly: boolean = false;
-    export let store: writableKeyValue = writable({});
+    export let store: readableKeyValue | undefined = undefined;
     export let configuration: any;
-    export let contextStore: writableKeyValue = writable({});
     export let initialData: keyValue = {};
-    export let initialContext: keyValue = {};
     export let customize: boolean = false;
     export let customizeFunction: Function = console.log;
+    let internalStore: readableKeyValue
     let parentClass: string;
     let childClass: string;
     let error = false;
@@ -43,17 +42,19 @@
             error = true;
         }
     }
-    $: if (initialData) {
-        store.set(rehydrateValues(initialData));
-    }
-    $: if (initialContext){
-        contextStore.set(initialContext)
-    }
-    const dispatch = createEventDispatcher();
-
+    $: if (store){
+        internalStore = store
+    } else {
+        if (readOnly) {
+        internalStore = readable(initialData, (set)=>{
+            set(initialData)
+        });
+    } else {
+        internalStore = writable(initialData)
+    }}
     function submit() {
-        const contextCombined = { ...$contextStore, ...$store };
-        dispatch("done", sanitizeValues(contextCombined));
+        const dispatch = createEventDispatcher();
+        dispatch("done", $internalStore);
     }
 </script>
 
@@ -71,8 +72,8 @@
 </style>
 
 {#if customize}
-    <div class="tag" on:click={() => customizeFunction({ aqlPath: 'global', type: 'Global', path: 'global'})}>
-        GLOBAL
+    <div class="tag" on:click={() => customizeFunction({ aqlPath: 'global', type: 'COMPOSITION', path: 'global'})}>
+        COMPOSITION
     </div>
 {/if}
 <div class="box" class:bordered={customize == true}>
@@ -90,12 +91,12 @@
                             {customize}
                             {customizeFunction} 
                             {readOnly}
-                            {store}
+                            store={internalStore}
                             />
                     {:else if item.type === 'Leaf'}
-                        <Leaf {...item} {customize} {customizeFunction} {readOnly} {store}/>
+                        <Leaf {...item} {customize} {customizeFunction} {readOnly} store={internalStore}/>
                     {:else if item.type === 'Context'}
-                        <Context {...item} {readOnly} {store}/>
+                        <Context {...item} {customize} {customizeFunction} {readOnly} store={internalStore}/>
                     {:else}
                         <p>Type {item.type} not recognized</p>
                         <pre>{JSON.stringify(item, null, 2)}</pre>

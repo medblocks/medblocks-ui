@@ -6,7 +6,7 @@ import { getLabel } from "../utils";
     export let store: writableKeyValue
     export let tree: Tree
     export let wrapperClass: string = "field"
-    export let labelClass: string = "label"
+    export let labelClass: string = "is-6 has-text-grey has-text-weight-semibold"
     export let valueClass: string = "subtitle is-4 has-text-weight-bold"
 
     let terminologyPath: string
@@ -20,5 +20,11 @@ import { getLabel } from "../utils";
 
 <div class={wrapperClass}>
     <p class={labelClass}>{tree.name}</p>
-    <p class={valueClass}>{$store[valuePath]}</p>
+    <p class={valueClass}>
+        {#if $store[valuePath]}
+        {$store[valuePath]}
+        {:else}
+        -
+        {/if}
+    </p>
 </div>

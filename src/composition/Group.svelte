@@ -2,7 +2,7 @@
     import Leaf from "./Leaf.svelte";
     import Context from "../rm/Context.svelte";
     import { slide, scale } from "svelte/transition";
-    import type { Extracted, keyValue } from "../types/types";
+    import type { Extracted, readableKeyValue, writableKeyValue } from "../types/types";
     import type { Writable } from "svelte/store";
     export let type: string;
     export let path: string;
@@ -10,7 +10,7 @@
     export let repeatable: boolean;
     export let children: Extracted[];
     export let childClass = "field";
-    export let store: Writable<keyValue>
+    export let store: readableKeyValue
     export let readOnly: boolean;
     export let aqlPath: string;
     export let rmType: string

@@ -1,4 +1,4 @@
-import type { Writable } from "svelte/store"
+import type { Readable, Writable } from "svelte/store"
 
 export interface Template {
     readonly tree: Tree,
@@ -63,3 +63,17 @@ export interface UITemplate {
 }
 
 export type writableKeyValue = Writable<keyValue>
+export type readableKeyValue = Readable<keyValue>
+
+interface ReadableCompositionStore {
+    type: 'readable',
+    store: readableKeyValue
+}
+
+interface WritableCompositionStore {
+    type: 'writable',
+    store: writableKeyValue
+}
+
+export type CompositionStore = ReadableCompositionStore | WritableCompositionStore
+
