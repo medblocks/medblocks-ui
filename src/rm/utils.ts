@@ -22,6 +22,7 @@ export function destroyAction(paths: string[], store: writableKeyValue){
     store.update((obj) => {
         let newObj = {...obj}
         paths.forEach(path=>{
+            console.log("removing path", {path})
             let { [path]: _, ...excluded } = newObj;
             newObj = excluded
         })

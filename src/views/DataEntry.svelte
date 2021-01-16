@@ -68,6 +68,7 @@
                 template={currentTemplate.template}
                 configuration={currentTemplate.configuration}
                 {store}
+                initialData={{'ctx/language': 'en'}}
                 />
             {:else}
                 {#each allData as data}

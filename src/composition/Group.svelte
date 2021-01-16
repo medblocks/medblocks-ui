@@ -108,6 +108,8 @@
     {#if repeatable}
         {#each [...Array(count).keys()] as index}
             <!-- transition:slide="{{duration: 300 }}" -->
+            
+            
             <div class="field" style="box-sizing: border-box;">
                 <svelte:self
                     path={`${path}:${index}`}

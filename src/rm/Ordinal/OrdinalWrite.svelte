@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Writable } from "svelte/store";
     import type { keyValue, Tree } from "../../types/types";
-    import { onMount } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     import { triggerDestroy } from "../utils";
     // Setup
     export let store: Writable<keyValue>;
@@ -16,7 +16,13 @@
     let selected: number;
     
     // Computed
-    $: internalPath = path.replace("/ordinal_value", "");
+    $: {
+        internalPath = path.replace("/ordinal_value", "");
+        triggerDestroy(
+        ["|ordinal", "|code", "|value"].map((a) => internalPath + a),
+        store
+    );
+    }
     $: selected = $store[internalPath + "|ordinal"];
     $: if (selected) {
         if (tree.inputs && tree.inputs[0].list) {
@@ -35,15 +41,14 @@
     }
 
     //Triggers
-    triggerDestroy(
-        ["|ordinal", "|code", "|value"].map((a) => internalPath + a),
-        store
-    );
     onMount(() => {
         if (defaultOrdinal) {
             $store[internalPath + "|ordinal"] = defaultOrdinal;
         }
     });
+    onDestroy(()=>{
+        console.log("destroying ordinal", path)
+    })
 </script>
 
 <div class={wrapperClass}>

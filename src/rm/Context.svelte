@@ -1,4 +1,6 @@
 <script lang="ts">
+import { onDestroy } from "svelte";
+
     import type { keyValue, readableKeyValue, Tree, writableKeyValue } from "../types/types";
     import { triggerDestroy } from "./utils";
     export let tree: Tree;
@@ -31,8 +33,8 @@
         case "setting":
             data = {
                 [path + "|code"]: "238",
-                [path + "|value"]: "other care",
-                [path + "|terminology"]: "local",
+                [path + "|value"]: "Other Care",
+                [path + "|terminology"]: "openehr",
             };
             break;
         case "language":

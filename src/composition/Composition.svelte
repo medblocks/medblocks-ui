@@ -1,11 +1,10 @@
 <script lang="ts">
     import type {
-CompositionStore,
-        keyValue,
-readableKeyValue,
+                keyValue,
+        readableKeyValue,
                 Template,
         UITemplate,
-        writableKeyValue,
+writableKeyValue,
     } from "../types/types";
     import Leaf from "./Leaf.svelte";
     import Group from "./Group.svelte";
@@ -44,6 +43,9 @@ readableKeyValue,
     }
     $: if (store){
         internalStore = store
+        if (!readOnly){
+            (internalStore as writableKeyValue).update(s=>({...s, ...initialData}))
+        }
     } else {
         if (readOnly) {
         internalStore = readable(initialData, (set)=>{
@@ -84,6 +86,7 @@ readableKeyValue,
         {#if !error}
             <div class={parentClass}>
                 {#each uiTemplate.schema as item}
+                {#key item.path}
                     {#if item.type === 'Group'}
                         <Group
                             {...item}
@@ -101,6 +104,7 @@ readableKeyValue,
                         <p>Type {item.type} not recognized</p>
                         <pre>{JSON.stringify(item, null, 2)}</pre>
                     {/if}
+                {/key}
                 {/each}
             </div>
         {:else}
