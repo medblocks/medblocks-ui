@@ -1,4 +1,0 @@
-Tests:
-- Render elements essential
-- Change input must change store
-- Destroying component must remove paths
