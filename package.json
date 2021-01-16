@@ -54,7 +54,6 @@
     "axios": "^0.21.1",
     "localforage": "^1.9.0",
     "rxjs": "^6.6.3",
-    "serialize-javascript": "^5.0.1",
     "svelte-spa-router": "^3.1.0"
   }
 }
