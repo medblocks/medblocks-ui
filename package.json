@@ -1,13 +1,14 @@
 {
   "name": "medblocks-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public",
     "test": "jest",
     "validate": "svelte-check",
-    "deploy": "npm run build && firebase deploy --only hosting"
+    "deploy": "npm publish",
+    "release": "standard-version"
   },
   "svelte": "src/main.ts",
   "devDependencies": {
@@ -55,5 +56,10 @@
     "localforage": "^1.9.0",
     "rxjs": "^6.6.3",
     "svelte-spa-router": "^3.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sidharthramesh/openUI.git"
+  },
+  "license": "Apache-2.0"
 }
