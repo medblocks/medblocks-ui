@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Writable } from "svelte/store";
     import type { keyValue, Tree } from "../../types/types";
-    import { onDestroy, onMount } from "svelte";
+    import { onMount } from "svelte";
     import { triggerDestroy } from "../utils";
     // Setup
     export let store: Writable<keyValue>;
@@ -46,9 +46,6 @@
             $store[internalPath + "|ordinal"] = defaultOrdinal;
         }
     });
-    onDestroy(()=>{
-        console.log("destroying ordinal", path)
-    })
 </script>
 
 <div class={wrapperClass}>

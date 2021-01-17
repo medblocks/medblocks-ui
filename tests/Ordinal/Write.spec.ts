@@ -6,7 +6,7 @@ import type { writableKeyValue } from "../../src/types/types"
 import { tick } from "svelte"
 import { rawTree } from "./webtemplate"
 import { mockChanges } from "../utils"
-describe('Basic Write - Leaf', () => {
+describe('basic', () => {
     let ordinal: RenderResult
     let store: writableKeyValue
     let tree
@@ -22,7 +22,7 @@ describe('Basic Write - Leaf', () => {
         }
         ordinal = render(Leaf, { props })
     })
-    it('must render all options', () => {
+    it('must render essential visual elements', () => {
         const options = ordinal.getAllByRole("option")
         expect(options.map(option => option.textContent)).toEqual([
             'Select an option',
@@ -32,7 +32,7 @@ describe('Basic Write - Leaf', () => {
             '4. Spontaneous'
         ])
     })
-    it('must select correct values', async () => {
+    it('must change store on input change', async () => {
         let select = ordinal.getByLabelText(tree.name)
         expect(select).toBeInTheDocument()
         expect(select).toHaveTextContent('Select an option')
@@ -45,7 +45,7 @@ describe('Basic Write - Leaf', () => {
         })
     })
 
-    it('it must display correct value', async () => {
+    it('must display correct values from store', async () => {
         let select = ordinal.getByLabelText(tree.name)
         store.set({
             'testing/path|ordinal': 3,
@@ -55,8 +55,23 @@ describe('Basic Write - Leaf', () => {
         await tick()
         expect(select).toHaveTextContent('3. To sound')
     })
+
+    it('must remove all related paths on destroying the component', async ()=> {
+        let select = ordinal.getByLabelText(tree.name)
+        expect(select).toBeInTheDocument()
+        expect(select).toHaveTextContent('Select an option')
+        await fireEvent.change(select, { target: { value: "2" } })
+        expect(select).toHaveTextContent('2. To pressure')
+        expect(get(store)).toEqual({
+            'testing/path|ordinal': 2,
+            'testing/path|code': 'at0011',
+            'testing/path|value': 'To pressure'
+        })
+        ordinal.unmount()
+        expect(get(store)).toEqual({})
+    })
 })
-describe('Advanced Write', () => {
+describe('advanced', () => {
     let tree = mockChanges(rawTree)
     it('must display defaultOrdinal', async () => {
         let store = writable({})

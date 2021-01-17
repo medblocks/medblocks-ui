@@ -20,8 +20,6 @@
             if (typeof keyValues[p] != "undefined" && keyValues[p] !== null){
                 if (p.includes(path)){
                     return true
-                } else {
-                    console.log({p, path})
                 }
             }
             return false

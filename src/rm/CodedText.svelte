@@ -14,7 +14,6 @@
     if (tree.inputs && tree.inputs[0] && tree.inputs[0].terminology) {
         terminology = tree.inputs[0].terminology;
     }
-    console.log(tree);
     let readOnly: boolean;
     $: {
         ({ readOnly } = initialize(path, tree));
