@@ -1,5 +1,4 @@
 <script lang="ts">
-import { onDestroy } from "svelte";
 
     import type { keyValue, readableKeyValue, Tree, writableKeyValue } from "../types/types";
     import { triggerDestroy } from "./utils";
@@ -16,61 +15,81 @@ import { onDestroy } from "svelte";
     }
     let processed = true;
     let data: keyValue;
-    switch (tree.id) {
-        case "start_time":
-        case "time":
-            data = {
-                [path]: new Date().toISOString(),
-            };
-            break;
-        case "category":
-            data = {
-                [path + "|code"]: "433",
-                [path + "|value"]: "event",
-                [path + "|terminology"]: "openehr",
-            };
-            break;
-        case "setting":
-            data = {
-                [path + "|code"]: "238",
-                [path + "|value"]: "Other Care",
-                [path + "|terminology"]: "openehr",
-            };
-            break;
-        case "language":
-            data = {
-                [path + "|code"]: "en",
-                [path + "|terminology"]: "ISO_639-1",
-            };
-            break;
-        case "territory":
-            data = {
-                [path + "|code"]: "IN",
-                [path + "|terminology"]: "ISO_3166-1",
-            };
-            break;
-        case "encoding":
-            data = {
-                [path + "|code"]: "UTF-8",
-                [path + "|terminology"]: "IANA_character-sets",
-            };
-            break;
-        case "composer":
-            data = {
-                [path + "|name"]: "Sidharth Ramesh",
-            };
-            break;
-        case "subject":
-            data = {};
-            break;
-        default:
-            processed = false;
-            data = {};
+    const checkIfPathIsUsed = (path, keyValues: keyValue): boolean => {
+        return Object.keys(keyValues).some(p=>{
+            if (typeof keyValues[p] != "undefined" && keyValues[p] !== null){
+                if (p.includes(path)){
+                    return true
+                } else {
+                    console.log({p, path})
+                }
+            }
+            return false
+        }
+        )
     }
-    let paths = Object.keys(data);
-    if (!readOnly) {
+    let active: boolean
+    let parentPath: string
+    $: parentPath = path.replace(`/${tree.id}`, "")
+    $: active = checkIfPathIsUsed(parentPath, $store)
+
+    $:if(active && !readOnly){
+        switch (tree.id) {
+            case "start_time":
+            case "time":
+                data = {
+                    [path]: new Date().toISOString(),
+                };
+                break;
+            case "category":
+                data = {
+                    [path + "|code"]: "433",
+                    [path + "|value"]: "event",
+                    [path + "|terminology"]: "openehr",
+                };
+                break;
+            case "setting":
+                data = {
+                    [path + "|code"]: "238",
+                    [path + "|value"]: "Other Care",
+                    [path + "|terminology"]: "openehr",
+                };
+                break;
+            case "language":
+                data = {
+                    [path + "|code"]: "en",
+                    [path + "|terminology"]: "ISO_639-1",
+                };
+                break;
+            case "territory":
+                data = {
+                    [path + "|code"]: "IN",
+                    [path + "|terminology"]: "ISO_3166-1",
+                };
+                break;
+            case "encoding":
+                data = {
+                    [path + "|code"]: "UTF-8",
+                    [path + "|terminology"]: "IANA_character-sets",
+                };
+                break;
+            case "composer":
+                data = {
+                    [path + "|name"]: "Sidharth Ramesh",
+                };
+                break;
+            case "subject":
+                data = {};
+                break;
+            default:
+                processed = false;
+                data = {};
+        }
+        let paths = Object.keys(data);
         paths.forEach((path) => {
-            (store as writableKeyValue).update((s) => ({ ...s, [path]: data[path] }));
+            if (!$store[path]){
+                (store as writableKeyValue).update((s) => ({ ...s, [path]: data[path] }));
+            }
         });
         triggerDestroy(Object.keys(data), (store as writableKeyValue))
     }
