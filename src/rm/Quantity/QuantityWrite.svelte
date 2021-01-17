@@ -1,4 +1,5 @@
 <script lang="ts">
+
 import type { Tree, writableKeyValue } from "../../types/types";
 import { triggerDestroy } from "../utils";
 
@@ -13,8 +14,11 @@ import { triggerDestroy } from "../utils";
     let unitPath: string
     let magnitudePath: string
     let magnitudeStoreValue: number
-    $: unitPath = path + '|unit'
-    $: magnitudePath = path + '|magnitude'
+    $: {
+        unitPath = path + '|unit'
+        magnitudePath = path + '|magnitude'
+        triggerDestroy([unitPath, magnitudePath], store)
+    }
     $: magnitudeStoreValue = $store[magnitudePath]
     $: {
         if (typeof magnitudeStoreValue != 'undefined') {
@@ -28,7 +32,6 @@ import { triggerDestroy } from "../utils";
         }
     }
 
-    triggerDestroy([unitPath, magnitudePath], store)
 </script>
 
 <div class={wrapperClass}>

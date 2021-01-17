@@ -6,6 +6,8 @@ import type { writableKeyValue } from "../../src/types/types"
 import { tick } from "svelte"
 import { rawTree } from "./webtemplate"
 import { mockChanges } from "../utils"
+import userEvent from '@testing-library/user-event'
+
 describe('basic', () => {
     let component: RenderResult
     let store: writableKeyValue
