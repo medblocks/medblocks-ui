@@ -10,7 +10,6 @@ describe('it should render a component', () => {
             readOnly: false
         }
         const composition = render(Composition, { props })
-        const selects = composition.getAllByText(/not yet implemented/)
-        expect(selects.length).toBeGreaterThan(0)
+        expect(()=>composition.getAllByText(/not yet implemented/)).toThrow()
     })
 })

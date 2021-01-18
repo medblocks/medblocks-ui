@@ -9,6 +9,7 @@ import QuantityRead from "../rm/Quantity/QuantityRead.svelte";
 import CodedTextWrite from "../rm/CodedText/CodedTextWrite.svelte";
 import CodedTextRead from "../rm/CodedText/CodedTextRead.svelte";
 import TextWrite from "../rm/Text/TextWrite.svelte";
+import CountWrite from "../rm/Count/CountWrite.svelte";
     export let tree: Tree;
     export let type: string;
     export let path: string = 'no-path';
@@ -46,6 +47,9 @@ import TextWrite from "../rm/Text/TextWrite.svelte";
             },
             'DV_TEXT': {
                 write: TextWrite
+            },
+            'DV_COUNT': {
+                write: CountWrite
             }
         }
         let  selected = components[rmType]

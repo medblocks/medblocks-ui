@@ -10,7 +10,7 @@ import { triggerDestroy } from "../utils";
     export let labelClass: string = "label"
     export let textAreaClass: string = "textarea"
 
-    triggerDestroy([path], store)
+    $: triggerDestroy([path], store)
 </script>
 
 <div class={wrapperClass}>
