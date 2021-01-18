@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Tree, writableKeyValue } from "../../types/types";
+import { triggerDestroy } from "../utils";
 
 
     export let path: string
@@ -8,6 +9,8 @@ import type { Tree, writableKeyValue } from "../../types/types";
     export let wrapperClass: string = "field"
     export let labelClass: string = "label"
     export let textAreaClass: string = "textarea"
+
+    triggerDestroy([path], store)
 </script>
 
 <div class={wrapperClass}>

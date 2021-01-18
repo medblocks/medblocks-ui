@@ -8,6 +8,7 @@ import OrdinalRead from "../rm/Ordinal/OrdinalRead.svelte";
 import QuantityRead from "../rm/Quantity/QuantityRead.svelte";
 import CodedTextWrite from "../rm/CodedText/CodedTextWrite.svelte";
 import CodedTextRead from "../rm/CodedText/CodedTextRead.svelte";
+import TextWrite from "../rm/Text/TextWrite.svelte";
     export let tree: Tree;
     export let type: string;
     export let path: string = 'no-path';
@@ -42,6 +43,9 @@ import CodedTextRead from "../rm/CodedText/CodedTextRead.svelte";
             'DV_CODED_TEXT': {
                 write: CodedTextWrite,
                 read: CodedTextRead            
+            },
+            'DV_TEXT': {
+                write: TextWrite
             }
         }
         let  selected = components[rmType]
