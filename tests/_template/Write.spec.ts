@@ -24,7 +24,7 @@ describe('basic', () => {
         }
         component = render(Leaf, { props })
     })
-    it('must render essential visual elements', () => {
+    it('must render essential visual elements', async () => {
     
     })
     it('must change store on input change', async () => {

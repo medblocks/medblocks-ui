@@ -25,18 +25,44 @@ describe('basic', () => {
         component = render(Leaf, { props })
     })
     it('must display label and null value when no input', async () => {
-        
+        expect(component.getByText('Total score')).toBeInTheDocument()
+        expect(component.getByText('-')).toBeInTheDocument()
     })
     it('must render value and label given an input', async () => {
-    
+        store.set({
+            'testing/path': 40
+        })
+        await tick()
+        expect(component.getByText('Total score')).toBeInTheDocument()
+        expect(component.getByText('40')).toBeInTheDocument()
+
     })
     it('must react to input change and change value', async () => {
-    
+        store.set({
+            'testing/path': 40
+        })
+        await tick()
+        expect(component.getByText('Total score')).toBeInTheDocument()
+        expect(component.getByText('40')).toBeInTheDocument()
+        store.set({
+            'testing/path': 32
+        })
+        await tick()
+        expect(component.getByText('32')).toBeInTheDocument()
     })
 
 
     it('must not change the store in any way', async ()=> {
-
+        store.set({
+            'testing/path': 40
+        })
+        await tick()
+        expect(component.getByText('Total score')).toBeInTheDocument()
+        expect(component.getByText('40')).toBeInTheDocument()
+        component.unmount()
+        expect(get(store)).toEqual({
+            'testing/path': 40
+        })
     })
 })
 
