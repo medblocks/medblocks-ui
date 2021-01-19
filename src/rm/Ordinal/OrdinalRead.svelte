@@ -22,15 +22,17 @@
 
 <div class="field">
         <p class={labelClass}>{tree.name}</p>
-        {#if selected}
             {#if tree.inputs}
             <p class={ordinalClass}>
-                    {$store[internalPath + '|ordinal']} - {getLabelOrdinal($store[internalPath + '|ordinal'], tree.inputs[0])}
+                {#if selected}
+                {$store[internalPath + '|ordinal']} - {getLabelOrdinal($store[internalPath + '|ordinal'], tree.inputs[0])}
+                {:else}
+                -
+                {/if}
             </p>
             {:else}
                 <p>
                     No inputs found in tree
                 </p>
             {/if}
-        {/if}
 </div>
