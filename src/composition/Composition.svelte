@@ -1,9 +1,11 @@
 <script lang="ts">
     import type {
+Extracted,
                 keyValue,
         readableKeyValue,
                 Template,
-        UITemplate,
+Tree,
+                UITemplate,
 writableKeyValue,
     } from "../types/types";
     import Leaf from "./Leaf.svelte";
@@ -27,9 +29,18 @@ writableKeyValue,
     let childClass: string;
     let error = false;
     let uiTemplate: UITemplate;
+    let contextItems: Extracted[]
+    let groupLeafItems: Extracted[]
+    const dispatch = createEventDispatcher();
+    function partition(array: Extracted[], isValid: (a: Extracted)=>boolean): [Extracted[], Extracted[]] {
+        return array.reduce(([pass, fail], elem) => {
+            return isValid(elem) ? [[...pass, elem], fail] : [pass, [...fail, elem]];
+        }, [[], []]);
+        }
     $: {
         try {
             uiTemplate = generateSchema(template, configuration);
+            ([contextItems, groupLeafItems] = partition(uiTemplate.schema, s=>s.type === 'Context'))
             if (uiTemplate.options.horizontal) {
                 parentClass = "columns";
                 childClass = "column";
@@ -41,21 +52,15 @@ writableKeyValue,
             error = true;
         }
     }
-    $: if (store){
+    if (store){
         internalStore = store
-        if (!readOnly){
-            (internalStore as writableKeyValue).update(s=>({...s, ...initialData}))
-        }
-    } else {
-        if (readOnly) {
-        internalStore = readable(initialData, (set)=>{
-            set(initialData)
-        });
+        // if (!readOnly){
+        //     (internalStore as writableKeyValue).update(s=>({...s, ...initialData}))
+        // }
     } else {
         internalStore = writable(initialData)
-    }}
+    }
     function submit() {
-        const dispatch = createEventDispatcher();
         dispatch("done", $internalStore);
     }
 </script>
@@ -85,7 +90,7 @@ writableKeyValue,
         </h1>
         {#if !error}
             <div class={parentClass}>
-                {#each uiTemplate.schema as item}
+                {#each groupLeafItems as item}
                 {#key item.path}
                     {#if item.type === 'Group'}
                         <Group
@@ -98,13 +103,16 @@ writableKeyValue,
                             />
                     {:else if item.type === 'Leaf'}
                         <Leaf {...item} {customize} {customizeFunction} {readOnly} store={internalStore}/>
-                    {:else if item.type === 'Context'}
-                        <Context {...item} {customize} {customizeFunction} {readOnly} store={internalStore}/>
                     {:else}
                         <p>Type {item.type} not recognized</p>
                         <pre>{JSON.stringify(item, null, 2)}</pre>
                     {/if}
                 {/key}
+                {/each}
+            </div>
+            <div class="field">
+                {#each contextItems as item}
+                <Context {...item} {customize} {customizeFunction} {readOnly} store={internalStore}/>
                 {/each}
             </div>
         {:else}

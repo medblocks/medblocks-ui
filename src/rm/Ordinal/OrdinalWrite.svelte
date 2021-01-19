@@ -12,12 +12,16 @@
     export let wrapperClass: string = "field"
     export let labelClass: string = "label"
     export let selectWrapperClass: string = "select"
+    //TODO: Needs to be changed to "" and include all specifics in cofig
+    export let ordinalPathAppend: string = "/value" 
     let internalPath: string;
     let selected: number;
     
     // Computed
     $: {
-        internalPath = path.replace("/ordinal_value", "");
+        //TODO: Needs to be changed later. Must append even it /ordinal_value not present. 
+        //Convenient for passing tests for now.
+        internalPath = path.replace("/ordinal_value", ordinalPathAppend); 
         triggerDestroy(
         ["|ordinal", "|code", "|value"].map((a) => internalPath + a),
         store

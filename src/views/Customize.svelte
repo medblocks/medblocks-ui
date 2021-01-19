@@ -81,7 +81,7 @@
                     configuration={$currentConfiguration}
                     customize={true}
                     {customizeFunction}
-                    {store} 
+                    {store}
                     {readOnly}
                     />
             </div>

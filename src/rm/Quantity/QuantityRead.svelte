@@ -9,7 +9,7 @@ import { getLabel } from "../utils";
         export let wrapperClass: string = "field"
         export let labelClass: string = "is-6 has-text-grey has-text-weight-semibold"
         export let unitClass: string = ""
-        export let magnitudeClass: string = "subtitle is-4 has-text-weight-bold"
+        export let magnitudeClass: string = "subtitle is-5"
         let unitPath: string
         let magnitudePath: string
         $: unitPath = path + '|unit'

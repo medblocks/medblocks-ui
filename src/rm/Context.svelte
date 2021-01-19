@@ -1,7 +1,7 @@
 <script lang="ts">
 
     import type { keyValue, readableKeyValue, Tree, writableKeyValue } from "../types/types";
-    import { triggerDestroy } from "./utils";
+    import { destroyAction, triggerDestroy } from "./utils";
     export let tree: Tree;
     export let path: string;
     export let type: string;
@@ -14,7 +14,7 @@
         throw new Error(`Context component got type ${type}`);
     }
     let processed = true;
-    let data: keyValue;
+    let data: keyValue = {}
     const checkIfPathIsUsed = (path, keyValues: keyValue): boolean => {
         return Object.keys(keyValues).some(p=>{
             if (typeof keyValues[p] != "undefined" && keyValues[p] !== null){
@@ -28,68 +28,70 @@
     }
     let active: boolean
     let parentPath: string
-    $: parentPath = path.replace(`/${tree.id}`, "")
+    $: parentPath = path.replace(`/${tree.id}`, "").replace("context", "")
     $: active = checkIfPathIsUsed(parentPath, $store)
 
-    $:if(active && !readOnly){
-        switch (tree.id) {
-            case "start_time":
-            case "time":
-                data = {
-                    [path]: new Date().toISOString(),
-                };
-                break;
-            case "category":
-                data = {
-                    [path + "|code"]: "433",
-                    [path + "|value"]: "event",
-                    [path + "|terminology"]: "openehr",
-                };
-                break;
-            case "setting":
-                data = {
-                    [path + "|code"]: "238",
-                    [path + "|value"]: "Other Care",
-                    [path + "|terminology"]: "openehr",
-                };
-                break;
-            case "language":
-                data = {
-                    [path + "|code"]: "en",
-                    [path + "|terminology"]: "ISO_639-1",
-                };
-                break;
-            case "territory":
-                data = {
-                    [path + "|code"]: "IN",
-                    [path + "|terminology"]: "ISO_3166-1",
-                };
-                break;
-            case "encoding":
-                data = {
-                    [path + "|code"]: "UTF-8",
-                    [path + "|terminology"]: "IANA_character-sets",
-                };
-                break;
-            case "composer":
-                data = {
-                    [path + "|name"]: "Sidharth Ramesh",
-                };
-                break;
-            case "subject":
-                data = {};
-                break;
-            default:
-                processed = false;
-                data = {};
-        }
-        let paths = Object.keys(data);
-        paths.forEach((path) => {
-            if (!$store[path]){
-                (store as writableKeyValue).update((s) => ({ ...s, [path]: data[path] }));
+    $:if(active){
+        if (!readOnly){
+            switch (tree.id) {
+                case "start_time":
+                case "time":
+                    data = {
+                        [path]: new Date().toISOString(),
+                    };
+                    break;
+                case "category":
+                    data = {
+                        [path + "|code"]: "433",
+                        [path + "|value"]: "event",
+                        [path + "|terminology"]: "openehr",
+                    };
+                    break;
+                case "setting":
+                    data = {
+                        [path + "|code"]: "238",
+                        [path + "|value"]: "Other Care",
+                        [path + "|terminology"]: "openehr",
+                    };
+                    break;
+                case "language":
+                    data = {
+                        [path + "|code"]: "en",
+                        [path + "|terminology"]: "ISO_639-1",
+                    };
+                    break;
+                case "territory":
+                    data = {
+                        [path + "|code"]: "IN",
+                        [path + "|terminology"]: "ISO_3166-1",
+                    };
+                    break;
+                case "encoding":
+                    data = {
+                        [path + "|code"]: "UTF-8",
+                        [path + "|terminology"]: "IANA_character-sets",
+                    };
+                    break;
+                case "composer":
+                    data = {
+                        [path + "|name"]: "Sidharth Ramesh",
+                    };
+                    break;
+                case "subject":
+                    data = {};
+                    break;
+                default:
+                    processed = false;
+                    data = {};
             }
-        });
-        triggerDestroy(Object.keys(data), (store as writableKeyValue))
+            let paths = Object.keys(data);
+            paths.forEach((path) => {
+                if (!$store[path]){
+                    (store as writableKeyValue).update((s) => ({ ...s, [path]: data[path] }));
+                }
+            });
+            triggerDestroy(Object.keys(data), (store as writableKeyValue))
+        }
     }
 </script>
 <style>

@@ -10,7 +10,7 @@ import type { readableKeyValue, Tree } from "../../types/types";
 
 <div class="field">
     <p class="is-6 has-text-grey has-text-weight-semibold">{tree.name}</p>
-    <p class="subtitle is-4 has-text-weight-bold">
+    <p class="subtitle is-5">
         {#if $store[path]}
         {$store[path]}
         {:else}

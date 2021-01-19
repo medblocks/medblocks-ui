@@ -8,7 +8,7 @@
     </script>
     
     <div class="field">
-        <p class="is-6 has-text-grey has-text-weight-semibold">{tree.name}</p>
+        <h1 class="is-6 has-text-grey has-text-weight-semibold">{tree.name}</h1>
         <p class="subtitle is-5">
             {#if $store[path]}
             {$store[path]}

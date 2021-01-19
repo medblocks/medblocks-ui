@@ -9,6 +9,7 @@
     let activeTemplates: TemplateConfig[];
     
     import { defaultConfig, getConfig } from "./config";
+import App from "../App.svelte";
     let config = writable(defaultConfig)
     onMount(async ()=>{
         config.set(await getConfig())
@@ -21,7 +22,7 @@
     let readOnly = true;
     interface composition {
         data: keyValue;
-        template: Template;
+        template: TemplateConfig;
     }
     let allData: composition[] = [];
 
@@ -30,7 +31,7 @@
             allData = [
                 ...allData,
                 {
-                    template: template.template,
+                    template,
                     data,
                 },
             ];
@@ -69,15 +70,16 @@
                 configuration={currentTemplate.configuration}
                 {store}
                 initialData={{'ctx/language': 'en'}}
+                on:done={e=>createComposition(currentTemplate, e.detail)}
                 />
             {:else}
                 {#each allData as data}
                     {#key readOnly + JSON.stringify(data.template)}
                         <Composition
-                            template={data.template}
+                            template={data.template.template}
+                            configuration={data.template.configuration}
                             initialData={data.data}
                             {readOnly}/>
-                        
                     {/key}
                 {/each}
             {/if}

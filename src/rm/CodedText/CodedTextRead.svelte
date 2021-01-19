@@ -7,7 +7,8 @@ import { getLabel } from "../utils";
     export let tree: Tree
     export let wrapperClass: string = "field"
     export let labelClass: string = "is-6 has-text-grey has-text-weight-semibold"
-    export let valueClass: string = "subtitle is-4 has-text-weight-bold"
+    export let valueClass: string = "subtitle is-5"
+
 
     let terminologyPath: string
     let codePath: string

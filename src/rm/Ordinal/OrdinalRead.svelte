@@ -4,19 +4,19 @@
     export let store: writableKeyValue
     export let path: string;
     export let tree: Tree;
-    
+    export let ordinalPathAppend: string = "/value"
     /**
      * The class for the <p> tag that the ordinal will be in
      * @param {strong|bold} ordinalClass
     */
-    export let ordinalClass: string = "subtitle is-4 has-text-weight-bold"
+    export let ordinalClass: string = "subtitle is-5"
     /**
      * @param {string} labelClass
      */
-    export let labelClass: string = "is-6 has-text-grey has-text-weight-semibold"
+    export let labelClass: string = "has-text-grey has-text-weight-semibold is-size-6"
     let selected: number;
     let internalPath: string
-    $: internalPath = path.replace("/ordinal_value", "")
+    $: internalPath = path.replace("/ordinal_value", ordinalPathAppend)
     $: selected = $store[internalPath + '|ordinal'];
 </script>
 
