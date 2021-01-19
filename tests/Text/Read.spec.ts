@@ -25,18 +25,46 @@ describe('basic', () => {
         component = render(Leaf, { props })
     })
     it('must display label and null value when no input', async () => {
-
+        expect(component.getByText('Comment')).toBeInTheDocument()
+        expect(component.getByText('-')).toBeInTheDocument()
     })
     it('must render value and label given an input', async () => {
-    
+        store.set({
+            'testing/path': "Hello mom!"
+        })
+        await tick()
+        expect(component.getByText('Comment')).toBeInTheDocument()
+        expect(component.getByText("Hello mom!")).toBeInTheDocument()
+
     })
     it('must react to input change and change value', async () => {
-    
+        store.set({
+            'testing/path': "Hello mom!"
+        })
+        await tick()
+        expect(component.getByText('Comment')).toBeInTheDocument()
+        expect(component.getByText("Hello mom!")).toBeInTheDocument()
+        store.set({
+            'testing/path': "Hello dad!"
+        })
+        await tick()
+        expect(component.getByText('Comment')).toBeInTheDocument()
+        expect(component.getByText("Hello dad!")).toBeInTheDocument()
+
     })
 
 
     it('must not change the store in any way', async ()=> {
-
+        store.set({
+            'testing/path': "Hello mom!"
+        })
+        await tick()
+        expect(component.getByText('Comment')).toBeInTheDocument()
+        expect(component.getByText("Hello mom!")).toBeInTheDocument()
+        component.unmount()
+        expect(get(store)).toEqual({
+            'testing/path': "Hello mom!"
+        })
     })
 })
 

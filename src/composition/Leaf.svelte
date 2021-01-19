@@ -11,6 +11,7 @@ import CodedTextRead from "../rm/CodedText/CodedTextRead.svelte";
 import TextWrite from "../rm/Text/TextWrite.svelte";
 import CountWrite from "../rm/Count/CountWrite.svelte";
 import CountRead from "../rm/Count/CountRead.svelte";
+import TextRead from "../rm/Text/TextRead.svelte";
     export let tree: Tree;
     export let type: string;
     export let path: string = 'no-path';
@@ -47,7 +48,8 @@ import CountRead from "../rm/Count/CountRead.svelte";
                 read: CodedTextRead            
             },
             'DV_TEXT': {
-                write: TextWrite
+                write: TextWrite,
+                read: TextRead
             },
             'DV_COUNT': {
                 write: CountWrite,
