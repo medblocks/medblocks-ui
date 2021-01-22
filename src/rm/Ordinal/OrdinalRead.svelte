@@ -24,8 +24,8 @@
         <p class={labelClass}>{tree.name}</p>
             {#if tree.inputs}
             <p class={ordinalClass}>
-                {#if selected}
-                {$store[internalPath + '|ordinal']} - {getLabelOrdinal($store[internalPath + '|ordinal'], tree.inputs[0])}
+                {#if typeof selected !== 'undefined'}
+                {selected} - {getLabelOrdinal($store[internalPath + '|ordinal'], tree.inputs[0])}
                 {:else}
                 -
                 {/if}
