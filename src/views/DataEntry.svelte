@@ -4,12 +4,12 @@
     import Composition from "../composition/Composition.svelte";
     import type { keyValue, Template, UITemplate } from "../types/types";
     import type {TemplateConfig} from "./config"
-    import BackButton from "./BackButton.svelte";
     import Patient from "./Patient.svelte";
     let activeTemplates: TemplateConfig[];
     
     import { defaultConfig, getConfig } from "./config";
 import App from "../App.svelte";
+import Navbar from "./Navbar.svelte";
     let config = writable(defaultConfig)
     onMount(async ()=>{
         config.set(await getConfig())
@@ -41,7 +41,7 @@ import App from "../App.svelte";
     };
 </script>
 
-<BackButton href="/settings">Settings</BackButton>
+<Navbar>Data entry</Navbar>
 <Patient>
     <div class="tabs">
         <ul>

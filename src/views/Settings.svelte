@@ -3,7 +3,7 @@
     import ListTemplates from "./settings/ListTemplates.svelte";
     import Upload from "./settings/Upload.svelte"
     import { onMount } from "svelte";
-    import BackButton from "./BackButton.svelte";
+    import Navbar from "./Navbar.svelte";
     import { defaultConfig, getConfig, setConfig } from "./config";
     import { writable } from "svelte/store";
     
@@ -48,7 +48,8 @@
     let inSync: boolean
     $: inSync = $config.demographics == demographics && $config.terminology == terminology && $config.ehr == ehr
 </script>
-<BackButton href="/">Go Back</BackButton>
+
+<Navbar></Navbar>
 <section class="section">
     <div class="container">
         <h1 class="title">Settings</h1>

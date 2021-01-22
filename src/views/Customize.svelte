@@ -1,7 +1,7 @@
 <script lang="ts">
     export let params: {templateIndex?: string} = {}
     import type { TemplateConfig } from './config';
-    import BackButton from './BackButton.svelte'
+    import Navbar from './Navbar.svelte'
     import { writable } from 'svelte/store';
     import { onMount } from 'svelte';
     import { defaultConfig, getConfig, setConfig } from "./config";
@@ -66,7 +66,7 @@
         background-color: lightcyan;
     }
 </style>
-<BackButton href="/settings">Go Back</BackButton>
+<Navbar></Navbar>
 <section class="section">
     <div class="container">
         <h1 class="title">Settings</h1>
