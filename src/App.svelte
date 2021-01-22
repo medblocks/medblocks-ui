@@ -13,7 +13,7 @@ const routes = {
 
 
 <svelte:head>
-    <title>Medblocks Forms</title>
+    <title>Medblocks UI</title>
 </svelte:head>
 
 <Router {routes}/>
