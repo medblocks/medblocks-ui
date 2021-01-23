@@ -3,14 +3,13 @@
     import { copy } from "../../composition/utils";
     import Composition from "./Global.svelte";
     import Leaf from "./Leaf.svelte";
-    import OrdinalWriteCustomize from "./OrdinalWriteCustomize.svelte";
+
     export let readOnly: boolean;
     export let configurationStore: Writable<any>;
     export let options;
     const components = {
         write: {
             COMPOSITION: Composition,
-            DV_ORDINAL: OrdinalWriteCustomize,
         },
         read: {
             COMPOSITION: Composition
@@ -24,7 +23,7 @@
 </script>
 
 
-<p class="label">{options.type}: {readOnly?'Read':'Write'} mode</p>
+<p class="label">{options.type}</p>
 <div class="field">
     <div class="buttons">
     <button
@@ -41,7 +40,7 @@
 </div>
 {#key options.aqlPath + readOnly}
     <svelte:component
-        this={components[readOnly?'read':'write'][options.type] || Leaf}
+        this={components[readOnly?'read':'write'][options.type]}
         {configurationStore}
         {...options} />
 {/key}

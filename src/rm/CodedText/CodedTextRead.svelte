@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Tree, writableKeyValue } from "../../types/types";
 import { getLabel } from "../utils";
-
+    
     export let path: string
     export let store: writableKeyValue
     export let tree: Tree

@@ -14,7 +14,6 @@ paths.filter(p=>p.isDirectory() && p.name !== 'helpers').forEach(p=>{
         write: `${root}/${p.name}/${p.name}Write.svelte`,
     }
 })
-console.log(files)
 
 function getDocs(path) {
     try {
@@ -24,7 +23,10 @@ function getDocs(path) {
             console.log(`${path}: No docs found`)
             return []
         }
-        const parsed = matches.map(m=>doctrine.parse(m, {unwrap: true}))
+        if (matches.length > 1) {
+            console.warn(`${path}: Found multiple JSDocs in component`)
+        }
+        const parsed = matches.map(m=>doctrine.parse(m, {unwrap: true}))[0]['tags']
         return parsed
     }
     catch (e) {
@@ -32,6 +34,8 @@ function getDocs(path) {
     }
 
 }
+
+console.log("JsDocs: start")
 let parsed = {}
 Object.keys(files).forEach(key=>{
     parsed[key] = {
@@ -40,3 +44,4 @@ Object.keys(files).forEach(key=>{
     }
 })
 fs.writeFileSync('./jsdocs.json', JSON.stringify(parsed, null, 2))
+console.log("JsDocs: finished")

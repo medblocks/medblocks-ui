@@ -15,10 +15,10 @@ import { hash } from "posthtml-hash";
 import htmlnano from "htmlnano";
 import rimraf from "rimraf";
 import {liveServer} from 'rollup-plugin-live-server'
+import json from "@rollup/plugin-json"
 
 const production = !process.env.ROLLUP_WATCH;
 const OUT_DIR = "build";
-
 function hashStatic() {
 	return {
 	  name: "hash-static",
@@ -62,6 +62,7 @@ export default {
 			},
 			preprocess: sveltePreprocess(),
 		}),
+		json(),
 		scss({
 			processor: css => postcss(
 				[purgecss( {

@@ -4,7 +4,7 @@
 </script>
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="/">
+      <a class="navbar-item" use:link href="/">
         Medblocks UI
       </a>
   
@@ -20,7 +20,9 @@
         <a class="navbar-item" use:link href="/">
           Data Entry
         </a>
-  
+        <a class="navbar-item" use:link href="/">
+          Visualization
+        </a>
         <a class="navbar-item" use:link href="/settings">
           Settings
         </a>

@@ -4,15 +4,12 @@
     export let store: writableKeyValue
     export let path: string;
     export let tree: Tree;
-    export let ordinalPathAppend: string = "/value"
     /**
-     * The class for the <p> tag that the ordinal will be in
-     * @param {strong|bold} ordinalClass
-    */
-    export let ordinalClass: string = "subtitle is-5"
-    /**
-     * @param {string} labelClass
+     * @param {true|false} display - To display or not
+     * @param {string} ordinalPathAppend - The path that comes after ordinal: Eg: /glasgow_coma_scale_e/value|ordinal. In this example "value" is the appended path.
      */
+    export let ordinalPathAppend: string = "/value"
+    export let ordinalClass: string = "subtitle is-5"
     export let labelClass: string = "has-text-grey has-text-weight-semibold is-size-6"
     let selected: number;
     let internalPath: string

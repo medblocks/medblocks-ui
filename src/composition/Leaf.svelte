@@ -20,7 +20,10 @@ import TextRead from "../rm/Text/TextRead.svelte";
     export let childClass: string = "field";
     export let customize: boolean = false
     export let customizeFunction: Function = (params) => console.log(params)
-    export let display: boolean = true
+    /**
+     * @param {true|false} display - To display or not
+     */
+    export let display: boolean | undefined = undefined
     export let displayFunction: Function | undefined = undefined
     export let store: writableKeyValue | readableKeyValue
     let internalDisplay: boolean
@@ -31,7 +34,7 @@ import TextRead from "../rm/Text/TextRead.svelte";
             $store
         );
     } else {
-        internalDisplay = display;
+        internalDisplay = display ?? true;
     }
     const getComponent = (rmType: string, readOnly: boolean)=>{
         const components = {

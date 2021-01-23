@@ -4,13 +4,11 @@ Extracted,
                 keyValue,
         readableKeyValue,
                 Template,
-Tree,
                 UITemplate,
-writableKeyValue,
     } from "../types/types";
     import Leaf from "./Leaf.svelte";
     import Group from "./Group.svelte";
-    import { writable, readable } from "svelte/store";
+    import { writable } from "svelte/store";
     import { createEventDispatcher} from "svelte";
     import {
         generateSchema,
@@ -39,7 +37,7 @@ writableKeyValue,
         }
     $: {
         try {
-            uiTemplate = generateSchema(template, configuration);
+            uiTemplate = generateSchema(template, configuration, readOnly);
             ([contextItems, groupLeafItems] = partition(uiTemplate.schema, s=>s.type === 'Context'))
             if (uiTemplate.options.horizontal) {
                 parentClass = "columns";

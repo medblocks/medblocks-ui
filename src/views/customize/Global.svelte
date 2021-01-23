@@ -14,6 +14,7 @@
     <label for="orientation" class="label">Layout</label>
     <div class="select">
         <select name="" id="orientation" bind:value={global.horizontal}>
+            <option value={undefined}>Default</option>
             <option value={false}>Vertical</option>
             <option value={true}>Horizontal</option>
         </select>

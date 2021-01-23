@@ -3,50 +3,40 @@
     "read": [],
     "write": [
       {
+        "title": "param",
         "description": "Drop down or Search for Writing",
-        "tags": [
-          {
-            "title": "param",
-            "description": null,
-            "type": {
-              "type": "UnionType",
-              "elements": [
-                {
-                  "type": "StringLiteralType",
-                  "value": "dropdown"
-                },
-                {
-                  "type": "StringLiteralType",
-                  "value": "search"
-                }
-              ]
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "StringLiteralType",
+              "value": "dropdown"
             },
-            "name": "type"
-          }
-        ]
+            {
+              "type": "StringLiteralType",
+              "value": "search"
+            }
+          ]
+        },
+        "name": "type"
       },
       {
+        "title": "param",
         "description": "To diaply title or not",
-        "tags": [
-          {
-            "title": "param",
-            "description": null,
-            "type": {
-              "type": "UnionType",
-              "elements": [
-                {
-                  "type": "BooleanLiteralType",
-                  "value": true
-                },
-                {
-                  "type": "BooleanLiteralType",
-                  "value": false
-                }
-              ]
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
             },
-            "name": "displayTitle"
-          }
-        ]
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
       }
     ]
   },
@@ -57,21 +47,71 @@
   "DV_ORDINAL": {
     "read": [
       {
-        "description": "",
-        "tags": [
-          {
-            "title": "param",
-            "description": null,
-            "type": {
-              "type": "NameExpression",
-              "name": "string"
+        "title": "param",
+        "description": "To display or not",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
             },
-            "name": "ordinalPathAppend"
-          }
-        ]
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The path that comes after ordinal: Eg: /glasgow_coma_scale_e/value|ordinal. In this example \"value\" is the appended path.",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "ordinalPathAppend"
       }
     ],
-    "write": []
+    "write": [
+      {
+        "title": "param",
+        "description": "To display or not",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The path that comes after ordinal: Eg: /glasgow_coma_scale_e/value|ordinal. In this example \"value\" is the appended path.",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "ordinalPathAppend"
+      },
+      {
+        "title": "param",
+        "description": "The default ordinal (number)",
+        "type": {
+          "type": "NameExpression",
+          "name": "number"
+        },
+        "name": "defaultOrdinal"
+      }
+    ]
   },
   "DV_QUANTITY": {
     "read": [],

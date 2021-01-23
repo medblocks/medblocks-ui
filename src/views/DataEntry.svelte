@@ -8,7 +8,6 @@
     let activeTemplates: TemplateConfig[];
     
     import { defaultConfig, getConfig } from "./config";
-import App from "../App.svelte";
 import Navbar from "./Navbar.svelte";
     let config = writable(defaultConfig)
     onMount(async ()=>{

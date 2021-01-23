@@ -7,8 +7,13 @@
     export let store: Writable<keyValue>;
     export let path: string;
     export let tree: Tree;
-    export let defaultOrdinal: number | undefined = undefined;
+    /**
+     * @param {true|false} display - To display or not
+     * @param {string} ordinalPathAppend - The path that comes after ordinal: Eg: /glasgow_coma_scale_e/value|ordinal. In this example "value" is the appended path.
+     * @param {number} defaultOrdinal - The default ordinal (number) 
+     */
     export let label: string | undefined = undefined
+    export let defaultOrdinal: number | undefined = undefined;
     export let wrapperClass: string = "field"
     export let labelClass: string = "label"
     export let selectWrapperClass: string = "select"
