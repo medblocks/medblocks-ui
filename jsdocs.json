@@ -1,0 +1,84 @@
+{
+  "DV_CODED_TEXT": {
+    "read": [],
+    "write": [
+      {
+        "description": "Drop down or Search for Writing",
+        "tags": [
+          {
+            "title": "param",
+            "description": null,
+            "type": {
+              "type": "UnionType",
+              "elements": [
+                {
+                  "type": "StringLiteralType",
+                  "value": "dropdown"
+                },
+                {
+                  "type": "StringLiteralType",
+                  "value": "search"
+                }
+              ]
+            },
+            "name": "type"
+          }
+        ]
+      },
+      {
+        "description": "To diaply title or not",
+        "tags": [
+          {
+            "title": "param",
+            "description": null,
+            "type": {
+              "type": "UnionType",
+              "elements": [
+                {
+                  "type": "BooleanLiteralType",
+                  "value": true
+                },
+                {
+                  "type": "BooleanLiteralType",
+                  "value": false
+                }
+              ]
+            },
+            "name": "displayTitle"
+          }
+        ]
+      }
+    ]
+  },
+  "DV_COUNT": {
+    "read": [],
+    "write": []
+  },
+  "DV_ORDINAL": {
+    "read": [
+      {
+        "description": "",
+        "tags": [
+          {
+            "title": "param",
+            "description": null,
+            "type": {
+              "type": "NameExpression",
+              "name": "string"
+            },
+            "name": "ordinalPathAppend"
+          }
+        ]
+      }
+    ],
+    "write": []
+  },
+  "DV_QUANTITY": {
+    "read": [],
+    "write": []
+  },
+  "DV_TEXT": {
+    "read": [],
+    "write": []
+  }
+}
