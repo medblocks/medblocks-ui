@@ -8,7 +8,7 @@
         writableKeyValue,
     } from "../types/types";
     import type { Writable } from "svelte/store";
-import { sanitizeDisplayFunction } from "../rm/utils";
+    import { sanitizeDisplayFunction } from "../rm/utils";
     export let type: string;
     export let path: string;
     export let label: string;
@@ -22,7 +22,7 @@ import { sanitizeDisplayFunction } from "../rm/utils";
     export let customize: boolean = false;
     export let customizeFunction: Function;
     export let display: boolean = true;
-    export let displayFunction: Function | undefined = undefined
+    export let displayFunction: Function | undefined = undefined;
     // Currently only simple templates
     export let displayTitle = true;
     export const CAN_ADD = true;
@@ -93,7 +93,7 @@ import { sanitizeDisplayFunction } from "../rm/utils";
         throw new Error("Group component got tree not of type group");
     }
 </script>
-
+{#if internalDisplay}
 <div class={childClass} class:bordered={customize && !passCustomize}>
     {#if customize && !passCustomize}
         <span
@@ -104,7 +104,7 @@ import { sanitizeDisplayFunction } from "../rm/utils";
             {#if repeatable}- REPEATABLE{/if}
         </span>
     {/if}
-    {#if internalDisplay}
+    
         {#if displayTitle && label}
             <h4 class="has-text-weight-bold is-size-6 mb-3 has-text-grey">
                 {label}
@@ -188,8 +188,20 @@ import { sanitizeDisplayFunction } from "../rm/utils";
                 {/if}
             {/each}
         {/if}
+    </div>
+{:else if customize}
+<div class={childClass} class:bordered={customize && !passCustomize}>
+    {#if customize && !passCustomize}
+        <span
+            class="tag is-cyan"
+            on:click={() =>
+                customizeFunction({ path, aqlPath, type, repeatable })}>
+            {rmType}
+            {#if repeatable}- REPEATABLE{/if}
+        </span>
     {/if}
 </div>
+{/if}
 
 <style>
     .is-cyan {
