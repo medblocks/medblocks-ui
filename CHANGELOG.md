@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0](https://github.com/sidharthramesh/openUI/compare/v0.0.4...v0.1.0) (2021-01-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* incompatible config
+
+### Features
+
+* added display and displayFunction to group ([41436f8](https://github.com/sidharthramesh/openUI/commit/41436f80399ebc4116afb35e99bb2b4eb2b9870f))
+* added navigation bar instead of back button ([cb4bd32](https://github.com/sidharthramesh/openUI/commit/cb4bd325e1f875a5fda570aac7f3c162ce49b666))
+* added read and write config separately from JSdocs ([0f3bf32](https://github.com/sidharthramesh/openUI/commit/0f3bf325a01e687319e26d606e43f2a5bc4b91ef))
+* automatic customization generation for Rm types ([885d622](https://github.com/sidharthramesh/openUI/commit/885d622e11e561f769269bbb2b8bb8f7e91e73c1))
+* changed the title to medblocks ui ([4a2d519](https://github.com/sidharthramesh/openUI/commit/4a2d5195cb7cd66bc7a12a6c7290d009072fac8f))
+
+
+### Bug Fixes
+
+* fixed group column still present in horizontal layout ([28a0bfe](https://github.com/sidharthramesh/openUI/commit/28a0bfe91ab570d2d6eb0ca15602c2592f98afb1))
+
 ### [0.0.4](https://github.com/sidharthramesh/openUI/compare/v0.0.3...v0.0.4) (2021-01-22)
 
 
