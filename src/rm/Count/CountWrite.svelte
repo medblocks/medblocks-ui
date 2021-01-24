@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { readableKeyValue, Tree, writableKeyValue } from "../../types/types";
-import { sanitizeComputeFunction, triggerDestroy } from "../utils";
+import { destroyAction, sanitizeComputeFunction, triggerDestroy } from "../utils";
 
 
     export let path: string
@@ -17,7 +17,9 @@ import { sanitizeComputeFunction, triggerDestroy } from "../utils";
             (store as writableKeyValue).update((s) => ({ ...s, [path]: result }));
         }
     }
-
+    $: if ($store[path] == null) {
+        destroyAction([path], store as writableKeyValue)
+    }
     $: triggerDestroy([path], store as writableKeyValue)
 </script>
 
