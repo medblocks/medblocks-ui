@@ -56,7 +56,7 @@ describe('basic', () => {
         expect(select).toHaveTextContent('3. To sound')
     })
 
-    it('must remove all related paths on destroying the component', async ()=> {
+    it('must remove all related paths on destroying the component', async () => {
         let select = ordinal.getByLabelText(tree.name)
         expect(select).toBeInTheDocument()
         expect(select).toHaveTextContent('Select an option')
@@ -116,13 +116,13 @@ describe('advanced', () => {
         const select = ordinal.getByLabelText('Custom Label')
         expect(select).toBeInTheDocument()
     })
-    it('must render based on display boolean', async () => {
+    it('must render based on render boolean', async () => {
         let store = writable({})
         const props = {
             tree,
             path: 'custom/path',
             store,
-            display: false,
+            render: false,
             type: 'Leaf',
             readOnly: false
         }
@@ -130,13 +130,13 @@ describe('advanced', () => {
         expect(() => ordinal.getByLabelText(tree.name)).toThrow()
 
     })
-    it('must render based on displayFunction', async () => {
+    it('must render based on renderFunction', async () => {
         let store = writable({})
         const props = {
             tree,
             path: 'custom/path',
             store,
-            displayFunction: (store) => {
+            renderFunction: (store) => {
                 return false
             },
             type: 'Leaf',
