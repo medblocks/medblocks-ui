@@ -10,9 +10,11 @@
     /**
      * @param {string} ordinalPathAppend - The path that comes after ordinal: Eg: /glasgow_coma_scale_e/value|ordinal. In this example "value" is the appended path.
      * @param {number} defaultOrdinal - The default ordinal (number) 
+     * @param {function} computeFunction - Calculates the ordinal value (number) based on other values in the template.
      */
     export let label: string | undefined = undefined
     export let defaultOrdinal: number | undefined = undefined;
+    export let computeFunction: Function | undefined = undefined;
     export let wrapperClass: string = "field"
     export let labelClass: string = "label"
     export let selectWrapperClass: string = "select"
@@ -21,7 +23,7 @@
     let internalPath: string;
     let selected: number;
     
-    // Computed
+    
     $: {
         //TODO: Needs to be changed later. Must append even it /ordinal_value not present. 
         //Convenient for passing tests for now.
