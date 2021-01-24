@@ -3,7 +3,7 @@
     "read": [
       {
         "title": "param",
-        "description": "To display or not",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -17,22 +17,22 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       }
     ],
     "write": [
       {
         "title": "param",
-        "description": "To display or not",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -46,16 +46,16 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       },
       {
         "title": "param",
@@ -99,7 +99,7 @@
     "read": [
       {
         "title": "param",
-        "description": "To display or not",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -113,22 +113,22 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       }
     ],
     "write": [
       {
         "title": "param",
-        "description": "To display or not",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -142,16 +142,16 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       }
     ]
   },
@@ -159,7 +159,7 @@
     "read": [
       {
         "title": "param",
-        "description": "To display or not",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -173,16 +173,16 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       },
       {
         "title": "param",
@@ -197,7 +197,7 @@
     "write": [
       {
         "title": "param",
-        "description": "To display or not",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -211,16 +211,16 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       },
       {
         "title": "param",
@@ -246,7 +246,7 @@
     "read": [
       {
         "title": "param",
-        "description": "To display or not",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -260,22 +260,22 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       }
     ],
     "write": [
       {
         "title": "param",
-        "description": "To display or not",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -289,16 +289,16 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       }
     ]
   },
@@ -306,7 +306,7 @@
     "read": [
       {
         "title": "param",
-        "description": "To display or not",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -320,22 +320,22 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       }
     ],
     "write": [
       {
         "title": "param",
-        "description": "To display or not",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -349,16 +349,16 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       }
     ]
   },
@@ -366,7 +366,7 @@
     "read": [
       {
         "title": "param",
-        "description": "To display or not.",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -380,16 +380,16 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       },
       {
         "title": "param",
@@ -408,12 +408,30 @@
           ]
         },
         "name": "displayTitle"
+      },
+      {
+        "title": "param",
+        "description": "For repeatable elements, allow adding new elements?",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "canAddRepeatable"
       }
     ],
     "write": [
       {
         "title": "param",
-        "description": "To display or not.",
+        "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -427,16 +445,16 @@
             }
           ]
         },
-        "name": "display"
+        "name": "render"
       },
       {
         "title": "param",
-        "description": "The function to display or not. Return only true or false.",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
         "type": {
           "type": "NameExpression",
           "name": "function"
         },
-        "name": "displayFunction"
+        "name": "renderFunction"
       },
       {
         "title": "param",
@@ -455,6 +473,24 @@
           ]
         },
         "name": "displayTitle"
+      },
+      {
+        "title": "param",
+        "description": "For repeatable elements, allow adding new elements?",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "canAddRepeatable"
       }
     ]
   }

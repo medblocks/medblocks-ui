@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Tree } from "../types/types";
+import type { Tree, writableKeyValue } from "../types/types";
 import jsdocs from "../../jsdocs.json"
 import type { Writable } from "svelte/store";
 import TypeInterface from "./TypeInterface.svelte";
@@ -10,6 +10,7 @@ import TypeInterface from "./TypeInterface.svelte";
     export let type: string
     export let tree: Tree
     export let configurationStore: Writable<any>
+    export let store: writableKeyValue
         
     let autogen: any [] = []
     $: {
@@ -27,7 +28,7 @@ import TypeInterface from "./TypeInterface.svelte";
     {#if c.description}
         <p>{c.description}</p>
         {#key readOnly + aqlPath}
-        <TypeInterface {...c.type} {readOnly} {configurationStore} {aqlPath} value={c.name}></TypeInterface>
+        <TypeInterface {...c.type} {readOnly} {configurationStore} {aqlPath} value={c.name} {store}></TypeInterface>
         {/key}
     {/if}
 </div>

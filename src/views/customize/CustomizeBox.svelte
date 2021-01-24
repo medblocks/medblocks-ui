@@ -23,7 +23,7 @@
 </script>
 
 
-<p class="label">{options.type}</p>
+<h1 class="subtitle">{options.type}</h1>
 <div class="field">
     <div class="buttons">
     <button

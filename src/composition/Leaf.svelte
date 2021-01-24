@@ -21,21 +21,21 @@
     export let customize: boolean = false
     export let customizeFunction: Function = (params) => console.log(params)
     /**
-     * @param {true|false} display - To display or not
-     * @param {function} displayFunction - The function to display or not. Return only true or false.
+     * @param {true|false} render - To render the component or not.
+     * @param {function} renderFunction - The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.
      */
-    export let display: boolean | undefined = undefined
-    export let displayFunction: Function | undefined = undefined
+    export let render: boolean | undefined = undefined
+    export let renderFunction: Function | undefined = undefined
     export let store: writableKeyValue | readableKeyValue
     let internalDisplay: boolean
-    $: if (displayFunction) {
+    $: if (renderFunction) {
         internalDisplay = sanitizeDisplayFunction(
             path,
-            displayFunction,
+            renderFunction,
             $store
         );
     } else {
-        internalDisplay = display ?? true;
+        internalDisplay = render ?? true;
     }
     const getComponent = (rmType: string, readOnly: boolean)=>{
         const components = {

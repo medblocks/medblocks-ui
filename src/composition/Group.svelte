@@ -22,26 +22,27 @@
     export let customize: boolean = false;
     export let customizeFunction: Function;
     /**
-     * @param {true|false} display - To display or not.
-     * @param {function} displayFunction - The function to display or not. Return only true or false.
+     * @param {true|false} render - To render the component or not.
+     * @param {function} renderFunction - The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.
      * @param {true|false} displayTitle - To display the title or not.
+     * @param {true|false} canAddRepeatable - For repeatable elements, allow adding new elements?
      */
-    export let display: boolean = true;
-    export let displayFunction: Function | undefined = undefined;
+    export let render: boolean | undefined = undefined;
+    export let renderFunction: Function | undefined = undefined;
     // Currently only simple templates
     export let displayTitle = true;
-    export const CAN_ADD = true;
+    export let canAddRepeatable = true;
     export let passCustomize: boolean = false;
 
     let internalDisplay: boolean;
-    $: if (displayFunction) {
+    $: if (renderFunction) {
         internalDisplay = sanitizeDisplayFunction(
             path,
-            displayFunction,
+            renderFunction,
             $store
         );
     } else {
-        internalDisplay = display;
+        internalDisplay = render ?? true;
     }
     const getCountFromStore = () => {
         const paths = Object.keys($store).filter((p) => p.startsWith(path));
@@ -138,7 +139,7 @@
                     <hr />
                 </div>
             {/each}
-            {#if CAN_ADD}
+            {#if canAddRepeatable}
                 <div class="buttons is-right">
                     {#if count > 1}
                         <button
