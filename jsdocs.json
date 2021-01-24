@@ -1,7 +1,62 @@
 {
   "DV_CODED_TEXT": {
-    "read": [],
+    "read": [
+      {
+        "title": "param",
+        "description": "To display or not",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      }
+    ],
     "write": [
+      {
+        "title": "param",
+        "description": "To display or not",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
       {
         "title": "param",
         "description": "Drop down or Search for Writing",
@@ -41,8 +96,64 @@
     ]
   },
   "DV_COUNT": {
-    "read": [],
-    "write": []
+    "read": [
+      {
+        "title": "param",
+        "description": "To display or not",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      }
+    ],
+    "write": [
+      {
+        "title": "param",
+        "description": "To display or not",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      }
+    ]
   },
   "DV_ORDINAL": {
     "read": [
@@ -63,6 +174,15 @@
           ]
         },
         "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
       },
       {
         "title": "param",
@@ -95,6 +215,15 @@
       },
       {
         "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
+      {
+        "title": "param",
         "description": "The path that comes after ordinal: Eg: /glasgow_coma_scale_e/value|ordinal. In this example \"value\" is the appended path.",
         "type": {
           "type": "NameExpression",
@@ -114,11 +243,219 @@
     ]
   },
   "DV_QUANTITY": {
-    "read": [],
-    "write": []
+    "read": [
+      {
+        "title": "param",
+        "description": "To display or not",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      }
+    ],
+    "write": [
+      {
+        "title": "param",
+        "description": "To display or not",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      }
+    ]
   },
   "DV_TEXT": {
-    "read": [],
-    "write": []
+    "read": [
+      {
+        "title": "param",
+        "description": "To display or not",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      }
+    ],
+    "write": [
+      {
+        "title": "param",
+        "description": "To display or not",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      }
+    ]
+  },
+  "Group": {
+    "read": [
+      {
+        "title": "param",
+        "description": "To display or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the title or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
+      }
+    ],
+    "write": [
+      {
+        "title": "param",
+        "description": "To display or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display or not. Return only true or false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the title or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
+      }
+    ]
   }
 }

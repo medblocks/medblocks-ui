@@ -21,6 +21,11 @@
     export let rmType: string;
     export let customize: boolean = false;
     export let customizeFunction: Function;
+    /**
+     * @param {true|false} display - To display or not.
+     * @param {function} displayFunction - The function to display or not. Return only true or false.
+     * @param {true|false} displayTitle - To display the title or not.
+     */
     export let display: boolean = true;
     export let displayFunction: Function | undefined = undefined;
     // Currently only simple templates

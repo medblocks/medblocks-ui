@@ -1,8 +1,8 @@
 const fs = require('fs')
 const doctrine = require("doctrine");
 
-const root = 'src/rm'
-const paths = fs.readdirSync(root, {withFileTypes: true})
+const rmRoot = 'src/rm'
+const paths = fs.readdirSync(rmRoot, {withFileTypes: true})
 let files = {}
 
 
@@ -10,8 +10,8 @@ paths.filter(p=>p.isDirectory() && p.name !== 'helpers').forEach(p=>{
     const text = 'dv' + p.name;
     const result = text.replace( /([A-Z])/g, "_$1" ).toUpperCase();
     files[result] = {
-        read: `${root}/${p.name}/${p.name}Read.svelte`,
-        write: `${root}/${p.name}/${p.name}Write.svelte`,
+        read: `${rmRoot}/${p.name}/${p.name}Read.svelte`,
+        write: `${rmRoot}/${p.name}/${p.name}Write.svelte`,
     }
 })
 
@@ -34,14 +34,21 @@ function getDocs(path) {
     }
 
 }
-
+const leafOptions = getDocs("src/composition/Leaf.svelte")
+const groupOptions = getDocs("src/composition/Group.svelte")
 console.log("JsDocs: start")
 let parsed = {}
 Object.keys(files).forEach(key=>{
     parsed[key] = {
-        read: getDocs(files[key]['read']),
-        write: getDocs(files[key]['write'])
+        read: [...leafOptions, ...getDocs(files[key]['read'])],
+        write: [...leafOptions, ...getDocs(files[key]['write'])]
     }
 })
+
+parsed["Group"] = {
+    read: groupOptions,
+    write: groupOptions
+}
+
 fs.writeFileSync('./jsdocs.json', JSON.stringify(parsed, null, 2))
 console.log("JsDocs: finished")

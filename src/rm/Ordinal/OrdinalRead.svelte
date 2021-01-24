@@ -5,7 +5,6 @@
     export let path: string;
     export let tree: Tree;
     /**
-     * @param {true|false} display - To display or not
      * @param {string} ordinalPathAppend - The path that comes after ordinal: Eg: /glasgow_coma_scale_e/value|ordinal. In this example "value" is the appended path.
      */
     export let ordinalPathAppend: string = "/value"

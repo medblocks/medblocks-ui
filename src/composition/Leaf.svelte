@@ -3,15 +3,15 @@
     import Unknown from "../rm/Unknown.svelte";
     import OrdinalWrite from "../rm/Ordinal/OrdinalWrite.svelte"
     import { sanitizeDisplayFunction } from "../rm/utils";
-import QuantityWrite from "../rm/Quantity/QuantityWrite.svelte";
-import OrdinalRead from "../rm/Ordinal/OrdinalRead.svelte";
-import QuantityRead from "../rm/Quantity/QuantityRead.svelte";
-import CodedTextWrite from "../rm/CodedText/CodedTextWrite.svelte";
-import CodedTextRead from "../rm/CodedText/CodedTextRead.svelte";
-import TextWrite from "../rm/Text/TextWrite.svelte";
-import CountWrite from "../rm/Count/CountWrite.svelte";
-import CountRead from "../rm/Count/CountRead.svelte";
-import TextRead from "../rm/Text/TextRead.svelte";
+    import QuantityWrite from "../rm/Quantity/QuantityWrite.svelte";
+    import OrdinalRead from "../rm/Ordinal/OrdinalRead.svelte";
+    import QuantityRead from "../rm/Quantity/QuantityRead.svelte";
+    import CodedTextWrite from "../rm/CodedText/CodedTextWrite.svelte";
+    import CodedTextRead from "../rm/CodedText/CodedTextRead.svelte";
+    import TextWrite from "../rm/Text/TextWrite.svelte";
+    import CountWrite from "../rm/Count/CountWrite.svelte";
+    import CountRead from "../rm/Count/CountRead.svelte";
+    import TextRead from "../rm/Text/TextRead.svelte";
     export let tree: Tree;
     export let type: string;
     export let path: string = 'no-path';
@@ -22,6 +22,7 @@ import TextRead from "../rm/Text/TextRead.svelte";
     export let customizeFunction: Function = (params) => console.log(params)
     /**
      * @param {true|false} display - To display or not
+     * @param {function} displayFunction - The function to display or not. Return only true or false.
      */
     export let display: boolean | undefined = undefined
     export let displayFunction: Function | undefined = undefined
