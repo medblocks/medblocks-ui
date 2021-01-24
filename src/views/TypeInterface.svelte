@@ -1,6 +1,6 @@
 <script lang="ts">
     import { element, onMount } from "svelte/internal";
-    import type { Writable } from "svelte/store";
+    import { get } from "svelte/store";
     import type { writableKeyValue } from "../types/types";
 
     export let type: string;
@@ -28,11 +28,15 @@
     $: if (fnString) {
         try {
             const fn = Function("return " + fnString)();
-            currentResult = fn(store);
+            currentResult = fn($store);
             console.log("Setting fn", fn);
-            config = { ...config, [value]: fn };
+            if (config[value] && config[value].toString() == fn.toString()){
+            } else {
+                config = { ...config, [value]: fn };
+            }
             invalidFn = false;
         } catch (e) {
+            console.error(e)
             invalidFn = true;
         }
     } else {
@@ -78,17 +82,14 @@
                 class:is-danger={invalidFn}
                 name=""
                 id=""
-                cols="20"
-                rows="6"
+                rows="1"
                 bind:value={fnString}
             />
             {#if fnString && !invalidFn}
                 <p>
                     Current result:
-                    <code>
-                        {JSON.stringify(currentResult)}
-                    </code>
                 </p>
+                <pre>{JSON.stringify(currentResult, null, 2)}</pre>
             {/if}
         {/if}
     </div>

@@ -152,6 +152,15 @@
           "name": "function"
         },
         "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "Calculates the count (number) based on other values.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "computeFunction"
       }
     ]
   },
@@ -239,6 +248,24 @@
           "name": "number"
         },
         "name": "defaultOrdinal"
+      },
+      {
+        "title": "param",
+        "description": "Calculates the ordinal value (number) based on other values.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "computeFunction"
+      },
+      {
+        "title": "param",
+        "description": "A custom label.",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "label"
       }
     ]
   },

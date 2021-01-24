@@ -82,10 +82,10 @@ export function sanitizeDisplayFunction(path: string, fn: Function, store: keyVa
     }
 }
 
-export function sanitizeComputeFunction(path: string, fn: Function, store: keyValue) :string|undefined {
+export function sanitizeComputeFunction(path: string, fn: Function, store: keyValue, type: 'string' | 'number') : string | number |undefined {
 try {
     let computed = fn(store)
-    if (typeof computed != 'string') {
+    if (typeof computed != type) {
         console.warn(`[${path}] computeFunction did not return string. Ignoring function.`)
         return
     } else {

@@ -49,7 +49,7 @@
     $: inSync = $config.demographics == demographics && $config.terminology == terminology && $config.ehr == ehr
 </script>
 
-<Navbar></Navbar>
+<Navbar/>
 <section class="section">
     <div class="container">
         <h1 class="title">Settings</h1>

@@ -1,16 +1,17 @@
 <script lang="ts">
     import type { Writable } from "svelte/store";
-    import type { keyValue, Tree } from "../../types/types";
+    import type { writableKeyValue, readableKeyValue, Tree } from "../../types/types";
     import { onMount } from "svelte";
-    import { triggerDestroy } from "../utils";
+    import { destroyAction, sanitizeComputeFunction, triggerDestroy } from "../utils";
     // Setup
-    export let store: Writable<keyValue>;
+    export let store: readableKeyValue;
     export let path: string;
     export let tree: Tree;
     /**
      * @param {string} ordinalPathAppend - The path that comes after ordinal: Eg: /glasgow_coma_scale_e/value|ordinal. In this example "value" is the appended path.
      * @param {number} defaultOrdinal - The default ordinal (number) 
-     * @param {function} computeFunction - Calculates the ordinal value (number) based on other values in the template.
+     * @param {function} computeFunction - Calculates the ordinal value (number) based on other values.
+     * @param {string} label - A custom label.
      */
     export let label: string | undefined = undefined
     export let defaultOrdinal: number | undefined = undefined;
@@ -23,14 +24,20 @@
     let internalPath: string;
     let selected: number;
     
-    
+    $: if (computeFunction) {
+        let result = sanitizeComputeFunction(path, computeFunction, $store, 'number');
+        if (result && result !== $store[path]) {
+            (store as writableKeyValue).update((s) => ({ ...s, [path]: result }));
+        }
+    }
+
     $: {
         //TODO: Needs to be changed later. Must append even it /ordinal_value not present. 
         //Convenient for passing tests for now.
         internalPath = path.replace("/ordinal_value", ordinalPathAppend); 
         triggerDestroy(
         ["|ordinal", "|code", "|value"].map((a) => internalPath + a),
-        store
+        store as writableKeyValue
     );
     }
     $: selected = $store[internalPath + "|ordinal"];
@@ -40,7 +47,7 @@
                 (option) => option.ordinal == selected
             )[0];
             let { label, value } = option;
-            store.update((store) => ({
+            (store as writableKeyValue).update((store) => ({
                 ...store,
                 [internalPath + "|code"]: value,
                 [internalPath + "|value"]: label,
@@ -48,6 +55,9 @@
         } else {
             console.error("Tree does not have input/ input.list");
         }
+    } else {
+         const pathsToRemove = [internalPath + "|code", internalPath + "|value"]
+         destroyAction(pathsToRemove, store as writableKeyValue)
     }
 
     //Triggers
@@ -67,7 +77,7 @@
                 name="code"
                 bind:value={$store[internalPath + '|ordinal']}
                 disabled={tree.inputs[0].list.length === 1}>
-                <option value={undefined} selected disabled>Select an option</option>
+                <option value={undefined} selected>Select an option</option>
                 {#each tree.inputs[0].list as option}
                     <option value={option.ordinal}>{typeof option.ordinal !== 'undefined' ? `${option.ordinal}. ${option.label}` : option.label}</option>
                 {/each}
