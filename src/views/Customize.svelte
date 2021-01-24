@@ -22,10 +22,7 @@
     $: {
         if ($config && params.templateIndex) {
             let index = params.templateIndex;
-            console.log({ index });
-            console.log($config.templates);
             selectedTemplate = $config.templates.filter((template) => {
-                console.log({ templateId: template.id, index });
                 return template.id == parseInt(index);
             })[0];
             if (selectedTemplate) {
@@ -67,7 +64,6 @@
             }),
         };
         await setConfig(newConfig);
-        console.log(newConfig);
         push("/settings");
     };
 </script>

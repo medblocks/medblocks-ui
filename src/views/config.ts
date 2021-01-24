@@ -23,14 +23,14 @@ export interface Config {
 }
 
 const functionKeys = ['computeFunction', 'displayFunction']
-const serizlizeFn = (name, value)=>{
+export const serizlizeFn = (name, value)=>{
     if (functionKeys.includes(name)){
         return value.toString()
     } else {
         return value
     }
 }
-const parseFn = (name, value)=>{
+export const parseFn = (name, value)=>{
     if (functionKeys.includes(name)){
         return Function('return ' + value)()
     } else {

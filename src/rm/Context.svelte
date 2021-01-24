@@ -41,9 +41,6 @@
     let parentPath: string;
     $: parentPath = path.replace(`/${tree.id}`, "").replace("context", "");
     $: active = checkIfPathIsUsed(parentPath, $store, Object.keys($otherContextPaths));
-    $: {
-        console.log($otherContextPaths)
-    }
     $: if (active) {
         if (!readOnly) {
             switch (tree.id) {
@@ -116,7 +113,7 @@
         let paths = Object.keys(data);
         if (paths.length > 0) {
             if (Object.keys($store).some(p=>paths.includes(p))){
-                console.log("Must clean up contexts", {paths});
+                console.log("Cleaning up contexts", {paths});
                 destroyAction(paths, store as writableKeyValue);
             }
         }
