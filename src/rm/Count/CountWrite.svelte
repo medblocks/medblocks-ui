@@ -7,7 +7,7 @@ import { sanitizeComputeFunction, triggerDestroy } from "../utils";
     export let store: readableKeyValue
     export let tree: Tree
     /**
-     * @param {function} computeFunction - Calculates the count (number) based on other values.
+     * @param {function} computeFunction - Calculates the count (number) based on other values. Overrides manual input if returns valid input.
      */
     export let computeFunction: Function | undefined = undefined;
 

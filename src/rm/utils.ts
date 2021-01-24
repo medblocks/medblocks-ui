@@ -86,7 +86,7 @@ export function sanitizeComputeFunction(path: string, fn: Function, store: keyVa
 try {
     let computed = fn(store)
     if (typeof computed != type) {
-        console.warn(`[${path}] computeFunction did not return string. Ignoring function.`)
+        console.warn(`[${path}] computeFunction did not return ${type}. Got ${typeof computed} instead. Ignoring function.`)
         return
     } else {
         return computed

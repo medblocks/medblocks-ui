@@ -10,7 +10,7 @@
     /**
      * @param {string} ordinalPathAppend - The path that comes after ordinal: Eg: /glasgow_coma_scale_e/value|ordinal. In this example "value" is the appended path.
      * @param {number} defaultOrdinal - The default ordinal (number) 
-     * @param {function} computeFunction - Calculates the ordinal value (number) based on other values.
+     * @param {function} computeFunction - Calculates the ordinal value (number) based on other values. Overrides manual input if returns valid input.
      * @param {string} label - A custom label.
      */
     export let label: string | undefined = undefined
@@ -27,7 +27,7 @@
     $: if (computeFunction) {
         let result = sanitizeComputeFunction(path, computeFunction, $store, 'number');
         if (result && result !== $store[path]) {
-            (store as writableKeyValue).update((s) => ({ ...s, [path]: result }));
+            (store as writableKeyValue).update((s) => ({ ...s, [internalPath + "|ordinal"]: result }));
         }
     }
 
