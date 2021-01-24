@@ -40,7 +40,7 @@ import Navbar from "./Navbar.svelte";
     };
 </script>
 
-<Navbar/>
+<Navbar />
 <Patient>
     <div class="tabs">
         <ul>

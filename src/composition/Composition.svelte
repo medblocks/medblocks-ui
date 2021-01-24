@@ -9,7 +9,7 @@ Extracted,
     import Leaf from "./Leaf.svelte";
     import Group from "./Group.svelte";
     import { writable } from "svelte/store";
-    import { createEventDispatcher} from "svelte";
+    import { createEventDispatcher, setContext} from "svelte";
     import {
         generateSchema,
     } from "./webtemplates";
@@ -29,6 +29,7 @@ Extracted,
     let uiTemplate: UITemplate;
     let contextItems: Extracted[]
     let groupLeafItems: Extracted[]
+    setContext("contextPaths", writable([]))
     const dispatch = createEventDispatcher();
     function partition(array: Extracted[], isValid: (a: Extracted)=>boolean): [Extracted[], Extracted[]] {
         return array.reduce(([pass, fail], elem) => {

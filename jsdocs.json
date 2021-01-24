@@ -155,7 +155,7 @@
       },
       {
         "title": "param",
-        "description": "Calculates the count (number) based on other values.",
+        "description": "Calculates the count (number) based on other values. Overrides manual input if returns valid input.",
         "type": {
           "type": "NameExpression",
           "name": "function"
@@ -251,7 +251,7 @@
       },
       {
         "title": "param",
-        "description": "Calculates the ordinal value (number) based on other values.",
+        "description": "Calculates the ordinal value (number) based on other values. Overrides manual input if returns valid input.",
         "type": {
           "type": "NameExpression",
           "name": "function"
