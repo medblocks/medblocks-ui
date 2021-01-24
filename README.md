@@ -1,4 +1,4 @@
-![medblocks ui logo](./public/medblocks-ui.svg)
+![medblocks ui logo](./public/medblocks-ui.svg){:height="70px"}
 
 # Medblocks UI
 Web Components for rapid development of openEHR systems. Use any framework, just import the web components and use.
