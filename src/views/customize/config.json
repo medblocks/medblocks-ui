@@ -1,0 +1,21 @@
+{
+    "global": {
+      "horizontal": true
+    },
+    "/content[openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0009]/value": {
+      "defaultOrdinal": 1,
+      "display": true
+    },
+    "/content[openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0009]/null_flavour": {
+      "display": false
+    },
+    "/content[openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0007]/null_flavour": {
+      "display": false
+    },
+    "/content[openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0008]/null_flavour": {
+      "display": false
+    },
+    "/content[openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1]": {
+      "display": true
+    }
+  }

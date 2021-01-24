@@ -1,6 +1,6 @@
 import {onDestroy, getContext} from 'svelte'
 import type { Writable } from 'svelte/store'
-import type {Tree, keyValue, Input} from '../types/types'
+import type {Tree, keyValue, Input, writableKeyValue, readableKeyValue} from '../types/types'
 
 export function getFullPaths(path: string, tree: Tree) :string[] {
     let paths: string[]
@@ -18,7 +18,7 @@ export function getFullPaths(path: string, tree: Tree) :string[] {
     throw new Error("Tree does not have inputs")
 }
 
-export function destroyAction(paths: string[], store: Writable<keyValue>){
+export function destroyAction(paths: string[], store: writableKeyValue){
     store.update((obj) => {
         let newObj = {...obj}
         paths.forEach(path=>{
@@ -29,7 +29,7 @@ export function destroyAction(paths: string[], store: Writable<keyValue>){
     });
 }
 
-function triggerDestroy(paths: string[], store: Writable<keyValue>){
+export function triggerDestroy(paths: string[], store: writableKeyValue){
     onDestroy(()=>destroyAction(paths, store))
 }
 
@@ -65,4 +65,34 @@ export function getLabelOrdinal(value: number, input: Input) :string {
         throw new Error(`Cannot find label for ${value} in list`)
     }
     throw new Error(`Cannot find list in provided input`)
+}
+
+export function sanitizeDisplayFunction(path: string, fn: Function, store: keyValue) :boolean{
+    try {
+        const result = fn(store)
+        if (typeof result != 'boolean'){
+            console.warn(`[${path}] Got a non boolean result from displayFunction. Ignoring function.`)
+            return false
+        } else {
+            return result
+        }
+    } catch (error) {
+        console.error(`[${path}] Error while evaluating displayFunction: ${error}`)
+        return false
+    }
+}
+
+export function sanitizeComputeFunction(path: string, fn: Function, store: keyValue) :string|undefined {
+try {
+    let computed = fn(store)
+    if (typeof computed != 'string') {
+        console.warn(`[${path}] computeFunction did not return string. Ignoring function.`)
+        return
+    } else {
+        return computed
+    }
+} catch (error) {
+    console.error(`[${path}] Error while evaluating computeFunction: ${error}`)
+    return
+}
 }

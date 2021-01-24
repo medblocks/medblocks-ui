@@ -1,52 +1,19 @@
 <script lang="ts">
-import DataEntry from "./interface/DataEntry.svelte";
-import Settings from "./interface/Settings.svelte";
-import { onMount } from "svelte";
-import { defaultConfig, getConfig } from "./interface/config";
-import { writable } from "svelte/store";
-let page = 'data'
-let components = {
-    'data': DataEntry,
-    'settings': Settings
+import DataEntry from "./views/DataEntry.svelte";
+import Settings from "./views/Settings.svelte";
+import Customize from "./views/Customize.svelte";
+import Router from 'svelte-spa-router'
+
+const routes = {
+    '/': DataEntry,
+    '/settings': Settings,
+    '/customize/:templateIndex?': Customize
 }
-const toggle = () => {
-    if (page == 'data') {
-        page = 'settings'
-    } else {
-        page = 'data'
-    }
-}
-let config = writable(defaultConfig)
-const loadConfig = async () => {
-        let localConfig = await getConfig()
-        config.set(localConfig)
-    }
-onMount(async ()=>{
-        await loadConfig()
-    })
 </script>
 
-<style>
-    .button {
-        position: relative;
-        /* right: 2rem; */
-        left: 2rem;
-        top: 1rem;
-    }
-    div {
-        position: relative
-    }
-</style>
-<div>
-    <button class="button is-rounded" on:click={toggle}>
-        {#if page == 'data'}
-            Settings
-        {:else}
-            Go back
-        {/if}
-    </button>
-</div>
+
 <svelte:head>
-    <title>Medblocks Forms</title>
+    <title>Medblocks UI</title>
 </svelte:head>
-<svelte:component this={components[page]} {config}></svelte:component>
+
+<Router {routes}/>

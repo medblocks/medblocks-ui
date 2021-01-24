@@ -1,3 +1,5 @@
+import type { Readable, Writable } from "svelte/store"
+
 export interface Template {
     readonly tree: Tree,
     readonly templateId: string,
@@ -29,7 +31,8 @@ export interface Tree {
         [key: string]: string
     },
     inContext?: boolean,
-    inputs?: Input[]
+    inputs?: Input[],
+    aqlPath: string
 }
 
 export interface Extracted {
@@ -38,7 +41,8 @@ export interface Extracted {
     children?: Extracted[],
     tree?: Tree,
     label?: string,
-    repeatable?: boolean
+    repeatable?: boolean,
+    options: any
 }
 
 export type Status = 'initialized' | 'assigned' |'pending'| 'entered' | 'unclear'| 'unsupported' |'done' | 'cancelled'
@@ -52,3 +56,24 @@ export interface Recording {
     assigned: string,
     user: string
 }
+
+export interface UITemplate {
+    options: any,
+    schema: Extracted[]
+}
+
+export type writableKeyValue = Writable<keyValue>
+export type readableKeyValue = Readable<keyValue>
+
+interface ReadableCompositionStore {
+    type: 'readable',
+    store: readableKeyValue
+}
+
+interface WritableCompositionStore {
+    type: 'writable',
+    store: writableKeyValue
+}
+
+export type CompositionStore = ReadableCompositionStore | WritableCompositionStore
+
