@@ -22,7 +22,7 @@ export interface Config {
     demographics?: string
 }
 
-const functionKeys = ['computeFunction', 'displayFunction']
+const functionKeys = ['computeFunction', 'displayFunction', 'renderFunction']
 export const serizlizeFn = (name, value)=>{
     if (functionKeys.includes(name)){
         return value.toString()

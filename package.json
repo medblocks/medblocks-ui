@@ -70,5 +70,6 @@
     "type": "git",
     "url": "https://github.com/sidharthramesh/openUI.git"
   },
+  "homepage": "https://sidharthramesh.github.io/medblocks-ui/",
   "license": "Apache-2.0"
 }
