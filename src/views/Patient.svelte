@@ -12,7 +12,7 @@
 
 
     <div class="container">
-        <div class="columns">
+        <!-- <div class="columns">
             {#if hospitalNumber}
             <div class="column">
                 <div class="field">
@@ -52,7 +52,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> -->
         {#if hospitalNumber}
             <slot name="templates"></slot>
             <slot {hospitalNumber}></slot>
