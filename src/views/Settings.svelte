@@ -12,6 +12,7 @@
     });
 
     $: if (JSON.stringify($config) != JSON.stringify(defaultConfig)) {
+        console.log("persisting config")
         setConfig($config);
     }
 
