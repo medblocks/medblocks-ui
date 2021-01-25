@@ -8,7 +8,8 @@
     "test": "jest",
     "validate": "svelte-check",
     "predeploy": "npm run build",
-    "pages": "gh-pages -d build",
+    "pages": "NODE_DEBUG=gh-pages gh-pages -d build",
+    "deployPages": "npm run build && npm run pages",
     "deploy": "npm publish",
     "release": "standard-version"
   },
