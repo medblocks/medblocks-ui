@@ -1,12 +1,12 @@
 ![medblocks ui logo](./public/medblocks-ui-medium.png)
 
 # Medblocks UI
-Web Components for rapid development of openEHR systems. Read this [blog post]() and watch [this video]() to know more.
+Web Components for rapid development of openEHR systems. Read this [blog post](https://blog.medblocks.org/2021-01-26-introducing-medblocks-ui/) to learn more.
 
 A live version can be found at: https://sidharthramesh.github.io/medblocks-ui/
 
 # Notes for Developers
-- This is a [Svelte](https://svelte.dev/) + Typescript project. It's a very easy framework to get started with if you know HTML, CSS and Javascript. 
+- This is a [Svelte](https://svelte.dev/) + Typescript project. It's an easy framework to get started with if you know HTML, CSS and Javascript. 
 - [Bulma](https://bulma.io/) is being used as the CSS framework. You can customize it at `src/css/main.scss`.
 - The `docgen.js` script automatically generates component customization values from JSDocs within `.svelte` files. The output is at `jsdocs.json`. The script is automatically run before `npm run build` and `npm run dev`.
 - All commits must follow the [conventional-commits](https://www.conventionalcommits.org/en/v1.0.0/). The vscode extension has been added to the `.vscode/extensions.json` file.
