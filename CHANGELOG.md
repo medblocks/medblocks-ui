@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/sidharthramesh/openUI/compare/v0.1.0...v0.1.1) (2021-01-27)
+
+
+### Features
+
+* added autogen docs for group and leaf ([8e0bdfc](https://github.com/sidharthramesh/openUI/commit/8e0bdfc98c96d1e78fa313a3bf149ef620df4d24)), closes [#4](https://github.com/sidharthramesh/openUI/issues/4)
+* added computeFunction to Ordinal ([f0bf0f2](https://github.com/sidharthramesh/openUI/commit/f0bf0f25ed5ba45c2e943c73d00a0570b5dae1f9))
+* added more customization features ([e3b9968](https://github.com/sidharthramesh/openUI/commit/e3b996871051f34eb4481c61a660d12c7dda2b31))
+* added new logo! ([e030cc2](https://github.com/sidharthramesh/openUI/commit/e030cc21456aec23a98c9a737cd38204e72d349f))
+
+
+### Bug Fixes
+
+* added logo to favicon and all ([d0cf785](https://github.com/sidharthramesh/openUI/commit/d0cf785c8718515fa4ceaaece76bad3750a73bee))
+* added renderFunction to serialize and deserialize ([2fe2bf7](https://github.com/sidharthramesh/openUI/commit/2fe2bf72fcc9002eba39a2dd35b6fd2235e25ecb))
+* computeFunction working in OrdinalWrite ([ec9b697](https://github.com/sidharthramesh/openUI/commit/ec9b69772af5e5207641a318afae1d5396bc778f))
+* context cleans up after itself, fixed bug with CodedTextWrite to clean up when not selected ([5eeee5a](https://github.com/sidharthramesh/openUI/commit/5eeee5a038ab73c7b61542a4942432d19980d789))
+* not deleting template ([09f70bd](https://github.com/sidharthramesh/openUI/commit/09f70bdb8dc5bfdce645229dddce5c82f552d9d3))
+* renamed display to render ([fb6fe11](https://github.com/sidharthramesh/openUI/commit/fb6fe117273461bbd4251432a49815a156e380e3))
+* when CountWrite is empty cleans up null ([0ee0f35](https://github.com/sidharthramesh/openUI/commit/0ee0f353fabaeae1671efa5c883a1b06250380f6))
+
 ## [0.1.0](https://github.com/sidharthramesh/openUI/compare/v0.0.4...v0.1.0) (2021-01-23)
 
 
