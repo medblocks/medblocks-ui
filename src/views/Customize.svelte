@@ -101,13 +101,32 @@
         <h1 class="title">Settings</h1>
         <hr />
         {#if selectedTemplate}
-            <p class="has-text-weight-semibold">
-                Customizing: {selectedTemplate.template.templateId}.
-                
-            </p>
-            <p class="subtitle">
-                ↓ click on an <span class="tag is-cyan">ELEMENT</span> to start editing. 
-            </p>
+        <div class="columns is-mobile">
+            <div class="column">
+                    <p class="has-text-weight-semibold">
+                        Customizing: {selectedTemplate.template.templateId}.
+                    </p>
+                    <p class="subtitle">
+                        ↓ click on an <span class="tag is-cyan">ELEMENT</span> to start editing. 
+                    </p>
+            </div>
+            <div class="column">
+                <div class="buttons is-pulled-right">
+                    <button
+                        class="button is-success is-outlined"
+                        on:click={saveConfiguration}
+                        type="button">Save</button
+                    >
+                    <button
+                        class="button is-danger is-outlined"
+                        type="button"
+                        on:click={restoreDefault}
+                        >Restore default</button
+                    >
+                </div>
+            </div>
+        </div>
+           
             <div class="columns is-mobile">
                 <div class="column is-half" id="component">
                     <div>
@@ -154,20 +173,6 @@
                                 {store}
                                 configurationStore={currentConfiguration}
                             />
-                            <div class="buttons">
-                                <button
-                                    class="button"
-                                    on:click={saveConfiguration}
-                                    type="button">Save</button
-                                >
-                                <button
-                                    class="button is-danger is-light"
-                                    type="button"
-                                    on:click={restoreDefault}
-                                    >Restore default</button
-                                >
-                            </div>
-
                             <!-- <ConfigDisplay configurationStore={currentConfiguration}/> -->
                         {/if}
                     </div>
