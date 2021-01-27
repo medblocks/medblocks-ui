@@ -113,12 +113,12 @@
             <div class="column">
                 <div class="buttons is-pulled-right">
                     <button
-                        class="button is-success"
+                        class="button is-success is-outlined"
                         on:click={saveConfiguration}
                         type="button">Save</button
                     >
                     <button
-                        class="button is-danger is-light"
+                        class="button is-danger is-outlined"
                         type="button"
                         on:click={restoreDefault}
                         >Restore default</button
