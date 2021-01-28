@@ -64,16 +64,16 @@
           "type": "UnionType",
           "elements": [
             {
-              "type": "StringLiteralType",
-              "value": "dropdown"
+              "type": "BooleanLiteralType",
+              "value": true
             },
             {
-              "type": "StringLiteralType",
-              "value": "search"
+              "type": "BooleanLiteralType",
+              "value": false
             }
           ]
         },
-        "name": "type"
+        "name": "search"
       },
       {
         "title": "param",
@@ -92,6 +92,24 @@
           ]
         },
         "name": "displayTitle"
+      },
+      {
+        "title": "param",
+        "description": "The snomed ECL to search for the term",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "constraint"
+      },
+      {
+        "title": "param",
+        "description": "The URL for terminology search",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "terminologyUrl"
       }
     ]
   },

@@ -1,60 +1,49 @@
-import type { AxiosResponse } from "axios"
-
-interface SuggestQueryBody {
-    suggest: {
-        autocomplete: {
-            prefix: string,
-            completion: {
-                field: string,
-                size: number,
-                contexts: {
-                    is_a: string[]
-                }
-            }
-        }
-    }
-}
-export function createQueryBody(searchTerm: string, isA: string[]): SuggestQueryBody {
-    let suggestionBody: SuggestQueryBody = {
-        suggest: {
-            autocomplete: {
-                prefix: searchTerm,
-                completion: {
-                    contexts: {
-                        is_a: isA
-                    },
-                    size: 20,
-                    field: "terms"
-                }
-            }
-        }
-    }
-    return suggestionBody
-}
-
+import axios from "axios"
 export interface SearchResult {
-    code: string,
-    value: string,
-    display: string,
-    source?: any
+    code: string;
+    value: string;
+    display: string;
+    preferred?: string;
+    source?: any;
 }
-export function parseSearchResult(searchResult: Promise<AxiosResponse<any>>): Promise<SearchResult[]> {
-    return searchResult
-        .then(result => {
-            return result.data.suggest.autocomplete[0].options
-        })
-        .then(options=> options.map(option=>{
-            let { _id, text, _source } = option
-            let formattedResult: SearchResult = {
-                code: _id,
-                display: _source.name,
-                value: _source.name,
-                source: _source
-            }
-            return formattedResult
-        }))
-}
+export type SearchFunction = (
+    term: string,
+    constraint: string,
+    terminologyUrl: string
+) => Promise<SearchResult[]>
 
-export function getIsA(expression: string) :string[]{
-    return expression.split("|").map(a=>a.trim())
+export const hermesSearch: SearchFunction = async (term, constraint, terminologyUrl) => {
+    if (!term) {
+        return []
+    }
+    if (! (constraint && terminologyUrl)) {
+        throw new Error("constraint or terminologyUrl not set")
+    }
+    const response = await axios.get(`${terminologyUrl}/v1/snomed/search`, {
+        params: {
+            s: term,
+            constraint,
+            maxHits: 15
+        },
+        headers: {
+            "Accept": "application/json"
+        }
+    })
+    if (response.status != 200) {
+        return []
+    }
+    console.log(response)
+    const resultFormatted: SearchResult[] = response.data.map((result: {
+        // Hermes output type
+        id: number,
+        conceptId: number,
+        term: string,
+        preferredTerm: string
+    }) => ({
+        code: result.conceptId.toString(),
+        value: result.preferredTerm,
+        display: result.term
+    }))
+    return resultFormatted
+
 }
