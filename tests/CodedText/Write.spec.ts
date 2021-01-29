@@ -4,10 +4,32 @@ import { fireEvent, render, RenderResult } from "@testing-library/svelte"
 import { get, writable } from "svelte/store"
 import type { writableKeyValue } from "../../src/types/types"
 import { tick } from "svelte"
-import { rawTree } from "./webtemplate"
+import { rawTree, withDefault, expandableList, searchComponent } from "./webtemplate"
 import { mockChanges } from "../utils"
 import userEvent from '@testing-library/user-event'
-describe('basic', () => {
+
+describe.each([
+    ['Pulse - basic', rawTree, {
+        options: ['Select an option', 'Present', 'Not detected'],
+        toSelect: "at1024",
+        storeMustBe: {
+            'testing/path|terminology': 'local',
+            'testing/path|code': 'at1024',
+            'testing/path|value': 'Present'
+        },
+        displayMustBe: 'Present'
+    }],
+    ['Overall test status - expandableList', expandableList, {
+        options: ["Select an option", "Registered", "Partial", "Preliminary", "Final", "Amended", "Corrected", "Appended", "Cancelled", "Entered in error"],
+        toSelect: "at0115",
+        storeMustBe: {
+            'testing/path|terminology': 'local',
+            'testing/path|code': 'at0115',
+            'testing/path|value': 'Corrected'
+        },
+        displayMustBe: 'Corrected'
+    }]
+])('%s', (name, rawTree, result) => {
     let component: RenderResult
     let store: writableKeyValue
     let tree
@@ -25,49 +47,74 @@ describe('basic', () => {
     })
     it('must render essential visual elements', () => {
         const options = component.getAllByRole("option")
-        expect(options.map(option => option.textContent)).toEqual([
-            'Select an option',
-            'Present',
-            'Not detected',
-        ])
+        expect(options.map(option => option.textContent)).toEqual(result.options)
     })
     it('must change store on input change', async () => {
         let select = component.getByLabelText(tree.name)
-        userEvent.selectOptions(select, "at1024")
+        userEvent.selectOptions(select, result.toSelect)
         await tick()
-        expect(get(store)).toEqual({
-            'testing/path|terminology': 'local',
-            'testing/path|code': 'at1024',
-            'testing/path|value': 'Present'
-        })
+        expect(get(store)).toEqual(result.storeMustBe)
     })
 
     it('must display correct values from store', async () => {
         let select = component.getByLabelText(tree.name)
-        store.set({
-            'testing/path|terminology': 'local',
-            'testing/path|code': 'at1024',
-            'testing/path|value': 'Present'
-        })
+        store.set(result.storeMustBe)
         await tick()
-        expect(select).toHaveTextContent('Present')
+        expect(select).toHaveTextContent(result.displayMustBe)
     })
 
-    it('must remove all related paths on destroying the component', async ()=> {
+    it('must remove all related paths on destroying the component', async () => {
         let select = component.getByLabelText(tree.name)
-        userEvent.selectOptions(select, "at1024")
+        userEvent.selectOptions(select, result.toSelect)
         await tick()
-        expect(get(store)).toEqual({
-            'testing/path|terminology': 'local',
-            'testing/path|code': 'at1024',
-            'testing/path|value': 'Present'
-        })
+        expect(get(store)).toEqual(result.storeMustBe)
         component.unmount()
         expect(get(store)).toEqual({})
     })
 })
 
 
-describe('advance', ()=>{
-    
+describe('advance', () => {
+    it('must render default value', async () => {
+        const tree = mockChanges(withDefault)
+        const store = writable({})
+        const props = {
+            tree,
+            path: 'testing/path',
+            store,
+            readOnly: false,
+            type: 'Leaf'
+        }
+        const component = render(Leaf, { props })
+        await tick()
+        expect(get(store)).toEqual({
+            'testing/path|terminology': 'LOINC',
+            'testing/path|code': '58410-2',
+            'testing/path|value': 'CBC panel - Blood by Automated count'
+        })
+    })
+    it('must render a search component', async () => {
+        const tree = mockChanges(searchComponent)
+        const store = writable({})
+        const mockFn = jest.fn()
+        const props = {
+            tree,
+            path: 'testing/path',
+            store,
+            readOnly: false,
+            type: 'Leaf',
+            search: true,
+            terminologyUrl: "someurl",
+            constraint: "<1234",
+            searchFunction: mockFn
+        }
+        const component = render(Leaf, { props })
+        const searchBox = component.getByRole("searchbox")
+        userEvent.type(searchBox, "hello there")
+        await tick()
+        setTimeout(() => {
+            expect(mockFn).toHaveBeenLastCalledWith("hello there", "<1234", "someurl")
+          }, 300)
+        
+    })
 })

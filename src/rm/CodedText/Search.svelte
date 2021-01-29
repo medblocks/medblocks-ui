@@ -2,17 +2,22 @@
     import { BehaviorSubject } from "rxjs";
     import { debounceTime, startWith } from "rxjs/operators";
     import { writable } from "svelte/store";
-    import type { readableKeyValue, writableKeyValue, Tree } from "../../types/types";
-import { destroyAction, triggerDestroy } from "../utils";
+    import type {
+        readableKeyValue,
+        writableKeyValue,
+        Tree,
+    } from "../../types/types";
+    import { destroyAction, triggerDestroy } from "../utils";
     import type { SearchFunction, SearchResult } from "./search";
     export let path: string;
     export let store: readableKeyValue;
     export let tree: Tree;
     export let labelClass: string;
-    export let wrapperClass: string
+    export let wrapperClass: string;
     export let searchFunction: SearchFunction;
     export let constraint: string;
     export let terminologyUrl: string;
+    export let displayTitle: boolean;
 
     let searchTerm: string = "";
     let error = false;
@@ -55,31 +60,29 @@ import { destroyAction, triggerDestroy } from "../utils";
             resultStore: searchResults,
         });
     }
-    const paths = [
-        path + "|code",
-        path + "|value",
-        path + "|terminology",
-    ]
-    const deselect = ()=>{
-        destroyAction(paths, store as writableKeyValue)
-    }
-    const select = (result)=>{
-        (store as writableKeyValue).update(s=>({
+    const paths = [path + "|code", path + "|value", path + "|terminology"];
+    const deselect = () => {
+        destroyAction(paths, store as writableKeyValue);
+    };
+    const select = (result) => {
+        (store as writableKeyValue).update((s) => ({
             ...s,
             [path + "|code"]: result.code,
             [path + "|value"]: result.value,
-            [path + "|terminology"]: "SNOMED-CT"
-        }))
-    }
-    triggerDestroy(paths, store as writableKeyValue)
+            [path + "|terminology"]: "SNOMED-CT",
+        }));
+    };
+    triggerDestroy(paths, store as writableKeyValue);
 </script>
 
 <div class={wrapperClass}>
-    <label for={path} class={labelClass}>{tree.name}</label>
-    {#if $store[path + '|value']}
+    {#if displayTitle}
+        <label for={path} class={labelClass}>{tree.name}</label>
+    {/if}
+    {#if $store[path + "|value"]}
         <div class="control">
             <label class="is-size-5" for={path + ".delete"}
-                >{$store[path + '|value']}</label
+                >{$store[path + "|value"]}</label
             >
             <button
                 class="delete"

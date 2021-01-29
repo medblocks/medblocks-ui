@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { onMount } from "svelte";
+
     import type {
         readableKeyValue,
         Tree,
@@ -12,7 +14,8 @@
     export let wrapperClass: string = "field";
     export let labelClass: string = "label";
     export let selectWrapperClass: string = "select";
-
+    export let displayTitle: boolean
+    export let defaultValueClass: string = "label";
     let terminologyPath: string;
     let codePath: string;
     let valuePath: string;
@@ -21,11 +24,16 @@
         terminologyPath = path + "|terminology";
         codePath = path + "|code";
         valuePath = path + "|value";
-        triggerDestroy([terminologyPath, codePath, valuePath], store as writableKeyValue);
+        triggerDestroy(
+            [terminologyPath, codePath, valuePath],
+            store as writableKeyValue
+        );
     }
 
     $: codeStoreValue = $store[codePath];
-    $: if (codeStoreValue) {
+    $: valueStoreValue = $store[valuePath];
+    $: isDefault = tree.inputs && tree.inputs.length == 2 && $store[codePath] == tree.inputs[0].defaultValue
+    $: if (codeStoreValue && !isDefault) {
         if (tree.inputs && tree.inputs[0].list) {
             let selectedLabel = getLabel(codeStoreValue, tree.inputs[0]);
             (store as writableKeyValue).update((store) => ({
@@ -37,24 +45,49 @@
             console.error("Tree does not have input/ input.list");
         }
     } else {
-        destroyAction([terminologyPath, valuePath], store as writableKeyValue);
+        if (!isDefault){
+            destroyAction([terminologyPath, valuePath], store as writableKeyValue);
+        }
     }
+    onMount(() => {
+        if (tree.inputs && tree.inputs.length == 2) {
+            const [codeTree, valueTree] = tree.inputs;
+            if (
+                codeTree.defaultValue &&
+                valueTree.defaultValue &&
+                codeTree.terminology
+            ) {
+                (store as writableKeyValue).update((store) => ({
+                    ...store,
+                    [codePath]: codeTree.defaultValue,
+                    [valuePath]: valueTree.defaultValue,
+                    [terminologyPath]: codeTree.terminology,
+                }));
+            }
+        }
+        // Set default values
+    });
 </script>
 
 <div class={wrapperClass}>
-    <label for={path} class={labelClass}>{tree.name}</label>
+    {#if displayTitle}
+        <label for={path} class={labelClass}>{tree.name}</label>
+    {/if}
     {#if tree.inputs && tree.inputs[0].list}
         <div class={selectWrapperClass}>
             <select
                 id={path}
                 bind:value={$store[codePath]}
-                disabled={tree.inputs[0].list.length === 1}>
+                disabled={tree.inputs[0].list.length === 1}
+            >
                 <option value={undefined} selected>Select an option</option>
                 {#each tree.inputs[0].list as option}
                     <option value={option.value}>{option.label}</option>
                 {/each}
             </select>
         </div>
+    {:else if codeStoreValue}
+        <p class={defaultValueClass}>{valueStoreValue}</p>
     {:else}
         <p>Tree does not have inputs/inputs does not have list</p>
     {/if}

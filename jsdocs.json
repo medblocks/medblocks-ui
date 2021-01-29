@@ -27,6 +27,33 @@
           "name": "function"
         },
         "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
       }
     ],
     "write": [
@@ -56,6 +83,33 @@
           "name": "function"
         },
         "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
       },
       {
         "title": "param",
@@ -141,6 +195,33 @@
           "name": "function"
         },
         "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
       }
     ],
     "write": [
@@ -170,6 +251,33 @@
           "name": "function"
         },
         "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
       },
       {
         "title": "param",
@@ -213,6 +321,33 @@
       },
       {
         "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
+      {
+        "title": "param",
         "description": "The path that comes after ordinal: Eg: /glasgow_coma_scale_e/value|ordinal. In this example \"value\" is the appended path.",
         "type": {
           "type": "NameExpression",
@@ -248,6 +383,33 @@
           "name": "function"
         },
         "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
       },
       {
         "title": "param",
@@ -315,6 +477,33 @@
           "name": "function"
         },
         "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
       }
     ],
     "write": [
@@ -344,6 +533,69 @@
           "name": "function"
         },
         "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
+      {
+        "title": "param",
+        "description": "Still adds the value to the output, but does not show the units during data entry.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "hideUnits"
+      },
+      {
+        "title": "param",
+        "description": "To display the title or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
       }
     ]
   },
@@ -375,6 +627,33 @@
           "name": "function"
         },
         "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
       }
     ],
     "write": [
@@ -404,6 +683,33 @@
           "name": "function"
         },
         "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
       }
     ]
   },

@@ -16,6 +16,7 @@
     export let path: string;
     export let store: writableKeyValue;
     export let tree: Tree;
+    export let displayTitle: boolean = true;
     export let wrapperClass: string = "field";
     export let labelClass: string = "label";
     export let selectWrapperClass: string = "select";
@@ -26,7 +27,7 @@
 </script>
 
 {#if !search}
-    <DropDown {path} {store} {tree} {selectWrapperClass} {labelClass} {wrapperClass}/>
+    <DropDown {path} {store} {tree} {selectWrapperClass} {labelClass} {wrapperClass} {displayTitle}/>
 {:else}
-    <Search {path} {store} {tree} {labelClass} {wrapperClass} {terminologyUrl}  {searchFunction} {constraint}/>
+    <Search {path} {store} {tree} {labelClass} {wrapperClass} {displayTitle} {terminologyUrl}  {searchFunction} {constraint}/>
 {/if}
