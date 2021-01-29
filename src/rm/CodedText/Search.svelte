@@ -43,7 +43,11 @@
                 constraint,
                 terminologyUrl
             );
-            resultStore.set(results);
+            if (results){
+                resultStore.set(results);
+            } else {
+                console.warn(`[${path}]: The searchFunction returned a falsy value.`)
+            }
             loading = false;
             error = false;
         } catch (e) {
@@ -108,7 +112,7 @@
         <div class="container">
             <aside class="box menu" class:is-hidden={!searchTerm || error}>
                 <ul class="menu-list">
-                    {#if searchTerm && !loading && $searchResults.length == 0}
+                    {#if searchTerm && !loading && $searchResults && $searchResults.length == 0}
                         <li>
                             <a class:has-text-grey={loading} href="#/"
                                 >No results found</a

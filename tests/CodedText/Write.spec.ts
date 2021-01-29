@@ -74,6 +74,7 @@ describe.each([
 })
 
 
+
 describe('advance', () => {
     it('must render default value', async () => {
         const tree = mockChanges(withDefault)
@@ -96,7 +97,18 @@ describe('advance', () => {
     it('must render a search component', async () => {
         const tree = mockChanges(searchComponent)
         const store = writable({})
-        const mockFn = jest.fn()
+        const mockFn = jest.fn((term, constraint, url) => [
+            {
+                code: '1234',
+                value: "some result",
+                display: "Result display"
+            },
+            {
+                code: '4321',
+                value: "another result",
+                display: "Another result display"
+            }
+        ])
         const props = {
             tree,
             path: 'testing/path',
@@ -111,10 +123,18 @@ describe('advance', () => {
         const component = render(Leaf, { props })
         const searchBox = component.getByRole("searchbox")
         userEvent.type(searchBox, "hello there")
-        await tick()
-        setTimeout(() => {
+        expect(mockFn).toHaveBeenLastCalledWith("", "<1234", "someurl")
+        await new Promise(resolve => setTimeout(() => {
             expect(mockFn).toHaveBeenLastCalledWith("hello there", "<1234", "someurl")
-          }, 300)
-        
+            resolve(true)
+        }, 300))
+        const searchResults = component.getAllByRole('link')
+        expect(searchResults.map(a => a.textContent)).toEqual(['Result display', 'Another result display'])
+        await userEvent.click(searchResults[0])
+        expect(get(store)).toEqual({
+            "testing/path|code": "1234",
+            "testing/path|terminology": "SNOMED-CT",
+            "testing/path|value": "some result",
+        })
     })
 })
