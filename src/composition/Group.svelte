@@ -36,11 +36,7 @@
 
     let internalDisplay: boolean;
     $: if (renderFunction) {
-        internalDisplay = sanitizeDisplayFunction(
-            path,
-            renderFunction,
-            $store
-        );
+        internalDisplay = sanitizeDisplayFunction(path, renderFunction, $store);
     } else {
         internalDisplay = render ?? true;
     }
@@ -98,19 +94,27 @@
     if (type !== "Group") {
         throw new Error("Group component got tree not of type group");
     }
+    const appendPath = (parentPath, childPath) => {
+        if (childPath) {
+            return `${parentPath}/${childPath}`;
+        }
+        return parentPath;
+    };
 </script>
+
 {#if internalDisplay}
-<div class={childClass} class:bordered={customize && !passCustomize}>
-    {#if customize && !passCustomize}
-        <span
-            class="tag is-cyan"
-            on:click={() =>
-                customizeFunction({ path, aqlPath, type, repeatable })}>
-            {rmType}
-            {#if repeatable}- REPEATABLE{/if}
-        </span>
-    {/if}
-    
+    <div class={childClass} class:bordered={customize && !passCustomize}>
+        {#if customize && !passCustomize}
+            <span
+                class="tag is-cyan"
+                on:click={() =>
+                    customizeFunction({ path, aqlPath, type, repeatable })}
+            >
+                {rmType}
+                {#if repeatable}- REPEATABLE{/if}
+            </span>
+        {/if}
+
         {#if displayTitle && label}
             <h4 class="has-text-weight-bold is-size-6 mb-3 has-text-grey">
                 {label}
@@ -118,10 +122,9 @@
         {/if}
         {#if repeatable}
             {#each [...Array(count).keys()] as index}
-                <!-- transition:slide="{{duration: 300 }}" -->
-
-                <div class="field" style="box-sizing: border-box;">
-                    <svelte:self
+            <!-- transition:slide="{{duration: 300 }}" -->
+            <div class="field" style="box-sizing: border-box;">
+                <svelte:self
                         path={`${path}:${index}`}
                         repeatable={false}
                         {readOnly}
@@ -136,10 +139,13 @@
                         {rmType}
                         {aqlPath}
                     />
-                    <hr />
+                    {#if count > 1 && index !== count - 1}
+                        <hr />
+                    {/if}
                 </div>
             {/each}
             {#if canAddRepeatable}
+                
                 <div class="buttons is-right">
                     {#if count > 1}
                         <button
@@ -164,7 +170,7 @@
                 {#if child.type === "Group"}
                     <svelte:self
                         {...child}
-                        path={`${path}/${child.path}`}
+                        path={appendPath(path, child.path)}
                         {customize}
                         {customizeFunction}
                         {store}
@@ -173,7 +179,7 @@
                 {:else if child.type === "Leaf"}
                     <Leaf
                         {...child}
-                        path={`${path}/${child.path}`}
+                        path={appendPath(path, child.path)}
                         {customize}
                         {customizeFunction}
                         {store}
@@ -182,7 +188,7 @@
                 {:else if child.type === "Context"}
                     <Context
                         {...child}
-                        path={`${path}/${child.path}`}
+                        path={appendPath(path, child.path)}
                         {customize}
                         {customizeFunction}
                         {store}
@@ -196,17 +202,18 @@
         {/if}
     </div>
 {:else if customize}
-<div class={childClass} class:bordered={customize && !passCustomize}>
-    {#if customize && !passCustomize}
-        <span
-            class="tag is-cyan"
-            on:click={() =>
-                customizeFunction({ path, aqlPath, type, repeatable })}>
-            {rmType}
-            {#if repeatable}- REPEATABLE{/if}
-        </span>
-    {/if}
-</div>
+    <div class={childClass} class:bordered={customize && !passCustomize}>
+        {#if customize && !passCustomize}
+            <span
+                class="tag is-cyan"
+                on:click={() =>
+                    customizeFunction({ path, aqlPath, type, repeatable })}
+            >
+                {rmType}
+                {#if repeatable}- REPEATABLE{/if}
+            </span>
+        {/if}
+    </div>
 {/if}
 
 <style>
