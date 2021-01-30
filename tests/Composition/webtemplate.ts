@@ -609,3 +609,340 @@ export const webtemplate = {
       } ]
     }
   }
+
+export const groupMultiplePaths = {
+  "templateId" : "medblocks_ui.cbc_report.v0",
+  "version" : "2.3",
+  "defaultLanguage" : "en",
+  "languages" : [ "en" ],
+  "tree" : {
+    "id" : "medblocks_ui.cbc_report.v0",
+    "name" : "medblocks_ui.cbc_report.v0",
+    "localizedName" : "medblocks_ui.cbc_report.v0",
+    "rmType" : "COMPOSITION",
+    "nodeId" : "openEHR-EHR-COMPOSITION.report-result.v1",
+    "min" : 1,
+    "max" : 1,
+    "localizedNames" : {
+      "en" : "medblocks_ui.cbc_report.v0"
+    },
+    "localizedDescriptions" : {
+      "en" : "Document to communicate information to others about the result of a test or assessment."
+    },
+    "aqlPath" : "",
+    "children" : [ {
+      "id" : "context",
+      "rmType" : "EVENT_CONTEXT",
+      "nodeId" : "",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/context",
+      "children" : [ {
+        "id" : "start_time",
+        "name" : "Start_time",
+        "rmType" : "DV_DATE_TIME",
+        "min" : 0,
+        "max" : 1,
+        "aqlPath" : "/context/start_time",
+        "inputs" : [ {
+          "type" : "DATETIME"
+        } ],
+        "inContext" : true
+      }, {
+        "id" : "setting",
+        "name" : "Setting",
+        "rmType" : "DV_CODED_TEXT",
+        "min" : 0,
+        "max" : 1,
+        "aqlPath" : "/context/setting",
+        "inputs" : [ {
+          "suffix" : "code",
+          "type" : "TEXT"
+        }, {
+          "suffix" : "value",
+          "type" : "TEXT"
+        } ],
+        "inContext" : true
+      } ]
+    }, {
+      "id" : "laboratory_test_result",
+      "name" : "Laboratory test result",
+      "localizedName" : "Laboratory test result",
+      "rmType" : "OBSERVATION",
+      "nodeId" : "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+      "min" : 0,
+      "max" : 1,
+      "localizedNames" : {
+        "en" : "Laboratory test result"
+      },
+      "localizedDescriptions" : {
+        "en" : "The result, including findings and the laboratory's interpretation, of an investigation performed on specimens collected from an individual or related to that individual."
+      },
+      "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]",
+      "children" : [ {
+        "id" : "test_name",
+        "name" : "Test name",
+        "localizedName" : "Test name",
+        "rmType" : "DV_CODED_TEXT",
+        "nodeId" : "at0005",
+        "min" : 1,
+        "max" : 1,
+        "localizedNames" : {
+          "en" : "Test name"
+        },
+        "localizedDescriptions" : {
+          "en" : "Name of the laboratory investigation performed on the specimen(s)."
+        },
+        "annotations" : {
+          "comment" : "A test result may be for a single analyte, or a group of items, including panel tests. It is strongly recommended that 'Test name' be coded with a terminology, for example LOINC or SNOMED CT. For example: 'Glucose', 'Urea and Electrolytes', 'Swab', 'Cortisol (am)', 'Potassium in perspiration' or 'Melanoma histopathology'. The name may sometimes include specimen type and patient state, for example 'Fasting blood glucose' or include other information, as 'Potassium (PNA blood gas)'."
+        },
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0005]/value",
+        "inputs" : [ {
+          "suffix" : "code",
+          "type" : "TEXT",
+          "defaultValue" : "58410-2",
+          "terminology" : "LOINC"
+        }, {
+          "suffix" : "value",
+          "type" : "TEXT",
+          "defaultValue" : "CBC panel - Blood by Automated count",
+          "terminology" : "LOINC"
+        } ]
+      }, {
+        "id" : "hb",
+        "name" : "hb",
+        "localizedName" : "hb",
+        "rmType" : "CLUSTER",
+        "nodeId" : "openEHR-EHR-CLUSTER.laboratory_test_analyte.v1",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "en" : "hb"
+        },
+        "localizedDescriptions" : {
+          "en" : "The result of a laboratory test for a single analyte value."
+        },
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'hb']",
+        "children" : [ {
+          "id" : "analyte_name",
+          "name" : "Analyte name",
+          "localizedName" : "Analyte name",
+          "rmType" : "DV_CODED_TEXT",
+          "nodeId" : "at0024",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Analyte name"
+          },
+          "localizedDescriptions" : {
+            "en" : "The name of the analyte result."
+          },
+          "annotations" : {
+            "comment" : "The value for this element is normally supplied in a specialisation, in a template or at run-time to reflect the actual analyte. For example: 'Serum sodium', 'Haemoglobin'. Coding with an external terminology is strongly recommended, such as LOINC, NPU, SNOMED CT, or local lab terminologies.",
+            "hl7v2_mapping" : "OBX.3",
+            "fhir_mapping" : "Observation.code"
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'hb']/items[at0024]/value",
+          "inputs" : [ {
+            "suffix" : "code",
+            "type" : "TEXT",
+            "defaultValue" : "718-7",
+            "terminology" : "LOINC"
+          }, {
+            "suffix" : "value",
+            "type" : "TEXT",
+            "defaultValue" : "Hemoglobin [Mass/volume] in Blood",
+            "terminology" : "LOINC"
+          } ]
+        }, {
+          "id" : "analyte_result",
+          "name" : "Analyte result",
+          "localizedName" : "Analyte result",
+          "rmType" : "DV_QUANTITY",
+          "nodeId" : "at0001",
+          "min" : 0,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Analyte result"
+          },
+          "localizedDescriptions" : {
+            "en" : "The value of the analyte result."
+          },
+          "annotations" : {
+            "comment" : "For example '7.3 mmol/l', 'Raised'. The 'Any' data type will need to be constrained to an appropriate data type in a specialisation, a template or at run-time to reflect the actual analyte result. The Quantity data type has reference model attributes that include flags for normal/abnormal, reference ranges and approximations - see https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_quantity_class for more details.",
+            "hl7v2_mapping" : "OBX.2, OBX.5, OBX.6, OBX.7, OBX.8",
+            "fhir_mapping" : "Observation.value[x]"
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'hb']/items[at0001]/value",
+          "inputs" : [ {
+            "suffix" : "magnitude",
+            "type" : "DECIMAL"
+          }, {
+            "suffix" : "unit",
+            "type" : "CODED_TEXT",
+            "list" : [ {
+              "value" : "g/100ml",
+              "label" : "g/100ml"
+            } ]
+          } ]
+        } ]
+      }, {
+        "id" : "wbc",
+        "name" : "wbc",
+        "localizedName" : "wbc",
+        "rmType" : "CLUSTER",
+        "nodeId" : "openEHR-EHR-CLUSTER.laboratory_test_analyte.v1",
+        "min" : 0,
+        "max" : 1,
+        "localizedNames" : {
+          "en" : "wbc"
+        },
+        "localizedDescriptions" : {
+          "en" : "The result of a laboratory test for a single analyte value."
+        },
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'wbc']",
+        "children" : [ {
+          "id" : "analyte_name",
+          "name" : "Analyte name",
+          "localizedName" : "Analyte name",
+          "rmType" : "DV_CODED_TEXT",
+          "nodeId" : "at0024",
+          "min" : 0,
+          "max" : 1,
+          "localizedNames" : {
+            "en" : "Analyte name"
+          },
+          "localizedDescriptions" : {
+            "en" : "The name of the analyte result."
+          },
+          "annotations" : {
+            "comment" : "The value for this element is normally supplied in a specialisation, in a template or at run-time to reflect the actual analyte. For example: 'Serum sodium', 'Haemoglobin'. Coding with an external terminology is strongly recommended, such as LOINC, NPU, SNOMED CT, or local lab terminologies.",
+            "hl7v2_mapping" : "OBX.3",
+            "fhir_mapping" : "Observation.code"
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'wbc']/items[at0024]/value",
+          "inputs" : [ {
+            "suffix" : "code",
+            "type" : "TEXT",
+            "defaultValue" : "6690-2",
+            "terminology" : "LOINC"
+          }, {
+            "suffix" : "value",
+            "type" : "TEXT",
+            "defaultValue" : "Leukocytes [#/volume] in Blood by Automated count",
+            "terminology" : "LOINC"
+          } ]
+        }, {
+          "id" : "analyte_result",
+          "name" : "Analyte result",
+          "localizedName" : "Analyte result",
+          "rmType" : "DV_QUANTITY",
+          "nodeId" : "at0001",
+          "min" : 0,
+          "max" : -1,
+          "localizedNames" : {
+            "en" : "Analyte result"
+          },
+          "localizedDescriptions" : {
+            "en" : "The value of the analyte result."
+          },
+          "annotations" : {
+            "comment" : "For example '7.3 mmol/l', 'Raised'. The 'Any' data type will need to be constrained to an appropriate data type in a specialisation, a template or at run-time to reflect the actual analyte result. The Quantity data type has reference model attributes that include flags for normal/abnormal, reference ranges and approximations - see https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_quantity_class for more details.",
+            "hl7v2_mapping" : "OBX.2, OBX.5, OBX.6, OBX.7, OBX.8",
+            "fhir_mapping" : "Observation.value[x]"
+          },
+          "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'wbc']/items[at0001]/value",
+          "inputs" : [ {
+            "suffix" : "magnitude",
+            "type" : "DECIMAL"
+          }, {
+            "suffix" : "unit",
+            "type" : "CODED_TEXT",
+            "list" : [ {
+              "value" : "10*3/uL",
+              "label" : "10*3/uL"
+            } ]
+          } ]
+        } ]
+      }, {
+        "id" : "time",
+        "name" : "Time",
+        "rmType" : "DV_DATE_TIME",
+        "min" : 0,
+        "max" : 1,
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/data[at0001]/events[at0002]/time",
+        "inputs" : [ {
+          "type" : "DATETIME"
+        } ],
+        "inContext" : true
+      }, {
+        "id" : "language",
+        "name" : "Language",
+        "rmType" : "CODE_PHRASE",
+        "min" : 0,
+        "max" : 1,
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/language",
+        "inContext" : true
+      }, {
+        "id" : "encoding",
+        "name" : "Encoding",
+        "rmType" : "CODE_PHRASE",
+        "min" : 0,
+        "max" : 1,
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/encoding",
+        "inContext" : true
+      }, {
+        "id" : "subject",
+        "name" : "Subject",
+        "rmType" : "PARTY_PROXY",
+        "min" : 0,
+        "max" : 1,
+        "aqlPath" : "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1]/subject",
+        "inContext" : true
+      } ]
+    }, {
+      "id" : "category",
+      "rmType" : "DV_CODED_TEXT",
+      "nodeId" : "",
+      "min" : 1,
+      "max" : 1,
+      "aqlPath" : "/category",
+      "inputs" : [ {
+        "suffix" : "code",
+        "type" : "CODED_TEXT",
+        "list" : [ {
+          "value" : "433",
+          "localizedLabels" : {
+            "en" : ""
+          }
+        } ],
+        "terminology" : "openehr"
+      } ],
+      "inContext" : true
+    }, {
+      "id" : "language",
+      "name" : "Language",
+      "rmType" : "CODE_PHRASE",
+      "min" : 0,
+      "max" : 1,
+      "aqlPath" : "/language",
+      "inContext" : true
+    }, {
+      "id" : "territory",
+      "name" : "Territory",
+      "rmType" : "CODE_PHRASE",
+      "min" : 0,
+      "max" : 1,
+      "aqlPath" : "/territory",
+      "inContext" : true
+    }, {
+      "id" : "composer",
+      "name" : "Composer",
+      "rmType" : "PARTY_PROXY",
+      "min" : 0,
+      "max" : 1,
+      "aqlPath" : "/composer",
+      "inContext" : true
+    } ]
+  }
+}
