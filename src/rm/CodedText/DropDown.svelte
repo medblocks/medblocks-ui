@@ -32,6 +32,7 @@
 
     $: codeStoreValue = $store[codePath];
     $: valueStoreValue = $store[valuePath];
+    // Don't check length == 2
     $: isDefault = tree.inputs && tree.inputs.length == 2 && $store[codePath] == tree.inputs[0].defaultValue
     $: if (codeStoreValue && !isDefault) {
         if (tree.inputs && tree.inputs[0].list) {
@@ -39,7 +40,7 @@
             (store as writableKeyValue).update((store) => ({
                 ...store,
                 [valuePath]: selectedLabel,
-                [terminologyPath]: "local",
+                [terminologyPath]: tree?.inputs?.[0]?.terminology ?? "local",
             }));
         } else {
             console.error("Tree does not have input/ input.list");
@@ -50,6 +51,7 @@
         }
     }
     onMount(() => {
+        // To check other cases too
         if (tree.inputs && tree.inputs.length == 2) {
             const [codeTree, valueTree] = tree.inputs;
             if (
