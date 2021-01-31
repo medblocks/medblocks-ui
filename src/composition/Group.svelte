@@ -9,6 +9,7 @@
     } from "../types/types";
     import type { Writable } from "svelte/store";
     import { sanitizeDisplayFunction } from "../rm/utils";
+    import MultiSelectCodedArray from "./special/MultiSelectCodedArrayRead.svelte";
     export let type: string;
     export let path: string;
     export let label: string;
@@ -26,7 +27,11 @@
      * @param {function} renderFunction - The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.
      * @param {true|false} displayTitle - To display the title or not.
      * @param {true|false} canAddRepeatable - For repeatable elements, allow adding new elements?
+     * @param {true|false} divider - Between repeatable elements
+     * @param {true|false} multiSelectCodedArray - Displays an array of all options if DV_CODED_TEXT is repeatable.
      */
+    export let multiSelectCodedArray: boolean = false;
+    export let divider: boolean = true;
     export let render: boolean | undefined = undefined;
     export let renderFunction: Function | undefined = undefined;
     // Currently only simple templates
@@ -121,49 +126,54 @@
             </h4>
         {/if}
         {#if repeatable}
-            {#each [...Array(count).keys()] as index}
-            <!-- transition:slide="{{duration: 300 }}" -->
-            <div class="field" style="box-sizing: border-box;">
-                <svelte:self
-                        path={`${path}:${index}`}
-                        repeatable={false}
-                        {readOnly}
-                        {store}
-                        {type}
-                        {label}
-                        {children}
-                        displayTitle={false}
-                        {customize}
-                        passCustomize={customize}
-                        {customizeFunction}
-                        {rmType}
-                        {aqlPath}
-                    />
-                    {#if count > 1 && index !== count - 1}
-                        <hr />
-                    {/if}
-                </div>
-            {/each}
-            {#if canAddRepeatable}
-                
-                <div class="buttons is-right">
-                    {#if count > 1}
+            {#if rmType == "DV_CODED_TEXT" && multiSelectCodedArray && children[0]}
+                <MultiSelectCodedArray tree={children[0].tree} {path} {store}/>
+            {:else}
+                {#each [...Array(count).keys()] as index}
+                    <!-- transition:slide="{{duration: 300 }}" -->
+                    <div class="field" style="box-sizing: border-box;">
+                        <svelte:self
+                            path={`${path}:${index}`}
+                            repeatable={false}
+                            {readOnly}
+                            {store}
+                            {type}
+                            {label}
+                            {children}
+                            displayTitle={false}
+                            {customize}
+                            passCustomize={customize}
+                            {customizeFunction}
+                            {rmType}
+                            {aqlPath}
+                            hideChildTitle={index > 0}
+                        />
+                        {#if divider && count > 1 && index !== count - 1}
+                            <hr />
+                        {/if}
+                    </div>
+                {/each}
+                {#if canAddRepeatable}
+                    <div class="buttons is-right">
+                        {#if count > 1}
+                            <button
+                                class:is-hidden={readOnly}
+                                transition:scale
+                                class="button is-small is-danger is-light"
+                                on:click={reduceCount}
+                                type="button"
+                                ><i class="icon icon-arrow-up" /></button
+                            >
+                        {/if}
                         <button
                             class:is-hidden={readOnly}
-                            transition:scale
-                            class="button is-small is-danger is-light"
-                            on:click={reduceCount}
+                            class="button is-sma ll is-success is-light"
+                            on:click={increaseCount}
                             type="button"
-                            ><i class="icon icon-arrow-up" /></button
+                            ><i class="icon icon-arrow-down" /></button
                         >
-                    {/if}
-                    <button
-                        class:is-hidden={readOnly}
-                        class="button is-sma ll is-success is-light"
-                        on:click={increaseCount}
-                        type="button"><i class="icon icon-arrow-down" /></button
-                    >
-                </div>
+                    </div>
+                {/if}
             {/if}
         {:else}
             {#each children as child}

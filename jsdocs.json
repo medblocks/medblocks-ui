@@ -54,6 +54,24 @@
           "name": "function"
         },
         "name": "displayFunction"
+      },
+      {
+        "title": "param",
+        "description": "To diaply title or not",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
       }
     ],
     "write": [
@@ -777,6 +795,42 @@
           ]
         },
         "name": "canAddRepeatable"
+      },
+      {
+        "title": "param",
+        "description": "Between repeatable elements",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "divider"
+      },
+      {
+        "title": "param",
+        "description": "Displays an array of all options if DV_CODED_TEXT is repeatable.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "multiSelectCodedArray"
       }
     ],
     "write": [
@@ -842,6 +896,42 @@
           ]
         },
         "name": "canAddRepeatable"
+      },
+      {
+        "title": "param",
+        "description": "Between repeatable elements",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "divider"
+      },
+      {
+        "title": "param",
+        "description": "Displays an array of all options if DV_CODED_TEXT is repeatable.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "multiSelectCodedArray"
       }
     ]
   }

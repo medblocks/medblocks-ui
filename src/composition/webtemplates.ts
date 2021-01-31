@@ -25,7 +25,7 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
         name = `${parentName} (${name})`
         // name = ''
     }
-    if (['OBSERVATION'].includes(rmType)) {
+    if (['OBSERVATION', 'ACTION', 'INSTRUCTION', 'CLUSTER', 'SECTION'].includes(rmType)) {
         inGroup = true
         if (children && children?.filter(child => eventTypes.includes(child.rmType)).length > 0) {
             newParentName = name
