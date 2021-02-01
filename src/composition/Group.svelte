@@ -156,9 +156,9 @@
                 {#if canAddRepeatable}
                     <div class="buttons is-right">
                         {#if count > 1}
+                        <!-- transition:scale -->
                             <button
                                 class:is-hidden={readOnly}
-                                transition:scale
                                 class="button is-small is-danger is-light"
                                 on:click={reduceCount}
                                 type="button"
