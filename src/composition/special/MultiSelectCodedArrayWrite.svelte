@@ -1,7 +1,5 @@
 <script lang="ts">
 import { onDestroy } from "svelte";
-
-    import App from "../../App.svelte";
 import { destroyAction } from "../../rm/utils";
     import type {
         readableKeyValue,

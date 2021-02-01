@@ -9,7 +9,7 @@
     } from "../types/types";
     import type { Writable } from "svelte/store";
     import { sanitizeDisplayFunction } from "../rm/utils";
-    import MultiSelectCodedArray from "./special/MultiSelectCodedArrayRead.svelte";
+    import MultiSelectCodedArrayWrite from "./special/MultiSelectCodedArrayWrite.svelte";
     export let type: string;
     export let path: string;
     export let label: string;
@@ -127,7 +127,7 @@
         {/if}
         {#if repeatable}
             {#if rmType == "DV_CODED_TEXT" && multiSelectCodedArray && children[0]}
-                <MultiSelectCodedArray tree={children[0].tree} {path} {store}/>
+                <MultiSelectCodedArrayWrite tree={children[0].tree} {path} {store}/>
             {:else}
                 {#each [...Array(count).keys()] as index}
                     <!-- transition:slide="{{duration: 300 }}" -->

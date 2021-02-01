@@ -1,8 +1,11 @@
-import { render } from "@testing-library/svelte"
-import userEvent from "@testing-library/user-event"
-import { get, writable } from "svelte/store"
+import '@testing-library/jest-dom'
 import Composition from "../../src/composition/Composition.svelte"
-import { webtemplate, groupMultiplePaths } from "./webtemplate"
+import { fireEvent, render, RenderResult } from "@testing-library/svelte"
+import { get, writable } from "svelte/store"
+import type { writableKeyValue } from "../../src/types/types"
+import { tick } from "svelte"
+import { groupMultiplePaths, webtemplate } from "./webtemplate"
+import userEvent from '@testing-library/user-event'
 
 describe('it should render a component', () => {
     it('should not have any unimplemented types', () => {
@@ -37,11 +40,9 @@ describe('Specific webtemplates', () => {
             store
         }
         const composition = render(Composition, { props })
-        composition.debug()
         const inputs = composition.getAllByRole('spinbutton')
         await userEvent.type(inputs[0], '123')
         await userEvent.type(inputs[1], '23')
-        console.log(get(store))
         expect(get(store)).toEqual({
             'medblocks_ui.cbc_report.v0/laboratory_test_result/test_name|code': '58410-2',
             'medblocks_ui.cbc_report.v0/laboratory_test_result/test_name|value': 'CBC panel - Blood by Automated count',
