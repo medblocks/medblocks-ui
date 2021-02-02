@@ -1,18 +1,18 @@
+<svelte:options tag="medblocks-component" />
+
 <script lang="ts">
     import type {
-Extracted,
-                keyValue,
+        Extracted,
+        keyValue,
         readableKeyValue,
-                Template,
-                UITemplate,
+        Template,
+        UITemplate,
     } from "../types/types";
     import Leaf from "./Leaf.svelte";
     import Group from "./Group.svelte";
     import { writable } from "svelte/store";
-    import { createEventDispatcher, setContext} from "svelte";
-    import {
-        generateSchema,
-    } from "./webtemplates";
+    import { createEventDispatcher, setContext } from "svelte";
+    import { generateSchema } from "./webtemplates";
     import Context from "../rm/Context.svelte";
 
     export let template: Template;
@@ -22,24 +22,40 @@ Extracted,
     export let initialData: keyValue = {};
     export let customize: boolean = false;
     export let customizeFunction: Function = console.log;
-    let internalStore: readableKeyValue
+    $: {
+        console.log(template)
+        console.log(configuration)
+    }
+    let internalStore: readableKeyValue;
     let parentClass: string;
     let childClass: string;
     let error = false;
     let uiTemplate: UITemplate;
-    let contextItems: Extracted[]
-    let groupLeafItems: Extracted[]
-    setContext("contextPaths", writable([]))
+    let contextItems: Extracted[];
+    let groupLeafItems: Extracted[];
+    setContext("contextPaths", writable([]));
     const dispatch = createEventDispatcher();
-    function partition(array: Extracted[], isValid: (a: Extracted)=>boolean): [Extracted[], Extracted[]] {
-        return array.reduce(([pass, fail], elem) => {
-            return isValid(elem) ? [[...pass, elem], fail] : [pass, [...fail, elem]];
-        }, [[], []]);
-        }
+    function partition(
+        array: Extracted[],
+        isValid: (a: Extracted) => boolean
+    ): [Extracted[], Extracted[]] {
+        return array.reduce(
+            ([pass, fail], elem) => {
+                return isValid(elem)
+                    ? [[...pass, elem], fail]
+                    : [pass, [...fail, elem]];
+            },
+            [[], []]
+        );
+    }
     $: {
         try {
             uiTemplate = generateSchema(template, configuration, readOnly);
-            ([contextItems, groupLeafItems] = partition(uiTemplate.schema, s=>s.type === 'Context'))
+            console.log({uiTemplate, template, configuration});
+            [contextItems, groupLeafItems] = partition(
+                uiTemplate.schema,
+                (s) => s.type === "Context"
+            );
             if (uiTemplate.options.horizontal) {
                 parentClass = "columns";
                 childClass = "column";
@@ -47,71 +63,79 @@ Extracted,
                 parentClass = "field";
                 childClass = "field";
             }
+            error = false
         } catch (e) {
             error = true;
         }
     }
-    if (store){
-        internalStore = store
+    if (store) {
+        internalStore = store;
         // if (!readOnly){
         //     (internalStore as writableKeyValue).update(s=>({...s, ...initialData}))
         // }
     } else {
-        internalStore = writable(initialData)
+        internalStore = writable(initialData);
     }
     function submit() {
         dispatch("done", $internalStore);
     }
 </script>
 
-<style>
-    .bordered {
-        border-style: solid;
-        border-width: 4px;
-        border-color: lavender;
-        border-radius: 5px;
-    }
-    .tag {
-        background-color: lavender;
-        cursor: pointer;
-    }
-</style>
-
 {#if customize}
-    <div class="tag" on:click={() => customizeFunction({ aqlPath: 'global', type: 'COMPOSITION', path: 'global'})}>
+    <div
+        class="tag"
+        on:click={() =>
+            customizeFunction({
+                aqlPath: "global",
+                type: "COMPOSITION",
+                path: "global",
+            })}
+    >
         COMPOSITION
     </div>
 {/if}
 <div class="box" class:bordered={customize == true}>
     <form on:submit|preventDefault={submit}>
         <h1 class="subtitle">
-            {#if !error}{template.tree.name || ''}{:else}Template Error{/if}
+            {#if !error}{template.tree.name || ""}{:else}Template Error{/if}
         </h1>
         {#if !error}
             <div class={parentClass}>
                 {#each groupLeafItems as item}
-                {#key item.path}
-                    {#if item.type === 'Group'}
-                        <Group
-                            {...item}
-                            {childClass}
-                            {customize}
-                            {customizeFunction} 
-                            {readOnly}
-                            store={internalStore}
+                    {#key item.path}
+                        {#if item.type === "Group"}
+                            <Group
+                                {...item}
+                                {childClass}
+                                {customize}
+                                {customizeFunction}
+                                {readOnly}
+                                store={internalStore}
                             />
-                    {:else if item.type === 'Leaf'}
-                        <Leaf {...item} {customize} {customizeFunction} {readOnly} store={internalStore}/>
-                    {:else}
-                        <p>Type {item.type} not recognized</p>
-                        <pre>{JSON.stringify(item, null, 2)}</pre>
-                    {/if}
-                {/key}
+                        {:else if item.type === "Leaf"}
+                            <Leaf
+                                {...item}
+                                {customize}
+                                {customizeFunction}
+                                {readOnly}
+                                store={internalStore}
+                            />
+                        {:else}
+                            <p>Type {item.type} not recognized</p>
+                            <pre>{JSON.stringify(item, null, 2)}</pre>
+                        {/if}
+                    {/key}
                 {/each}
             </div>
             <div class="field">
                 {#each contextItems as item}
-                <Context {...item} {customize} {customizeFunction} {readOnly} store={internalStore}/>
+                    <Context
+                        {...item}
+                        {customize}
+                        {customizeFunction}
+                        {readOnly}
+                        store={internalStore}
+                    />
                 {/each}
             </div>
         {:else}
@@ -124,3 +148,17 @@ Extracted,
         </div>
     </form>
 </div>
+
+<style>
+    @import "../bulma.css";
+    .bordered {
+        border-style: solid;
+        border-width: 4px;
+        border-color: lavender;
+        border-radius: 5px;
+    }
+    .tag {
+        background-color: lavender;
+        cursor: pointer;
+    }
+</style>
