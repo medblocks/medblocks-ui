@@ -60,6 +60,18 @@ export default {
 			// a separate file - better for performance
 			// css: true,
 			preprocess: sveltePreprocess(),
+			include: /\.wc\.svelte$/
+
+		}),
+		svelte({
+			customElement: false,
+			// enable run-time checks when not in production
+			dev: !production,
+			// we'll extract any component CSS out into
+			// a separate file - better for performance
+			// css: true,
+			preprocess: sveltePreprocess(),
+			exclude: /\.wc\.svelte$/
 
 		}),
 		json(),

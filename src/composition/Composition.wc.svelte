@@ -1,4 +1,4 @@
-<svelte:options tag="medblocks-component" />
+<svelte:options tag="mui-composition" />
 
 <script lang="ts">
     import type {
@@ -11,7 +11,7 @@
     import Leaf from "./Leaf.svelte";
     import Group from "./Group.svelte";
     import { writable } from "svelte/store";
-    import { createEventDispatcher, setContext } from "svelte";
+    import { createEventDispatcher, onMount, setContext } from "svelte";
     import { generateSchema } from "./webtemplates";
     import Context from "../rm/Context.svelte";
 
@@ -23,8 +23,7 @@
     export let customize: boolean = false;
     export let customizeFunction: Function = console.log;
     $: {
-        console.log(template)
-        console.log(configuration)
+        console.log({ template, configuration, store, internalStore });
     }
     let internalStore: readableKeyValue;
     let parentClass: string;
@@ -51,7 +50,7 @@
     $: {
         try {
             uiTemplate = generateSchema(template, configuration, readOnly);
-            console.log({uiTemplate, template, configuration});
+            console.log({ uiTemplate, template, configuration });
             [contextItems, groupLeafItems] = partition(
                 uiTemplate.schema,
                 (s) => s.type === "Context"
@@ -63,19 +62,24 @@
                 parentClass = "field";
                 childClass = "field";
             }
-            error = false
+            error = false;
         } catch (e) {
             error = true;
         }
     }
-    if (store) {
-        internalStore = store;
-        // if (!readOnly){
-        //     (internalStore as writableKeyValue).update(s=>({...s, ...initialData}))
-        // }
-    } else {
-        internalStore = writable(initialData);
-    }
+    onMount(() => {
+        console.log({ store, from: "composition" });
+        if (store) {
+            console.log("store present");
+            internalStore = store;
+            // if (!readOnly){
+            //     (internalStore as writableKeyValue).update(s=>({...s, ...initialData}))
+            // }
+        } else {
+            console.log("initializing store");
+            internalStore = writable(initialData);
+        }
+    });
     function submit() {
         dispatch("done", $internalStore);
     }

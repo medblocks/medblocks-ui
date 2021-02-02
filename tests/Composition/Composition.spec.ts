@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import Composition from "../../src/composition/Composition.svelte"
+import Composition from "../../src/composition/Composition.wc.svelte"
 import { fireEvent, render, RenderResult } from "@testing-library/svelte"
 import { get, writable } from "svelte/store"
 import type { writableKeyValue } from "../../src/types/types"

@@ -1,5 +1,5 @@
-import Composition from './composition/Composition.svelte';
-import Button from './composition/Button.svelte';
+import Composition from './composition/Composition.wc.svelte';
+// import Button from './composition/Button.svelte';
 // const app = new App({
 // 	target: document.body,
 // 	props: {
@@ -7,4 +7,4 @@ import Button from './composition/Button.svelte';
 // });
 
 // export default app;
-export default Button
+export {Composition}

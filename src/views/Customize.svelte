@@ -8,7 +8,7 @@
     import CustomizeBox from "./customize/CustomizeBox.svelte";
     import ConfigDisplay from "./customize/ConfigDisplay.svelte";
     import { push } from "svelte-spa-router";
-    import Composition from "../composition/Composition.svelte";
+    import Composition from "../composition/Composition.wc.svelte";
     import Autogen from "./Autogen.svelte";
     let selectedTemplate: TemplateConfig;
     let currentConfiguration = writable({});

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { writable } from "svelte/store";
-    import Composition from "../composition/Composition.svelte";
+    import Composition from "../composition/Composition.wc.svelte";
     import type { keyValue, Template, UITemplate } from "../types/types";
     import type {TemplateConfig} from "./config"
     import Patient from "./Patient.svelte";
