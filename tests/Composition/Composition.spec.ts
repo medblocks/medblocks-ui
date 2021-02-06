@@ -20,7 +20,6 @@ describe('it should render a component', () => {
 })
 
 describe('Specific webtemplates', () => {
-    const OriginalDate = global.Date
     beforeEach(() => {
         // (global.Date.prototype.toISOString as any) = jest.fn(() => 'MOCKDATE')
         jest.useFakeTimers('modern');
