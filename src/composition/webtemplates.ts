@@ -10,7 +10,7 @@ function propogateContext(tree: Tree, parentContext: boolean): Tree {
     }
     return { ...tree, children: tree.children?.map(child => propogateContext(child, false)) }
 }
-function extractInputs(tree: Tree, path: string, parentName: string, config: any, readOnly: boolean): Extracted | Extracted[] {
+function extractInputs(tree: Tree, path: string, parentName: string, config: any, readOnly: boolean): Extracted {
     let { max, children, id, inputs, name: uncleanName, rmType, annotations, inContext, localizedName, aqlPath } = tree
     let newPath = path ? `${path}/${id}` : `${id}`
     let options = config[aqlPath]?.[readOnly ? 'read' : 'write']
@@ -25,7 +25,7 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
         name = `${parentName} (${name})`
         // name = ''
     }
-    if (['OBSERVATION', 'ACTION', 'INSTRUCTION', 'CLUSTER', 'SECTION'].includes(rmType)) {
+    if (['OBSERVATION', 'ACTION', 'INSTRUCTION', 'CLUSTER', 'SECTION', 'COMPOSITION'].includes(rmType)) {
         inGroup = true
         if (children && children?.filter(child => eventTypes.includes(child.rmType)).length > 0) {
             newParentName = name
@@ -90,7 +90,16 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
                 extractInputs(child, newPath, name, config, readOnly))
             .filter(i => i)
             .flat()
-        return extracted
+        
+            return {
+                type: 'Group',
+                ...options,
+                path: newPath,
+                rmType,
+                aqlPath,
+                label: name,
+                children: extracted
+            }
 
     } else {
         return {
@@ -103,18 +112,15 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
     }
 }
 
-function generateSchema(template: Template, configuration: any = {}, readOnly: boolean): UITemplate {
+function generateSchema(template: Template, configuration: any = {}, readOnly: boolean): Extracted {
     const { tree } = template
     const contextTree = propogateContext(tree, false)
     let schema = extractInputs(contextTree, '', '', configuration, readOnly)
-    if (!Array.isArray(schema)) {
-        throw new Error('Top level template returned only one extracted')
-    }
-    const uiTemplate = {
-        options: configuration.global || {},
-        schema
-    }
-    return uiTemplate
+    return schema
+    // if (!Array.isArray(schema)) {
+    //     throw new Error('Top level template returned only one extracted')
+    // }
+    
 }
 
 function sanitizeValues(values: keyValue): keyValue {

@@ -38,7 +38,8 @@ describe('Specific webtemplates', () => {
             readOnly: false,
             store
         }
-        const composition = render(Composition, { props })
+        const composition = 
+        render(Composition, { props })
         const inputs = composition.getAllByRole('spinbutton')
         await userEvent.type(inputs[0], '123')
         await userEvent.type(inputs[1], '23')

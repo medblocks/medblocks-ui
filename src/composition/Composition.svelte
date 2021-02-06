@@ -36,17 +36,18 @@ Extracted,
             return isValid(elem) ? [[...pass, elem], fail] : [pass, [...fail, elem]];
         }, [[], []]);
         }
+    let mainGroup: Extracted
     $: {
         try {
-            uiTemplate = generateSchema(template, configuration, readOnly);
-            ([contextItems, groupLeafItems] = partition(uiTemplate.schema, s=>s.type === 'Context'))
-            if (uiTemplate.options.horizontal) {
-                parentClass = "columns";
-                childClass = "column";
-            } else {
-                parentClass = "field";
-                childClass = "field";
-            }
+            mainGroup = generateSchema(template, configuration, readOnly);
+            // ([contextItems, groupLeafItems] = partition(uiTemplate.schema, s=>s.type === 'Context'))
+            // if (uiTemplate.options.horizontal) {
+            //     parentClass = "columns";
+            //     childClass = "column";
+            // } else {
+            //     parentClass = "field";
+            //     childClass = "field";
+            // }
         } catch (e) {
             error = true;
         }
@@ -88,32 +89,16 @@ Extracted,
             {#if !error}{template.tree.name || ''}{:else}Template Error{/if}
         </h1>
         {#if !error}
-            <div class={parentClass}>
-                {#each groupLeafItems as item}
-                {#key item.path}
-                    {#if item.type === 'Group'}
+                {#key mainGroup.path}
                         <Group
-                            {...item}
+                            {...mainGroup}
                             {childClass}
                             {customize}
                             {customizeFunction} 
                             {readOnly}
                             store={internalStore}
                             />
-                    {:else if item.type === 'Leaf'}
-                        <Leaf {...item} {customize} {customizeFunction} {readOnly} store={internalStore}/>
-                    {:else}
-                        <p>Type {item.type} not recognized</p>
-                        <pre>{JSON.stringify(item, null, 2)}</pre>
-                    {/if}
                 {/key}
-                {/each}
-            </div>
-            <div class="field">
-                {#each contextItems as item}
-                <Context {...item} {customize} {customizeFunction} {readOnly} store={internalStore}/>
-                {/each}
-            </div>
         {:else}
             <p>Invalid template</p>
         {/if}

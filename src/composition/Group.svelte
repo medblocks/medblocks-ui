@@ -29,6 +29,7 @@
      * @param {true|false} canAddRepeatable - For repeatable elements, allow adding new elements?
      * @param {true|false} divider - Between repeatable elements
      * @param {true|false} multiSelectCodedArray - Displays an array of all options if DV_CODED_TEXT is repeatable.
+     * @param {true|false} tabbed - To tab the children of the group or not?
      */
     export let multiSelectCodedArray: boolean = false;
     export let divider: boolean = true;
@@ -38,6 +39,7 @@
     export let displayTitle = true;
     export let canAddRepeatable = true;
     export let passCustomize: boolean = false;
+    export let tabbed: boolean = false;
 
     let internalDisplay: boolean;
     $: if (renderFunction) {
@@ -108,7 +110,8 @@
 </script>
 
 {#if internalDisplay}
-    <div class={childClass} class:bordered={customize && !passCustomize}>
+    
+    <div class="field" class:bordered={customize && !passCustomize}>
         {#if customize && !passCustomize}
             <span
                 class="tag is-cyan"
@@ -119,11 +122,24 @@
                 {#if repeatable}- REPEATABLE{/if}
             </span>
         {/if}
-
+        
         {#if displayTitle && label}
             <h4 class="has-text-weight-bold is-size-6 mb-3 has-text-grey">
                 {label}
             </h4>
+        {/if}
+        {#if tabbed}
+        <div class="tabs">
+            <ul>
+                <li>
+                    {#each children as child}
+                    {#if child.label}
+                        <a href="">{child.label}</a>
+                    {/if}
+                    {/each}
+                </li>
+            </ul>
+        </div>
         {/if}
         {#if repeatable}
             {#if rmType == "DV_CODED_TEXT" && multiSelectCodedArray && children[0]}
@@ -185,6 +201,7 @@
                         {customizeFunction}
                         {store}
                         {readOnly}
+                        displayTitle={tabbed?false:undefined}
                     />
                 {:else if child.type === "Leaf"}
                     <Leaf
@@ -212,7 +229,7 @@
         {/if}
     </div>
 {:else if customize}
-    <div class={childClass} class:bordered={customize && !passCustomize}>
+    <div class="field" class:bordered={customize && !passCustomize}>
         {#if customize && !passCustomize}
             <span
                 class="tag is-cyan"

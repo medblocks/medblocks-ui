@@ -835,6 +835,24 @@
           ]
         },
         "name": "multiSelectCodedArray"
+      },
+      {
+        "title": "param",
+        "description": "To tab the children of the group or not?",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "tabbed"
       }
     ],
     "write": [
@@ -936,6 +954,24 @@
           ]
         },
         "name": "multiSelectCodedArray"
+      },
+      {
+        "title": "param",
+        "description": "To tab the children of the group or not?",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "tabbed"
       }
     ]
   }
