@@ -1,6 +1,7 @@
 .bordered.svelte-16ujzc5{border-style:solid;border-width:4px;border-color:lavender;border-radius:5px}.tag.svelte-16ujzc5{background-color:lavender;cursor:pointer}
 .is-cyan.svelte-hty4ep{background-color:lightcyan}.tag.svelte-hty4ep{cursor:pointer}.bordered.svelte-hty4ep{border-style:solid;border-width:4px;border-color:lightcyan;border-radius:5px}
 .bordered.svelte-d1lm4h{border-style:solid;border-width:4px;border-color:blanchedalmond;border-radius:5px}.is-almond.svelte-d1lm4h{background-color:blanchedalmond}.tag.svelte-d1lm4h{cursor:pointer}
+input[type="search"].svelte-m17ndh::-webkit-search-decoration,input[type="search"].svelte-m17ndh::-webkit-search-cancel-button,input[type="search"].svelte-m17ndh::-webkit-search-results-button,input[type="search"].svelte-m17ndh::-webkit-search-results-decoration{display:none}input[type="search"].svelte-m17ndh::-webkit-search-cancel-button{display:none}.delete.svelte-m17ndh{vertical-align:middle}aside.svelte-m17ndh{margin:auto;z-index:100;overflow:auto;position:absolute;padding:0;margin:0;border:1px solid #dbdbdb;height:20rem;width:100%;background-color:rgba(255, 255, 255, 0.966)}
 .tag.svelte-178q367{cursor:pointer}
 .tag.svelte-e1x2zw{cursor:pointer;font-family:monospace}.is-cyan.svelte-e1x2zw{background-color:lightcyan}.sticky.svelte-e1x2zw{position:sticky;position:-webkit-sticky;top:0px}.sourcebox.svelte-e1x2zw{position:fixed;z-index:100;max-width:700px}pre.svelte-e1x2zw{max-height:500px;overflow-y:auto
     }
