@@ -17,9 +17,13 @@
 	<div id="app">
 		<section class="section">
 			<div class="columns">
-				<div class="column">
+				<div class="column is-half">
 					<!-- <custom-button id="med" :name="name"/> -->
-					<mui-composition id="med"></mui-composition>
+					<mui-composition :readOnly="readOnly" :configuration.prop="configuration" :template.prop="webtemplate" @done="print" @change="setCurrent"></mui-composition>
+					<!-- <mui-composition id="med"></mui-composition> -->
+				</div>
+				<div class="column is-half">
+					<pre>{{currentValue}}</pre>
 				</div>
 			</div>
 		</section>
@@ -414,18 +418,29 @@
 				}]
 			}
 		}
-		let el = document.getElementById("med")
-		el.readOnly = false
-		el.configuration = {}
-		el.template = webtemplate
-		// var app = new Vue({
-		// 	el: '#app',
-		// 	data: {
-		// 		webtemplate,
-		// 		configuration: {},
-		// 		name: webtemplate
-		// 	}
-		// })
+		// let el = document.getElementById("med")
+		// el.readOnly = false
+		// el.configuration = {}
+		// el.template = webtemplate
+		// el.addEventListener("done", e=>console.log(e))
+		var app = new Vue({
+			el: '#app',
+			data: {
+				webtemplate,
+				configuration: {},
+				readOnly: false,
+				currentValue: {}
+			},
+			methods: {
+				print(e){
+					console.log(e)
+				},
+				setCurrent(e){
+					console.log("Setting current", {data: e.detail})
+					this.currentValue = e.detail
+				}
+			}
+		})
 
 	</script>
 </body>

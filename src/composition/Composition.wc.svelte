@@ -14,6 +14,7 @@
     import { createEventDispatcher, onMount, setContext } from "svelte";
     import { generateSchema } from "./webtemplates";
     import Context from "../rm/Context.svelte";
+import { get_current_component } from "svelte/internal";
 
     export let template: Template;
     export let readOnly: boolean = false;
@@ -80,8 +81,34 @@
             internalStore = writable(initialData);
         }
     });
+    // function emitCustomEvent(name, detail){
+    //     const event = new CustomEvent(name, {
+    //       detail: detail,
+    //       bubbles: true,
+    //       composed: true, // needed for the event to traverse beyond shadow dom
+    //   })
+    //     this.dispatchEvent(event)
+    // }
+    const el = get_current_component()
+    $: {
+        console.log("Store changed")
+        const event = new CustomEvent('change', {
+          detail: $internalStore,
+          bubbles: true,
+          composed: true, // needed for the event to traverse beyond shadow dom
+        })
+        console.log("Emitting event")
+        el.dispatchEvent(event)
+    }
     function submit() {
+        console.log("dispatching done")
         dispatch("done", $internalStore);
+        const event = new CustomEvent('done', {
+          detail: $internalStore,
+          bubbles: true,
+          composed: true, // needed for the event to traverse beyond shadow dom
+      })
+        el.dispatchEvent(event)
     }
 </script>
 
