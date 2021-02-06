@@ -50,6 +50,7 @@ Extracted,
             // }
         } catch (e) {
             error = true;
+            console.error(e)
         }
     }
     if (store){
@@ -80,16 +81,13 @@ Extracted,
 
 {#if customize}
     <div class="tag" on:click={() => customizeFunction({ aqlPath: 'global', type: 'COMPOSITION', path: 'global'})}>
-        COMPOSITION
+        GLOBAL
     </div>
 {/if}
 <div class="box" class:bordered={customize == true}>
     <form on:submit|preventDefault={submit}>
-        <h1 class="subtitle">
-            {#if !error}{template.tree.name || ''}{:else}Template Error{/if}
-        </h1>
         {#if !error}
-                {#key mainGroup.path}
+                {#key JSON.stringify(mainGroup)}
                         <Group
                             {...mainGroup}
                             {childClass}
@@ -100,6 +98,7 @@ Extracted,
                             />
                 {/key}
         {:else}
+            <h1 class="subtitl">Template error</h1>
             <p>Invalid template</p>
         {/if}
         <div class="field">

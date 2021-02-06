@@ -10,7 +10,7 @@ function propogateContext(tree: Tree, parentContext: boolean): Tree {
     }
     return { ...tree, children: tree.children?.map(child => propogateContext(child, false)) }
 }
-function extractInputs(tree: Tree, path: string, parentName: string, config: any, readOnly: boolean): Extracted {
+function extractInputs(tree: Tree, path: string, parentName: string, config: any, readOnly: boolean): Extracted | Extracted[] {
     let { max, children, id, inputs, name: uncleanName, rmType, annotations, inContext, localizedName, aqlPath } = tree
     let newPath = path ? `${path}/${id}` : `${id}`
     let options = config[aqlPath]?.[readOnly ? 'read' : 'write']
@@ -25,7 +25,7 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
         name = `${parentName} (${name})`
         // name = ''
     }
-    if (['OBSERVATION', 'ACTION', 'INSTRUCTION', 'CLUSTER', 'SECTION', 'COMPOSITION'].includes(rmType)) {
+    if (['OBSERVATION', 'ACTION', 'INSTRUCTION', 'CLUSTER', 'SECTION'].includes(rmType)) {
         inGroup = true
         if (children && children?.filter(child => eventTypes.includes(child.rmType)).length > 0) {
             newParentName = name
@@ -90,16 +90,7 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
                 extractInputs(child, newPath, name, config, readOnly))
             .filter(i => i)
             .flat()
-        
-            return {
-                type: 'Group',
-                ...options,
-                path: newPath,
-                rmType,
-                aqlPath,
-                label: name,
-                children: extracted
-            }
+        return extracted
 
     } else {
         return {
@@ -112,15 +103,25 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
     }
 }
 
-function generateSchema(template: Template, configuration: any = {}, readOnly: boolean): Extracted {
+function generateSchema(template: Template, configuration: any = {}, readOnly: boolean) {
     const { tree } = template
     const contextTree = propogateContext(tree, false)
     let schema = extractInputs(contextTree, '', '', configuration, readOnly)
-    return schema
-    // if (!Array.isArray(schema)) {
-    //     throw new Error('Top level template returned only one extracted')
-    // }
-    
+    if (!Array.isArray(schema)) {
+        throw new Error('Top level template returned only one extracted')
+    }
+    let options = configuration[""]?.[readOnly ? 'read' : 'write']
+    const {id, rmType, aqlPath, name} = template.tree
+    return {
+        type: 'Group',
+        ...options,
+        path: id,
+        rmType,
+        aqlPath,
+        label: name,
+        repeatable: false,
+        children: schema
+    }
 }
 
 function sanitizeValues(values: keyValue): keyValue {
