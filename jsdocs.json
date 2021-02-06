@@ -131,21 +131,25 @@
       },
       {
         "title": "param",
-        "description": "Drop down or Search for Writing",
+        "description": "Which component to render for writing",
         "type": {
           "type": "UnionType",
           "elements": [
             {
-              "type": "BooleanLiteralType",
-              "value": true
+              "type": "StringLiteralType",
+              "value": "search"
             },
             {
-              "type": "BooleanLiteralType",
-              "value": false
+              "type": "StringLiteralType",
+              "value": "dropbox"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "buttons"
             }
           ]
         },
-        "name": "search"
+        "name": "component"
       },
       {
         "title": "param",
