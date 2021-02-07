@@ -58,7 +58,6 @@ export interface Recording {
 }
 
 export interface UITemplate {
-    options: any,
     schema: Extracted[]
 }
 

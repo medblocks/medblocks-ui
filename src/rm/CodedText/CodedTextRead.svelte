@@ -9,7 +9,7 @@
     export let tree: Tree;
     export let wrapperClass: string = "field";
     export let labelClass: string =
-        "is-6 has-text-grey has-text-weight-semibold";
+        "label";
     export let valueClass: string = "subtitle is-5";
     export let displayTitle: boolean = true;
 

@@ -9,7 +9,7 @@
      */
     export let ordinalPathAppend: string = "/value"
     export let ordinalClass: string = "subtitle is-5"
-    export let labelClass: string = "has-text-grey has-text-weight-semibold is-size-6"
+    export let labelClass: string = "label"
     let selected: number;
     let internalPath: string
     $: internalPath = path.replace("/ordinal_value", ordinalPathAppend)

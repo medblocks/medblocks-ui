@@ -115,7 +115,7 @@ describe('advance', () => {
             store,
             readOnly: false,
             type: 'Leaf',
-            search: true,
+            component: 'search',
             terminologyUrl: "someurl",
             constraint: "<1234",
             searchFunction: mockFn

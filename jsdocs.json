@@ -131,21 +131,25 @@
       },
       {
         "title": "param",
-        "description": "Drop down or Search for Writing",
+        "description": "Which component to render for writing",
         "type": {
           "type": "UnionType",
           "elements": [
             {
-              "type": "BooleanLiteralType",
-              "value": true
+              "type": "StringLiteralType",
+              "value": "search"
             },
             {
-              "type": "BooleanLiteralType",
-              "value": false
+              "type": "StringLiteralType",
+              "value": "dropbox"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "buttons"
             }
           ]
         },
-        "name": "search"
+        "name": "component"
       },
       {
         "title": "param",
@@ -735,6 +739,82 @@
     "read": [
       {
         "title": "param",
+        "description": "Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "StringLiteralType",
+              "value": "normal"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "tabbed"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "multiselect"
+            }
+          ]
+        },
+        "name": "component"
+      },
+      {
+        "title": "param",
+        "description": "To display the title or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
+      },
+      {
+        "title": "param",
+        "description": "A custom label for the group",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "customTitle"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
+      {
+        "title": "param",
         "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
@@ -759,24 +839,6 @@
           "name": "function"
         },
         "name": "renderFunction"
-      },
-      {
-        "title": "param",
-        "description": "To display the title or not.",
-        "type": {
-          "type": "UnionType",
-          "elements": [
-            {
-              "type": "BooleanLiteralType",
-              "value": true
-            },
-            {
-              "type": "BooleanLiteralType",
-              "value": false
-            }
-          ]
-        },
-        "name": "displayTitle"
       },
       {
         "title": "param",
@@ -813,29 +875,87 @@
           ]
         },
         "name": "divider"
-      },
-      {
-        "title": "param",
-        "description": "Displays an array of all options if DV_CODED_TEXT is repeatable.",
-        "type": {
-          "type": "UnionType",
-          "elements": [
-            {
-              "type": "BooleanLiteralType",
-              "value": true
-            },
-            {
-              "type": "BooleanLiteralType",
-              "value": false
-            }
-          ]
-        },
-        "name": "multiSelectCodedArray"
       }
     ],
     "write": [
       {
         "title": "param",
+        "description": "Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "StringLiteralType",
+              "value": "normal"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "tabbed"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "multiselect"
+            }
+          ]
+        },
+        "name": "component"
+      },
+      {
+        "title": "param",
+        "description": "To display the title or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
+      },
+      {
+        "title": "param",
+        "description": "A custom label for the group",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "customTitle"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
+      {
+        "title": "param",
         "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
@@ -860,24 +980,6 @@
           "name": "function"
         },
         "name": "renderFunction"
-      },
-      {
-        "title": "param",
-        "description": "To display the title or not.",
-        "type": {
-          "type": "UnionType",
-          "elements": [
-            {
-              "type": "BooleanLiteralType",
-              "value": true
-            },
-            {
-              "type": "BooleanLiteralType",
-              "value": false
-            }
-          ]
-        },
-        "name": "displayTitle"
       },
       {
         "title": "param",
@@ -914,24 +1016,6 @@
           ]
         },
         "name": "divider"
-      },
-      {
-        "title": "param",
-        "description": "Displays an array of all options if DV_CODED_TEXT is repeatable.",
-        "type": {
-          "type": "UnionType",
-          "elements": [
-            {
-              "type": "BooleanLiteralType",
-              "value": true
-            },
-            {
-              "type": "BooleanLiteralType",
-              "value": false
-            }
-          ]
-        },
-        "name": "multiSelectCodedArray"
       }
     ]
   }

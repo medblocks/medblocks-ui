@@ -1,11 +1,6 @@
 <script lang="ts">
-import { onDestroy } from "svelte";
-
-    import App from "../../App.svelte";
-import { destroyAction } from "../../rm/utils";
     import type {
         readableKeyValue,
-        writableKeyValue,
         Tree,
     } from "../../types/types";
 
@@ -39,13 +34,6 @@ import { destroyAction } from "../../rm/utils";
         });
         return result;
     };
-    const clearAll = ()=>{
-        const paths = Object.keys($store)
-            .filter((p) => p.includes(path))
-        console.log("clearing", {paths})
-        destroyAction(paths, store as writableKeyValue)
-    }
-    
     // const deselect = (code: string): void => {
     //     const allSelected = [...selected]
     //     clearAll()
@@ -54,51 +42,11 @@ import { destroyAction } from "../../rm/utils";
     //     .forEach(a=>select({label: a.value, value: a.code}))
     // }
 
-    const select = (option: { label?: string; value: string }): void => {
-        if (selected.some((s) => s.code == option.value)){
-            // TODO: Implement deselect
-        } else {
-            const i = selected.length;
-            (store as writableKeyValue).update((s) => ({
-                ...s,
-                [`${path}:${i}|code`]: option.value,
-                [`${path}:${i}|value`]: option.label,
-                [`${path}:${i}|terminology`]: terminology,
-            }));
-        }
-    };
-
-    
-    
-    
-    onDestroy(()=>{
-        const paths = Object.keys($store)
-            .filter((p) => p.includes(path))
-        destroyAction(paths, store as writableKeyValue) 
-    })
-
 </script>
 
 <div class="field">
     <label for={path} class="label">{tree.name}</label>
-    {#if tree.inputs && tree.inputs[0].list}
-        <div class="buttons">
-            {#each tree.inputs[0].list as option}
-                <button
-                    on:click={() => select(option)}
-                    class="button"
-                    type="button"
-                    class:is-info={selected.some((s) => s.code == option.value)}
-                    >{option.label}</button
-                >
-            {/each}
-            <button
-                class=" button is-light is-danger"
-                type="button"
-                on:click={clearAll}>Clear all</button
-            >
-        </div>
-    {:else}
-        <p>Tree does not have inputs/inputs does not have list</p>
-    {/if}
+    <p class="">
+        {selected.map(s=>s.value).join(", ")}
+    </p>
 </div>

@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
-import Composition from "../../src/composition/Composition.svelte"
 import { fireEvent, render, RenderResult } from "@testing-library/svelte"
+import Composition from "../../src/composition/Composition.svelte"
 import { get, writable } from "svelte/store"
 import type { writableKeyValue } from "../../src/types/types"
 import { tick } from "svelte"
@@ -20,7 +20,6 @@ describe('it should render a component', () => {
 })
 
 describe('Specific webtemplates', () => {
-    const OriginalDate = global.Date
     beforeEach(() => {
         // (global.Date.prototype.toISOString as any) = jest.fn(() => 'MOCKDATE')
         jest.useFakeTimers('modern');
@@ -39,7 +38,8 @@ describe('Specific webtemplates', () => {
             readOnly: false,
             store
         }
-        const composition = render(Composition, { props })
+        const composition = 
+        render(Composition, { props })
         const inputs = composition.getAllByRole('spinbutton')
         await userEvent.type(inputs[0], '123')
         await userEvent.type(inputs[1], '23')

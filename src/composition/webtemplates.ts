@@ -103,18 +103,25 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
     }
 }
 
-function generateSchema(template: Template, configuration: any = {}, readOnly: boolean): UITemplate {
+function generateSchema(template: Template, configuration: any = {}, readOnly: boolean) {
     const { tree } = template
     const contextTree = propogateContext(tree, false)
     let schema = extractInputs(contextTree, '', '', configuration, readOnly)
     if (!Array.isArray(schema)) {
         throw new Error('Top level template returned only one extracted')
     }
-    const uiTemplate = {
-        options: configuration.global || {},
-        schema
+    let options = configuration[""]?.[readOnly ? 'read' : 'write']
+    const {id, rmType, aqlPath, name} = template.tree
+    return {
+        type: 'Group',
+        ...options,
+        path: id,
+        rmType,
+        aqlPath,
+        label: name,
+        repeatable: false,
+        children: schema
     }
-    return uiTemplate
 }
 
 function sanitizeValues(values: keyValue): keyValue {

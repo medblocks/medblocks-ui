@@ -173,7 +173,7 @@
                                 {store}
                                 configurationStore={currentConfiguration}
                             />
-                            <!-- <ConfigDisplay configurationStore={currentConfiguration}/> -->
+                            <ConfigDisplay configurationStore={currentConfiguration}/>
                         {/if}
                     </div>
                 </div>

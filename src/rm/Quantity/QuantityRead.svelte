@@ -7,7 +7,7 @@ import { getLabel } from "../utils";
         export let store: writableKeyValue
         export let tree: Tree
         export let wrapperClass: string = "field"
-        export let labelClass: string = "is-6 has-text-grey has-text-weight-semibold"
+        export let labelClass: string = "label"
         export let unitClass: string = ""
         export let magnitudeClass: string = "subtitle is-5"
         let unitPath: string
