@@ -10,6 +10,7 @@
     import type { Writable } from "svelte/store";
     import { sanitizeDisplayFunction } from "../rm/utils";
     import MultiSelectCodedArrayWrite from "./special/MultiSelectCodedArrayWrite.svelte";
+    import {partition} from "./utils"
     export let type: string;
     export let path: string;
     export let label: string;
@@ -23,29 +24,50 @@
     export let customize: boolean = false;
     export let customizeFunction: Function;
     /**
+     * @param {'normal'|'horizontal'|'tabbed'} component - To tab the children of the group or not?
+     * @param {true|false} display - To display the component or not. Still renders it and adds the value to the output.
+     * @param {function} displayFunction - The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.
      * @param {true|false} render - To render the component or not.
      * @param {function} renderFunction - The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.
      * @param {true|false} displayTitle - To display the title or not.
      * @param {true|false} canAddRepeatable - For repeatable elements, allow adding new elements?
      * @param {true|false} divider - Between repeatable elements
      * @param {true|false} multiSelectCodedArray - Displays an array of all options if DV_CODED_TEXT is repeatable.
-     * @param {true|false} tabbed - To tab the children of the group or not?
      */
     export let multiSelectCodedArray: boolean = false;
     export let divider: boolean = true;
     export let render: boolean | undefined = undefined;
     export let renderFunction: Function | undefined = undefined;
     // Currently only simple templates
+    export let display: boolean | undefined = true;
+    export let displayFunction: Function | undefined = undefined;
     export let displayTitle = true;
     export let canAddRepeatable = true;
     export let passCustomize: boolean = false;
-    export let tabbed: boolean = false;
+    export let component: 'normal'|'horizontal'|'tabbed' = 'normal'
+    let internalRender: boolean;
+
+    $: if (renderFunction) {
+        internalRender = sanitizeDisplayFunction(path, renderFunction, $store);
+    } else {
+        internalRender = render ?? true;
+    }
 
     let internalDisplay: boolean;
-    $: if (renderFunction) {
-        internalDisplay = sanitizeDisplayFunction(path, renderFunction, $store);
+    $: if (displayFunction) {
+        internalDisplay = sanitizeDisplayFunction(
+            path,
+            displayFunction,
+            $store
+        );
     } else {
-        internalDisplay = render ?? true;
+        internalDisplay = display ?? true;
+    }
+
+    let contextItems: Extracted[]
+    let groupLeafItems: Extracted[]
+    $: {
+        ([contextItems, groupLeafItems] = partition(children, s=>s.type === 'Context'))
     }
     const getCountFromStore = () => {
         const paths = Object.keys($store).filter((p) => p.startsWith(path));
@@ -107,11 +129,17 @@
         }
         return parentPath;
     };
+    let parentClass = "field"
+    let activeTab = 0
+
+    $: {
+        console.log(activeTab)
+    }
 </script>
 
-{#if internalDisplay}
+{#if internalRender}
     
-    <div class="field" class:bordered={customize && !passCustomize}>
+    <div class={parentClass} class:bordered={customize && !passCustomize}>
         {#if customize && !passCustomize}
             <span
                 class="tag is-cyan"
@@ -128,16 +156,14 @@
                 {label}
             </h4>
         {/if}
-        {#if tabbed}
+        {#if component === 'tabbed'}
         <div class="tabs">
             <ul>
-                <li>
-                    {#each children as child}
-                    {#if child.label}
-                        <a href="">{child.label}</a>
-                    {/if}
-                    {/each}
-                </li>
+                {#each groupLeafItems as child, index}
+                    <li class:is-active={activeTab === index}>
+                        <a on:click={()=>{activeTab=index}}>{child.label || child?.tree?.name}</a>
+                    </li>
+                {/each}
             </ul>
         </div>
         {/if}
@@ -192,7 +218,8 @@
                 {/if}
             {/if}
         {:else}
-            {#each children as child}
+            {#each groupLeafItems as child, i}
+            <section class:is-hidden={component === 'tabbed' && activeTab !== i}>
                 {#if child.type === "Group"}
                     <svelte:self
                         {...child}
@@ -201,19 +228,10 @@
                         {customizeFunction}
                         {store}
                         {readOnly}
-                        displayTitle={tabbed?false:undefined}
+                        displayTitle={component==='tabbed'?false:undefined}
                     />
                 {:else if child.type === "Leaf"}
                     <Leaf
-                        {...child}
-                        path={appendPath(path, child.path)}
-                        {customize}
-                        {customizeFunction}
-                        {store}
-                        {readOnly}
-                    />
-                {:else if child.type === "Context"}
-                    <Context
                         {...child}
                         path={appendPath(path, child.path)}
                         {customize}
@@ -225,6 +243,17 @@
                     <p>Not Group or Leaf type: {child.type}</p>
                     <pre>{JSON.stringify(child, null, 2)}</pre>
                 {/if}
+            </section>
+            {/each}
+            {#each contextItems as child}
+                <Context
+                    {...child}
+                    path={appendPath(path, child.path)}
+                    {customize}
+                    {customizeFunction}
+                    {store}
+                    {readOnly}
+                />
             {/each}
         {/if}
     </div>

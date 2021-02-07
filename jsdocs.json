@@ -739,6 +739,55 @@
     "read": [
       {
         "title": "param",
+        "description": "To tab the children of the group or not?",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "StringLiteralType",
+              "value": "normal"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "horizontal"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "tabbed"
+            }
+          ]
+        },
+        "name": "component"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
+      {
+        "title": "param",
         "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
@@ -835,29 +884,60 @@
           ]
         },
         "name": "multiSelectCodedArray"
-      },
-      {
-        "title": "param",
-        "description": "To tab the children of the group or not?",
-        "type": {
-          "type": "UnionType",
-          "elements": [
-            {
-              "type": "BooleanLiteralType",
-              "value": true
-            },
-            {
-              "type": "BooleanLiteralType",
-              "value": false
-            }
-          ]
-        },
-        "name": "tabbed"
       }
     ],
     "write": [
       {
         "title": "param",
+        "description": "To tab the children of the group or not?",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "StringLiteralType",
+              "value": "normal"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "horizontal"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "tabbed"
+            }
+          ]
+        },
+        "name": "component"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
+      {
+        "title": "param",
         "description": "To render the component or not.",
         "type": {
           "type": "UnionType",
@@ -954,24 +1034,6 @@
           ]
         },
         "name": "multiSelectCodedArray"
-      },
-      {
-        "title": "param",
-        "description": "To tab the children of the group or not?",
-        "type": {
-          "type": "UnionType",
-          "elements": [
-            {
-              "type": "BooleanLiteralType",
-              "value": true
-            },
-            {
-              "type": "BooleanLiteralType",
-              "value": false
-            }
-          ]
-        },
-        "name": "tabbed"
       }
     ]
   }
