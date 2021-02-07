@@ -201,11 +201,11 @@
                     <!-- transition:slide="{{duration: 300 }}" -->
                     <div class="field" style="box-sizing: border-box;">
                         <svelte:self
+                            {...$$props}
                             path={`${path}:${index}`}
                             repeatable={false}
                             displayTitle={false}
                             passCustomize={customize}
-                            {...$$props}
                         />
                         {#if divider && count > 1 && index !== count - 1}
                             <hr />
