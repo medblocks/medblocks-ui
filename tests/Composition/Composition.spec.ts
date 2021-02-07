@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
-import Composition from "../../src/composition/Composition.svelte"
 import { fireEvent, render, RenderResult } from "@testing-library/svelte"
+import Composition from "../../src/composition/Composition.svelte"
 import { get, writable } from "svelte/store"
 import type { writableKeyValue } from "../../src/types/types"
 import { tick } from "svelte"

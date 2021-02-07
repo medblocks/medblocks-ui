@@ -1,16 +1,15 @@
 <script lang="ts">
     import Leaf from "./Leaf.svelte";
     import Context from "../rm/Context.svelte";
-    import { slide, scale } from "svelte/transition";
     import type {
         Extracted,
         readableKeyValue,
         writableKeyValue,
     } from "../types/types";
-    import type { Writable } from "svelte/store";
     import { sanitizeDisplayFunction } from "../rm/utils";
     import MultiSelectCodedArrayWrite from "./special/MultiSelectCodedArrayWrite.svelte";
-    import {partition} from "./utils"
+    import MultiSelectCodedArrayRead from "./special/MultiSelectCodedArrayRead.svelte";
+    import { partition } from "./utils";
     export let type: string;
     export let path: string;
     export let label: string;
@@ -44,7 +43,7 @@
     export let displayTitle = true;
     export let canAddRepeatable = true;
     export let passCustomize: boolean = false;
-    export let component: 'normal'|'horizontal'|'tabbed' = 'normal'
+    export let component: "normal" | "horizontal" | "tabbed" = "normal";
     let internalRender: boolean;
 
     $: if (renderFunction) {
@@ -64,10 +63,13 @@
         internalDisplay = display ?? true;
     }
 
-    let contextItems: Extracted[]
-    let groupLeafItems: Extracted[]
+    let contextItems: Extracted[];
+    let groupLeafItems: Extracted[];
     $: {
-        ([contextItems, groupLeafItems] = partition(children, s=>s.type === 'Context'))
+        [contextItems, groupLeafItems] = partition(
+            children,
+            (s) => s.type === "Context"
+        );
     }
     const getCountFromStore = () => {
         const paths = Object.keys($store).filter((p) => p.startsWith(path));
@@ -129,21 +131,22 @@
         }
 
         if (childPath) {
-            return childPath
+            return childPath;
         }
-        
+
         return parentPath;
     };
-    let parentClass = "field"
-    let activeTab = 0
+    let parentClass = "field";
+    let activeTab = 0;
 
-    if (component === 'tabbed' && repeatable){
-        console.error("Tabbed interface on a repeatable element not yet implemented. You may experience unexpected results.")
+    if (component === "tabbed" && repeatable) {
+        console.error(
+            "Tabbed interface on a repeatable element not yet implemented. You may experience unexpected results."
+        );
     }
 </script>
 
 {#if internalRender}
-    
     <div class={parentClass} class:bordered={customize && !passCustomize}>
         {#if customize && !passCustomize}
             <span
@@ -155,26 +158,42 @@
                 {#if repeatable}- REPEATABLE{/if}
             </span>
         {/if}
-        
+
         {#if displayTitle && label}
             <h4 class="has-text-weight-bold is-size-6 mb-3 has-text-grey">
                 {label}
             </h4>
         {/if}
-        {#if component === 'tabbed'}
-        <div class="tabs">
-            <ul>
-                {#each groupLeafItems as child, index}
-                    <li class:is-active={activeTab === index}>
-                        <a on:click={()=>{activeTab=index}}>{child.label || child.tree ? child.tree.name : 'Untitled'}</a>
-                    </li>
-                {/each}
-            </ul>
-        </div>
+        {#if component === "tabbed"}
+            <div class="tabs">
+                <ul>
+                    {#each groupLeafItems as child, index}
+                        <li class:is-active={activeTab === index}>
+                            <a
+                                on:click={() => {
+                                    activeTab = index;
+                                }}>{child.label || child?.tree?.name}</a
+                            >
+                        </li>
+                    {/each}
+                </ul>
+            </div>
         {/if}
         {#if repeatable}
             {#if rmType == "DV_CODED_TEXT" && multiSelectCodedArray && children[0]}
-                <MultiSelectCodedArrayWrite tree={children[0].tree} {path} {store}/>
+                {#if readOnly}
+                    <MultiSelectCodedArrayRead
+                        tree={children[0].tree}
+                        {path}
+                        {store}
+                    />
+                {:else}
+                    <MultiSelectCodedArrayWrite
+                        tree={children[0].tree}
+                        {path}
+                        {store}
+                    />
+                {/if}
             {:else}
                 {#each [...Array(count).keys()] as index}
                     <!-- transition:slide="{{duration: 300 }}" -->
@@ -193,7 +212,6 @@
                             {customizeFunction}
                             {rmType}
                             {aqlPath}
-                            hideChildTitle={index > 0}
                         />
                         {#if divider && count > 1 && index !== count - 1}
                             <hr />
@@ -203,7 +221,7 @@
                 {#if canAddRepeatable}
                     <div class="buttons is-right">
                         {#if count > 1}
-                        <!-- transition:scale -->
+                            <!-- transition:scale -->
                             <button
                                 class:is-hidden={readOnly}
                                 class="button is-small is-danger is-light"
@@ -224,31 +242,36 @@
             {/if}
         {:else}
             {#each groupLeafItems as child, i}
-            <section class:is-hidden={component === 'tabbed' && activeTab !== i}>
-                {#if child.type === "Group"}
-                    <svelte:self
-                        {...child}
-                        path={appendPath(path, child.path)}
-                        {customize}
-                        {customizeFunction}
-                        {store}
-                        {readOnly}
-                        displayTitle={component==='tabbed'?false:undefined}
-                    />
-                {:else if child.type === "Leaf"}
-                    <Leaf
-                        {...child}
-                        path={appendPath(path, child.path)}
-                        {customize}
-                        {customizeFunction}
-                        {store}
-                        {readOnly}
-                    />
-                {:else}
-                    <p>Not Group or Leaf type: {child.type}</p>
-                    <pre>{JSON.stringify(child, null, 2)}</pre>
-                {/if}
-            </section>
+                <div
+                    class="field"
+                    class:is-hidden={component === "tabbed" && activeTab !== i}
+                >
+                    {#if child.type === "Group"}
+                        <svelte:self
+                            {...child}
+                            path={appendPath(path, child.path)}
+                            {customize}
+                            {customizeFunction}
+                            {store}
+                            {readOnly}
+                            displayTitle={component === "tabbed"
+                                ? false
+                                : undefined}
+                        />
+                    {:else if child.type === "Leaf"}
+                        <Leaf
+                            {...child}
+                            path={appendPath(path, child.path)}
+                            {customize}
+                            {customizeFunction}
+                            {store}
+                            {readOnly}
+                        />
+                    {:else}
+                        <p>Not Group or Leaf type: {child.type}</p>
+                        <pre>{JSON.stringify(child, null, 2)}</pre>
+                    {/if}
+                </div>
             {/each}
             {#each contextItems as child}
                 <Context

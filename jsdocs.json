@@ -739,7 +739,7 @@
     "read": [
       {
         "title": "param",
-        "description": "To tab the children of the group or not?",
+        "description": "Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.",
         "type": {
           "type": "UnionType",
           "elements": [
@@ -889,7 +889,7 @@
     "write": [
       {
         "title": "param",
-        "description": "To tab the children of the group or not?",
+        "description": "Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.",
         "type": {
           "type": "UnionType",
           "elements": [

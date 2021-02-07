@@ -54,7 +54,7 @@ describe('basic', () => {
     })
 
 
-    it('must not change the store in any way', async ()=> {
+    it('must not change the store in any way', async () => {
         store.set({
             'testing/path': "Hello mom!"
         })
@@ -69,6 +69,6 @@ describe('basic', () => {
 })
 
 
-describe('advance', ()=>{
-    
+describe('advance', () => {
+
 })
