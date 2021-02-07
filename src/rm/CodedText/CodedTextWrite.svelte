@@ -27,11 +27,11 @@
     export let constraint: string | undefined = undefined
 </script>
 
-{#if component == 'dropbox'}
+{#if component === 'dropbox'}
     <DropDown {path} {store} {tree} {selectWrapperClass} {labelClass} {wrapperClass} {displayTitle}/>
-{:else if component == 'search'}
+{:else if component === 'search'}
     <Search {path} {store} {tree} {labelClass} {wrapperClass} {displayTitle} {terminologyUrl}  {searchFunction} {constraint}/>
-{:else if component == 'buttons'}
+{:else if component === 'buttons'}
     <ButtonList {path} {store} {tree} {labelClass} {wrapperClass} {displayTitle}></ButtonList>
 {:else}
     <p>Unknown component type for CodedTextWrite</p>

@@ -60,9 +60,9 @@
     };
     let inSync: boolean;
     $: inSync =
-        $config.demographics == demographics &&
-        $config.terminology == terminology &&
-        $config.ehr == ehr;
+        $config.demographics === demographics &&
+        $config.terminology === terminology &&
+        $config.ehr === ehr;
 </script>
 
 <Navbar />

@@ -23,7 +23,7 @@
         if ($config && params.templateIndex) {
             let index = params.templateIndex;
             selectedTemplate = $config.templates.filter((template) => {
-                return template.id == parseInt(index);
+                return template.id === parseInt(index);
             })[0];
             if (selectedTemplate) {
                 currentConfiguration.set(selectedTemplate.configuration || {});
@@ -52,7 +52,7 @@
             templates: oldConfig.templates.map((template) => {
                 if (
                     params.templateIndex &&
-                    template.id == parseInt(params.templateIndex)
+                    template.id === parseInt(params.templateIndex)
                 ) {
                     return {
                         ...template,

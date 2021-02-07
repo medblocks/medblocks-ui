@@ -35,7 +35,7 @@ export function triggerDestroy(paths: string[], store: writableKeyValue){
 
 export function initialize(path: string|string[], tree: Tree, store: Writable<keyValue> = getContext('store')): {paths: string[], readOnly: boolean, store: Writable<keyValue>}{
     let readOnly: boolean = getContext('readOnly')
-    if (typeof path == 'string'){
+    if (typeof path === 'string'){
         let paths = getFullPaths(path, tree)
         triggerDestroy(paths, store)
         return {paths, store, readOnly}
@@ -47,7 +47,7 @@ export function initialize(path: string|string[], tree: Tree, store: Writable<ke
 
 export function getLabel(value: string, input: Input) :string {
     if (input.list){
-        let label = input.list.filter(option=>option.value == value)[0]
+        let label = input.list.filter(option=>option.value === value)[0]
         if (label && label.label){
             return label.label
         }

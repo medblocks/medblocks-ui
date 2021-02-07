@@ -112,7 +112,7 @@
         <div class="container">
             <aside class="box menu" class:is-hidden={!searchTerm || error}>
                 <ul class="menu-list">
-                    {#if searchTerm && !loading && $searchResults && $searchResults.length == 0}
+                    {#if searchTerm && !loading && $searchResults && $searchResults.length === 0}
                         <li>
                             <a class:has-text-grey={loading} href="#/"
                                 >No results found</a

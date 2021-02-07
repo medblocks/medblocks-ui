@@ -182,7 +182,7 @@
             </div>
         {/if}
         {#if repeatable}
-            {#if rmType == "DV_CODED_TEXT" && multiSelectCodedArray && children[0]}
+            {#if rmType === "DV_CODED_TEXT" && multiSelectCodedArray && children[0]}
                 {#if readOnly}
                     <MultiSelectCodedArrayRead
                         tree={children[0].tree}

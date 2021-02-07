@@ -33,7 +33,7 @@
     $: codeStoreValue = $store[codePath];
     $: valueStoreValue = $store[valuePath];
     // Don't check length == 2
-    $: isDefault = tree.inputs && tree.inputs.length == 2 && $store[codePath] == tree.inputs[0].defaultValue
+    $: isDefault = tree.inputs && tree.inputs.length === 2 && $store[codePath] === tree.inputs[0].defaultValue
     $: if (codeStoreValue && !isDefault) {
         if (tree.inputs && tree.inputs[0].list) {
             let selectedLabel = getLabel(codeStoreValue, tree.inputs[0]);
@@ -52,7 +52,7 @@
     }
     onMount(() => {
         // To check other cases too
-        if (tree.inputs && tree.inputs.length == 2) {
+        if (tree.inputs && tree.inputs.length === 2) {
             const [codeTree, valueTree] = tree.inputs;
             if (
                 codeTree.defaultValue &&

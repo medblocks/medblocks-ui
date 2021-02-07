@@ -25,7 +25,7 @@
     $: magnitudeStoreValue = $store[magnitudePath];
     $: {
         if (typeof magnitudeStoreValue != "undefined") {
-            if (magnitudeStoreValue == null) {
+            if (magnitudeStoreValue === null) {
                 store.update((s) => ({
                     ...s,
                     [magnitudePath]: undefined,

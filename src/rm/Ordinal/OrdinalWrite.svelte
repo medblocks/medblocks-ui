@@ -44,7 +44,7 @@
     $: if (selected) {
         if (tree.inputs && tree.inputs[0].list) {
             let option = tree.inputs[0].list.filter(
-                (option) => option.ordinal == selected
+                (option) => option.ordinal === selected
             )[0];
             let { label, value } = option;
             (store as writableKeyValue).update((store) => ({

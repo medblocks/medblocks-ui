@@ -55,7 +55,7 @@
         GLOBAL
     </div>
 {/if}
-<div class="box" class:bordered={customize == true}>
+<div class="box" class:bordered={customize === true}>
     <form on:submit|preventDefault={submit}>
         {#if !error}
             {#key JSON.stringify(mainGroup)}

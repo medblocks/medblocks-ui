@@ -32,10 +32,10 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
             name = ''
         }
     }
-    if (max > 1 || max == -1 || inGroup) {
+    if (max > 1 || max === -1 || inGroup) {
         let label: string | undefined
         let repeatable: boolean = false
-        if (max > 1 || max == -1) {
+        if (max > 1 || max === -1) {
             repeatable = true
         }
         let extractedChildren: Extracted[]
@@ -135,7 +135,7 @@ function sanitizeValues(values: keyValue): keyValue {
                 return
             }
         }
-        let newKey = key.length && key[0] == "/" ? key.slice(1) : key;
+        let newKey = key.length && key[0] === "/" ? key.slice(1) : key;
         newValues[newKey] = value;
     });
     return { ...newValues };

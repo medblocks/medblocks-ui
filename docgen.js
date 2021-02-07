@@ -19,7 +19,7 @@ function getDocs(path) {
     try {
         const file = fs.readFileSync(path, "utf-8")
         const matches = file.match(/\/\*\*\s*\n([^\*]|(\*(?!\/)))*\*\//g)
-        if (matches == null) {
+        if (matches === null) {
             console.log(`${path}: No docs found`)
             return []
         }

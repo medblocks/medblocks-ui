@@ -30,7 +30,7 @@
             const fn = Function("return " + fnString)();
             currentResult = fn($store);
             console.log("Setting fn", fn);
-            if (config[value] && config[value].toString() == fn.toString()){
+            if (config[value] && config[value].toString() === fn.toString()){
             } else {
                 config = { ...config, [value]: fn };
             }

@@ -34,13 +34,6 @@
         });
         return result;
     };
-    // const deselect = (code: string): void => {
-    //     const allSelected = [...selected]
-    //     clearAll()
-    //     allSelected
-    //     .filter(s=>s.code==code)
-    //     .forEach(a=>select({label: a.value, value: a.code}))
-    // }
 
 </script>
 

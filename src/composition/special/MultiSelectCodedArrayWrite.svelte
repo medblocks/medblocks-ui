@@ -44,16 +44,9 @@ import { destroyAction } from "../../rm/utils";
         destroyAction(paths, store as writableKeyValue)
     }
     
-    // const deselect = (code: string): void => {
-    //     const allSelected = [...selected]
-    //     clearAll()
-    //     allSelected
-    //     .filter(s=>s.code==code)
-    //     .forEach(a=>select({label: a.value, value: a.code}))
-    // }
 
     const select = (option: { label?: string; value: string }): void => {
-        if (selected.some((s) => s.code == option.value)){
+        if (selected.some((s) => s.code === option.value)){
             // TODO: Implement deselect
         } else {
             const i = selected.length;
@@ -86,7 +79,7 @@ import { destroyAction } from "../../rm/utils";
                     on:click={() => select(option)}
                     class="button"
                     type="button"
-                    class:is-info={selected.some((s) => s.code == option.value)}
+                    class:is-info={selected.some((s) => s.code === option.value)}
                     >{option.label}</button
                 >
             {/each}
