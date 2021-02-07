@@ -124,9 +124,14 @@
         throw new Error("Group component got tree not of type group");
     }
     const appendPath = (parentPath, childPath) => {
-        if (childPath) {
+        if (parentPath && childPath) {
             return `${parentPath}/${childPath}`;
         }
+
+        if (childPath) {
+            return childPath
+        }
+        
         return parentPath;
     };
     let parentClass = "field"
@@ -161,7 +166,7 @@
             <ul>
                 {#each groupLeafItems as child, index}
                     <li class:is-active={activeTab === index}>
-                        <a on:click={()=>{activeTab=index}}>{child.label || child?.tree?.name}</a>
+                        <a on:click={()=>{activeTab=index}}>{child.label || child.tree.name}</a>
                     </li>
                 {/each}
             </ul>
