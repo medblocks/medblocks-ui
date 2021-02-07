@@ -17,7 +17,7 @@ import { destroyAction, sanitizeComputeFunction, triggerDestroy } from "../utils
             (store as writableKeyValue).update((s) => ({ ...s, [path]: result }));
         }
     }
-    $: if ($store[path] == null) {
+    $: if ($store[path] === null) {
         destroyAction([path], store as writableKeyValue)
     }
     $: triggerDestroy([path], store as writableKeyValue)

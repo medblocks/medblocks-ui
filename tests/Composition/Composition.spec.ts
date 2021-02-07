@@ -4,7 +4,7 @@ import Composition from "../../src/composition/Composition.svelte"
 import { get, writable } from "svelte/store"
 import type { writableKeyValue } from "../../src/types/types"
 import { tick } from "svelte"
-import { groupMultiplePaths, webtemplate } from "./webtemplate"
+import { groupMultiplePaths, infiniteRepeatLoopTemplate, webtemplate } from "./webtemplate"
 import userEvent from '@testing-library/user-event'
 
 describe('it should render a component', () => {
@@ -77,3 +77,4 @@ describe('Specific webtemplates', () => {
         })
     })
 })
+

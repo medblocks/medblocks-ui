@@ -750,10 +750,6 @@
             {
               "type": "StringLiteralType",
               "value": "tabbed"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "multiselect"
             }
           ]
         },
@@ -857,6 +853,24 @@
           ]
         },
         "name": "canAddRepeatable"
+      },
+      {
+        "title": "param",
+        "description": "Render buttons? Only for repeatable codedtext.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "multiSelectCodedArray"
       },
       {
         "title": "param",
@@ -891,10 +905,6 @@
             {
               "type": "StringLiteralType",
               "value": "tabbed"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "multiselect"
             }
           ]
         },
@@ -998,6 +1008,24 @@
           ]
         },
         "name": "canAddRepeatable"
+      },
+      {
+        "title": "param",
+        "description": "Render buttons? Only for repeatable codedtext.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "multiSelectCodedArray"
       },
       {
         "title": "param",
