@@ -73,11 +73,13 @@
             <h1 class="subtitl">Template error</h1>
             <p>Invalid template</p>
         {/if}
+        {#if !readOnly}
         <div class="field">
             <div class="buttons">
                 <button class="button is-fullwidth is-success">Submit</button>
             </div>
         </div>
+        {/if}
     </form>
 </div>
 

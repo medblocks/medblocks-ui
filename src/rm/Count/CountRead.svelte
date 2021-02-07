@@ -9,7 +9,7 @@ import type { readableKeyValue, Tree } from "../../types/types";
 </script>
 
 <div class="field">
-    <p class="is-6 has-text-grey has-text-weight-semibold">{tree.name}</p>
+    <p class="label">{tree.name}</p>
     <p class="subtitle is-5">
         {#if $store[path]}
         {$store[path]}

@@ -23,16 +23,18 @@
     export let customize: boolean = false;
     export let customizeFunction: Function;
     /**
-     * @param {'normal'|'horizontal'|'tabbed'} component - Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.
+     * @param {'normal'|'tabbed'} component - Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.
+     * @param {true|false} displayTitle - To display the title or not.
+     * @param {string} customTitle - A custom label for the group
      * @param {true|false} display - To display the component or not. Still renders it and adds the value to the output.
      * @param {function} displayFunction - The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.
      * @param {true|false} render - To render the component or not.
      * @param {function} renderFunction - The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.
-     * @param {true|false} displayTitle - To display the title or not.
      * @param {true|false} canAddRepeatable - For repeatable elements, allow adding new elements?
+     * @param {true|false} multiSelectCodedArray - Render buttons? Only for repeatable codedtext. 
      * @param {true|false} divider - Between repeatable elements
-     * @param {true|false} multiSelectCodedArray - Displays an array of all options if DV_CODED_TEXT is repeatable.
      */
+    export let customTitle: string | undefined = undefined;
     export let multiSelectCodedArray: boolean = false;
     export let divider: boolean = true;
     export let render: boolean | undefined = undefined;
@@ -43,7 +45,7 @@
     export let displayTitle = true;
     export let canAddRepeatable = true;
     export let passCustomize: boolean = false;
-    export let component: "normal" | "horizontal" | "tabbed" = "normal";
+    export let component: "normal" | "tabbed" = "normal";
     let internalRender: boolean;
 
     $: if (renderFunction) {
@@ -159,9 +161,9 @@
             </span>
         {/if}
 
-        {#if displayTitle && label}
+        {#if displayTitle && (customTitle || label)}
             <h4 class="has-text-weight-bold is-size-6 mb-3 has-text-grey">
-                {label}
+                {customTitle || label}
             </h4>
         {/if}
         {#if component === "tabbed"}
@@ -201,17 +203,9 @@
                         <svelte:self
                             path={`${path}:${index}`}
                             repeatable={false}
-                            {readOnly}
-                            {store}
-                            {type}
-                            {label}
-                            {children}
                             displayTitle={false}
-                            {customize}
                             passCustomize={customize}
-                            {customizeFunction}
-                            {rmType}
-                            {aqlPath}
+                            {...$$props}
                         />
                         {#if divider && count > 1 && index !== count - 1}
                             <hr />
@@ -254,9 +248,6 @@
                             {customizeFunction}
                             {store}
                             {readOnly}
-                            displayTitle={component === "tabbed"
-                                ? false
-                                : undefined}
                         />
                     {:else if child.type === "Leaf"}
                         <Leaf

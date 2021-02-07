@@ -749,15 +749,42 @@
             },
             {
               "type": "StringLiteralType",
-              "value": "horizontal"
+              "value": "tabbed"
             },
             {
               "type": "StringLiteralType",
-              "value": "tabbed"
+              "value": "multiselect"
             }
           ]
         },
         "name": "component"
+      },
+      {
+        "title": "param",
+        "description": "To display the title or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
+      },
+      {
+        "title": "param",
+        "description": "A custom label for the group",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "customTitle"
       },
       {
         "title": "param",
@@ -815,24 +842,6 @@
       },
       {
         "title": "param",
-        "description": "To display the title or not.",
-        "type": {
-          "type": "UnionType",
-          "elements": [
-            {
-              "type": "BooleanLiteralType",
-              "value": true
-            },
-            {
-              "type": "BooleanLiteralType",
-              "value": false
-            }
-          ]
-        },
-        "name": "displayTitle"
-      },
-      {
-        "title": "param",
         "description": "For repeatable elements, allow adding new elements?",
         "type": {
           "type": "UnionType",
@@ -866,24 +875,6 @@
           ]
         },
         "name": "divider"
-      },
-      {
-        "title": "param",
-        "description": "Displays an array of all options if DV_CODED_TEXT is repeatable.",
-        "type": {
-          "type": "UnionType",
-          "elements": [
-            {
-              "type": "BooleanLiteralType",
-              "value": true
-            },
-            {
-              "type": "BooleanLiteralType",
-              "value": false
-            }
-          ]
-        },
-        "name": "multiSelectCodedArray"
       }
     ],
     "write": [
@@ -899,15 +890,42 @@
             },
             {
               "type": "StringLiteralType",
-              "value": "horizontal"
+              "value": "tabbed"
             },
             {
               "type": "StringLiteralType",
-              "value": "tabbed"
+              "value": "multiselect"
             }
           ]
         },
         "name": "component"
+      },
+      {
+        "title": "param",
+        "description": "To display the title or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
+      },
+      {
+        "title": "param",
+        "description": "A custom label for the group",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "customTitle"
       },
       {
         "title": "param",
@@ -965,24 +983,6 @@
       },
       {
         "title": "param",
-        "description": "To display the title or not.",
-        "type": {
-          "type": "UnionType",
-          "elements": [
-            {
-              "type": "BooleanLiteralType",
-              "value": true
-            },
-            {
-              "type": "BooleanLiteralType",
-              "value": false
-            }
-          ]
-        },
-        "name": "displayTitle"
-      },
-      {
-        "title": "param",
         "description": "For repeatable elements, allow adding new elements?",
         "type": {
           "type": "UnionType",
@@ -1016,24 +1016,6 @@
           ]
         },
         "name": "divider"
-      },
-      {
-        "title": "param",
-        "description": "Displays an array of all options if DV_CODED_TEXT is repeatable.",
-        "type": {
-          "type": "UnionType",
-          "elements": [
-            {
-              "type": "BooleanLiteralType",
-              "value": true
-            },
-            {
-              "type": "BooleanLiteralType",
-              "value": false
-            }
-          ]
-        },
-        "name": "multiSelectCodedArray"
       }
     ]
   }
