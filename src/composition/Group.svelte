@@ -24,7 +24,7 @@
     export let customize: boolean = false;
     export let customizeFunction: Function;
     /**
-     * @param {'normal'|'horizontal'|'tabbed'} component - To tab the children of the group or not?
+     * @param {'normal'|'horizontal'|'tabbed'} component - Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.
      * @param {true|false} display - To display the component or not. Still renders it and adds the value to the output.
      * @param {function} displayFunction - The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.
      * @param {true|false} render - To render the component or not.
@@ -137,8 +137,8 @@
     let parentClass = "field"
     let activeTab = 0
 
-    $: {
-        console.log(activeTab)
+    if (component === 'tabbed' && repeatable){
+        console.error("Tabbed interface on a repeatable element not yet implemented. You may experience unexpected results.")
     }
 </script>
 
@@ -166,7 +166,7 @@
             <ul>
                 {#each groupLeafItems as child, index}
                     <li class:is-active={activeTab === index}>
-                        <a on:click={()=>{activeTab=index}}>{child.label || child.tree.name}</a>
+                        <a on:click={()=>{activeTab=index}}>{child.label || child.tree ? child.tree.name : 'Untitled'}</a>
                     </li>
                 {/each}
             </ul>
