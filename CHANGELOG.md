@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/sidharthramesh/openUI/compare/v0.1.1...v0.1.2) (2021-02-07)
+
+
+### Features
+
+* :sparkles: added search component compatible with hermes ([5e19144](https://github.com/sidharthramesh/openUI/commit/5e19144fe7e40dc84aca317835bc4bc98b81504a))
+* added button list ([949f8e2](https://github.com/sidharthramesh/openUI/commit/949f8e27d48e8f460734fc29433f9cf5094da518)), closes [#15](https://github.com/sidharthramesh/openUI/issues/15)
+* added multiselectcodedtext component ([2e09d50](https://github.com/sidharthramesh/openUI/commit/2e09d5066717137850df2ad1b249ccb259957e2d))
+* added tabs also ([5245df2](https://github.com/sidharthramesh/openUI/commit/5245df2e87143f3816fb5a87d0b3b0c4d6a12701)), closes [#16](https://github.com/sidharthramesh/openUI/issues/16)
+* updated new search component ([241062b](https://github.com/sidharthramesh/openUI/commit/241062b56a8ec7eee26dc78e299898a7e35e46fa))
+
+
+### Bug Fixes
+
+* added comments and moved initialData into store ([97fe612](https://github.com/sidharthramesh/openUI/commit/97fe612292800c204dd4b0fe5ef89079bdee2533))
+* added outlines ([5ad9aba](https://github.com/sidharthramesh/openUI/commit/5ad9abaa9d22bfe312b0b96f78f47c61fcdf4927))
+* fixed bugs in tests and tabbed display ([3292ebd](https://github.com/sidharthramesh/openUI/commit/3292ebde7db3b20618234c0493804261d17c9a29))
+* fixed infinite loop ([ebc799f](https://github.com/sidharthramesh/openUI/commit/ebc799f935a6cc46dc280a7352424066f1ca2943)), closes [#22](https://github.com/sidharthramesh/openUI/issues/22)
+* fixed infinite recrsn bug ([b868c99](https://github.com/sidharthramesh/openUI/commit/b868c998a6a837dc2117d5f923451e5921592b7a))
+* fixed title not loading bug ([1b8760b](https://github.com/sidharthramesh/openUI/commit/1b8760b76856f982e83a495db13c88b37f6fc8fa))
+* group thows error if repeatable and tabbed ([75d2aad](https://github.com/sidharthramesh/openUI/commit/75d2aade1618b34d9ce63a5ea2ea88c9589684fa))
+* hacky version, but works for now ([8f70d95](https://github.com/sidharthramesh/openUI/commit/8f70d95dda9d4f0e0ef7b096a43d4ba9fdf377e3))
+* moved the customize buttons to the top ([3fa412e](https://github.com/sidharthramesh/openUI/commit/3fa412e1ae6396b18bf5543ceea19123dc298fbd)), closes [#8](https://github.com/sidharthramesh/openUI/issues/8)
+* moving composition logic into group ([2255f7e](https://github.com/sidharthramesh/openUI/commit/2255f7ebef2e9db625d612b7d7ad7992dc439c35))
+* path resolution bug fix for group ([3dd462a](https://github.com/sidharthramesh/openUI/commit/3dd462a5028ec911ca0bda43f6fe62256509b062))
+* path resolution fix ([6103d74](https://github.com/sidharthramesh/openUI/commit/6103d746e2f5669e2caa307e90a97d51226ac7f9))
+* removed transition ([a985cfb](https://github.com/sidharthramesh/openUI/commit/a985cfbb7d03709bd8c17175e03ac49ad3b2a313))
+
 ### [0.1.1](https://github.com/sidharthramesh/openUI/compare/v0.1.0...v0.1.1) (2021-01-27)
 
 
