@@ -1,6 +1,7 @@
 <svelte:options tag="mui-composition" />
 
 <script lang="ts">
+    import "./main.scss"
     import type {
         Extracted,
         keyValue,
@@ -180,8 +181,9 @@ import { get_current_component } from "svelte/internal";
     </form>
 </div>
 
+
 <style>
-    @import "../bulma.css";
+    @import "bulma.css";
     .bordered {
         border-style: solid;
         border-width: 4px;

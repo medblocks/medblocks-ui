@@ -61,8 +61,12 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "autoprefixer": "^10.2.4",
     "axios": "^0.21.1",
     "localforage": "^1.9.0",
+    "postcss-import": "^14.0.0",
+    "postcss-replace": "^1.1.2",
+    "rollup-plugin-analyzer": "^4.0.0",
     "rxjs": "^6.6.3",
     "svelte-spa-router": "^3.1.0"
   },
