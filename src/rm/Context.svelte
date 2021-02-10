@@ -88,6 +88,7 @@
                     };
                     break;
                 case "subject":
+                case "ism_transition":
                     data = {};
                     break;
                 default:

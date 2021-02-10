@@ -55,41 +55,23 @@
         GLOBAL
     </div>
 {/if}
-<div class="box" class:bordered={customize === true}>
-    <form on:submit|preventDefault={submit}>
-        {#if !error}
-            {#key JSON.stringify(mainGroup)}
-                <Group
-                    {...mainGroup}
-                    {childClass}
-                    {customize}
-                    {customizeFunction}
-                    {readOnly}
-                    store={internalStore}
-                    path=""
-                />
-            {/key}
-        {:else}
-            <h1 class="subtitl">Template error</h1>
-            <p>Invalid template</p>
-        {/if}
-        {#if !readOnly}
-        <div class="field">
-            <div class="buttons">
-                <button class="button is-fullwidth is-success">Submit</button>
-            </div>
-        </div>
-        {/if}
-    </form>
-</div>
-
+{#if !error}
+    {#key JSON.stringify(mainGroup)}
+        <Group
+            {...mainGroup}
+            {childClass}
+            {customize}
+            {customizeFunction}
+            {readOnly}
+            store={internalStore}
+            path=""
+        />
+    {/key}
+{:else}
+    <h1 class="subtitl">Template error</h1>
+    <p>Invalid template</p>
+{/if}
 <style>
-    .bordered {
-        border-style: solid;
-        border-width: 4px;
-        border-color: lavender;
-        border-radius: 5px;
-    }
     .tag {
         background-color: lavender;
         cursor: pointer;
