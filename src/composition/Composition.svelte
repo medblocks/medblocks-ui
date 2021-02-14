@@ -56,7 +56,6 @@
     </div>
 {/if}
 {#if !error}
-    {#key JSON.stringify(mainGroup)}
         <Group
             {...mainGroup}
             {childClass}
@@ -66,7 +65,6 @@
             store={internalStore}
             path=""
         />
-    {/key}
 {:else}
     <h1 class="subtitl">Template error</h1>
     <p>Invalid template</p>

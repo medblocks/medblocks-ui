@@ -45,26 +45,26 @@ export function initialize(path: string|string[], tree: Tree, store: Writable<ke
     }
 }
 
-export function getLabel(value: string, input: Input) :string {
+export function getLabel(value: string, input: Input) :string|undefined {
     if (input.list){
         let label = input.list.filter(option=>option.value === value)[0]
         if (label && label.label){
             return label.label
         }
-        throw new Error(`Cannot find label for ${value} in list`)
+        console.error(`Cannot find label for ${value} in list`)
     }
-    throw new Error(`Cannot find list in provided input`)
+    console.error(`Cannot find list in provided input`)
 }
 
-export function getLabelOrdinal(value: number, input: Input) :string {
+export function getLabelOrdinal(value: number, input: Input) :string|undefined {
     if (input.list){
         let label = input.list.filter(option=>option.ordinal == value)[0]
         if (label && label.label){
             return label.label
         }
-        throw new Error(`Cannot find label for ${value} in list`)
+        console.error(`Cannot find label for ${value} in list`)
     }
-    throw new Error(`Cannot find list in provided input`)
+    console.error(`Cannot find list in provided input`)
 }
 
 export function sanitizeDisplayFunction(path: string, fn: Function, store: keyValue) :boolean{
