@@ -15,7 +15,6 @@
     export let label: string;
     export let repeatable: boolean;
     export let children: Extracted[];
-    export let childClass = "field";
     export let store: readableKeyValue;
     export let readOnly: boolean;
     export let aqlPath: string;
@@ -23,8 +22,9 @@
     export let customize: boolean = false;
     export let customizeFunction: Function;
     /**
-     * @param {'normal'|'tabbed'} component - Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.
+     * @param {'normal'|'tabbed'|'horizontal'} component - Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.
      * @param {true|false} displayTitle - To display the title or not.
+     * @param {'has-text-weight-bold is-size-6 mb-3 has-text-grey'|'subtitle'|'title'} titleClass - Class of title
      * @param {string} customTitle - A custom label for the group
      * @param {true|false} display - To display the component or not. Still renders it and adds the value to the output.
      * @param {function} displayFunction - The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.
@@ -34,6 +34,7 @@
      * @param {true|false} multiSelectCodedArray - Render buttons? Only for repeatable codedtext. 
      * @param {true|false} divider - Between repeatable elements
      */
+    export let titleClass: string = 'has-text-weight-bold is-size-6 mb-3 has-text-grey'
     export let customTitle: string | undefined = undefined;
     export let multiSelectCodedArray: boolean = false;
     export let divider: boolean = true;
@@ -45,7 +46,7 @@
     export let displayTitle = true;
     export let canAddRepeatable = true;
     export let passCustomize: boolean = false;
-    export let component: "normal" | "tabbed" = "normal";
+    export let component: "normal" | "tabbed" | "horizontal" = "normal";
     let internalRender: boolean;
 
     $: if (renderFunction) {
@@ -138,7 +139,15 @@
 
         return parentPath;
     };
-    let parentClass = "field";
+    let parentClass: string
+    let childClass: string
+    $: if (component === 'horizontal'){
+        parentClass = "columns";
+        childClass = "column"
+    } else {
+        parentClass = "field"
+        childClass = "field"
+    }
     let activeTab = 0;
 
     if (component === "tabbed" && repeatable) {
@@ -149,7 +158,7 @@
 </script>
 
 {#if internalRender}
-    <div class={parentClass} class:bordered={customize && !passCustomize}>
+    <div class="field" class:bordered={customize && !passCustomize}>
         {#if customize && !passCustomize}
             <span
                 class="tag is-cyan"
@@ -162,7 +171,7 @@
         {/if}
 
         {#if displayTitle && (customTitle || label)}
-            <h4 class="has-text-weight-bold is-size-6 mb-3 has-text-grey">
+            <h4 class={titleClass}>
                 {customTitle || label}
             </h4>
         {/if}
@@ -199,7 +208,7 @@
             {:else}
                 {#each [...Array(count).keys()] as index}
                     <!-- transition:slide="{{duration: 300 }}" -->
-                    <div class="field" style="box-sizing: border-box;">
+                    <div class="box" style="box-sizing: border-box;">
                         <svelte:self
                             {...$$props}
                             path={`${path}:${index}`}
@@ -207,9 +216,6 @@
                             displayTitle={false}
                             passCustomize={customize}
                         />
-                        {#if divider && count > 1 && index !== count - 1}
-                            <hr />
-                        {/if}
                     </div>
                 {/each}
                 {#if canAddRepeatable}
@@ -235,9 +241,10 @@
                 {/if}
             {/if}
         {:else}
+        <div class={parentClass}>
             {#each groupLeafItems as child, i}
                 <div
-                    class="field"
+                    class={childClass}
                     class:is-hidden={component === "tabbed" && activeTab !== i}
                 >
                     {#if child.type === "Group"}
@@ -264,6 +271,7 @@
                     {/if}
                 </div>
             {/each}
+        </div>
             {#each contextItems as child}
                 <Context
                     {...child}

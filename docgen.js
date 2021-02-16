@@ -36,6 +36,7 @@ function getDocs(path) {
 }
 const leafOptions = getDocs("src/composition/Leaf.svelte")
 const groupOptions = getDocs("src/composition/Group.svelte")
+console.log(groupOptions)
 console.log("JsDocs: start")
 let parsed = {}
 Object.keys(files).forEach(key=>{

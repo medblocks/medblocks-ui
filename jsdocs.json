@@ -750,6 +750,10 @@
             {
               "type": "StringLiteralType",
               "value": "tabbed"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "horizontal"
             }
           ]
         },
@@ -772,6 +776,28 @@
           ]
         },
         "name": "displayTitle"
+      },
+      {
+        "title": "param",
+        "description": "Class of title",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "StringLiteralType",
+              "value": "has-text-weight-bold is-size-6 mb-3 has-text-grey"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title"
+            }
+          ]
+        },
+        "name": "titleClass"
       },
       {
         "title": "param",
@@ -905,6 +931,10 @@
             {
               "type": "StringLiteralType",
               "value": "tabbed"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "horizontal"
             }
           ]
         },
@@ -927,6 +957,28 @@
           ]
         },
         "name": "displayTitle"
+      },
+      {
+        "title": "param",
+        "description": "Class of title",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "StringLiteralType",
+              "value": "has-text-weight-bold is-size-6 mb-3 has-text-grey"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title"
+            }
+          ]
+        },
+        "name": "titleClass"
       },
       {
         "title": "param",

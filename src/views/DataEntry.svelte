@@ -62,7 +62,7 @@ import Navbar from "./Navbar.svelte";
         </ul>
     </div>
     <div class="columns">
-        <div class="column is-half">
+        <div class="column">
             {#if currentTemplate}
             <Composition
                 template={currentTemplate.template}
@@ -82,10 +82,10 @@ import Navbar from "./Navbar.svelte";
                 {/each}
             {/if}
         </div>
-        <div class="column is-half">
+        <!-- <div class="column is-half">
             <pre>
                 {JSON.stringify($store, null, 2)}
             </pre>
-        </div>
+        </div> -->
     </div>
 </Patient>

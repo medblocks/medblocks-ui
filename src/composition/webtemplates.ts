@@ -22,7 +22,9 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
     const eventTypes = ['EVENT', 'POINT_EVENT', 'INTERVAL_EVENT']
     if (eventTypes.includes(rmType)) {
         inGroup = true
-        name = `${parentName} (${name})`
+        if (!["Any event"].includes(name)) {
+            name = `${parentName} (${name})`
+        }
         // name = ''
     }
     if (['OBSERVATION', 'ACTION', 'INSTRUCTION', 'CLUSTER', 'SECTION'].includes(rmType)) {
