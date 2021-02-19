@@ -37,7 +37,6 @@
     export let titleClass: string = 'has-text-weight-bold is-size-6 mb-3 has-text-grey'
     export let customTitle: string | undefined = undefined;
     export let multiSelectCodedArray: boolean = false;
-    export let divider: boolean = true;
     export let render: boolean | undefined = undefined;
     export let renderFunction: Function | undefined = undefined;
     // Currently only simple templates
@@ -208,7 +207,7 @@
             {:else}
                 {#each [...Array(count).keys()] as index}
                     <!-- transition:slide="{{duration: 300 }}" -->
-                    <div class="box" style="box-sizing: border-box;">
+                    <div class:box={canAddRepeatable} class:field={!canAddRepeatable} style="box-sizing: border-box;">
                         <svelte:self
                             {...$$props}
                             path={`${path}:${index}`}

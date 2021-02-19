@@ -42,19 +42,7 @@
     }
 </script>
 
-{#if customize}
-    <div
-        class="tag"
-        on:click={() =>
-            customizeFunction({
-                aqlPath: "global",
-                type: "COMPOSITION",
-                path: "global",
-            })}
-    >
-        GLOBAL
-    </div>
-{/if}
+
 {#if !error}
         <Group
             {...mainGroup}
