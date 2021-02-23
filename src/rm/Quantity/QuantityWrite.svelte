@@ -1,12 +1,12 @@
 <script lang="ts">
-    import type { Tree, writableKeyValue } from "../../types/types";
+    import type { readableKeyValue, Tree, writableKeyValue } from "../../types/types";
     import { triggerDestroy } from "../utils";
     /**
      * @param {true|false} hideUnits - Still adds the value to the output, but does not show the units during data entry.
      * @param {true|false} displayTitle - To display the title or not.
      */
     export let path: string;
-    export let store: writableKeyValue;
+    export let store: readableKeyValue;
     export let tree: Tree;
     export let wrapperClass: string = "field";
     export let labelClass: string = "label";
@@ -20,19 +20,19 @@
     $: {
         unitPath = path + "|unit";
         magnitudePath = path + "|magnitude";
-        triggerDestroy([unitPath, magnitudePath], store);
+        triggerDestroy([unitPath, magnitudePath], store as writableKeyValue);
     }
     $: magnitudeStoreValue = $store[magnitudePath];
     $: {
         if (typeof magnitudeStoreValue != "undefined") {
             if (magnitudeStoreValue === null) {
-                store.update((s) => ({
+                (store as writableKeyValue).update((s) => ({
                     ...s,
                     [magnitudePath]: undefined,
                     [unitPath]: undefined,
                 }));
             } else if ($store[unitPath] != internalUnits) {
-                store.update((s) => ({ ...s, [unitPath]: internalUnits }));
+                (store as writableKeyValue).update((s) => ({ ...s, [unitPath]: internalUnits }));
             }
         }
     }

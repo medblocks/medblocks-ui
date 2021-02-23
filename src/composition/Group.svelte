@@ -24,7 +24,7 @@
     /**
      * @param {'normal'|'tabbed'|'horizontal'} component - Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.
      * @param {true|false} displayTitle - To display the title or not.
-     * @param {'has-text-weight-bold is-size-6 mb-3 has-text-grey'|'subtitle'|'title'} titleClass - Class of title
+     * @param {'has-text-weight-bold is-size-6 mb-3 has-text-grey'|'label'|'title is-1'|'title is-2'|'title is-3'|'title is-4|'subtitle is-1'|'subtitle is-2'|'subtitle is-3'|'subtitle is-4'|'subtitle is-5'} titleClass - Class of title
      * @param {string} customTitle - A custom label for the group
      * @param {true|false} display - To display the component or not. Still renders it and adds the value to the output.
      * @param {function} displayFunction - The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.
@@ -33,6 +33,7 @@
      * @param {true|false} canAddRepeatable - For repeatable elements, allow adding new elements?
      * @param {true|false} multiSelectCodedArray - Render buttons? Only for repeatable codedtext. 
      * @param {true|false} divider - Between repeatable elements
+     * @param {true|false} skipChildLabel - To skip the child label for special elements?
      */
     export let titleClass: string = 'has-text-weight-bold is-size-6 mb-3 has-text-grey'
     export let customTitle: string | undefined = undefined;
@@ -46,6 +47,7 @@
     export let canAddRepeatable = true;
     export let passCustomize: boolean = false;
     export let component: "normal" | "tabbed" | "horizontal" = "normal";
+    export let skipChildLabel: boolean = false;
     let internalRender: boolean;
 
     $: if (renderFunction) {
@@ -190,24 +192,30 @@
             </div>
         {/if}
         {#if repeatable}
-            {#if rmType === "DV_CODED_TEXT" && multiSelectCodedArray && children[0]}
+            {#if multiSelectCodedArray && children[0]}
                 {#if readOnly}
                     <MultiSelectCodedArrayRead
                         tree={children[0].tree}
                         {path}
                         {store}
+                        {skipChildLabel}
                     />
                 {:else}
                     <MultiSelectCodedArrayWrite
                         tree={children[0].tree}
                         {path}
                         {store}
+                        {skipChildLabel}
                     />
                 {/if}
             {:else}
                 {#each [...Array(count).keys()] as index}
                     <!-- transition:slide="{{duration: 300 }}" -->
                     <div class:box={canAddRepeatable} class:field={!canAddRepeatable} style="box-sizing: border-box;">
+                        {#if index > 0}
+                            <!-- transition:scale -->
+                            <button on:click={reduceCount} class="delete is-pulled-right"></button>
+                        {/if}
                         <svelte:self
                             {...$$props}
                             path={`${path}:${index}`}
@@ -219,23 +227,8 @@
                 {/each}
                 {#if canAddRepeatable}
                     <div class="buttons is-right">
-                        {#if count > 1}
-                            <!-- transition:scale -->
-                            <button
-                                class:is-hidden={readOnly}
-                                class="button is-small is-danger is-light"
-                                on:click={reduceCount}
-                                type="button"
-                                ><i class="icon icon-arrow-up" /></button
-                            >
-                        {/if}
-                        <button
-                            class:is-hidden={readOnly}
-                            class="button is-sma ll is-success is-light"
-                            on:click={increaseCount}
-                            type="button"
-                            ><i class="icon icon-arrow-down" /></button
-                        >
+                        
+                        <button on:click={increaseCount} class="button is-fullwidth">Add another</button>
                     </div>
                 {/if}
             {/if}

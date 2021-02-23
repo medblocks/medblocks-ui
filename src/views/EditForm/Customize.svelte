@@ -76,8 +76,29 @@
         overflow-y: auto
     }
     .small-box {
-        max-height: 800px;
+        max-height: calc(100vh - 75px);
         overflow-y: auto
+    }
+    .nice-scrollbar::-webkit-scrollbar {
+    background-color: #fff;
+    width: 16px;
+}
+
+    /* background of the scrollbar except button or resizer */
+    .nice-scrollbar::-webkit-scrollbar-track {
+        background-color: #fff;
+    }
+
+    /* scrollbar itself */
+    .nice-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #babac0;
+        border-radius: 16px;
+        border: 4px solid #fff;
+    }
+
+    /* set button(top and bottom of the scrollbar) */
+    .nice-scrollbar::-webkit-scrollbar-button {
+        display:none;
     }
 </style>
 
@@ -112,7 +133,7 @@
         </div>
            
             <div class="columns is-mobile">
-                <div class="column is-half" id="component">
+                <div class="column is-two-thirds" id="component">
                     <div>
                         <Composition
                             template={selectedTemplate}
@@ -124,7 +145,7 @@
                         />
                     </div>
                 </div>
-                <div class="column is-half">
+                <div class="column">
                     <div class="menu sticky">
                         {#if selectedElement}
                             <div class="tabs">
@@ -139,7 +160,7 @@
                                     ><a>Read</a></li>
                                 </ul>
                             </div>
-                            <div class="field small-box">
+                            <div class="field small-box nice-scrollbar">
                                 <div class="field">
                                     {#if sourceView}
                                     <span class="tag is-dark" on:click={()=>{sourceView=false}}>Hide source</span>

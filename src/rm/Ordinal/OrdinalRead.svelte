@@ -6,10 +6,14 @@
     export let tree: Tree;
     /**
      * @param {string} ordinalPathAppend - The path that comes after ordinal: Eg: /glasgow_coma_scale_e/value|ordinal. In this example "value" is the appended path.
+     * @param {true|false} displayTitle - To display the title?
+     * @param {string} label - Custom label
      */
     export let ordinalPathAppend: string = "/value"
     export let ordinalClass: string = "subtitle is-5"
     export let labelClass: string = "label"
+    export let displayTitle: boolean = true
+    export let label: string
     let selected: number;
     let internalPath: string
     $: internalPath = path.replace("/ordinal_value", ordinalPathAppend)
@@ -17,7 +21,9 @@
 </script>
 
 <div class="field">
-        <p class={labelClass}>{tree.name}</p>
+    {#if displayTitle}
+    <label class={labelClass} for={path}>{label || tree.name}</label>
+    {/if}
             {#if tree.inputs}
             <p class={ordinalClass}>
                 {#if typeof selected !== 'undefined'}

@@ -46,10 +46,6 @@ import { timeDiff } from "./utils";
                                         >{form.name}</strong
                                     >
                                 </a>
-                                <small
-                                    >v{form?.template?.id || 0}.{form
-                                        ?.configuration?.id || 0}</small
-                                >
                             </p>
                             <p class="has-text-grey">
                                 Updated {timeDiff(form.last_updated)} ago

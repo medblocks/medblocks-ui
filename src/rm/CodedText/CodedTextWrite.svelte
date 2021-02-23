@@ -8,11 +8,11 @@
      *
      */
     import type { Tree, writableKeyValue } from "../../types/types";
-    import type {SearchFunction} from "./search"
-    import {hermesSearch} from "./search"
+    import type { SearchFunction } from "./search";
+    import { hermesSearch } from "./search";
     import DropDown from "./DropDown.svelte";
     import Search from "./Search.svelte";
-    import ButtonList from "./ButtonList.svelte"
+    import ButtonList from "./ButtonList.svelte";
 
     export let path: string;
     export let store: writableKeyValue;
@@ -21,18 +21,43 @@
     export let wrapperClass: string = "field";
     export let labelClass: string = "label";
     export let selectWrapperClass: string = "select";
-    export let component: 'search' | 'dropbox' | 'buttons' = 'buttons';
+    export let component: "search" | "dropbox" | "buttons" = "dropbox";
     export let terminologyUrl: string | undefined = undefined;
-    export let searchFunction: SearchFunction  = hermesSearch;
-    export let constraint: string | undefined = undefined
+    export let searchFunction: SearchFunction = hermesSearch;
+    export let constraint: string | undefined = undefined;
 </script>
 
-{#if component === 'dropbox'}
-    <DropDown {path} {store} {tree} {selectWrapperClass} {labelClass} {wrapperClass} {displayTitle}/>
-{:else if component === 'search'}
-    <Search {path} {store} {tree} {labelClass} {wrapperClass} {displayTitle} {terminologyUrl}  {searchFunction} {constraint}/>
-{:else if component === 'buttons'}
-    <ButtonList {path} {store} {tree} {labelClass} {wrapperClass} {displayTitle}></ButtonList>
+{#if component === "dropbox"}
+    <DropDown
+        {path}
+        {store}
+        {tree}
+        {selectWrapperClass}
+        {labelClass}
+        {wrapperClass}
+        {displayTitle}
+    />
+{:else if component === "search"}
+    <Search
+        {path}
+        {store}
+        {tree}
+        {labelClass}
+        {wrapperClass}
+        {displayTitle}
+        {terminologyUrl}
+        {searchFunction}
+        {constraint}
+    />
+{:else if component === "buttons"}
+    <ButtonList
+        {path}
+        {store}
+        {tree}
+        {labelClass}
+        {wrapperClass}
+        {displayTitle}
+    />
 {:else}
     <p>Unknown component type for CodedTextWrite</p>
 {/if}

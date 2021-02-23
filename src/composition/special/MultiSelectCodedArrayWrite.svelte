@@ -1,6 +1,6 @@
 <script lang="ts">
-import { onDestroy } from "svelte";
-import { destroyAction } from "../../rm/utils";
+    import { onDestroy } from "svelte";
+    import { destroyAction } from "../../rm/utils";
     import type {
         readableKeyValue,
         writableKeyValue,
@@ -10,15 +10,17 @@ import { destroyAction } from "../../rm/utils";
     export let path: string;
     export let tree: Tree;
     export let store: readableKeyValue;
-
+    export let skipChildLabel: boolean;
     let terminology: string;
 
     $: terminology = tree?.inputs?.[0].terminology ?? "local";
 
-    let selected: { index: number; code: string, value: string }[];
+    let selected: { index: number; code: string; value: string }[];
     $: selected = getSelected($store);
 
-    const getSelected = (store): { code: string; index: number, value: string }[] => {
+    const getSelected = (
+        store
+    ): { code: string; index: number; value: string }[] => {
         const paths = Object.keys(store)
             .filter((p) => p.includes(path))
             .filter((p) => p.includes("|code"));
@@ -32,21 +34,19 @@ import { destroyAction } from "../../rm/utils";
             return {
                 index: index,
                 code,
-                value: store[p.replace("code", "value")]
+                value: store[p.replace("code", "value")],
             };
         });
         return result;
     };
-    const clearAll = ()=>{
-        const paths = Object.keys($store)
-            .filter((p) => p.includes(path))
-        console.log("clearing", {paths})
-        destroyAction(paths, store as writableKeyValue)
-    }
-    
+    const clearAll = () => {
+        const paths = Object.keys($store).filter((p) => p.includes(path));
+        console.log("clearing", { paths });
+        destroyAction(paths, store as writableKeyValue);
+    };
 
     const select = (option: { label?: string; value: string }): void => {
-        if (selected.some((s) => s.code === option.value)){
+        if (selected.some((s) => s.code === option.value)) {
             // TODO: Implement deselect
         } else {
             const i = selected.length;
@@ -59,19 +59,16 @@ import { destroyAction } from "../../rm/utils";
         }
     };
 
-    
-    
-    
-    onDestroy(()=>{
-        const paths = Object.keys($store)
-            .filter((p) => p.includes(path))
-        destroyAction(paths, store as writableKeyValue) 
-    })
-
+    onDestroy(() => {
+        const paths = Object.keys($store).filter((p) => p.includes(path));
+        destroyAction(paths, store as writableKeyValue);
+    });
 </script>
 
 <div class="field">
-    <label for={path} class="label">{tree.name}</label>
+    {#if !skipChildLabel}
+        <label for={path} class="label">{tree.name}</label>
+    {/if}
     {#if tree.inputs && tree.inputs[0].list}
         <div class="buttons">
             {#each tree.inputs[0].list as option}
@@ -79,8 +76,9 @@ import { destroyAction } from "../../rm/utils";
                     on:click={() => select(option)}
                     class="button"
                     type="button"
-                    class:is-info={selected.some((s) => s.code === option.value)}
-                    >{option.label}</button
+                    class:is-info={selected.some(
+                        (s) => s.code === option.value
+                    )}>{option.label}</button
                 >
             {/each}
             <button

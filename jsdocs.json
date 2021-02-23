@@ -1,4 +1,118 @@
 {
+  "DV_BOOLEAN": {
+    "read": [
+      {
+        "title": "param",
+        "description": "To render the component or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "render"
+      },
+      {
+        "title": "param",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      }
+    ],
+    "write": [
+      {
+        "title": "param",
+        "description": "To render the component or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "render"
+      },
+      {
+        "title": "param",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      }
+    ]
+  },
   "DV_CODED_TEXT": {
     "read": [
       {
@@ -376,6 +490,33 @@
           "name": "string"
         },
         "name": "ordinalPathAppend"
+      },
+      {
+        "title": "param",
+        "description": "To display the title?",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
+      },
+      {
+        "title": "param",
+        "description": "Custom label",
+        "type": {
+          "type": "NameExpression",
+          "name": "string"
+        },
+        "name": "label"
       }
     ],
     "write": [
@@ -468,6 +609,210 @@
           "name": "string"
         },
         "name": "label"
+      },
+      {
+        "title": "param",
+        "description": "To display the title?",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
+      }
+    ]
+  },
+  "DV_PROPORTION": {
+    "read": [
+      {
+        "title": "param",
+        "description": "To render the component or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "render"
+      },
+      {
+        "title": "param",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
+      {
+        "title": "param",
+        "description": "Still adds the value to the output, but does not show the units during data entry.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "hideUnits"
+      },
+      {
+        "title": "param",
+        "description": "To display the title or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
+      }
+    ],
+    "write": [
+      {
+        "title": "param",
+        "description": "To render the component or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "render"
+      },
+      {
+        "title": "param",
+        "description": "The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "renderFunction"
+      },
+      {
+        "title": "param",
+        "description": "To display the component or not. Still renders it and adds the value to the output.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "display"
+      },
+      {
+        "title": "param",
+        "description": "The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.",
+        "type": {
+          "type": "NameExpression",
+          "name": "function"
+        },
+        "name": "displayFunction"
+      },
+      {
+        "title": "param",
+        "description": "Still adds the value to the output, but does not show the units during data entry.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "hideUnits"
+      },
+      {
+        "title": "param",
+        "description": "To display the title or not.",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "displayTitle"
       }
     ]
   },
@@ -789,11 +1134,39 @@
             },
             {
               "type": "StringLiteralType",
-              "value": "subtitle"
+              "value": "label"
             },
             {
               "type": "StringLiteralType",
-              "value": "title"
+              "value": "title is-1"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-2"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-3"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-1"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-2"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-3"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-4"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-5"
             }
           ]
         },
@@ -915,6 +1288,24 @@
           ]
         },
         "name": "divider"
+      },
+      {
+        "title": "param",
+        "description": "To skip the child label for special elements?",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "skipChildLabel"
       }
     ],
     "write": [
@@ -970,11 +1361,39 @@
             },
             {
               "type": "StringLiteralType",
-              "value": "subtitle"
+              "value": "label"
             },
             {
               "type": "StringLiteralType",
-              "value": "title"
+              "value": "title is-1"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-2"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-3"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-1"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-2"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-3"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-4"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-5"
             }
           ]
         },
@@ -1096,6 +1515,24 @@
           ]
         },
         "name": "divider"
+      },
+      {
+        "title": "param",
+        "description": "To skip the child label for special elements?",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "skipChildLabel"
       }
     ]
   }

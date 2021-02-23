@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type { Tree, writableKeyValue } from "../../types/types";
-import DisplayLabel from "../helpers/DisplayLabel.svelte";
-import { getLabel } from "../utils";
+    import type { readableKeyValue, Tree, writableKeyValue } from "../../types/types";
+    import DisplayLabel from "../helpers/DisplayLabel.svelte";
+    import { getLabel } from "../utils";
     
         export let path: string
-        export let store: writableKeyValue
+        export let store: readableKeyValue
         export let tree: Tree
         export let wrapperClass: string = "field"
         export let labelClass: string = "label"

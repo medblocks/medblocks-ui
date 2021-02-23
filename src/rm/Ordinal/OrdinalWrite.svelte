@@ -12,6 +12,7 @@
      * @param {number} defaultOrdinal - The default ordinal (number) 
      * @param {function} computeFunction - Calculates the ordinal value (number) based on other values. Overrides manual input if returns valid input.
      * @param {string} label - A custom label.
+     * @param {true|false} displayTitle - To display the title?
      */
     export let label: string | undefined = undefined
     export let defaultOrdinal: number | undefined = undefined;
@@ -19,6 +20,7 @@
     export let wrapperClass: string = "field"
     export let labelClass: string = "label"
     export let selectWrapperClass: string = "select"
+    export let displayTitle: boolean = true
     //TODO: Needs to be changed to "" and include all specifics in cofig
     export let ordinalPathAppend: string = "/value" 
     let internalPath: string;
@@ -69,7 +71,9 @@
 </script>
 
 <div class={wrapperClass}>
-    <label class={labelClass} for={path}>{label || tree.name}</label>
+    {#if displayTitle}
+        <label class={labelClass} for={path}>{label || tree.name}</label>
+    {/if}
     {#if tree.inputs && tree.inputs[0].list}
         <div class={selectWrapperClass}>
             <select
