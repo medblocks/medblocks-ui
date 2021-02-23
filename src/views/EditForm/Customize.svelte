@@ -45,6 +45,7 @@
     };
     const saveConfiguration = async () => {
         const data = $currentConfiguration
+        const body = JSON.stringify(data, )
         if (form?.configuration) {
             await axios.put(`${templateManagerUrl}/configuration/${form.configuration.id}`, {data})
         } else {

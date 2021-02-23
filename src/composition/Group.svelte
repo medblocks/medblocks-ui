@@ -24,18 +24,24 @@
     /**
      * @param {'normal'|'tabbed'|'horizontal'} component - Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.
      * @param {true|false} displayTitle - To display the title or not.
-     * @param {'has-text-weight-bold is-size-6 mb-3 has-text-grey'|'label'|'title is-1'|'title is-2'|'title is-3'|'title is-4|'subtitle is-1'|'subtitle is-2'|'subtitle is-3'|'subtitle is-4'|'subtitle is-5'} titleClass - Class of title
+     * @param {'has-text-weight-bold is-size-6 mb-3 has-text-grey'|
+     * 'is-size-5 mb-3 has-text-grey'|
+     * 'label'
+     * |'title is-1'|'title is-2'|'title is-3'|'title is-4'|'title is-5'| 'title is-5 is-uppercase'| 'title is-6'| 'title is-6 is-uppercase'
+     * |'subtitle is-1'|'subtitle is-2'|'subtitle is-3'|'subtitle is-4'|'subtitle is-5'|'subtitle is-5 is-uppercase'|'subtitle is-6'|'subtitle is-6 is-uppercase'
+     * } titleClass - Class of title
      * @param {string} customTitle - A custom label for the group
      * @param {true|false} display - To display the component or not. Still renders it and adds the value to the output.
      * @param {function} displayFunction - The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.
      * @param {true|false} render - To render the component or not.
      * @param {function} renderFunction - The function to render the component or not. Takes precedence over render if provided. If the value is not true, then it is considered false.
      * @param {true|false} canAddRepeatable - For repeatable elements, allow adding new elements?
-     * @param {true|false} multiSelectCodedArray - Render buttons? Only for repeatable codedtext. 
+     * @param {true|false} multiSelectCodedArray - Render buttons? Only for repeatable codedtext.
      * @param {true|false} divider - Between repeatable elements
      * @param {true|false} skipChildLabel - To skip the child label for special elements?
      */
-    export let titleClass: string = 'has-text-weight-bold is-size-6 mb-3 has-text-grey'
+    export let titleClass: string =
+        "has-text-weight-bold is-size-6 mb-3 has-text-grey";
     export let customTitle: string | undefined = undefined;
     export let multiSelectCodedArray: boolean = false;
     export let render: boolean | undefined = undefined;
@@ -140,14 +146,14 @@
 
         return parentPath;
     };
-    let parentClass: string
-    let childClass: string
-    $: if (component === 'horizontal'){
+    let parentClass: string;
+    let childClass: string;
+    $: if (component === "horizontal") {
         parentClass = "columns";
-        childClass = "column"
+        childClass = "column";
     } else {
-        parentClass = "field"
-        childClass = "field"
+        parentClass = "field";
+        childClass = "field";
     }
     let activeTab = 0;
 
@@ -211,10 +217,17 @@
             {:else}
                 {#each [...Array(count).keys()] as index}
                     <!-- transition:slide="{{duration: 300 }}" -->
-                    <div class:box={canAddRepeatable} class:field={!canAddRepeatable} style="box-sizing: border-box;">
+                    <div
+                        class:box={canAddRepeatable}
+                        class:field={!canAddRepeatable}
+                        style="box-sizing: border-box;"
+                    >
                         {#if index > 0}
                             <!-- transition:scale -->
-                            <button on:click={reduceCount} class="delete is-pulled-right"></button>
+                            <button
+                                on:click={reduceCount}
+                                class="delete is-pulled-right"
+                            />
                         {/if}
                         <svelte:self
                             {...$$props}
@@ -227,43 +240,46 @@
                 {/each}
                 {#if canAddRepeatable}
                     <div class="buttons is-right">
-                        
-                        <button on:click={increaseCount} class="button is-fullwidth">Add another</button>
+                        <button
+                            on:click={increaseCount}
+                            class="button is-fullwidth">Add another</button
+                        >
                     </div>
                 {/if}
             {/if}
         {:else}
-        <div class={parentClass}>
-            {#each groupLeafItems as child, i}
-                <div
-                    class={childClass}
-                    class:is-hidden={component === "tabbed" && activeTab !== i}
-                >
-                    {#if child.type === "Group"}
-                        <svelte:self
-                            {...child}
-                            path={appendPath(path, child.path)}
-                            {customize}
-                            {customizeFunction}
-                            {store}
-                            {readOnly}
-                        />
-                    {:else if child.type === "Leaf"}
-                        <Leaf
-                            {...child}
-                            path={appendPath(path, child.path)}
-                            {customize}
-                            {customizeFunction}
-                            {store}
-                            {readOnly}
-                        />
-                    {:else}
-                        <p>Not Group or Leaf type: {child.type}</p>
-                        <pre>{JSON.stringify(child, null, 2)}</pre>
-                    {/if}
-                </div>
-            {/each}
-        </div>
+            <div class={parentClass}>
+                {#each groupLeafItems as child, i}
+                    <div
+                        class={childClass}
+                        class:is-hidden={component === "tabbed" &&
+                            activeTab !== i}
+                    >
+                        {#if child.type === "Group"}
+                            <svelte:self
+                                {...child}
+                                path={appendPath(path, child.path)}
+                                {customize}
+                                {customizeFunction}
+                                {store}
+                                {readOnly}
+                            />
+                        {:else if child.type === "Leaf"}
+                            <Leaf
+                                {...child}
+                                path={appendPath(path, child.path)}
+                                {customize}
+                                {customizeFunction}
+                                {store}
+                                {readOnly}
+                            />
+                        {:else}
+                            <p>Not Group or Leaf type: {child.type}</p>
+                            <pre>{JSON.stringify(child, null, 2)}</pre>
+                        {/if}
+                    </div>
+                {/each}
+            </div>
             {#each contextItems as child}
                 <Context
                     {...child}

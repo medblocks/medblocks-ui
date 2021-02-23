@@ -1134,6 +1134,10 @@
             },
             {
               "type": "StringLiteralType",
+              "value": "is-size-5 mb-3 has-text-grey"
+            },
+            {
+              "type": "StringLiteralType",
               "value": "label"
             },
             {
@@ -1147,6 +1151,26 @@
             {
               "type": "StringLiteralType",
               "value": "title is-3"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-4"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-5"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-5 is-uppercase"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-6"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-6 is-uppercase"
             },
             {
               "type": "StringLiteralType",
@@ -1167,6 +1191,18 @@
             {
               "type": "StringLiteralType",
               "value": "subtitle is-5"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-5 is-uppercase"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-6"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-6 is-uppercase"
             }
           ]
         },
@@ -1361,6 +1397,10 @@
             },
             {
               "type": "StringLiteralType",
+              "value": "is-size-5 mb-3 has-text-grey"
+            },
+            {
+              "type": "StringLiteralType",
               "value": "label"
             },
             {
@@ -1374,6 +1414,26 @@
             {
               "type": "StringLiteralType",
               "value": "title is-3"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-4"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-5"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-5 is-uppercase"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-6"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "title is-6 is-uppercase"
             },
             {
               "type": "StringLiteralType",
@@ -1394,6 +1454,18 @@
             {
               "type": "StringLiteralType",
               "value": "subtitle is-5"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-5 is-uppercase"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-6"
+            },
+            {
+              "type": "StringLiteralType",
+              "value": "subtitle is-6 is-uppercase"
             }
           ]
         },
