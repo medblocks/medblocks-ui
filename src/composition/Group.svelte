@@ -242,7 +242,7 @@
                     <div class="buttons is-right">
                         <button
                             on:click={increaseCount}
-                            class="button is-fullwidth">Add another</button
+                            class="button is-fullwidth">Add another {(customTitle || label).toLowerCase()}</button
                         >
                     </div>
                 {/if}

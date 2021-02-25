@@ -15,11 +15,11 @@ import { triggerDestroy } from "../utils";
     export let labelClass: string = "label"
     export let textAreaClass: string = "textarea"
     export let suggestFunction: Function = sFn
-
+    export let rows: number = 1
     $: triggerDestroy([path], store)
 </script>
 
 <div class={wrapperClass}>
     <label for={path} class={labelClass}>{tree.name}</label>
-    <textarea type="text" id={path} class={textAreaClass} bind:value={$store[path]}/>
+    <textarea rows={rows} type="text" id={path} class={textAreaClass} bind:value={$store[path]}/>
 </div>
