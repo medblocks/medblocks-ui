@@ -6,7 +6,7 @@
     import { defaultConfig, getConfig, parseFn, serizlizeFn, setConfig } from "./config";
     import { writable } from "svelte/store";
 
-    export let templateManagerUrl = "http://128.199.20.209:8000"
+    export let templateManagerUrl = "https://t.medblocks.org"
 </script>
 
 <Navbar />
