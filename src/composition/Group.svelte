@@ -4,7 +4,6 @@
     import type {
         Extracted,
         readableKeyValue,
-        writableKeyValue,
     } from "../types/types";
     import { sanitizeDisplayFunction } from "../rm/utils";
     import MultiSelectCodedArrayWrite from "./special/MultiSelectCodedArrayWrite.svelte";
@@ -242,7 +241,7 @@
                     <div class="buttons is-right">
                         <button
                             on:click={increaseCount}
-                            class="button is-fullwidth">Add another {(customTitle || label).toLowerCase()}</button
+                            class="button is-fullwidth">Add another {(customTitle || label)?.toLowerCase()}</button
                         >
                     </div>
                 {/if}

@@ -14,7 +14,7 @@
 
     import { timeDiff } from "./utils";
 
-    let templateManagerUrl = "http://localhost:8000";
+    let templateManagerUrl = "http://128.199.20.209:8000";
     const getData = async () => {
         const r = await axios.get(
             templateManagerUrl + "/form/" + params.templateIndex
