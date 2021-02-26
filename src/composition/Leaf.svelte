@@ -16,6 +16,10 @@
     import CountWrite from "../rm/Count/CountWrite.svelte";
     import CountRead from "../rm/Count/CountRead.svelte";
     import TextRead from "../rm/Text/TextRead.svelte";
+import BooleanWrite from "../rm/Boolean/BooleanWrite.svelte";
+import BooleanRead from "../rm/Boolean/BooleanRead.svelte";
+import ProportionWrite from "../rm/Proportion/ProportionWrite.svelte";
+import ProportionRead from "../rm/Proportion/ProportionRead.svelte";
     export let tree: Tree;
     export let type: string;
     export let path: string = "no-path";
@@ -75,6 +79,14 @@
                 write: CountWrite,
                 read: CountRead,
             },
+            DV_BOOLEAN: {
+                write: BooleanWrite,
+                read: BooleanRead
+            },
+            DV_PROPORTION: {
+                write: ProportionWrite,
+                read: ProportionRead
+            }
         };
         let selected = components[rmType];
         if (selected) {

@@ -1,13 +1,11 @@
 <script lang="ts">
-import DataEntry from "./views/DataEntry.svelte";
-import Settings from "./views/Settings.svelte";
-import Customize from "./views/Customize.svelte";
+import Forms from "./views/Forms.svelte";
 import Router from 'svelte-spa-router'
+import EditForm from "./views/EditForm.svelte";
 
 const routes = {
-    '/': DataEntry,
-    '/settings': Settings,
-    '/customize/:templateIndex?': Customize
+    '/': Forms,
+    '/customize/:templateIndex/:view?': EditForm
 }
 </script>
 

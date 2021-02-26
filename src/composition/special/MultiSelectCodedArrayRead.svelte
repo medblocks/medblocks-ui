@@ -7,6 +7,7 @@
     export let path: string;
     export let tree: Tree;
     export let store: readableKeyValue;
+    export let skipChildLabel: boolean;
 
     let terminology: string;
 
@@ -38,7 +39,9 @@
 </script>
 
 <div class="field">
-    <label for={path} class="label">{tree.name}</label>
+    {#if !skipChildLabel}
+        <label for={path} class="label">{tree.name}</label>
+    {/if}
     <p class="">
         {selected.map(s=>s.value).join(", ")}
     </p>

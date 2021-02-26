@@ -15,7 +15,7 @@
     export let labelClass: string = "label";
     export let selectWrapperClass: string = "select";
     export let displayTitle: boolean
-    export let defaultValueClass: string = "label";
+    export let defaultValueClass: string = "subtitle is-5";
     let terminologyPath: string;
     let codePath: string;
     let valuePath: string;

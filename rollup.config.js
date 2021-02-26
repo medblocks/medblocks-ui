@@ -54,6 +54,13 @@ export default {
 		copy({ targets: [{ src: "public/*", dest: OUT_DIR }] }),
 		svelte({
 			// enable run-time checks when not in production
+			onwarn: (warning, handler) => {
+				// e.g. don't warn on a11y-autofocus
+				if (warning.code === 'a11y-autofocus') return
+		
+				// let Rollup handle all other warnings normally
+				handler(warning)
+			},
 			dev: !production,
 			// we'll extract any component CSS out into
 			// a separate file - better for performance

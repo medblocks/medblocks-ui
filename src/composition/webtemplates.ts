@@ -27,11 +27,11 @@ function extractInputs(tree: Tree, path: string, parentName: string, config: any
         }
         // name = ''
     }
-    if (['OBSERVATION', 'ACTION', 'INSTRUCTION', 'CLUSTER', 'SECTION'].includes(rmType)) {
+    if (['OBSERVATION', 'ACTION', 'INSTRUCTION', 'CLUSTER', 'SECTION', 'EVALUATION'].includes(rmType)) {
         inGroup = true
         if (children && children?.filter(child => eventTypes.includes(child.rmType)).length > 0) {
             newParentName = name
-            name = ''
+            // name = ''
         }
     }
     if (max > 1 || max === -1 || inGroup) {
@@ -113,7 +113,7 @@ function generateSchema(template: Template, configuration: any = {}, readOnly: b
         throw new Error('Top level template returned only one extracted')
     }
     let options = configuration[""]?.[readOnly ? 'read' : 'write']
-    const {id, rmType, aqlPath, name} = template.tree
+    const { id, rmType, aqlPath, name } = template.tree
     return {
         type: 'Group',
         ...options,
