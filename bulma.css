@@ -1,6 +1,9 @@
 /* roboto-slab-100 - latin */
 /* roboto-slab-100 - latin */
 
+.is-underlined {
+  text-decoration: underline; }
+
 /*! bulma.io v0.9.1 | MIT License | github.com/jgthms/bulma */
 /* Bulma Utilities */
 @keyframes spinAround {
@@ -893,12 +896,8 @@ a.tag:hover {
     margin-top: -1.25rem; }
   .title.is-1 {
     font-size: 3rem; }
-  .title.is-2 {
-    font-size: 2.5rem; }
   .title.is-3 {
     font-size: 2rem; }
-  .title.is-4 {
-    font-size: 1.5rem; }
   .title.is-5 {
     font-size: 1.25rem; }
   .title.is-6 {
@@ -916,12 +915,8 @@ a.tag:hover {
     margin-top: -1.25rem; }
   .subtitle.is-1 {
     font-size: 3rem; }
-  .subtitle.is-2 {
-    font-size: 2.5rem; }
   .subtitle.is-3 {
     font-size: 2rem; }
-  .subtitle.is-4 {
-    font-size: 1.5rem; }
   .subtitle.is-5 {
     font-size: 1.25rem; }
   .subtitle.is-6 {
@@ -1961,15 +1956,9 @@ a.navbar-item,
   .columns.is-mobile > .column.is-1 {
     flex: none;
     width: 8.33333%; }
-  .columns.is-mobile > .column.is-2 {
-    flex: none;
-    width: 16.66667%; }
   .columns.is-mobile > .column.is-3 {
     flex: none;
     width: 25%; }
-  .columns.is-mobile > .column.is-4 {
-    flex: none;
-    width: 33.33333%; }
   .columns.is-mobile > .column.is-5 {
     flex: none;
     width: 41.66667%; }
@@ -1989,15 +1978,9 @@ a.navbar-item,
     .column.is-1 {
       flex: none;
       width: 8.33333%; }
-    .column.is-2 {
-      flex: none;
-      width: 16.66667%; }
     .column.is-3 {
       flex: none;
       width: 25%; }
-    .column.is-4 {
-      flex: none;
-      width: 33.33333%; }
     .column.is-5 {
       flex: none;
       width: 41.66667%; }
@@ -2039,17 +2022,17 @@ a.has-text-danger:hover, a.has-text-danger:focus {
 .is-pulled-right {
   float: right !important; }
 
-.mb-3 {
-  margin-bottom: 0.75rem !important; }
+.mb-2 {
+  margin-bottom: 0.5rem !important; }
+
+.mt-4 {
+  margin-top: 1rem !important; }
 
 .is-size-4 {
   font-size: 1.5rem !important; }
 
 .is-size-5 {
   font-size: 1.25rem !important; }
-
-.is-size-6 {
-  font-size: 1rem !important; }
 
 .has-text-centered {
   text-align: center !important; }
