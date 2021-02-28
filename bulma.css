@@ -36,7 +36,7 @@
   width: 0.625em; }
 
 .box:not(:last-child), .content:not(:last-child), .notification:not(:last-child), .title:not(:last-child),
-.subtitle:not(:last-child), .block:not(:last-child), .tabs:not(:last-child) {
+.subtitle:not(:last-child), .block:not(:last-child), .level:not(:last-child), .tabs:not(:last-child) {
   margin-bottom: 1.5rem; }
 
 .delete {
@@ -604,9 +604,6 @@ a.box:active {
     border-color: #dbdbdb;
     box-shadow: none;
     opacity: 0.5; }
-  .button.is-fullwidth {
-    display: flex;
-    width: 100%; }
   .button.is-loading {
     color: transparent !important;
     pointer-events: none; }
@@ -747,8 +744,6 @@ a.box:active {
     width: 100%; }
     .image img.is-rounded {
       border-radius: 290486px; }
-  .image.is-fullwidth {
-    width: 100%; }
 
 .notification {
   background-color: whitesmoke;
@@ -1002,9 +997,6 @@ a.tag:hover {
     font-size: 0.75rem; }
   .is-large.input, .is-large.textarea {
     font-size: 1.5rem; }
-  .is-fullwidth.input, .is-fullwidth.textarea {
-    display: block;
-    width: 100%; }
 
 .input.is-rounded {
   border-radius: 290486px;
@@ -1134,10 +1126,6 @@ a.tag:hover {
     font-size: 0.75rem; }
   .select.is-large {
     font-size: 1.5rem; }
-  .select.is-fullwidth {
-    width: 100%; }
-    .select.is-fullwidth select {
-      width: 100%; }
   .select.is-loading::after {
     margin-top: 0;
     position: absolute;
@@ -1254,8 +1242,6 @@ a.tag:hover {
     font-size: 0.75rem; }
   .file.is-large {
     font-size: 1.5rem; }
-  .file.is-fullwidth .file-label {
-    width: 100%; }
   .file.is-right {
     justify-content: flex-end; }
     .file.is-right .file-cta {
@@ -1390,6 +1376,20 @@ a.tag:hover {
     font-size: 1.5rem; }
 
 /* Bulma Components */
+
+.level {
+  align-items: center;
+  justify-content: space-between; }
+  .level code {
+    border-radius: 4px; }
+  .level img {
+    display: inline-block;
+    vertical-align: top; }
+  .level.is-mobile {
+    display: flex; }
+  @media screen and (min-width: 769px), print {
+    .level {
+      display: flex; } }
 
 .menu {
   font-size: 1rem; }
@@ -1929,9 +1929,6 @@ a.navbar-item,
     margin-left: 0.5em; }
   .tabs.is-right ul {
     justify-content: flex-end; }
-  .tabs.is-fullwidth li {
-    flex-grow: 1;
-    flex-shrink: 0; }
   .tabs.is-small {
     font-size: 0.75rem; }
   .tabs.is-large {
