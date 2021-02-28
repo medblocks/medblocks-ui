@@ -1,7 +1,7 @@
 import type { Tree, Extracted, Template, keyValue, UITemplate } from '../types/types'
 
 function propogateContext(tree: Tree, parentContext: boolean): Tree {
-    if (tree.id === 'context' || parentContext) {
+    if (tree.id === 'context' || parentContext || tree.id === 'expiry_time') {
         if (tree.children && tree.children.length) {
             return { ...tree, children: tree.children?.map(child => propogateContext(child, true)) }
         } else {

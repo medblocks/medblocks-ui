@@ -7,7 +7,7 @@ let columnClass: string = "is-full"
 </script>
 
 {#if form?.template?.webtemplate}
-<div class="columns is-mobile">
+<!-- <div class="columns is-mobile">
     <div class="column">
         <label for="" class="label">Read/Write</label>
         <label class="checkbox is-large">
@@ -28,10 +28,11 @@ let columnClass: string = "is-full"
             </label>
           </div>
     </div>
-</div>
-
-
+</div> 
 <hr>
+-->
+
+
 <div class="columns">
     <div class={"column" + " " + columnClass}>
         <Composition template={form?.template?.webtemplate} configuration={form?.configuration?.data} {readOnly}></Composition>

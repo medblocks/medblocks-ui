@@ -5,7 +5,7 @@
 </script>
 
 <div class="field" id={path}>
-    {tree.rmType} not yet implemented
+    {tree.rmType} not yet implemented at {tree.id}
     <!-- <pre>
         {JSON.stringify(tree, null, 2)}
     </pre> -->
