@@ -235,16 +235,23 @@
                             displayTitle={false}
                             passCustomize={customize}
                         />
+                        <!-- <div class="level">
+                            <button class="button is-success is-light">Add another</button>
+                        </div> -->
                     </div>
                 {/each}
                 {#if canAddRepeatable}
                     <div class="buttons is-right">
                         <button
                             on:click={increaseCount}
-                            class="button is-fullwidth"
-                            >Add another {(
+                            class="button"
+                            >Add another
+                            {#if customTitle || label}
+                                {(
                                 customTitle || label
-                            )?.toLowerCase()}</button
+                            )?.toLowerCase()}
+                            {/if}
+                            </button
                         >
                     </div>
                 {/if}
