@@ -242,17 +242,12 @@
                 {/each}
                 {#if canAddRepeatable}
                     <div class="buttons is-right">
-                        <button
-                            on:click={increaseCount}
-                            class="button"
+                        <button on:click={increaseCount} class="button"
                             >Add another
                             {#if customTitle || label}
-                                {(
-                                customTitle || label
-                            )?.toLowerCase()}
+                                {(customTitle || label)?.toLowerCase()}
                             {/if}
-                            </button
-                        >
+                        </button>
                     </div>
                 {/if}
             {/if}
