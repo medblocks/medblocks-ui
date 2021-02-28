@@ -3,6 +3,7 @@ import type { Tree, writableKeyValue } from "../types/types";
 import jsdocs from "../../jsdocs.json"
 import type { Writable } from "svelte/store";
 import TypeInterface from "./TypeInterface.svelte";
+import Macros from "./Macros.svelte";
 
     export let aqlPath
     export let path
@@ -22,6 +23,9 @@ import TypeInterface from "./TypeInterface.svelte";
         }
     }
 </script>
+
+<Macros {aqlPath} {readOnly} {configurationStore} {type}></Macros>
+
 {#each autogen as c}
 <div class="field">
     <label for="" class="label">{c.name}</label>

@@ -1,6 +1,5 @@
 <script lang="ts">
     import { element, onMount } from "svelte/internal";
-    import { get } from "svelte/store";
     import type { writableKeyValue } from "../types/types";
 
     export let type: string;
@@ -10,7 +9,7 @@
     export let aqlPath: string;
     export let readOnly: boolean;
     export let value: string;
-    export let store: writableKeyValue;
+    export let store
     //     $: {
     //     configurationStore.update(c=>({
     //       ...c,
@@ -57,6 +56,11 @@
                 },
             },
         }));
+    }
+    const clusterRepeatable = ()=>{
+        config = {...config, 
+        
+        }
     }
 </script>
 

@@ -1,10 +1,7 @@
 <script lang="ts">
     import Leaf from "./Leaf.svelte";
     import Context from "../rm/Context.svelte";
-    import type {
-        Extracted,
-        readableKeyValue,
-    } from "../types/types";
+    import type { Extracted, readableKeyValue } from "../types/types";
     import { sanitizeDisplayFunction } from "../rm/utils";
     import MultiSelectCodedArrayWrite from "./special/MultiSelectCodedArrayWrite.svelte";
     import MultiSelectCodedArrayRead from "./special/MultiSelectCodedArrayRead.svelte";
@@ -23,12 +20,12 @@
     /**
      * @param {'normal'|'tabbed'|'horizontal'} component - Type of component to render - Tabbed only works properly if used on a non-repeatable parent group.
      * @param {true|false} displayTitle - To display the title or not.
-     * @param {'has-text-weight-bold is-size-6 mb-3 has-text-grey'|
-     * 'is-size-5 mb-3 has-text-grey'|
-     * 'label'
-     * |'title is-1'|'title is-2'|'title is-3'|'title is-4'|'title is-5'| 'title is-5 is-uppercase'| 'title is-6'| 'title is-6 is-uppercase'
-     * |'subtitle is-1'|'subtitle is-2'|'subtitle is-3'|'subtitle is-4'|'subtitle is-5'|'subtitle is-5 is-uppercase'|'subtitle is-6'|'subtitle is-6 is-uppercase'
+     * @param {'is-size-5 has-text-grey mb-2'|'title is-3'
+     * |'mb-2 is-size-5 has-text-grey mt-4'|'mb-2 is-size-5 has-text-grey mt-4 is-underlined'
+     * |'label'
+     * |'title is-6 is-uppercase'
      * } titleClass - Class of title
+     * @param {true|false} titleHr - A horizontal rules after the title
      * @param {string} customTitle - A custom label for the group
      * @param {true|false} display - To display the component or not. Still renders it and adds the value to the output.
      * @param {function} displayFunction - The function to display the component or not. Takes precedence over display if provided. If the value is not true, then it is considered false.
@@ -39,13 +36,13 @@
      * @param {true|false} divider - Between repeatable elements
      * @param {true|false} skipChildLabel - To skip the child label for special elements?
      */
-    export let titleClass: string =
-        "has-text-weight-bold is-size-6 mb-3 has-text-grey";
+    export let titleClass: string = "mb-2 is-size-5 has-text-grey mt-4";
     export let customTitle: string | undefined = undefined;
     export let multiSelectCodedArray: boolean = false;
     export let render: boolean | undefined = undefined;
     export let renderFunction: Function | undefined = undefined;
     // Currently only simple templates
+    export let titleHr: boolean | undefined = false;
     export let display: boolean | undefined = true;
     export let displayFunction: Function | undefined = undefined;
     export let displayTitle = true;
@@ -179,6 +176,9 @@
         {#if displayTitle && (customTitle || label)}
             <h4 class={titleClass}>
                 {customTitle || label}
+                {#if titleHr}
+                    <hr />
+                {/if}
             </h4>
         {/if}
         {#if component === "tabbed"}
@@ -241,7 +241,10 @@
                     <div class="buttons is-right">
                         <button
                             on:click={increaseCount}
-                            class="button is-fullwidth">Add another {(customTitle || label)?.toLowerCase()}</button
+                            class="button is-fullwidth"
+                            >Add another {(
+                                customTitle || label
+                            )?.toLowerCase()}</button
                         >
                     </div>
                 {/if}

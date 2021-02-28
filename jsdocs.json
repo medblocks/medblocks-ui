@@ -1130,23 +1130,7 @@
           "elements": [
             {
               "type": "StringLiteralType",
-              "value": "has-text-weight-bold is-size-6 mb-3 has-text-grey"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "is-size-5 mb-3 has-text-grey"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "label"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "title is-1"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "title is-2"
+              "value": "is-size-5 has-text-grey mb-2"
             },
             {
               "type": "StringLiteralType",
@@ -1154,59 +1138,41 @@
             },
             {
               "type": "StringLiteralType",
-              "value": "title is-4"
+              "value": "mb-2 is-size-5 has-text-grey mt-4"
             },
             {
               "type": "StringLiteralType",
-              "value": "title is-5"
+              "value": "mb-2 is-size-5 has-text-grey mt-4 is-underlined"
             },
             {
               "type": "StringLiteralType",
-              "value": "title is-5 is-uppercase"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "title is-6"
+              "value": "label"
             },
             {
               "type": "StringLiteralType",
               "value": "title is-6 is-uppercase"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-1"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-2"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-3"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-4"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-5"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-5 is-uppercase"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-6"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-6 is-uppercase"
             }
           ]
         },
         "name": "titleClass"
+      },
+      {
+        "title": "param",
+        "description": "A horizontal rules after the title",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "titleHr"
       },
       {
         "title": "param",
@@ -1393,23 +1359,7 @@
           "elements": [
             {
               "type": "StringLiteralType",
-              "value": "has-text-weight-bold is-size-6 mb-3 has-text-grey"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "is-size-5 mb-3 has-text-grey"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "label"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "title is-1"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "title is-2"
+              "value": "is-size-5 has-text-grey mb-2"
             },
             {
               "type": "StringLiteralType",
@@ -1417,59 +1367,41 @@
             },
             {
               "type": "StringLiteralType",
-              "value": "title is-4"
+              "value": "mb-2 is-size-5 has-text-grey mt-4"
             },
             {
               "type": "StringLiteralType",
-              "value": "title is-5"
+              "value": "mb-2 is-size-5 has-text-grey mt-4 is-underlined"
             },
             {
               "type": "StringLiteralType",
-              "value": "title is-5 is-uppercase"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "title is-6"
+              "value": "label"
             },
             {
               "type": "StringLiteralType",
               "value": "title is-6 is-uppercase"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-1"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-2"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-3"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-4"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-5"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-5 is-uppercase"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-6"
-            },
-            {
-              "type": "StringLiteralType",
-              "value": "subtitle is-6 is-uppercase"
             }
           ]
         },
         "name": "titleClass"
+      },
+      {
+        "title": "param",
+        "description": "A horizontal rules after the title",
+        "type": {
+          "type": "UnionType",
+          "elements": [
+            {
+              "type": "BooleanLiteralType",
+              "value": true
+            },
+            {
+              "type": "BooleanLiteralType",
+              "value": false
+            }
+          ]
+        },
+        "name": "titleHr"
       },
       {
         "title": "param",

@@ -1,8 +1,5 @@
 <script lang="ts">
-    import type {
-        readableKeyValue,
-        Tree,
-    } from "../../types/types";
+    import type { readableKeyValue, Tree } from "../../types/types";
 
     export let path: string;
     export let tree: Tree;
@@ -13,10 +10,12 @@
 
     $: terminology = tree?.inputs?.[0].terminology ?? "local";
 
-    let selected: { index: number; code: string, value: string }[];
+    let selected: { index: number; code: string; value: string }[];
     $: selected = getSelected($store);
 
-    const getSelected = (store): { code: string; index: number, value: string }[] => {
+    const getSelected = (
+        store
+    ): { code: string; index: number; value: string }[] => {
         const paths = Object.keys(store)
             .filter((p) => p.includes(path))
             .filter((p) => p.includes("|code"));
@@ -30,12 +29,11 @@
             return {
                 index: index,
                 code,
-                value: store[p.replace("code", "value")]
+                value: store[p.replace("code", "value")],
             };
         });
         return result;
     };
-
 </script>
 
 <div class="field">
@@ -43,6 +41,6 @@
         <label for={path} class="label">{tree.name}</label>
     {/if}
     <p class="">
-        {selected.map(s=>s.value).join(", ")}
+        {selected.map((s) => s.value).join(", ")}
     </p>
 </div>

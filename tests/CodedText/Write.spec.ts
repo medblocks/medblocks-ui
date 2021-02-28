@@ -41,7 +41,8 @@ describe.each([
             path: 'testing/path',
             store,
             readOnly: false,
-            type: 'Leaf'
+            type: 'Leaf',
+            component: 'dropbox'
         }
         component = render(Leaf, { props })
     })

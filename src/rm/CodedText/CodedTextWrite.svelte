@@ -21,7 +21,7 @@
     export let wrapperClass: string = "field";
     export let labelClass: string = "label";
     export let selectWrapperClass: string = "select";
-    export let component: "search" | "dropbox" | "buttons" = "dropbox";
+    export let component: "search" | "dropbox" | "buttons" = "buttons";
     export let terminologyUrl: string | undefined = undefined;
     export let searchFunction: SearchFunction = hermesSearch;
     export let constraint: string | undefined = undefined;
