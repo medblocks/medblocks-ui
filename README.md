@@ -1,3 +1,7 @@
+# Please use Medblocks UI Components instead
+I built this as an experiment to convert openEHR templates directly into User Interfaces. On the way, I've figured that it would be better to have more control over the interface. [Medblocks UI Components](https://github.com/sidharthramesh/medblocks-ui-componets) does this by giving you web components to work with. Using the [Medblocks UI VSCode extension](https://marketplace.visualstudio.com/items?itemName=tornadoalert.medblocks-ui) you can easily build interfaces in your favorite Javascript framework using [Web Components](https://custom-elements-everywhere.com/).
+
+
 ![medblocks ui logo](./public/medblocks-ui-medium.png)
 
 # Medblocks UI
