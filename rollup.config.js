@@ -6,8 +6,6 @@ import copy from "rollup-plugin-copy";
 import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
-import scss from 'rollup-plugin-scss'
-import postcss from 'postcss'
 import purgecss from '@fullhuman/postcss-purgecss'
 import fs from "fs";
 import posthtml from "posthtml";
@@ -16,6 +14,11 @@ import htmlnano from "htmlnano";
 import rimraf from "rimraf";
 import { liveServer } from 'rollup-plugin-live-server'
 import json from "@rollup/plugin-json"
+import autoprefixer from "autoprefixer"
+import scss from "rollup-plugin-scss"
+import postcss from "postcss"
+import analyze from 'rollup-plugin-analyzer'
+import replace from 'postcss-replace'
 
 const production = !process.env.ROLLUP_WATCH;
 const OUT_DIR = "build";
@@ -42,6 +45,15 @@ function hashStatic() {
 	};
 }
 
+const defaultSvelte = {
+	// enable run-time checks when not in production
+	dev: !production,
+	// we'll extract any component CSS out into
+	// a separate file - better for performance
+	// css: true,
+	preprocess: sveltePreprocess(),
+}
+
 export default {
 	input: 'src/main.ts',
 	output: {
@@ -52,42 +64,25 @@ export default {
 	},
 	plugins: [
 		copy({ targets: [{ src: "public/*", dest: OUT_DIR }] }),
-		svelte({
-			customElement: true,
-			// enable run-time checks when not in production
-			dev: !production,
-			// we'll extract any component CSS out into
-			// a separate file - better for performance
-			// css: true,
-			preprocess: sveltePreprocess(),
-			include: /\.wc\.svelte$/
-
-		}),
-		svelte({
-			customElement: false,
-			// enable run-time checks when not in production
-			dev: !production,
-			// we'll extract any component CSS out into
-			// a separate file - better for performance
-			// css: true,
-			preprocess: sveltePreprocess(),
-			exclude: /\.wc\.svelte$/
-
-		}),
-		json(),
+		svelte({...defaultSvelte, customElement: true, include: /\.wc\.svelte$/}),
+		svelte({...defaultSvelte, customElement: false, exclude: /\.wc\.svelte$/}),
 		scss({
 			processor: css => postcss(
-				[purgecss({
+				[	autoprefixer(),
+					purgecss({
 					content: [
 						"src/**/*.svelte",
 						"public/index.html",
-					],
-				})]
+						]}),
+					replace({pattern: 'html|body', data: {replaceAll: ':host'}})
+
+			]
 			)
 				.process(css)
 				.then(result => result.css),
-			output: 'build/bulma.css'
+			output: 'build/bulma.css',
 		}),
+		json(),
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
 		// some cases you'll need additional configuration -
@@ -120,7 +115,8 @@ export default {
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
 		production && terser(),
-		production && hashStatic()
+		production && hashStatic(),
+		production && analyze({summaryOnly: true, limit: 10}),
 	],
 	// watch: {
 	// 	clearScreen: false,
