@@ -1,34 +1,76 @@
-# Please use Medblocks UI Components instead
-I built this as an experiment to convert openEHR templates directly into User Interfaces. On the way, I've figured that it would be better to have more control over the interface. [Medblocks UI Components](https://github.com/sidharthramesh/medblocks-ui-componets) does this by giving you web components to work with. Using the [Medblocks UI VSCode extension](https://marketplace.visualstudio.com/items?itemName=tornadoalert.medblocks-ui) you can easily build interfaces in your favorite Javascript framework using [Web Components](https://custom-elements-everywhere.com/).
-
-
-![medblocks ui logo](./public/medblocks-ui-medium.png)
+![medblocks ui logo](./demo/medblocks-ui.png)
 
 # Medblocks UI
-Web Components for rapid development of openEHR systems. Read this [blog post](https://blog.medblocks.org/2021-01-26-introducing-medblocks-ui/) to learn more.
 
-A live version can be found at: https://sidharthramesh.github.io/medblocks-ui/
+Web Components for rapid development of openEHR systems. The [automatic form generator](https://sidharthramesh.github.io/medblocks-ui/) is depreciated. The current recommended workflow is to build custom UIs based on the need using web components.
 
-# Notes for Developers
-- This is a [Svelte](https://svelte.dev/) + Typescript project. It's an easy framework to get started with if you know HTML, CSS and Javascript. 
-- [Bulma](https://bulma.io/) is being used as the CSS framework. You can customize it at `src/css/main.scss`.
-- The `docgen.js` script automatically generates component customization values from JSDocs within `.svelte` files. The output is at `jsdocs.json`. The script is automatically run before `npm run build` and `npm run dev`.
+[![Medblocks UI Web components demo](https://img.youtube.com/vi/ng9lkQKa2KE/0.jpg)](https://www.youtube.com/watch?v=ng9lkQKa2KE)
 
-## Install
-```
-npm install
-```
-## Start development server
-```
-npm run dev
+## Installation
+
+```bash
+npm i medblocks-ui
 ```
 
-If you are using another frontend framework like React, Angular, or VueJS in your project, you can still compile these components into web-components. This [tutorial](https://dev.to/silvio/how-to-create-a-web-components-in-svelte-2g4j) provides more information. The compiled components are light-weight and does not include a Svelte specific runtime. As a result, the bundle size is [small](https://pianomanfrazier.com/post/comparing-svelte-stencil/), and the components are performant.
+## Usage
+
+```html
+<script type="module">
+  import '@shoelace-style/shoelace/dist/themes/base.css'; //Customize this to change the theme
+  import 'medblocks-ui/medblocks.js';
+</script>
+
+<mb-form></mb-form>
+```
+
+## Testing with Web Test Runner
+
+To run the suite of Web Test Runner tests, run
+
+```bash
+npm run test
+```
+
+To run the tests in watch mode (for &lt;abbr title=&#34;test driven development&#34;&gt;TDD&lt;/abbr&gt;, for example), run
+
+```bash
+npm run test:watch
+```
+
+## Demoing with Storybook
+
+To run a local instance of Storybook for your component, run
+
+```bash
+npm run storybook
+```
+
+To build a production version of Storybook, run
+
+```bash
+npm run storybook:build
+```
+
+## Tooling configs
+
+For most of the tools, the configuration is in the `package.json` to reduce the amount of files in your project.
+
+If you customize the configuration a lot, you can consider moving them to individual files.
+
+## Local Demo with `web-dev-server`
+
+```bash
+npm start
+```
+
+To run a local development server that serves the basic demo located in `demo/index.html`
 
 # Contribution
-Contributors welcome! User Interface generation is an important problem to solve in the healthcare industry. Too many times, health care professionals face burn out due bad design choices. You can learn more about me [here](https://blog.medblocks.org/aboutme/).
+
+Contributors welcome! User Interface generation is an important problem to solve in the healthcare industry. Too many times, health care professionals face burn out due bad design choices. I believe that this needs to change. I've written more about this in my blog [here](https://blog.medblocks.org/aboutme/).
 
 If you find this repository useful, fork it, use it! If you want to contribute, note the following:
-- All commits must follow [conventional-commits](https://www.conventionalcommits.org/en/v1.0.0/). The vscode extension has been added to the `.vscode/extensions.json` file. Changelog is generated automatically using [standard-version](https://www.npmjs.com/package/standard-version).
-- For new features, tests should be written first. Tests are written using [Testing Library](https://testing-library.com/docs/svelte-testing-library/intro) and [Jest](https://jestjs.io/).
-- For bug fixes, create an issue first. Then submit your pull request.
+
+- This is a [Lit-Element](https://lit-element.polymer-project.org/guide) project written in typescript.
+- Most of the default components use [Shoelace](https://shoelace.style/) webcomponents. You can customize all the components the same way you [customize shoelace](https://shoelace.style/getting-started/customizing) `src/css/main.scss`.
+- For bug, or new feature requests, create an issue.

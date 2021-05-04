@@ -7,18 +7,22 @@ import {
   TemplateResult,
 } from 'lit-element';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
-import '@shoelace-style/shoelace/dist/components/spinner/spinner';
 import { until } from 'lit-html/directives/until.js';
 import { classMap } from 'lit-html/directives/class-map';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { CodedTextElement } from './base';
 import MbFilter from './filter';
-import './dropdown';
 import SlDropdown from './dropdown';
-import '@shoelace-style/shoelace/dist/components/menu/menu';
-import '@shoelace-style/shoelace/dist/components/icon/icon';
 import { AxiosInstance } from 'axios';
 import { watch } from '../../internal/decorators';
+
+import './dropdown';
+import '@shoelace-style/shoelace/dist/components/spinner/spinner';
+import '@shoelace-style/shoelace/dist/components/menu/menu';
+import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
+import '@shoelace-style/shoelace/dist/components/icon/icon';
+import '@shoelace-style/shoelace/dist/components/tag/tag';
+import '@shoelace-style/shoelace/dist/components/icon-button/icon-button'
 
 @customElement('mb-search')
 export default class MbSearch extends CodedTextElement {

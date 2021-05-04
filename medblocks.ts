@@ -1,3 +1,5 @@
+// import { ExampleComp } from './src/ExampleComp.js';
+// window.customElements.define('example-comp', ExampleComp);
 import { registerIcons } from './src/internal/icons';
 registerIcons();
 

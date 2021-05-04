@@ -3,6 +3,7 @@ import { event, EventEmitter } from '../../internal/decorators';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
+import '@shoelace-style/shoelace/dist/components/textarea/textarea';
 import EhrElement from '../base/base';
 
 @customElement('mb-input')

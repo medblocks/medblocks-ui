@@ -7,7 +7,7 @@ import {
 } from '@open-wc/testing';
 import MbInput from '../src/medblocks/text/input';
 import '../src/medblocks/text/input';
-import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
+import { SlInput } from '@shoelace-style/shoelace';
 
 describe('MbInput', () => {
   let mbinput: MbInput;
@@ -37,24 +37,4 @@ describe('MbInput', () => {
     await elementUpdated(mbinput);
     expect(input.value).to.eq('To be changed');
   });
-  // it('increases the counter on button click', async () => {
-  //   const el = await fixture<ExampleComp>(html`<example-comp></example-comp>`);
-  //   el.shadowRoot!.querySelector('button')!.click();
-
-  //   expect(el.counter).to.equal(6);
-  // });
-
-  // it('can override the title via attribute', async () => {
-  //   const el = await fixture<ExampleComp>(
-  //     html`<example-comp title="attribute title"></example-comp>`
-  //   );
-
-  //   expect(el.title).to.equal('attribute title');
-  // });
-
-  // it('passes the a11y audit', async () => {
-  //   const el = await fixture<ExampleComp>(html`<example-comp></example-comp>`);
-
-  //   await expect(el).shadowDom.to.be.accessible();
-  // });
 });

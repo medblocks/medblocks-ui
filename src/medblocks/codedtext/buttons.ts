@@ -4,6 +4,10 @@ import MbOption from './option';
 import '@shoelace-style/shoelace/dist/components/button/button';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
 
+/**
+ * An array of buttons to choose from
+ * @inheritdoc
+ */
 @customElement('mb-buttons')
 export default class CodedTextButtons extends CodedTextElement {
   static styles = css`
@@ -51,6 +55,9 @@ export default class CodedTextButtons extends CodedTextElement {
       terminology: this.terminology,
       _type: () => 'codedtext',
     };
+    /**
+     * Dispatched when the input changes
+     */
     this.input.emit();
   }
   render() {
