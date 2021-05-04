@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../node_modules/@shoelace-style/shoelace/dist/themes/base.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" />
+    <!-- <script type="module" src="../dist/medblocks.js"></script> -->
+    <script src="../dist/example-comp.js" type="module"></script>
+    <title>Medblocks UI</title>
+</head>
+
+<body>
+    <example-element></example-element>
+    Outsite component
+    <mb-form>
+        Sl input inside component 
+        <sl-input></sl-input>
+        <mb-search></mb-search>
+    </mb-form>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <script type="module">
+        let form = document.querySelector('mb-form')
+        form.hermes = axios.create({ baseURL: 'http://localhost:9200/v1' })
+    </script>
+</body>
+
+</html>
