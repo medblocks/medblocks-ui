@@ -10,7 +10,7 @@ import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { until } from 'lit-html/directives/until.js';
 import { classMap } from 'lit-html/directives/class-map';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { CodedTextElement } from './base';
+import { CodedTextElement } from './CodedText';
 import MbFilter from './filter';
 import SlDropdown from './dropdown';
 import { AxiosInstance } from 'axios';
@@ -56,9 +56,9 @@ export default class MbSearch extends CodedTextElement {
 
   @property({ type: String }) searchTerm: string;
 
-  @property({ type: Array }) filters: MbFilter[];
+  @property({ type: Array }) _filters: MbFilter[];
 
-  @property({ type: Array }) cancelledFilters: string[] = [];
+  @property({ type: Array }) _cancelledFilters: string[] = [];
 
   @property({ type: Array }) mock: string[] = [];
 
@@ -68,34 +68,34 @@ export default class MbSearch extends CodedTextElement {
 
   @property({ type: Number }) hits = 10;
 
-  @state() moreHits: number = 0;
+  @state() _moreHits: number = 0;
 
-  @state() debouncing: boolean = false;
+  @state() _debouncing: boolean = false;
 
-  @state() debounceTimeout: number;
+  @state() _debounceTimeout: number;
 
-  get maxHits() {
-    return this.hits + this.moreHits;
+  get _maxHits() {
+    return this.hits + this._moreHits;
   }
 
   @watch('searchTerm')
-  searchTermChange() {
-    clearTimeout(this.debounceTimeout);
-    this.debouncing = true;
-    this.debounceTimeout = window.setTimeout(() => {
-      this.debouncing = false;
+  _searchTermChange() {
+    clearTimeout(this._debounceTimeout);
+    this._debouncing = true;
+    this._debounceTimeout = window.setTimeout(() => {
+      this._debouncing = false;
     }, this.debounceInterval);
   }
 
-  handleInput(e: CustomEvent) {
+  _handleInput(e: CustomEvent) {
     const inputElement = e.target as SlInput;
     this.searchTerm = inputElement.value;
     const dropdown = this.renderRoot.querySelector('mb-dropdown') as SlDropdown;
     dropdown.show();
   }
 
-  get contraints() {
-    const filters = this.filters
+  get _contraints() {
+    const filters = this._filters
       ?.filter(filter => !filter.disabled)
       ?.map(filter => filter.filter);
     if (filters?.length > 0) {
@@ -104,21 +104,21 @@ export default class MbSearch extends CodedTextElement {
     return null;
   }
 
-  get viewMore() {
+  get _viewMore() {
     return html` <div class="more">
       <sl-button
         type="text"
         @click=${() => {
-          this.moreHits += 10;
+          this._moreHits += 10;
         }}
       >
         <sl-icon name="caret-down-fill" slot="prefix"></sl-icon>More</sl-button
       >
-      ${this.maxHits > this.hits
+      ${this._maxHits > this.hits
         ? html`<sl-button
             type="text"
             @click=${() => {
-              this.moreHits -= 10;
+              this._moreHits -= 10;
             }}
           >
             <sl-icon name="caret-up-fill" slot="prefix"></sl-icon
@@ -128,16 +128,17 @@ export default class MbSearch extends CodedTextElement {
     </div>`;
   }
 
-  get parentAxios(): AxiosInstance {
-    const dependencyEvent = this.mbDependency.emit({
+  get _parentAxios(): AxiosInstance {
+    const dependencyEvent = this._mbDependency.emit({
       detail: { key: 'hermes' },
     });
     return dependencyEvent.detail.value;
   }
 
-  async getResults() {
-    if (this.debouncing) {
-      return this.loadingResults;
+  /**Function to get results from an external source */
+  async getResults(): Promise<TemplateResult | TemplateResult[]> {
+    if (this._debouncing) {
+      return this._loadingResults;
     }
 
     if (this.mock.length) {
@@ -150,12 +151,12 @@ export default class MbSearch extends CodedTextElement {
       return [];
     }
     try {
-      const axios = this.axios ? this.axios : this.parentAxios;
+      const axios = this.axios ? this.axios : this._parentAxios;
       const response = await axios.get('/snomed/search', {
         params: {
           s: this.searchTerm,
-          maxHits: this.maxHits,
-          constraint: this.contraints,
+          maxHits: this._maxHits,
+          constraint: this._contraints,
         },
       });
       console.log(response);
@@ -179,8 +180,8 @@ export default class MbSearch extends CodedTextElement {
             </sl-menu-item>
           `
       );
-      return this.maxHits === results.length
-        ? [...results, this.viewMore]
+      return this._maxHits === results.length
+        ? [...results, this._viewMore]
         : results;
     } catch (e) {
       console.error(e);
@@ -193,7 +194,7 @@ export default class MbSearch extends CodedTextElement {
     }
   }
 
-  get loadingResults(): TemplateResult {
+  get _loadingResults(): TemplateResult {
     const skeletons = 5;
     return html`${[...Array(skeletons)].map(
       () => html` <sl-menu-item disabled class="loading">
@@ -202,7 +203,7 @@ export default class MbSearch extends CodedTextElement {
     )}`;
   }
 
-  handleSelect(e: CustomEvent) {
+  _handleSelect(e: CustomEvent) {
     const menuItem = e.detail.item;
     this.data = {
       value: menuItem.label,
@@ -210,7 +211,7 @@ export default class MbSearch extends CodedTextElement {
       terminology: menuItem.terminology,
       _type: () => 'codedtext',
     };
-    this.input.emit();
+    this._mbInput.emit();
   }
 
   connectedCallback() {
@@ -219,7 +220,7 @@ export default class MbSearch extends CodedTextElement {
     // Get axios instance from parent
     // If not, default or error
     const observer = new MutationObserver(() => {
-      this.handleChildChange();
+      this._handleChildChange();
     });
     observer.observe(this, {
       childList: true,
@@ -228,28 +229,28 @@ export default class MbSearch extends CodedTextElement {
     });
   }
 
-  handleChildChange() {
-    this.filters = [
+  _handleChildChange() {
+    this._filters = [
       ...(this.querySelectorAll('mb-filter') as NodeListOf<MbFilter>),
     ];
   }
 
-  handleClear() {
+  _handleClear() {
     this.data = undefined;
-    this.moreHits = 0;
-    this.input.emit();
+    this._moreHits = 0;
+    this._mbInput.emit();
   }
 
-  get hasValue() {
+  get _hasValue() {
     return this?.data?.value && this?.data?.code ? true : false;
   }
 
-  get display() {
-    return this.hasValue ? this.data?.value : undefined;
+  get _display() {
+    return this._hasValue ? this.data?.value : undefined;
   }
 
-  get code() {
-    return this.hasValue ? this.data?.code : undefined;
+  get _code() {
+    return this._hasValue ? this.data?.code : undefined;
   }
 
   render() {
@@ -258,21 +259,21 @@ export default class MbSearch extends CodedTextElement {
         .focusKeys=${['Enter']}
         .typeToSelect=${false}
         @sl-after-hide=${() => {
-          this.cancelledFilters = [];
+          this._cancelledFilters = [];
         }}
       >
         <sl-input
-          class=${classMap({ pointer: this.hasValue })}
+          class=${classMap({ pointer: this._hasValue })}
           slot="trigger"
           .label=${this.label}
-          @sl-input=${this.handleInput}
-          value=${ifDefined(this.display ?? this.searchTerm ?? '')}
-          ?readonly=${this.hasValue}
-          ?clearable=${this.hasValue}
-          @sl-clear=${this.handleClear}
+          @sl-input=${this._handleInput}
+          value=${ifDefined(this._display ?? this.searchTerm ?? '')}
+          ?readonly=${this._hasValue}
+          ?clearable=${this._hasValue}
+          @sl-clear=${this._handleClear}
           placeholder="Type to search"
         >
-          ${this.hasValue
+          ${this._hasValue
             ? null
             : html`<sl-icon
                 library="medblocks"
@@ -280,14 +281,14 @@ export default class MbSearch extends CodedTextElement {
                 slot="prefix"
               ></sl-icon>`}
         </sl-input>
-        ${this.hasValue || !this.searchTerm
+        ${this._hasValue || !this.searchTerm
           ? null
           : html`
-              <sl-menu style="min-width: 300px" @sl-select=${this.handleSelect}>
+              <sl-menu style="min-width: 300px" @sl-select=${this._handleSelect}>
                 ${until(this.getResults())}
-                ${this.filters?.length > 0
+                ${this._filters?.length > 0
                   ? html`<div class="tags">
-                      ${this.filters.map(
+                      ${this._filters.map(
                         f =>
                           html`<sl-tag
                             ?clearable=${!f.disabled}
@@ -304,7 +305,7 @@ export default class MbSearch extends CodedTextElement {
               </sl-menu>
             `}
       </mb-dropdown>
-      <slot @slotchange=${this.handleChildChange}></slot>
+      <slot @slotchange=${this._handleChildChange}></slot>
     `;
   }
 }

@@ -1,13 +1,10 @@
-// import { setCustomElements } from '@open-wc/demoing-storybook';
-
+import { setCustomElements } from '@web/storybook-prebuilt/web-components.js'
 import '../dist/medblocks.js'
+import elements from '../dist/custom-elements.js'
 
-// async function run() {
-//     const customElements = await (
-//         await fetch(new URL('../dist/custom-elements.json', import.meta.url))
-//     ).json();
+setCustomElements(elements);
 
-//     setCustomElements(customElements);
-// }
-
-// // run();
+export const parameters = {
+    actions: { argTypesRegex: "^mb-.*" },
+    viewMode: 'docs'
+}

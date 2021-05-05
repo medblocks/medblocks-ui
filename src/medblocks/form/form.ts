@@ -7,7 +7,7 @@ import {
   property,
 } from 'lit-element';
 import { event, EventEmitter, watch } from '../../internal/decorators';
-import EhrElement from '../base/base';
+import EhrElement from '../EhrElement';
 import MbContext from '../context/context';
 import { Data } from './utils';
 import { openEHRPlugin } from './plugins';

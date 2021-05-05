@@ -1,11 +1,11 @@
-import { css, customElement, html, state, property } from 'lit-element';
-import { CodedTextElement } from './base';
+import { css, customElement, html, state } from 'lit-element';
+import { CodedTextElement } from './CodedText';
 import MbOption from './option';
 import '@shoelace-style/shoelace/dist/components/button/button';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
 
 /**
- * An array of buttons to choose from
+ * An array of buttons to choose from. Expects nested mb-options to actually render buttons.
  * @inheritdoc
  */
 @customElement('mb-buttons')
@@ -24,42 +24,36 @@ export default class CodedTextButtons extends CodedTextElement {
       margin-bottom: var(--sl-spacing-xxx-small);
     }
   `;
-  @property({ type: String }) terminology: string;
 
-  @property({ type: String, reflect: true }) label: string;
+  @state() _options: MbOption[] = [];
 
-  @state() options: MbOption[] = [];
-
-  get optionElements(): NodeListOf<MbOption> {
+  get _optionElements(): NodeListOf<MbOption> {
     return this.querySelectorAll('mb-option');
   }
 
   connectedCallback() {
     super.connectedCallback();
     const observer = new MutationObserver(() => {
-      this.handleChildChange();
+      this._handleChildChange();
     });
     observer.observe(this, { childList: true });
-    this.handleChildChange();
+    this._handleChildChange();
   }
-  handleChildChange() {
-    this.options = [
+  _handleChildChange() {
+    this._options = [
       ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),
     ];
   }
 
-  handleInput(option: MbOption) {
+  _handleInput(option: MbOption) {
     this.data = {
       code: option.code,
       value: option.display,
       terminology: this.terminology,
       _type: () => 'codedtext',
     };
-    /**
-     * Dispatched when the input changes
-     */
-    this.input.emit();
   }
+  
   render() {
     return html`
       <div part="base">
@@ -67,10 +61,10 @@ export default class CodedTextButtons extends CodedTextElement {
           ? html`<label part="label" class="label">${this.label}</label>`
           : null}
         <div class="buttons">
-          ${this.options.map(
+          ${this._options.map(
             option =>
               html` <sl-button
-                @click=${() => this.handleInput(option)}
+                @click=${() => this._handleInput(option)}
                 type=${this.data?.code === option.code ? 'primary' : 'default'}
                 >${option.display}</sl-button
               >`

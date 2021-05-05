@@ -2,7 +2,7 @@ import { css, customElement, html, property } from 'lit-element';
 import { event, EventEmitter } from '../../internal/decorators';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
-import EhrElement from '../base/base';
+import EhrElement from '../EhrElement';
 
 @customElement('mb-date')
 export default class MbDateTime extends EhrElement {
@@ -17,12 +17,12 @@ export default class MbDateTime extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) time: boolean = false;
 
-  @event('mb-input') input: EventEmitter<any>;
+  @event('mb-input') _mbInput: EventEmitter<any>;
 
   handleInput(e: CustomEvent) {
     const inputElement = e.target as SlInput;
     this.data = inputElement.value;
-    this.input.emit();
+    this._mbInput.emit();
   }
 
   render() {

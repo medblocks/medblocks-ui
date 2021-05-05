@@ -3,19 +3,21 @@ import { html } from 'lit-html';
 export default {
   title: 'Input',
   component: 'mb-input',
-  parameters: { actions: { argTypesRegex: '^mb.*' } },
-  argTypes: {
-    label: { control: 'text' },
-    textarea: { control: 'boolean' },
-  },
+  
 };
 
-const Template = ({ label = '', textarea = false }) => html`
-  <mb-input @mb-input=${console.log} .label=${label} ?textarea=${textarea}>
+const Template = ({ label='', textarea=false, data=''}) => html`
+  <mb-input @mb-input=${(e: any)=>data=e.target.data} .data=${data} .label=${label} ?textarea=${textarea}>
   </mb-input>
 `;
 
-export const Normal = Template.bind({});
+export const Base = Template.bind({})
+
+Base.args = {
+  label: '',
+  textarea: false
+};
+
 export const WithLabel = Template.bind({});
 
 WithLabel.args = {

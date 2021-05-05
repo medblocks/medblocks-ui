@@ -4,7 +4,7 @@ import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/textarea/textarea';
-import EhrElement from '../base/base';
+import EhrElement from '../EhrElement';
 
 @customElement('mb-input')
 export default class MbInput extends EhrElement {
@@ -15,12 +15,12 @@ export default class MbInput extends EhrElement {
   @property({ type: String }) label: string = '';
 
   @event('mb-input')
-  input: EventEmitter<string>;
+  _mbInput: EventEmitter<string>;
 
   handleInput(e: CustomEvent) {
     const inputElement = e.target as SlInput;
     this.data = inputElement.value;
-    this.input.emit();
+    this._mbInput.emit();
   }
 
   render() {

@@ -1,6 +1,6 @@
 import { css, customElement, html, property } from 'lit-element';
 import { event, EventEmitter } from '../../internal/decorators';
-import EhrElement from '../base/base';
+import EhrElement from '../EhrElement';
 import MbUnit from './unit';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
@@ -41,7 +41,7 @@ export default class MbQuantity extends EhrElement {
 
   @property({ type: Array })
   units: MbUnit[] = [];
-  @event('mb-input') input: EventEmitter<Quantity>;
+  @event('mb-input') _mbInput: EventEmitter<Quantity>;
 
   handleChildChange() {
     this.units = [...(this.querySelectorAll('mb-unit') as NodeListOf<MbUnit>)];
@@ -60,7 +60,7 @@ export default class MbQuantity extends EhrElement {
           unit: this.default,
           _type: () => 'quantity',
         };
-        this.input.emit();
+        this._mbInput.emit();
       }
     }, 50);
   }

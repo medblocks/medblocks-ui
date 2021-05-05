@@ -1,6 +1,6 @@
 import { customElement, property } from 'lit-element';
 import { event, EventEmitter } from '../../internal/decorators';
-import EhrElement from '../base/base';
+import EhrElement from '../EhrElement';
 
 @customElement('mb-context')
 export default class MbContext extends EhrElement {
@@ -8,7 +8,7 @@ export default class MbContext extends EhrElement {
   data: any;
 
   @event('mb-input')
-  input: EventEmitter<any>;
+  _mbInput: EventEmitter<any>;
 
   @property({ type: Boolean })
   autocontext: boolean = true;
@@ -16,7 +16,7 @@ export default class MbContext extends EhrElement {
   connectedCallback() {
     super.connectedCallback();
     setTimeout(() => {
-      this.input.emit();
+      this._mbInput.emit();
     }, 50);
   }
 }

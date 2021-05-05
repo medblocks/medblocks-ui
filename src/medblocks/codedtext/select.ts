@@ -1,7 +1,7 @@
 import { customElement, internalProperty, property } from 'lit-element';
 import { html } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { CodedTextElement } from './base';
+import { CodedTextElement } from './CodedText';
 import MbOption from './option'
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 
@@ -31,7 +31,7 @@ export default class MbSelect extends CodedTextElement {
         terminology: this.terminology,
         _type: () => 'codedtext'
       };
-      this.input.emit();
+      this._mbInput.emit();
     }
   }
   connectedCallback() {
@@ -56,7 +56,7 @@ export default class MbSelect extends CodedTextElement {
         @sl-change=${this.handleInput}
         @sl-clear=${() => {
           this.data = undefined;
-          this.input.emit();
+          this._mbInput.emit();
         }}
         .value=${this.data?.code || ''}
       >
