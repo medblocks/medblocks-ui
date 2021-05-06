@@ -6,6 +6,10 @@ import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/textarea/textarea';
 import EhrElement from '../EhrElement';
 
+/**
+ * An input element to capture text
+ * @inheritdoc
+ */
 @customElement('mb-input')
 export default class MbInput extends EhrElement {
   @property({ type: String }) data: string;
