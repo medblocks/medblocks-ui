@@ -6,5 +6,5 @@ setCustomElements(elements);
 
 export const parameters = {
     actions: { argTypesRegex: "^mb-.*" },
-    viewMode: 'docs'
+    viewMode: 'docs'  
 }
