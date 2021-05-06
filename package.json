@@ -10,7 +10,7 @@
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc",
     "prepublish": "tsc",
-    "manifest": "wca analyze -- src --format json --outFile ./dist/custom-elements.json && node web-component-manifest.mjs",
+    "manifest": "wca analyze src --format json --outFile ./dist/custom-elements.json && node web-component-manifest.mjs",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "test": "tsc && wtr --coverage --puppeteer",
