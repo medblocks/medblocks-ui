@@ -27,6 +27,7 @@
   "devDependencies": {
     "@open-wc/eslint-config": "^4.3.0",
     "@open-wc/testing": "^2.5.33",
+    "@types/query-selector-shadow-dom": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@web/dev-server": "^0.1.17",
@@ -39,6 +40,7 @@
     "husky": "^4.3.8",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
+    "query-selector-shadow-dom": "^1.0.0",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4",
     "web-component-analyzer": "^1.1.6"

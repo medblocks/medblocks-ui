@@ -38,7 +38,12 @@ export default abstract class EhrElement extends LitElement {
     super.disconnectedCallback()
     this._mbDisconnect.emit({detail: this.path})
   }
-
+  
+  @watch('path')
+  handlePathChange(oldPath: string, newPath: string){
+    this._mbDisconnect.emit({detail: oldPath})
+    this._mbConnect.emit({detail: newPath})
+  }
   @watch('data')
   _handleDataChange() {
     this._mbInput.emit();

@@ -129,26 +129,6 @@ export default class MedblockForm extends LitElement {
     return this.querySelector('mb-submit');
   }
 
-  currentPathElementMap(el: HTMLElement): { [path: string]: HTMLElement } {
-    // TODO: This is the slowest function. Find ways to speed it up.
-    const selfElement = el.matches(this.selector) ? (el as EhrElement) : null;
-    const childElements = el.querySelectorAll(this.selector);
-    let map = {};
-    childElements.forEach((el: any) => {
-      const path = el.path;
-      if (Object.keys(map).includes(path)) {
-        console.debug(
-          `${path} included twice. Only the last occurance will be considered.`
-        );
-      }
-      map = { ...map, [el.path]: el };
-    });
-    if (selfElement) {
-      map = { ...map, [selfElement.path]: selfElement };
-    }
-    return map;
-  }
-
   currentData() {
     let newValue: { [path: string]: any } = {};
     Object.entries(this.pathElementMap).map(([path, node]) => {
@@ -168,77 +148,13 @@ export default class MedblockForm extends LitElement {
     this.input.emit();
   }
 
-  async connectedCallback() {
-    // Set pathElementMap first
-    super.connectedCallback();
-    this.addEventListener('mb-dependency', this.handleDependency);
-    await 0;
-    this.pathElementMap = this.currentPathElementMap(this);
-    this.observer = new MutationObserver(mutationRecord => {
-      // Handle attribute change
-      mutationRecord
-        .filter(record => record.type === 'attributes')
-        .forEach(record => {
-          // Remove oldValue if exists in pathElementMap
-          if (record.oldValue) {
-            let newPathElementMap = { ...this.pathElementMap };
-            delete newPathElementMap[record.oldValue];
-            this.pathElementMap = newPathElementMap;
-          }
-
-          // Add getAttribute(path) if exists
-          const target = record.target as HTMLElement;
-          const attribute = target.getAttribute(this.selectorAttribute);
-          if (attribute) {
-            // TODO Will not work if path is still passed in as property and attribute is just for selector
-            this.pathElementMap = {
-              ...this.pathElementMap,
-              [attribute]: target,
-            };
-          }
-        });
-      const addedNodes = mutationRecord
-        .map(record => [...record.addedNodes])
-        .flat();
-      const removedNodes = mutationRecord
-        .map(record => [...record.removedNodes])
-        .flat();
-
-      addedNodes
-        .filter(node => node.nodeType === Node.ELEMENT_NODE)
-        .map(node => this.currentPathElementMap(node as HTMLElement))
-        .forEach(pathElement => {
-          this.pathElementMap = { ...this.pathElementMap, ...pathElement };
-        });
-
-      removedNodes
-        .filter(node => node.nodeType === Node.ELEMENT_NODE)
-        .map(node => this.currentPathElementMap(node as HTMLElement))
-        .forEach(pathElement => {
-          const pathsToRemove = Object.keys(pathElement);
-          let newPathElementMap = { ...this.pathElementMap };
-          pathsToRemove.forEach(path => {
-            delete newPathElementMap[path];
-          });
-          this.pathElementMap = newPathElementMap;
-        });
-      // TODO Only handle newly added/deleted nodes. Slow currently. Attribute/data change is handled by handleInput.
-      // Update the path element map based on mutations
-      this.data = this.currentData();
-      this.input.emit();
-    });
-    this.observer.observe(this, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: [this.selectorAttribute],
-      attributeOldValue: true,
-    });
+  handleChildConnect(e: CustomEvent){
+    const path = e.detail
+    this.pathElementMap[path] = e.target as HTMLElement
   }
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.observer.disconnect();
+  handleChildDisconnect(e: CustomEvent){
+    console.log({connected: e.detail})
   }
 
   handleDependency(e: CustomEvent<{ key: string; value: any }>) {
@@ -248,6 +164,18 @@ export default class MedblockForm extends LitElement {
 
     e.detail.value = dependencies[e.detail.key];
   }
+  async connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener('mb-dependency', this.handleDependency);
+    this.addEventListener('mb-connect', this.handleChildConnect)
+    this.addEventListener('mb-disconnect', this.handleChildDisconnect)
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+  }
+
+  
   render() {
     return html`<slot
       @slotchange=${this.handleSlotChange}
