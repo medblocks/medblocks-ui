@@ -6,7 +6,6 @@ interface CodedText {
   code: string;
   value: string;
   terminology: string;
-  _type: () => 'codedtext';
 }
 /**
  * @inheritdoc

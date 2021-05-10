@@ -1,11 +1,11 @@
 import {  elementUpdated, fixture } from "@open-wc/testing-helpers"
 import { html } from "lit-html"
-import MbForm from "../src/medblocks/form/form"
-import '../medblocks'
 import { expect } from "@open-wc/testing"
 import { LitElement, property } from "lit-element"
 import {querySelectorDeep} from 'query-selector-shadow-dom'
 import EhrElement from '../src/medblocks/EhrElement'
+import '../src/medblocks/form/form'
+import MbForm from "../src/medblocks/form/form"
 
 class BaseEhrElement extends EhrElement {
     @property({type: Object}) data: any
@@ -22,8 +22,6 @@ class TestComponent extends LitElement {
 
 customElements.define('base-ehr', BaseEhrElement)
 customElements.define('reactive-path', TestComponent)
-
-
 
 describe('Form', ()=>{
     it('should load child elements', async ()=>{

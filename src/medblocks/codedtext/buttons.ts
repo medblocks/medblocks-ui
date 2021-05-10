@@ -47,10 +47,9 @@ export default class CodedTextButtons extends CodedTextElement {
 
   _handleInput(option: MbOption) {
     this.data = {
-      code: option.code,
-      value: option.display,
+      code: option.value,
+      value: option.label,
       terminology: this.terminology,
-      _type: () => 'codedtext',
     };
   }
   
@@ -65,8 +64,8 @@ export default class CodedTextButtons extends CodedTextElement {
             option =>
               html` <sl-button
                 @click=${() => this._handleInput(option)}
-                type=${this.data?.code === option.code ? 'primary' : 'default'}
-                >${option.display}</sl-button
+                type=${this.data?.code === option.value ? 'primary' : 'default'}
+                >${option.label}</sl-button
               >`
           )}
         </div>

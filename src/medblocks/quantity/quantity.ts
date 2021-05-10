@@ -4,13 +4,17 @@ import EhrElement from '../EhrElement';
 import MbUnit from './unit';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
+import '@shoelace-style/shoelace/dist/components/input/input';
+import '@shoelace-style/shoelace/dist/components/menu/menu'
+import '@shoelace-style/shoelace/dist/components/select/select'
 import '@shoelace-style/shoelace/dist/components/icon/icon';
+import '@shoelace-style/shoelace/dist/components/menu-item/menu-item'
+import '@shoelace-style/shoelace/dist/components/icon-button/icon-button'
 import { ifDefined } from 'lit-html/directives/if-defined';
 
 interface Quantity {
   magnitude?: number;
   unit?: string;
-  _type: () => 'quantity';
 }
 
 @customElement('mb-quantity')
@@ -58,7 +62,6 @@ export default class MbQuantity extends EhrElement {
         this.data = {
           ...this.data,
           unit: this.default,
-          _type: () => 'quantity',
         };
         this._mbInput.emit();
       }
@@ -70,7 +73,6 @@ export default class MbQuantity extends EhrElement {
     this.data = {
       ...this.data,
       magnitude: parseFloat(input.value),
-      _type: () => 'quantity',
     };
   }
 
@@ -79,7 +81,6 @@ export default class MbQuantity extends EhrElement {
     this.data = {
       ...this.data,
       unit: select.value as string,
-      _type: () => 'quantity',
     };
   }
   @property({ type: String }) label: string;
