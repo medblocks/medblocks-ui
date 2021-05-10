@@ -6,7 +6,7 @@ import {
   LitElement,
   property,
 } from 'lit-element';
-import { event, EventEmitter, watch } from '../../internal/decorators';
+import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 import MbContext from '../context/context';
 import { Data } from './utils';
@@ -17,6 +17,11 @@ import { unflattenComposition } from './openEHR';
 import { MbPlugin } from './plugins';
 import MbSubmit from '../submit/submit';
 
+/**
+ * Reactive form that responds to changes in custom elements nested inside.
+ * @fires load - Triggered when the form first loads.
+ * @fires mb-input - When contents of the form change. The result must be obtained using `e=>e.target.data`.
+ */
 @customElement('mb-form')
 export default class MedblockForm extends LitElement {
   static styles = css`
@@ -24,44 +29,36 @@ export default class MedblockForm extends LitElement {
       display: block;
     }
   `;
-  @property({ type: String }) selectorAttribute: string = 'path';
-
-  @property({ type: Object }) data: Data;
-
+  /**Context object that is set before submitting form. Automatic inferences are made where possible. */
   @property({ type: Object }) ctx: any;
 
+  /**Context will not be automatically inferd. What you pass in will be directly reflected. */
   @property({ type: Boolean, reflect: true }) overwritectx: boolean = false;
 
   @event('mb-input') input: EventEmitter<any>;
 
   @event('load') load: EventEmitter<any>;
 
+  /**openEHR or FHIR data repository to communicate with. Pass baseURL, authentication details and headers into an axios instance using `axios.create()`.*/
   @property({ type: Object }) cdr: AxiosInstance;
-
-  @property({ type: String, reflect: true }) uid: string;
-
+  
+  /**Template ID of the openEHR template, as in the CDR */
   @property({ type: String, reflect: true }) template: string;
 
+  /**EHR ID to commit the composition/resource on */
   @property({ type: String, reflect: true }) ehr: string;
-
+  
+  /** Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in. openEHR is set by default.*/
   @property({ type: Object }) plugin: MbPlugin = openEHRPlugin;
 
+  /** Hermes instance to communicate with for SNOMED CT search elements. */
   @property({ type: Object }) hermes: AxiosInstance;
 
-  @state() pathElementMap: { [path: string]: HTMLElement } = {};
+  /** The child elements are loaded  */
+  @state() mbElements: { [path: string]: EhrElement } = {};
 
-  @state() observer: MutationObserver;
 
-  @state() loadTimeout: number;
-
-  @state() loaded: boolean = false;
-
-  @state() loadDebounceMs = 80;
-
-  get selector() {
-    return `[${this.selectorAttribute}]`;
-  }
-  async get(uid: string = this.uid) {
+  async get(uid: string) {
     this.plugin.get(this.cdr, uid);
   }
 
@@ -81,26 +78,6 @@ export default class MedblockForm extends LitElement {
     return unflattenComposition(flat, path);
   }
 
-  @watch('pathElementMap')
-  handleElementsChange() {
-    clearTimeout(this.loadTimeout);
-    if (!this.loaded) {
-      this.loadTimeout = window.setTimeout(() => {
-        this.loaded = true;
-        this.load.emit();
-      }, this.loadDebounceMs);
-    }
-  }
-
-  @watch('data')
-  handleDataChange(_: any, newValue: any) {
-    // Check only whichever has changed. This is also slow.
-    Object.keys(this.pathElementMap).forEach(path => {
-      let element = this.pathElementMap[path] as EhrElement;
-      element.data = newValue[path];
-    });
-  }
-
   @event('submit') submit: EventEmitter<any>;
   async handleSubmit() {
     this.insertContext();
@@ -110,7 +87,7 @@ export default class MedblockForm extends LitElement {
   }
 
   insertContext() {
-    Object.values(this.pathElementMap)
+    Object.values(this.mbElements)
       .filter((element: MbContext) => !!element.autocontext)
       .forEach((element: MbContext) => {
         const path = element.path;
@@ -129,32 +106,41 @@ export default class MedblockForm extends LitElement {
     return this.querySelector('mb-submit');
   }
 
-  currentData() {
+  get data(): Data{
     let newValue: { [path: string]: any } = {};
-    Object.entries(this.pathElementMap).map(([path, node]) => {
+    Object.entries(this.mbElements).map(([path, node]) => {
       newValue[path] = (node as any).data;
     });
     return newValue;
   }
 
+  set data(data: Data){
+    Object.keys(this.mbElements).forEach(path => {
+      let element = this.mbElements[path] as EhrElement;
+      element.data = data[path];
+    });
+  }
+
   handleInput(e: CustomEvent) {
     e.stopPropagation();
-    // TODO Only handle current data for the event target. Not all. This is slow.
-    this.data = this.currentData();
     this.input.emit();
   }
+
   handleSlotChange() {
-    this.data = this.currentData();
     this.input.emit();
   }
 
   handleChildConnect(e: CustomEvent){
     const path = e.detail
-    this.pathElementMap[path] = e.target as HTMLElement
+    this.mbElements[path] = e.target as EhrElement
+    this.input.emit()
   }
 
   handleChildDisconnect(e: CustomEvent){
-    console.log({connected: e.detail})
+    const path = e.detail
+    const {[path]: _, ...rest} = this.mbElements
+    this.mbElements = rest
+    this.input.emit()
   }
 
   handleDependency(e: CustomEvent<{ key: string; value: any }>) {
@@ -169,13 +155,16 @@ export default class MedblockForm extends LitElement {
     this.addEventListener('mb-dependency', this.handleDependency);
     this.addEventListener('mb-connect', this.handleChildConnect)
     this.addEventListener('mb-disconnect', this.handleChildDisconnect)
+    this.load.emit()
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    this.removeEventListener('mb-dependency', this.handleDependency);
+    this.removeEventListener('mb-connect', this.handleChildConnect)
+    this.removeEventListener('mb-disconnect', this.handleChildDisconnect)
   }
 
-  
   render() {
     return html`<slot
       @slotchange=${this.handleSlotChange}
