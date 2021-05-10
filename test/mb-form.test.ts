@@ -47,7 +47,7 @@ describe('Form', ()=>{
     })
     
     it('should set the data property properly', async ()=>{
-
+         
     })
 
     it('should get data property from form', async ()=>{
@@ -67,6 +67,6 @@ describe('Form', ()=>{
     })
 
     it('should serialize from FHIR resource', ()=>{
-        
+
     })
 })
