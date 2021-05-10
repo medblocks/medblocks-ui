@@ -13,8 +13,8 @@
     "manifest": "wca analyze src --format json --outFile ./dist/custom-elements.json && node web-component-manifest.mjs",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
-    "test": "tsc && wtr --coverage --puppeteer",
-    "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
+    "test": "tsc && wtr --puppeteer",
+    "test:watch": "tsc && concurrently -k -r \"tsc --watch \" \"wtr --watch\"",
     "storybook": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
     "storybook:build": "npm run manifest && tsc && build-storybook"
   },

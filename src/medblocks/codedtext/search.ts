@@ -10,7 +10,7 @@ import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { until } from 'lit-html/directives/until.js';
 import { classMap } from 'lit-html/directives/class-map';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { CodedTextElement } from './CodedText';
+import { CodedTextElement } from './CodedTextElement';
 import MbFilter from './filter';
 import SlDropdown from './dropdown';
 import { AxiosInstance } from 'axios';
@@ -97,7 +97,7 @@ export default class MbSearch extends CodedTextElement {
   get _contraints() {
     const filters = this._filters
       ?.filter(filter => !filter.disabled)
-      ?.map(filter => filter.filter);
+      ?.map(filter => filter.value);
     if (filters?.length > 0) {
       return filters.join(' OR ');
     }

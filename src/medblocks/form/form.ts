@@ -57,7 +57,10 @@ export default class MedblockForm extends LitElement {
   /** The child elements are loaded  */
   @state() mbElements: { [path: string]: EhrElement } = {};
 
+  /**Runs validation on all the elements. Returns validation message. */
+  validate(){
 
+  }
   async get(uid: string) {
     this.plugin.get(this.cdr, uid);
   }

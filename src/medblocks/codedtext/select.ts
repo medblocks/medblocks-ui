@@ -1,7 +1,7 @@
 import { customElement, internalProperty, property } from 'lit-element';
 import { html } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { CodedTextElement } from './CodedText';
+import { CodedTextElement } from './CodedTextElement';
 import MbOption from './option'
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 

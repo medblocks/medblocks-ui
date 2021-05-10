@@ -1,5 +1,5 @@
 import { css, customElement, html, state } from 'lit-element';
-import { CodedTextElement } from './CodedText';
+import { CodedTextElement } from './CodedTextElement';
 import MbOption from './option';
 import '@shoelace-style/shoelace/dist/components/button/button';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';

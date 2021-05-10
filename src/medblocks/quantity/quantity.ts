@@ -1,6 +1,4 @@
-import { css, customElement, html, property } from 'lit-element';
-import { event, EventEmitter } from '../../internal/decorators';
-import EhrElement from '../EhrElement';
+import { css, customElement, html, property, state } from 'lit-element';
 import MbUnit from './unit';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
@@ -11,14 +9,15 @@ import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/menu-item/menu-item'
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button'
 import { ifDefined } from 'lit-html/directives/if-defined';
+import QuantityElement from './QuantityElement';
 
-interface Quantity {
-  magnitude?: number;
-  unit?: string;
-}
 
+/**
+ * @inheritdoc
+ * Quantity element with an input and select for units.
+ */
 @customElement('mb-quantity')
-export default class MbQuantity extends EhrElement {
+export default class MbQuantity extends QuantityElement {
   static styles = css`
     :host {
       display: flex;
@@ -38,14 +37,15 @@ export default class MbQuantity extends EhrElement {
     }
   `;
 
-  @property({ type: Object }) data: Quantity | undefined;
+  /**The default unit to choose. Must be the `value` of a child mb-option element */
   @property({ type: String, reflect: true }) default: string;
 
+  /** Hides the units. Make sure to set a default unit, or set it programatically. */
   @property({ type: Boolean, reflect: true }) hideunit: boolean = false;
 
-  @property({ type: Array })
+
+  @state()
   units: MbUnit[] = [];
-  @event('mb-input') _mbInput: EventEmitter<Quantity>;
 
   handleChildChange() {
     this.units = [...(this.querySelectorAll('mb-unit') as NodeListOf<MbUnit>)];
@@ -83,7 +83,6 @@ export default class MbQuantity extends EhrElement {
       unit: select.value as string,
     };
   }
-  @property({ type: String }) label: string;
   render() {
     return html`
       <sl-input
