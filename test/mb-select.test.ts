@@ -15,7 +15,7 @@ describe('MbQuantity', () => {
   it('emits data on input', async () => {
     const mbselect = await fixture<MbSelect>(
       html`<mb-select label="Hello there">
-        <mb-option value="testUnit" label="Test Unit"></mb-unit>
+        <mb-option value="testUnit" label="Test Unit"></mb-option>
       </mb-select>`
     );
     const select = querySelectorDeep('sl-select') as HTMLSelectElement
@@ -28,7 +28,7 @@ describe('MbQuantity', () => {
   it('emits data with correct terminology', async ()=>{
     const mbselect = await fixture<MbSelect>(
       html`<mb-select label="Hello there" terminology="SOME-TERMINOLOGY">
-        <mb-option value="testUnit" label="Test Unit"></mb-unit>
+        <mb-option value="testUnit" label="Test Unit"></mb-option>
       </mb-select>`
     );
     const select = querySelectorDeep('sl-select') as HTMLSelectElement
@@ -40,7 +40,7 @@ describe('MbQuantity', () => {
   it('changes input on setting data', async () => {
     const mbselect = await fixture<MbSelect>(
       html`<mb-select label="Hello there" terminology="SOME-TERMINOLOGY">
-        <mb-option value="testUnit" label="Test Unit"></mb-unit>
+        <mb-option value="testUnit" label="Test Unit"></mb-option>
       </mb-select>`
     );
     const select = querySelectorDeep('sl-select') as HTMLSelectElement
