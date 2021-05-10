@@ -15,8 +15,8 @@ describe('MbButtons', () => {
   it('emits data on input', async () => {
     const mbbuttons = await fixture<MbButtons>(
       html`<mb-buttons label="Hello there">
-        <mb-option value="option1" label="Option 1"></mb-unit>
-        <mb-option value="option2" label="Option 2"></mb-unit>
+        <mb-option value="option1" label="Option 1"></mb-option>
+        <mb-option value="option2" label="Option 2"></mb-option>
       </mb-buttons>`
     );
     const buttons = querySelectorAllDeep('button')
@@ -32,8 +32,8 @@ describe('MbButtons', () => {
   it('emits data with correct terminology', async ()=>{
     const mbbuttons = await fixture<MbButtons>(
       html`<mb-buttons label="Hello there" terminology="SOME-TERMINOLOGY">
-      <mb-option value="option1" label="Option 1"></mb-unit>
-      <mb-option value="option2" label="Option 2"></mb-unit>
+      <mb-option value="option1" label="Option 1"></mb-option>
+      <mb-option value="option2" label="Option 2"></mb-option>
     </mb-buttons>`
     );
     const buttons = querySelectorAllDeep('button')
@@ -48,12 +48,13 @@ describe('MbButtons', () => {
   it('changes input on setting data', async () => {
     const mbbuttons = await fixture<MbButtons>(
       html`<mb-buttons label="Hello there" terminology="SOME-TERMINOLOGY">
-      <mb-option value="option1" label="Option 1"></mb-unit>
-      <mb-option value="option2" label="Option 2"></mb-unit>
-      <mb-option value="option3" label="Option 3"></mb-unit>
+      <mb-option value="option1" label="Option 1"></mb-option>
+      <mb-option value="option2" label="Option 2"></mb-option>
+      <mb-option value="option3" label="Option 3"></mb-option>
     </mb-buttons>`
     );
     const buttons = querySelectorAllDeep('button')
+    expect(buttons).to.have.lengthOf(3)
     mbbuttons.data = {code: 'option2', value: 'Option 2', terminology: 'SOME-TERMINOLOGY'}
     await oneEvent(mbbuttons, 'mb-input')
     await elementUpdated(mbbuttons);

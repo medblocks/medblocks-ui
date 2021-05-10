@@ -45,28 +45,4 @@ describe('Form', ()=>{
         await elementUpdated(component)
         expect(Object.keys(form.mbElements)).to.eql(['test2/another', 'changed/path2'])
     })
-    
-    it('should set the data property properly', async ()=>{
-         
-    })
-
-    it('should get data property from form', async ()=>{
-
-    })
-
-    it('should serialize to openEHR composition', async ()=>{
-
-    })
-
-    it('should deserialize from openEHR composition', async ()=>{
-
-    })
-
-    it('should serialize to FHIR resource', ()=>{
-
-    })
-
-    it('should serialize from FHIR resource', ()=>{
-
-    })
 })
