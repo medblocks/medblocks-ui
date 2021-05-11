@@ -1,12 +1,12 @@
 import { LitElement, property } from 'lit-element';
 import { event, EventEmitter, watch } from '../internal/decorators';
 
-/**This is an abstract base class to extend other elements from 
+/**This is an abstract base class to extend other elements from
  * @fires mb-input - Dispatched when the input changes
  * @fires mb-dependency - Dispatched if dependencies are needed from an external or parent source
  * @fires mb-connect - Dispatched when the component connects
  * @fires mb-disconnect - Dispatched when the component disconnects
-*/ 
+ */
 export default abstract class EhrElement extends LitElement {
   /**Path of the data element. Use the VSCode extension to get the appropriate paths */
   @property({ type: String, reflect: true }) path: string;
@@ -23,26 +23,29 @@ export default abstract class EhrElement extends LitElement {
   checkValidation(): boolean {
     return true;
   }
-  @event('mb-dependency') _mbDependency: EventEmitter<{key: string, value: any}>
-  
-  @event('mb-connect') _mbConnect : EventEmitter<{path: string}>
+  @event('mb-dependency') _mbDependency: EventEmitter<{
+    key: string;
+    value: any;
+  }>;
 
-  @event('mb-disconnect') _mbDisconnect: EventEmitter<{path: string}>
+  @event('mb-connect') _mbConnect: EventEmitter<{ path: string }>;
 
-  connectedCallback(){
-    super.connectedCallback()
-    this._mbConnect.emit({detail: this.path})
+  @event('mb-disconnect') _mbDisconnect: EventEmitter<{ path: string }>;
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._mbConnect.emit({ detail: this.path });
   }
 
-  disconnectedCallback(){
-    super.disconnectedCallback()
-    this._mbDisconnect.emit({detail: this.path})
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this._mbDisconnect.emit({ detail: this.path });
   }
-  
+
   @watch('path')
-  handlePathChange(oldPath: string, newPath: string){
-    this._mbDisconnect.emit({detail: oldPath})
-    this._mbConnect.emit({detail: newPath})
+  handlePathChange(oldPath: string, newPath: string) {
+    this._mbDisconnect.emit({ detail: oldPath });
+    this._mbConnect.emit({ detail: newPath });
   }
   @watch('data')
   _handleDataChange() {

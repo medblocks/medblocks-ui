@@ -26,6 +26,7 @@ import '@shoelace-style/shoelace/dist/components/icon-button/icon-button'
 
 @customElement('mb-search')
 export default class MbSearch extends CodedTextElement {
+  /** @ignore */
   static styles = css`
     :host,
     mb-dropdown {

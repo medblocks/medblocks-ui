@@ -10,6 +10,7 @@ import '@shoelace-style/shoelace/dist/components/spinner/spinner';
  */
 @customElement('mb-buttons')
 export default class CodedTextButtons extends CodedTextElement {
+  /** @ignore */
   static styles = css`
     .buttons {
       display: flex;
@@ -52,7 +53,7 @@ export default class CodedTextButtons extends CodedTextElement {
       terminology: this.terminology,
     };
   }
-  
+
   render() {
     return html`
       <div part="base">

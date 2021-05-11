@@ -6,6 +6,7 @@ import EhrElement from '../EhrElement';
 
 @customElement('mb-date')
 export default class MbDateTime extends EhrElement {
+  /** @ignore */
   static styles = css`
     sl-input::part(base) {
       width: unset;
