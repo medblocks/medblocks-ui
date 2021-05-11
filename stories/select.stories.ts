@@ -1,11 +1,10 @@
 import { html } from 'lit-html';
+import { snippet } from './utils';
 export default {
   title: 'Components/Coded Text/mb-select',
   component: 'mb-select',
 };
-const snippet = (fn: any, html: string) => {
-  fn.parameters = { docs: { source: { code: html } } };
-};
+
 
 const Template = ({ data = undefined, label = '', placeholder = '' }) => html`
   <mb-select
@@ -32,6 +31,26 @@ snippet(
   <mb-option value="option1" label="Option 1"></mb-option>
   <mb-option value="option2" label="Option 2"></mb-option>
   <mb-option value="option3" label="Option 3"></mb-option>
+</mb-select>`
+);
+
+export const PreSelected = Template.bind({});
+PreSelected.args = {
+  placeholder: 'Please select something',
+  label: 'Preselected dropdown',
+  data: { code: 'option2', value: 'Option 2', terminology: 'local' },
+};
+
+snippet(
+  PreSelected,
+  `<mb-select 
+  placeholder="Please select something" 
+  label="Preselected dropdown" 
+  data={{ code: 'option2', value: 'Option 2', terminology: 'local' }}>
+<mb-option value="option 1" label="Option 1"></mb-option>
+<mb-option value="option1" label="Option 1"></mb-option>
+<mb-option value="option2" label="Option 2"></mb-option>
+<mb-option value="option3" label="Option 3"></mb-option>
 </mb-select>`
 );
 

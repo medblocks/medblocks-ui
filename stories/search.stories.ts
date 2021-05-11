@@ -1,13 +1,11 @@
 import { html } from 'lit-html';
+import { snippet } from './utils';
 
 export default {
   title: 'Components/Coded Text/mb-search',
   component: 'mb-search',
 };
 
-const snippet = (fn: any, html: string) => {
-  fn.parameters = { docs: { source: { code: html } } };
-};
 
 const Template = ({ label = '', data = undefined }) => html`
   <mb-search

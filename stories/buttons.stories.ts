@@ -1,12 +1,9 @@
 import { html } from 'lit-html';
+import { snippet } from './utils';
 
 export default {
   title: 'Components/Coded Text/mb-buttons',
   component: 'mb-buttons',
-};
-
-const snippet = (fn: any, html: string) => {
-  fn.parameters = { docs: { source: { code: html } } };
 };
 
 const Template = ({ label = '', data = undefined }) => html`

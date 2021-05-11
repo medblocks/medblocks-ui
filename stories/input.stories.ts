@@ -1,13 +1,11 @@
 import { html } from 'lit-html';
+import { snippet } from './utils';
 
 export default {
   title: 'Components/Text/mb-input',
   component: 'mb-input',
 };
 
-const snippet = (fn: any, html: string) => {
-  fn.parameters = { docs: { source: { code: html } } };
-};
 
 const Template = ({ label = '', textarea = false, data = '' }) => html`
   <mb-input

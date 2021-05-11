@@ -1,15 +1,15 @@
 import { html } from 'lit-html';
+import { snippet } from './utils';
 
 export default {
   title: 'Components/Context/mb-context',
   component: 'mb-context',
 };
 
-const snippet = (fn: any, html: string) => {
-  fn.parameters = { docs: { source: { code: html } } };
-};
+
 
 const Template = ({ label = '', data = '', autoContext = false }) => html`
+  <p>Context elements don't have any output.</p>
   <mb-context
     @mb-input=${(e: any) => (data = e.target.data)}
     .data=${data}
