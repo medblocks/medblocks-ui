@@ -5,6 +5,9 @@ import MbUnit from './unit';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
+import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
+import '@shoelace-style/shoelace/dist/components/dropdown/dropdown';
+import '@shoelace-style/shoelace/dist/components/menu/menu';
 import { ifDefined } from 'lit-html/directives/if-defined';
 
 interface Quantity {
