@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 
 export default {
-  title: 'Components/Buttons/mb-button',
+  title: 'Components/Buttons/mb-buttons',
   component: 'mb-buttons',
 };
 
@@ -9,21 +9,17 @@ const snippet = (fn: any, html: string) => {
   fn.parameters = { docs: { source: { code: html } } };
 };
 
-const Template = ({ label = '', data = '', display = '' }) => html`
+const Template = ({ label = '', data = '', type = '' }) => html`
   <mb-buttons
     @mb-buttons=${(e: any) => (data = e.target.data)}
     .data=${data}
     .label=${label}
-  >
-    <mb-option .display=${display}></mb-option>
+    ><mb-option label="button" type=${type}></mb-option>
   </mb-buttons>
 `;
 
 export const Base = Template.bind({});
 
-Base.args = {
-  label: '',
-  display: 'button',
-};
+Base.args = {};
 
 snippet(Base, `<mb-buttons></mb-buttons>`);
