@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import { snippet } from './utils';
 
 export default {
-  title: 'Components/Date/mb-date',
+  title: 'Data Entry/Date/mb-date',
   component: 'mb-date',
 };
 

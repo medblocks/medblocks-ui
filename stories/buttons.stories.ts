@@ -2,8 +2,11 @@ import { html } from 'lit-html';
 import { snippet } from './utils';
 
 export default {
-  title: 'Components/Coded Text/mb-buttons',
+  title: 'Data Entry/Coded Text/mb-buttons',
   component: 'mb-buttons',
+  parameters: {
+    layout: 'centered',
+  },
 };
 
 const Template = ({ label = '', data = undefined }) => html`

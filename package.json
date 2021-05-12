@@ -15,8 +15,10 @@
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "test": "tsc && wtr --puppeteer",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch \" \"wtr --watch\"",
-    "storybook": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "npm run manifest && tsc && build-storybook"
+    "storybook": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\" \"npm run copy:watch\"",
+    "storybook:build": "npm run manifest && tsc && npm run copy && build-storybook",
+    "copy": "copy-and-watch \"stories/**/*.mdx\" dist/stories/",
+    "copy:watch": "copy-and-watch --watch \"stories/**/*.mdx\" dist/stories/"
   },
   "dependencies": {
     "@shoelace-style/shoelace": "^2.0.0-beta.39",
@@ -35,6 +37,7 @@
     "@web/test-runner": "^0.12.20",
     "@web/test-runner-puppeteer": "^0.10.0",
     "concurrently": "^5.3.0",
+    "copy-and-watch": "^0.1.5",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^7.2.0",
     "husky": "^4.3.8",

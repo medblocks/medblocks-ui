@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import { snippet } from './utils';
 
 export default {
-  title: 'Components/Text/mb-input',
+  title: 'Data Entry/Text/mb-input',
   component: 'mb-input',
 };
 

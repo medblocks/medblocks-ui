@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import { snippet } from './utils';
 
 export default {
-  title: 'Components/Coded Text/mb-search',
+  title: 'Data Entry/Coded Text/mb-search',
   component: 'mb-search',
 };
 

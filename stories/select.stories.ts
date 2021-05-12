@@ -1,10 +1,9 @@
 import { html } from 'lit-html';
 import { snippet } from './utils';
 export default {
-  title: 'Components/Coded Text/mb-select',
+  title: 'Data Entry/Coded Text/mb-select',
   component: 'mb-select',
 };
-
 
 const Template = ({ data = undefined, label = '', placeholder = '' }) => html`
   <mb-select
