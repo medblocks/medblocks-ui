@@ -4,6 +4,9 @@ import { registerIcons } from './src/internal/icons';
 registerIcons();
 
 import './src/medblocks/form/form';
+import './src/medblocks/form/fhirForm'
+
+
 import './src/medblocks/codedtext/search';
 import './src/medblocks/codedtext/select';
 import './src/medblocks/codedtext/filter';
