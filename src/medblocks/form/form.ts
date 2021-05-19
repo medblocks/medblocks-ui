@@ -10,17 +10,17 @@ import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 import MbContext from '../context/context';
 import { Data } from './utils';
-import { openEHRPlugin } from './plugins';
 import { AxiosInstance } from 'axios';
 
-import { unflattenComposition } from './openEHR';
+import { unflattenComposition, openEHRPlugin } from './openEHRPlugin';
 import { MbPlugin } from './plugins';
 import MbSubmit from '../submit/submit';
 
 /**
  * Reactive form that responds to changes in custom elements nested inside.
- * @fires load - Triggered when the form first loads.
  * @fires mb-input - When contents of the form change. The result must be obtained using `e=>e.target.data`.
+ * @fires load - Triggered when the form first loads.
+ * @fires submit - Triggered with all the serialized data in the detail of the Event.
  */
 @customElement('mb-form')
 export default class MedblockForm extends LitElement {
@@ -37,7 +37,7 @@ export default class MedblockForm extends LitElement {
 
   @event('mb-input') input: EventEmitter<any>;
 
-  @event('load') load: EventEmitter<any>;
+  @event('mb-load') load: EventEmitter<any>;
 
   /**openEHR or FHIR data repository to communicate with. Pass baseURL, authentication details and headers into an axios instance using `axios.create()`.*/
   @property({ type: Object }) cdr: AxiosInstance;
@@ -48,7 +48,7 @@ export default class MedblockForm extends LitElement {
   /**EHR ID to commit the composition/resource on */
   @property({ type: String, reflect: true }) ehr: string;
   
-  /** Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in. openEHR is set by default.*/
+  /** Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in.*/
   @property({ type: Object }) plugin: MbPlugin = openEHRPlugin;
 
   /** Hermes instance to communicate with for SNOMED CT search elements. */
@@ -101,8 +101,8 @@ export default class MedblockForm extends LitElement {
       });
   }
 
-  export(data: Data = this.data) {
-    return this.plugin.export(data);
+  export(mbElements = this.mbElements) {
+    return this.plugin.export(mbElements);
   }
 
   get submitButton(): MbSubmit | null {

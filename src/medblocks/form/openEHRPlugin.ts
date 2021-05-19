@@ -1,3 +1,4 @@
+import { MbPlugin } from "./plugins";
 import { unflatten } from "./utils";
 import {Data} from './utils'
 
@@ -8,8 +9,7 @@ export interface Ctx {
   composer_name?: string;
 }
 
-
-export function defaultContextData(path: string, ctx: Ctx = {}): any {
+function defaultContextData(path: string, ctx: Ctx = {}): any {
   const parts = path.split('/');
   const contextId = parts[parts.length - 1];
   switch (contextId) {
@@ -61,7 +61,7 @@ export function defaultContextData(path: string, ctx: Ctx = {}): any {
   }
 }
 
-export function toFlat(data: Data): Data {
+function toFlat(data: Data): Data {
   const flat: any = {};
   Object.keys(data).forEach(path => {
     const value = data[path];
@@ -76,7 +76,7 @@ export function toFlat(data: Data): Data {
   return flat;
 }
 
-export function fromFlat(flat: Data): Data {
+function fromFlat(flat: Data): Data {
   let data: Data = {};
   Object.keys(flat).map(path => {
     const value = flat[path];
@@ -118,3 +118,39 @@ export function unflattenComposition(flat: any, path?: string) {
   });
   return unflatten(formatFlatComposition(newObject));
 }
+
+
+export const openEHRPlugin: MbPlugin = {
+  async get(cdr, uid) {
+    const r = await cdr.get(`/composition/${uid}`, { params: { format: 'FLAT' } });
+    return r;
+  },
+
+  async post(cdr, data) {
+    const r = await cdr.post(`/composition`, data, {
+      params: { format: 'FLAT' }
+    });
+    return r;
+  },
+
+  async put(cdr, uid, data) {
+    const r = await cdr.put(`/composition/${uid}`, data, {
+      params: { format: 'FLAT' }
+    });
+    return r;
+  },
+
+  import(data) {
+    return fromFlat(data);
+  },
+
+  export(mbElements) {
+    let data: { [path: string]: any } = {};
+    Object.entries(mbElements).map(([path, node]) => {
+      data[path] = (node as any).data;
+    });
+    return toFlat(data);
+  },
+
+  getContext: defaultContextData
+};

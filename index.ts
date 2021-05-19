@@ -1,5 +1,6 @@
 export { default as EhrElement } from './src/medblocks/EhrElement';
 export { default as MbForm } from './src/medblocks/form/form';
+export { default as MbFhirForm } from './src/medblocks/form/fhirForm'
 export { default as MbSearch } from './src/medblocks/codedtext/search';
 export { default as MbSelect } from './src/medblocks/codedtext/select';
 export { default as MbFilter } from './src/medblocks/codedtext/filter';
