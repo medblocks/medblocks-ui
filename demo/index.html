@@ -17,10 +17,10 @@
   <section class="section">
     <h1 class="title">Patient registration</h1>
     <div class="container">
-      <mb-fhir-form>
+      <mb-fhir-form id="form">
         <mb-input class="is-hidden" path="resourceType" data="Patient"></mb-input>
         <div class="field">
-          <mb-input label="Name" path="name"></mb-input>
+          <mb-input label="Name" path="name[0].given[0]"></mb-input>
         </div>
         <div class="field">
           <mb-date label="Date of birth" path="birthDate"></mb-date>
@@ -29,7 +29,7 @@
           <mb-buttons type="code" label="Gender" path="gender">
             <mb-option value="male" label="Male"></mb-option>
             <mb-option value="female" label="Female"></mb-option>
-            <mb-options value="other" label="Other"></mb-options>
+            <mb-option value="other" label="Other"></mb-option>
           </mb-buttons>
         </div>
         <div class="field">
@@ -42,28 +42,44 @@
         <div class="field">
           <mb-input label="Address" textarea path="address[0].text"></mb-input>
         </div>
-          <label for="" class="label">Attendant information</label>
-          <div class="box">
-            <div class="field">
-              <mb-input label="Name" path="contact[0].name"></mb-input>
-            </div>
-            <div class="field">
-              <mb-select label="Relationship" path="contact[0].relationship">
-                <mb-option value="mother" label="Mother"></mb-option>
-                <mb-option value="father" label="Father"></mb-option>
-              </mb-select>
-              </div>
-              <div class="field">
-              <mb-input label="Contact number" path="contact[0].telecom[0].value"></mb-input>
-            </div>
+        <label for="" class="label">Attendant information</label>
+        <div class="box">
+          <div class="field">
+            <mb-input label="Name" path="contact[0].name.given[0]"></mb-input>
           </div>
           <div class="field">
-            <mb-submit type="primary">Save</mb-submit>
+            <mb-select label="Relationship" path="contact[0].relationship[0]" type="CodableConcept">
+              <mb-option value="mother" label="Mother"></mb-option>
+              <mb-option value="father" label="Father"></mb-option>
+            </mb-select>
           </div>
+          <div class="field">
+            <mb-input label="Contact number" path="contact[0].telecom[0].value"></mb-input>
+          </div>
+        </div>
+        <div class="field">
+          <mb-submit type="primary">Save</mb-submit>
         </div>
       </mb-fhir-form>
     </div>
+    </div>
   </section>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    let form = document.getElementById('form')
+    let fhirServer = axios.create({
+      baseURL: "https://medblocks4covid.aidbox.app/",
+      auth: {
+        username: 'basic',
+        password: 'secret'
+      }
+    })
+    form.addEventListener('mb-load', async () => {
+      const r = await fhirServer.get('/Patient/c8b0f871-98ed-4a5b-a977-cfa5bf0417f7')
+      const imported = form.import(r.data)
+      form.data = imported
+    })
+  </script>
+</body>
 
 </html>

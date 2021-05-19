@@ -1,5 +1,5 @@
 import { customElement } from 'lit-element';
-import { FHIRPlugin } from './fhirPlugin';
+import { FHIRPlugin } from './plugins/fhir';
 import Form from './form'
 
 @customElement('mb-fhir-form')

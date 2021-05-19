@@ -3,7 +3,7 @@ import { event, EventEmitter } from '../../internal/decorators';
 
 @customElement('mb-submit')
 export default class MbSubmit extends LitElement {
-  @event('mb-submit') submit: EventEmitter<any>;
+  @event('mb-trigger-submit') submit: EventEmitter<any>;
 
   @property({ type: String, reflect: true }) type:
     | 'primary'
@@ -18,7 +18,10 @@ export default class MbSubmit extends LitElement {
 
   render() {
     return html`
-      <sl-button type=${this.type} .loading=${this.loading} @click=${() => this.submit.emit()}
+      <sl-button
+        type=${this.type}
+        .loading=${this.loading}
+        @click=${() => this.submit.emit()}
         ><slot></slot>
       </sl-button>
     `;

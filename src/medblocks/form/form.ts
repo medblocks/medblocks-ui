@@ -12,15 +12,15 @@ import MbContext from '../context/context';
 import { Data } from './utils';
 import { AxiosInstance } from 'axios';
 
-import { unflattenComposition, openEHRPlugin } from './openEHRPlugin';
-import { MbPlugin } from './plugins';
+import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
+import { MbPlugin } from './plugins/plugins';
 import MbSubmit from '../submit/submit';
 
 /**
  * Reactive form that responds to changes in custom elements nested inside.
  * @fires mb-input - When contents of the form change. The result must be obtained using `e=>e.target.data`.
- * @fires load - Triggered when the form first loads.
- * @fires submit - Triggered with all the serialized data in the detail of the Event.
+ * @fires mb-load - Triggered when the form first loads.
+ * @fires mb-submit - Triggered with all the serialized data in the detail of the Event.
  */
 @customElement('mb-form')
 export default class MedblockForm extends LitElement {
@@ -39,17 +39,8 @@ export default class MedblockForm extends LitElement {
 
   @event('mb-load') load: EventEmitter<any>;
 
-  /**openEHR or FHIR data repository to communicate with. Pass baseURL, authentication details and headers into an axios instance using `axios.create()`.*/
-  @property({ type: Object }) cdr: AxiosInstance;
-  
-  /**Template ID of the openEHR template, as in the CDR */
-  @property({ type: String, reflect: true }) template: string;
-
-  /**EHR ID to commit the composition/resource on */
-  @property({ type: String, reflect: true }) ehr: string;
-  
   /** Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in.*/
-  @property({ type: Object }) plugin: MbPlugin = openEHRPlugin;
+  @property({ type: Object }) plugin: MbPlugin = openEHRFlatPlugin;
 
   /** Hermes instance to communicate with for SNOMED CT search elements. */
   @property({ type: Object }) hermes: AxiosInstance;
@@ -58,30 +49,17 @@ export default class MedblockForm extends LitElement {
   @state() mbElements: { [path: string]: EhrElement } = {};
 
   /**Runs validation on all the elements. Returns validation message. */
-  validate(){
+  validate() {}
 
-  }
-  async get(uid: string) {
-    this.plugin.get(this.cdr, uid);
-  }
-
-  async post(data: Data) {
-    this.plugin.post(this.cdr, data);
-  }
-
-  async put(uid: string, data: Data) {
-    if (this.plugin.put) {
-      return this.plugin.put(this.cdr, uid, data);
-    }
-    console.error(`put function is undefined in plugin`, this.plugin);
-    return;
+  import(data: any) {
+    return this.plugin.import(this.mbElements, data);
   }
 
   getStructured(flat: Data, path?: string) {
     return unflattenComposition(flat, path);
   }
 
-  @event('submit') submit: EventEmitter<any>;
+  @event('mb-submit') submit: EventEmitter<any>;
   async handleSubmit() {
     this.insertContext();
     await 0;
@@ -109,7 +87,7 @@ export default class MedblockForm extends LitElement {
     return this.querySelector('mb-submit');
   }
 
-  get data(): Data{
+  get data(): Data {
     let newValue: { [path: string]: any } = {};
     Object.entries(this.mbElements).map(([path, node]) => {
       newValue[path] = (node as any).data;
@@ -117,7 +95,7 @@ export default class MedblockForm extends LitElement {
     return newValue;
   }
 
-  set data(data: Data){
+  set data(data: Data) {
     Object.keys(this.mbElements).forEach(path => {
       let element = this.mbElements[path] as EhrElement;
       element.data = data[path];
@@ -133,17 +111,17 @@ export default class MedblockForm extends LitElement {
     this.input.emit();
   }
 
-  handleChildConnect(e: CustomEvent){
-    const path = e.detail
-    this.mbElements[path] = e.target as EhrElement
-    this.input.emit()
+  handleChildConnect(e: CustomEvent) {
+    const path = e.detail;
+    this.mbElements[path] = e.target as EhrElement;
+    this.input.emit();
   }
 
-  handleChildDisconnect(e: CustomEvent){
-    const path = e.detail
-    const {[path]: _, ...rest} = this.mbElements
-    this.mbElements = rest
-    this.input.emit()
+  handleChildDisconnect(e: CustomEvent) {
+    const path = e.detail;
+    const { [path]: _, ...rest } = this.mbElements;
+    this.mbElements = rest;
+    this.input.emit();
   }
 
   handleDependency(e: CustomEvent<{ key: string; value: any }>) {
@@ -156,23 +134,23 @@ export default class MedblockForm extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
     this.addEventListener('mb-dependency', this.handleDependency);
-    this.addEventListener('mb-connect', this.handleChildConnect)
-    this.addEventListener('mb-disconnect', this.handleChildDisconnect)
-    this.load.emit()
+    this.addEventListener('mb-connect', this.handleChildConnect);
+    this.addEventListener('mb-disconnect', this.handleChildDisconnect);
+    this.load.emit();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('mb-dependency', this.handleDependency);
-    this.removeEventListener('mb-connect', this.handleChildConnect)
-    this.removeEventListener('mb-disconnect', this.handleChildDisconnect)
+    this.removeEventListener('mb-connect', this.handleChildConnect);
+    this.removeEventListener('mb-disconnect', this.handleChildDisconnect);
   }
 
   render() {
     return html`<slot
       @slotchange=${this.handleSlotChange}
       @mb-input=${this.handleInput}
-      @mb-submit=${this.handleSubmit}
+      @mb-trigger-submit=${this.handleSubmit}
     ></slot> `;
   }
 }

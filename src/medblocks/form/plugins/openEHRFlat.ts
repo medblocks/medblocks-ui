@@ -1,6 +1,6 @@
-import { MbPlugin } from "./plugins";
-import { unflatten } from "./utils";
-import {Data} from './utils'
+import { MbPlugin } from './plugins';
+import { unflatten } from '../utils';
+import { Data } from '../utils';
 
 export interface Ctx {
   time?: string;
@@ -20,39 +20,41 @@ function defaultContextData(path: string, ctx: Ctx = {}): any {
       return {
         code: '433',
         value: 'event',
-        terminology: 'openehr'
+        terminology: 'openehr',
       };
     case 'setting':
       return {
         code: '238',
         value: 'other care',
-        terminology: 'openehr'
+        terminology: 'openehr',
       };
     case 'language':
       return {
         code: ctx.language || 'en',
-        terminology: 'ISO_639-1'
+        terminology: 'ISO_639-1',
       };
     case 'territory':
       return {
         code: ctx.territory || 'IN',
-        terminology: 'ISO_3166-1'
+        terminology: 'ISO_3166-1',
       };
 
     case 'encoding':
       return {
         code: 'UTF-8',
-        terminology: 'IANA_character-sets'
+        terminology: 'IANA_character-sets',
       };
     case 'composer':
       if (ctx.composer_name) {
         return {
-          name: ctx.composer_name
+          name: ctx.composer_name,
         };
       } else {
-        console.warn("Please set composer_name field on ctx property. Setting 'Medblocks UI' for now.");
+        console.warn(
+          "Please set composer_name field on ctx property. Setting 'Medblocks UI' for now."
+        );
         return {
-          name: 'Medblocks UI'
+          name: 'Medblocks UI',
         };
       }
     default:
@@ -119,28 +121,8 @@ export function unflattenComposition(flat: any, path?: string) {
   return unflatten(formatFlatComposition(newObject));
 }
 
-
-export const openEHRPlugin: MbPlugin = {
-  async get(cdr, uid) {
-    const r = await cdr.get(`/composition/${uid}`, { params: { format: 'FLAT' } });
-    return r;
-  },
-
-  async post(cdr, data) {
-    const r = await cdr.post(`/composition`, data, {
-      params: { format: 'FLAT' }
-    });
-    return r;
-  },
-
-  async put(cdr, uid, data) {
-    const r = await cdr.put(`/composition/${uid}`, data, {
-      params: { format: 'FLAT' }
-    });
-    return r;
-  },
-
-  import(data) {
+export const openEHRFlatPlugin: MbPlugin = {
+  import(_, data) {
     return fromFlat(data);
   },
 
@@ -152,5 +134,5 @@ export const openEHRPlugin: MbPlugin = {
     return toFlat(data);
   },
 
-  getContext: defaultContextData
+  getContext: defaultContextData,
 };
