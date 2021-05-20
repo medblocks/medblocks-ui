@@ -4,15 +4,16 @@ on:
   release:
     types: [published]
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+    - name: Checkout
       uses: actions/checkout@v2
-      - name: Install
-        run: npm ci
-      - name: NPM Publish
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+    - name: Install
+      run: npm ci
+    - name: Publish
+      run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
