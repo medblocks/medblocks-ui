@@ -10,17 +10,17 @@ import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 import MbContext from '../context/context';
 import { Data } from './utils';
-import { openEHRPlugin } from './plugins';
 import { AxiosInstance } from 'axios';
 
-import { unflattenComposition } from './openEHR';
-import { MbPlugin } from './plugins';
+import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
+import { MbPlugin } from './plugins/plugins';
 import MbSubmit from '../submit/submit';
 
 /**
  * Reactive form that responds to changes in custom elements nested inside.
- * @fires load - Triggered when the form first loads.
  * @fires mb-input - When contents of the form change. The result must be obtained using `e=>e.target.data`.
+ * @fires mb-load - Triggered when the form first loads.
+ * @fires mb-submit - Triggered with all the serialized data in the detail of the Event.
  */
 @customElement('mb-form')
 export default class MedblockForm extends LitElement {
@@ -38,19 +38,10 @@ export default class MedblockForm extends LitElement {
 
   @event('mb-input') input: EventEmitter<any>;
 
-  @event('load') load: EventEmitter<any>;
+  @event('mb-load') load: EventEmitter<any>;
 
-  /**openEHR or FHIR data repository to communicate with. Pass baseURL, authentication details and headers into an axios instance using `axios.create()`.*/
-  @property({ type: Object }) cdr: AxiosInstance;
-
-  /**Template ID of the openEHR template, as in the CDR */
-  @property({ type: String, reflect: true }) template: string;
-
-  /**EHR ID to commit the composition/resource on */
-  @property({ type: String, reflect: true }) ehr: string;
-
-  /** Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in. openEHR is set by default.*/
-  @property({ type: Object }) plugin: MbPlugin = openEHRPlugin;
+  /** Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in.*/
+  @property({ type: Object }) plugin: MbPlugin = openEHRFlatPlugin;
 
   /** Hermes instance to communicate with for SNOMED CT search elements. */
   @property({ type: Object }) hermes: AxiosInstance;
@@ -60,31 +51,33 @@ export default class MedblockForm extends LitElement {
 
   /**Runs validation on all the elements. Returns validation message. */
   validate() {}
-  async get(uid: string) {
-    this.plugin.get(this.cdr, uid);
+
+  /**Parse output format to internal representation. */
+  parse(data: any) {
+    return this.plugin.parse(this.mbElements, data);
+  }
+  
+  /**Serialize EHRElement to the output format - eg: openEHR FLAT format, FHIR resource.*/
+  serialize(mbElements = this.mbElements) {
+    return this.plugin.serialize(mbElements);
   }
 
-  async post(data: Data) {
-    this.plugin.post(this.cdr, data);
+  /**Parses and sets the form data to current data */
+  import(data: any){
+    this.data = this.parse(data)
   }
 
-  async put(uid: string, data: Data) {
-    if (this.plugin.put) {
-      return this.plugin.put(this.cdr, uid, data);
-    }
-    console.error(`put function is undefined in plugin`, this.plugin);
-    return;
-  }
+  export = this.serialize.bind(this)
 
   getStructured(flat: Data, path?: string) {
     return unflattenComposition(flat, path);
   }
 
-  @event('submit') submit: EventEmitter<any>;
+  @event('mb-submit') submit: EventEmitter<any>;
   async handleSubmit() {
     this.insertContext();
     await 0;
-    const data = this.export();
+    const data = this.serialize();
     this.submit.emit({ detail: data, cancelable: true });
   }
 
@@ -100,10 +93,7 @@ export default class MedblockForm extends LitElement {
       });
   }
 
-  export(data: Data = this.data) {
-    return this.plugin.export(data);
-  }
-
+  
   get submitButton(): MbSubmit | null {
     return this.querySelector('mb-submit');
   }
@@ -171,7 +161,7 @@ export default class MedblockForm extends LitElement {
     return html`<slot
       @slotchange=${this.handleSlotChange}
       @mb-input=${this.handleInput}
-      @mb-submit=${this.handleSubmit}
+      @mb-trigger-submit=${this.handleSubmit}
     ></slot> `;
   }
 }

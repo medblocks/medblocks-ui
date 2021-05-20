@@ -1,4 +1,4 @@
-import { customElement, state, property } from 'lit-element';
+import { customElement, property, state } from 'lit-element';
 import { html } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { CodedTextElement } from './CodedTextElement';

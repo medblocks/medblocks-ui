@@ -16,6 +16,10 @@ export default abstract class EhrElement extends LitElement {
   /**Data of the element. Setting this will emit an input event automatically. */
   abstract data: any;
 
+  /**An internal representation of type to handle serializing */
+  @property({type: String, reflect: true})
+  type?: string;
+
   /**Event Emitter for mb-input */
   @event('mb-input') _mbInput: EventEmitter<any>;
 
