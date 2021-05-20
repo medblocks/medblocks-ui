@@ -1,6 +1,6 @@
 {
   "name": "medblocks-ui",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Web components for building healthcare interfaces",
   "author": "Sidharth Ramesh",
   "license": "Apache-2.0",
