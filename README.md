@@ -1,4 +1,4 @@
-![medblocks ui logo](./demo/medblocks-ui.png)
+![medblocks ui logo](https://i.imgur.com/JbhZCX3.png)
 
 # Medblocks UI
 
