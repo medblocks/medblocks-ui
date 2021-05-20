@@ -132,8 +132,8 @@ describe('FHIR Plugin', () => {
         },
       ],
     };
-    const imported = form.import(data);
-    expect(imported).to.eql({
+    const parsed = form.parse(data);
+    expect(parsed).to.eql({
         "contact[0].relationship[0]": {
             "code": "mother",
             "value": "Mother",
