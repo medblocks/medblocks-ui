@@ -13,7 +13,6 @@ jobs:
       uses: actions/checkout@v2
     - name: Install
       run: npm ci
-    - name: Publish
-      run: npm whoami && npm publish --access public
-      env:
-        NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+    - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
