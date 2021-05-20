@@ -6,6 +6,8 @@
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "files": ["dist"],
+  "type": "module",
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc",

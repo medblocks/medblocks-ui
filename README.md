@@ -2,10 +2,11 @@
 
 # Medblocks UI
 
-Web Components for rapid development of openEHR systems. The [automatic form generator](https://sidharthramesh.github.io/medblocks-ui/) is depreciated. The current recommended workflow is to build custom UIs based on the need using web components.
+Web Components for rapid development of openEHR systems.
 
 [![Medblocks UI Web components demo](https://img.youtube.com/vi/ng9lkQKa2KE/0.jpg)](https://www.youtube.com/watch?v=ng9lkQKa2KE)
 
+More more information read the [storybook documentation](https://medblocks-ui.vercel.app/).
 ## Installation
 
 ```bash
