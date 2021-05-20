@@ -11,6 +11,7 @@
     "build": "tsc",
     "prepublish": "tsc",
     "release": "standard-version -a",
+    "postrelease": "git push --follow-tags origin master",
     "manifest": "wca analyze src --format json --outFile ./dist/custom-elements.json && node web-component-manifest.mjs",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
