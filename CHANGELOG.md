@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.25](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.24...v0.0.25) (2021-05-20)
+
+
+### Bug Fixes
+
+* updated logo url ([e7a1916](https://github.com/sidharthramesh/medblocks-ui/commit/e7a1916342eaf5299ee363315fa1a65be8bbca0a))
+
 ### [0.0.24](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.23...v0.0.24) (2021-05-20)
 
 ### [0.0.23](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.22...v0.0.23) (2021-05-20)
