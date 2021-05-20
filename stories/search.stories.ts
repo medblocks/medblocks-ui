@@ -1,15 +1,13 @@
 import { html } from 'lit-html';
+import { snippet } from './utils';
 
 export default {
-  title: 'Components/Search/mb-search',
+  title: 'Data Entry/Coded Text/mb-search',
   component: 'mb-search',
 };
 
-const snippet = (fn: any, html: string) => {
-  fn.parameters = { docs: { source: { code: html } } };
-};
 
-const Template = ({ label = '', data = '' }) => html`
+const Template = ({ label = '', data = undefined }) => html`
   <mb-search
     @mb-search=${(e: any) => (data = e.target.data)}
     .data=${data}
@@ -21,7 +19,7 @@ const Template = ({ label = '', data = '' }) => html`
 export const Base = Template.bind({});
 
 Base.args = {
-  label: '',
+  label: 'Search for a disease',
 };
 
 snippet(Base, `<mb-search></mb-search>`);

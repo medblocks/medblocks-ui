@@ -6,5 +6,11 @@ setCustomElements(elements);
 
 export const parameters = {
     actions: { argTypesRegex: "^mb-.*" },
-    viewMode: 'docs'  
+    layout: 'padded',
+    options: {
+        storySort: {
+            order: ['Introduction', 'Data Entry', ['Coded Text', ['Introduction']], 'Utility'],
+        }
+    }
+
 }

@@ -1,13 +1,12 @@
 import { html } from 'lit-html';
+import { snippet } from './utils';
 export default {
-  title: 'Components/Quantity/mb-quantity',
+  title: 'Data Entry/Quantity/mb-quantity',
   component: 'mb-quantity',
 };
-const snippet = (fn: any, html: string) => {
-  fn.parameters = { docs: { source: { code: html } } };
-};
 
-const Template = ({ data = '', hideunit = false, label = '' }) => html`
+
+const Template = ({ data = undefined, hideunit = false, label = '' }) => html`
   <mb-quantity
     @mb-quantity=${(e: any) => (data = e.target.data)}
     .data=${data}

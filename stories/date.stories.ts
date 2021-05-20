@@ -1,16 +1,16 @@
 import { html } from 'lit-html';
+import { snippet } from './utils';
 
 export default {
-  title: 'Components/Date/mb-date',
+  title: 'Data Entry/Date/mb-date',
   component: 'mb-date',
 };
 
-const snippet = (fn: any, html: string) => {
-  fn.parameters = { docs: { source: { code: html } } };
-};
 
-const Template = ({ label = '', data = '' }) => html`
+
+const Template = ({ label = '', data = '', time = false }) => html`
   <mb-date
+    ?time=${time}
     @mb-date=${(e: any) => (data = e.target.data)}
     .data=${data}
     .label=${label}
@@ -18,10 +18,18 @@ const Template = ({ label = '', data = '' }) => html`
   </mb-date>
 `;
 
-export const Base = Template.bind({});
+export const JustDate = Template.bind({});
 
-Base.args = {
-  label: '',
+JustDate.args = {
+  label: 'Just date',
 };
 
-snippet(Base, `<mb-date></mb-date>`);
+snippet(JustDate, `<mb-date></mb-date>`);
+
+export const DateTime = Template.bind({});
+DateTime.args = {
+  label: 'Data and Time',
+  time: true,
+};
+
+snippet(DateTime, `<mb-date time></mb-date>`);

@@ -1,15 +1,15 @@
-import { customElement, internalProperty, property } from 'lit-element';
+import { customElement, state, property } from 'lit-element';
 import { html } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { CodedTextElement } from './CodedTextElement';
-import MbOption from './option'
+import MbOption from './option';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 
-import '@shoelace-style/shoelace/dist/components/menu/menu'
-import '@shoelace-style/shoelace/dist/components/select/select'
+import '@shoelace-style/shoelace/dist/components/menu/menu';
+import '@shoelace-style/shoelace/dist/components/select/select';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
-import '@shoelace-style/shoelace/dist/components/menu-item/menu-item'
-import '@shoelace-style/shoelace/dist/components/icon-button/icon-button'
+import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
+import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
 
 @customElement('mb-select')
 export default class MbSelect extends CodedTextElement {
@@ -17,13 +17,13 @@ export default class MbSelect extends CodedTextElement {
 
   @property({ type: String, reflect: true }) placeholder: string;
 
-  @internalProperty() options: MbOption[] = [];
+  @state() _options: MbOption[] = [];
 
   getLabel(code: string) {
-    return this.options.filter(option => option.value === code)[0].label;
+    return this._options.filter(option => option.value === code)[0].label;
   }
 
-  get optionElements(): NodeListOf<MbOption> {
+  get _optionElements(): NodeListOf<MbOption> {
     return this.querySelectorAll('mb-option');
   }
 
@@ -48,7 +48,9 @@ export default class MbSelect extends CodedTextElement {
   }
 
   handleChildChange() {
-    this.options = [...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>)];
+    this._options = [
+      ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),
+    ];
   }
 
   render() {
@@ -62,9 +64,15 @@ export default class MbSelect extends CodedTextElement {
           this.data = undefined;
           this._mbInput.emit();
         }}
+        .hoist=${true}
         .value=${this.data?.code || ''}
       >
-        ${this.options.map(option => html`<sl-menu-item .value=${option.value}>${option.label} </sl-menu-item>`)}
+        ${this._options.map(
+          option =>
+            html`<sl-menu-item .value=${option.value}
+              >${option.label}
+            </sl-menu-item>`
+        )}
       </sl-select>
       <slot @slotchange=${this.handleChildChange}></slot>
     `;

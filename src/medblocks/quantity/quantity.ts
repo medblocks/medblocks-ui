@@ -3,14 +3,13 @@ import MbUnit from './unit';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
-import '@shoelace-style/shoelace/dist/components/menu/menu'
-import '@shoelace-style/shoelace/dist/components/select/select'
+import '@shoelace-style/shoelace/dist/components/menu/menu';
+import '@shoelace-style/shoelace/dist/components/select/select';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
-import '@shoelace-style/shoelace/dist/components/menu-item/menu-item'
-import '@shoelace-style/shoelace/dist/components/icon-button/icon-button'
+import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
+import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import QuantityElement from './QuantityElement';
-
 
 /**
  * @inheritdoc
@@ -18,6 +17,7 @@ import QuantityElement from './QuantityElement';
  */
 @customElement('mb-quantity')
 export default class MbQuantity extends QuantityElement {
+  /** @ignore */
   static styles = css`
     :host {
       display: flex;
@@ -42,7 +42,6 @@ export default class MbQuantity extends QuantityElement {
 
   /** Hides the units. Make sure to set a default unit, or set it programatically. */
   @property({ type: Boolean, reflect: true }) hideunit: boolean = false;
-
 
   @state()
   units: MbUnit[] = [];
