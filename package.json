@@ -1,6 +1,6 @@
 {
   "name": "medblocks-ui",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Web components for building healthcare interfaces",
   "author": "Sidharth Ramesh",
   "license": "Apache-2.0",
@@ -10,6 +10,7 @@
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc",
     "prepublish": "tsc",
+    "release": "standard-version -a",
     "manifest": "wca analyze src --format json --outFile ./dist/custom-elements.json && node web-component-manifest.mjs",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
@@ -44,6 +45,7 @@
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "query-selector-shadow-dom": "^1.0.0",
+    "standard-version": "^9.3.0",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4",
     "web-component-analyzer": "^1.1.6"
