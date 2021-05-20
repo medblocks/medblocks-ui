@@ -72,7 +72,7 @@ const isEmpty = (value: any): boolean => {
 };
 
 export const FHIRPlugin: MbPlugin = {
-  export(mbElements) {
+  serialize(mbElements) {
     let transformed: { [path: string]: any } = {};
     Object.keys(mbElements).forEach(path => {
       const value = mbElements[path];
@@ -85,7 +85,7 @@ export const FHIRPlugin: MbPlugin = {
     // return mbElements
   },
 
-  import(mbElements, data) {
+  parse(mbElements, data) {
     const flat = flatten(data);
     let newObj: any = {};
     Object.keys(mbElements).forEach(path => {

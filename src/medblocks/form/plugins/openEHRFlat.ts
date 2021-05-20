@@ -122,11 +122,11 @@ export function unflattenComposition(flat: any, path?: string) {
 }
 
 export const openEHRFlatPlugin: MbPlugin = {
-  import(_, data) {
+  parse(_, data) {
     return fromFlat(data);
   },
 
-  export(mbElements) {
+  serialize(mbElements) {
     let data: { [path: string]: any } = {};
     Object.entries(mbElements).map(([path, node]) => {
       data[path] = (node as any).data;

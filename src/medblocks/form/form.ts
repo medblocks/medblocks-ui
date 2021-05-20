@@ -24,6 +24,7 @@ import MbSubmit from '../submit/submit';
  */
 @customElement('mb-form')
 export default class MedblockForm extends LitElement {
+  /**@ignore */
   static styles = css`
     :host {
       display: block;
@@ -51,9 +52,22 @@ export default class MedblockForm extends LitElement {
   /**Runs validation on all the elements. Returns validation message. */
   validate() {}
 
-  import(data: any) {
-    return this.plugin.import(this.mbElements, data);
+  /**Parse output format to internal representation. */
+  parse(data: any) {
+    return this.plugin.parse(this.mbElements, data);
   }
+  
+  /**Serialize EHRElement to the output format - eg: openEHR FLAT format, FHIR resource.*/
+  serialize(mbElements = this.mbElements) {
+    return this.plugin.serialize(mbElements);
+  }
+
+  /**Parses and sets the form data to current data */
+  import(data: any){
+    this.data = this.parse(data)
+  }
+
+  export = this.serialize.bind(this)
 
   getStructured(flat: Data, path?: string) {
     return unflattenComposition(flat, path);
@@ -63,7 +77,7 @@ export default class MedblockForm extends LitElement {
   async handleSubmit() {
     this.insertContext();
     await 0;
-    const data = this.export();
+    const data = this.serialize();
     this.submit.emit({ detail: data, cancelable: true });
   }
 
@@ -79,10 +93,7 @@ export default class MedblockForm extends LitElement {
       });
   }
 
-  export(mbElements = this.mbElements) {
-    return this.plugin.export(mbElements);
-  }
-
+  
   get submitButton(): MbSubmit | null {
     return this.querySelector('mb-submit');
   }

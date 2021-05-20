@@ -7,9 +7,9 @@ import EhrElement from '../../EhrElement';
  */
 export interface MbPlugin {
   /**Serialize EHRElement to the output format - eg: openEHR FLAT format, FHIR resource.*/
-  export(mbElements: { [path: string]: EhrElement }): any;
+  serialize(mbElements: { [path: string]: EhrElement }): any;
   /**Parse output format to internal representation. */
-  import(mbElements: { [path: string]: EhrElement }, data: any): any;
+  parse(mbElements: { [path: string]: EhrElement }, data: any): any;
   /**Handle an empty mb-context given a ctx object. */
   getContext(path: string, ctx: any): any;
 }
