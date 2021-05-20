@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.26](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.25...v0.0.26) (2021-05-20)
+
+
+### Bug Fixes
+
+* apache license ([03b4df9](https://github.com/sidharthramesh/medblocks-ui/commit/03b4df91d059fc035fcfd3b2fae5c50696bcae6d))
+
 ### [0.0.25](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.24...v0.0.25) (2021-05-20)
 
 
