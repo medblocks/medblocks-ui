@@ -16,4 +16,10 @@ jobs:
       run: npm ci
     - name: Test
       run: npm run test
+    - name: Publish
+      if: ${{ github.event_name == 'push' }}
+      uses: JS-DevTools/npm-publish@v1
+      with:
+        token: ${{ secrets.NPM_TOKEN }}
+
 
