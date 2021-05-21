@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { fixture } from '@open-wc/testing-helpers';
 import { html } from 'lit-html';
-import { MbForm } from '../index';
+import MbForm from '../src/medblocks/form/fhirForm';
 import '../medblocks';
 
 describe('FHIR Plugin', () => {

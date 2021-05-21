@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing'
 import { elementUpdated, fixture, oneEvent } from '@open-wc/testing-helpers'
 import { html } from 'lit-html'
 import { querySelectorDeep } from 'query-selector-shadow-dom'
-import { MbForm } from '../index'
+import MbForm from '../src/medblocks/form/form'
 import '../medblocks'
 
 describe('Form e2e', ()=>{
