@@ -1,0 +1,86 @@
+import { Meta } from '@web/storybook-prebuilt/addon-docs/blocks';
+
+<Meta title="Getting Started" />
+
+# Getting started
+
+Medblocks UI is packaged as an ES Module and needs a modern bundler to work with your framework of choice. [Vite](https://vitejs.dev/) is blazing fast, and we'll be using that in this guide. [Snowpack](https://www.snowpack.dev/) is another alternative.
+
+```
+npm init @vitejs/app
+```
+Give your project a name
+You are free to choose any framework, but for this tutorial we'll cover [Svelte](https://svelte.dev/) and [Vue](https://vuejs.org/) since they have excellent [support for web components](https://custom-elements-everywhere.com/). So it is recommended that you choose one of those.
+
+`cd` into the directory you just created once vite has finished the setup and do `npm install`.
+
+Install Medblocks UI:
+```
+npm install medblocks-ui
+```
+
+The next steps will look a little different based on the framework you choose, but it should be mostly the same.
+
+## Svelte
+
+Navigate to `src/App.svelte`
+
+Include the following in the `<script>`
+```jsx
+<script>
+    ...other content
+    import Counter from './lib/Counter.svelte'
+
+    import 'medblocks-ui/dist/medblocks'
+    import '@shoelace-style/shoelace/dist/themes/base.css'
+</script>
+```
+
+Now in the template let's include an `mb-input` element under `main`
+
+```jsx
+<main>
+    <mb-input label="Hello world!"></mb-input>
+    .
+    .
+    .
+    ...other content
+</main>
+```
+and it should render an input like so:
+
+<mb-input label="Hello world!"></mb-input>
+
+The alignment may be different because of the default css, but once you fix that, you're good to go!
+
+## Vue
+
+Navigate to `src/App.vue`
+
+Include the following in the `<script>`
+```jsx
+<script>
+    import 'medblocks-ui/dist/medblocks'
+    import '@shoelace-style/shoelace/dist/themes/base.css'
+
+    import { defineComponent } from 'vue'
+    ...other content
+</script>
+```
+
+Now in the template let's include an `mb-input` element in the `template`
+
+```jsx
+<template>
+    <mb-input label="Hello world!" :data.prop="`Property bound in Vue`"></mb-input>
+    .
+    .
+    .
+    ...other content
+</template>
+```
+and it should render an input like so:
+
+<mb-input label="Hello world!" data="Property bound in Vue"></mb-input>
+
+The alignment may be different because of the default css, but once you fix that, you're good to go!

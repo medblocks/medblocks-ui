@@ -6,90 +6,51 @@ import { Meta, Story, Canvas } from '@web/storybook-prebuilt/addon-docs/blocks';
 
 # Medblocks UI
 
-Medblocks UI is a set of web components to be used for data capture in helathcare applications. It primarily supports converting openEHR templates into web components using the [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=tornadoalert.medblocks-ui).
+Medblocks UI is a set of web components to be used for data capture in helathcare applications. It primarily supports converting openEHR templates into web components using the [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=tornadoalert.medblocks-ui). There is experimental support for FHIR Resources. 
 
 ## Installation
-
-For the time being, we recommend that you start with the open-wc and lit-element application to get started with web components.
-
-```
-npm init @open-wc
-```
-## Installation
-
-For the time being, we recommend that you start with the open-wc application to get started with web components.
-
-```
-npm init @open-wc
-```
-
-Select Application, and then install medblocks-ui
 
 ```
 npm install medblocks-ui
 ```
-## Installation
-
-For the time being, we recommend that you start with the open-wc application to use these web components. Documentation for other frameworks will be added soon.
-
-```
-npm init @open-wc
-```
-
-Select "Application", and select other features that you want. Then install medblocks-ui:
-
-```
-npm install medblocks-ui
-```
-
-
 
 ## Concepts
 
-All components are built on the [web components standard](https://developer.mozilla.org/en-US/docs/Web/Web_Components) using [Lit](https://lit.dev/). They are published using the [open-wc guidelines](https://open-wc.org/) and are published as modules compiled for ES2015. You will need to include polyfills and compile it down into bundles before using it in your projects.
+All components are built on the [web components standard](https://developer.mozilla.org/en-US/docs/Web/Web_Components) using [Lit](https://lit.dev/). They are published using the [open-wc guidelines](https://open-wc.org/) and are published as ES modules. You will need to include polyfills, compile it and make transformations before using it in your projects. Look at the [getting started](?path=/story/getting-started--page) guide for more information.
 
-You can use web components in any framework that [supports it](https://custom-elements-everywhere.com/). React is well known to not support web components too well. However, there is a work around using [@lit-labs/react](https://www.npmjs.com/package/@lit-labs/react). But as mentioned above, starting with an open-wc application will is the fastest way to get up and running.
-
-Medblocks UI consists of three parts:
+You can use web components in any framework that [supports it](https://custom-elements-everywhere.com/). React is well known to not support web components too well. However, there is a work around using [@lit-labs/react](https://www.npmjs.com/package/@lit-labs/react).
 
 
-### Form
+### Importing all
 
-The `mb-form` component is the most important one, and helps generate data from other components as structured openEHR compositions. There are no external dependencies and you can just import the `mb-form` module into your framework of choice:
-
-```js
-import 'medblocks-ui/dist/form';
-```
-
-or as a named import:
-
-```js
-import MbForm from 'medblocks-ui/dist/form';
-```
-
-This will import and register `mb-form` as a custom element.
-
-### Data Entry
-
-A set of default UI components for each data type build using [Shoelace.style](https://shoelace.style/). To use these components, you will have to import the shoelace base css first and then import all components like so:
+This will import everything that medblocks has to offer. This includes a set of default UI components for each data type build using [Shoelace.style](https://shoelace.style/) and Medblocks Forms.
 
 ```js
 import `@shoelace-style/shoelace/dist/themes/base.css`
-import 'medblocks-ui/dist/medblocks'
+import 'medblocks-ui'
 ```
 
-This will import the `mb-form` component as well. If you plan on cherry-picking components you want to use, you will have to import it from the `src` directory. For example, to import `mb-input`, we need to import the base styles then import like so:
+You can customize these elements by changing the css variables in the `base.css` file [from shoelace](https://shoelace.style/getting-started/customizing). Note that Medblocks UI components depends on the css file and will NOT work properly without including this.
+
+### Cherry-picking
+
+The `mb-form` component is the most important one, and helps generate data from other components as structured openEHR or FHIR compositions. There are no external dependencies and you can just import the `mb-form` module into your framework of choice:
 
 ```js
-import `@shoelace-style/shoelace/dist/themes/base.css`
-import 'medblocks-ui/dist/src/medblocks/text/input'
+import 'medblocks-ui/dist/src/medblocks/form/form.js';
+```
+or for the form with the FHIR plugin:
+
+```js
+import 'medblocks-ui/dist/src/medblocks/form/fhirForm.js';
 ```
 
-You can customize these elements by changing the css variables in the `base.css` file [from shoelace](https://shoelace.style/getting-started/customizing).
+This will import and register `mb-form` or `mb-fhir-form` as a custom element.
 
-### Utility
-
-A few utility functions and components that help handling data and submitting forms. These will be documented in their own section.
+Similarly for the `mb-input` element:
+```
+import 'medblocks-ui/dist/src/medblocks/text/input.js'
+```
 
 ## How to use this Storybook
 

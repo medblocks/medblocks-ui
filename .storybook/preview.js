@@ -9,7 +9,7 @@ export const parameters = {
     layout: 'padded',
     options: {
         storySort: {
-            order: ['Introduction', 'Data Entry', ['Coded Text', ['Introduction']], 'Utility'],
+            order: ['Introduction', 'Getting Started', 'Data Entry', ['Coded Text', ['Introduction']], 'Utility'],
         }
     }
 

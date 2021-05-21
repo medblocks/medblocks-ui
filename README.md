@@ -2,27 +2,11 @@
 
 # Medblocks UI
 
-Web Components for rapid development of openEHR systems.
+Web Components for rapid development of openEHR and FHIR systems.
 
 [![Medblocks UI Web components demo](https://img.youtube.com/vi/ng9lkQKa2KE/0.jpg)](https://www.youtube.com/watch?v=ng9lkQKa2KE)
 
-More more information read the [storybook documentation](https://medblocks-ui.vercel.app/).
-## Installation
-
-```bash
-npm i medblocks-ui
-```
-
-## Usage
-
-```html
-<script type="module">
-  import '@shoelace-style/shoelace/dist/themes/base.css'; //Customize this to change the theme
-  import 'medblocks-ui/medblocks.js';
-</script>
-
-<mb-form></mb-form>
-```
+More more information read the [documentation](https://medblocks-ui.vercel.app/).
 
 ## Testing with Web Test Runner
 
