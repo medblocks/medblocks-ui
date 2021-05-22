@@ -1,29 +1,25 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, LitElement } from 'lit-element';
 import { event, EventEmitter } from '../../internal/decorators';
 
 @customElement('mb-submit')
+
+
 export default class MbSubmit extends LitElement {
   @event('mb-trigger-submit') submit: EventEmitter<any>;
+  handleClick() {
+    this.submit.emit()
+  }
+  connectedCallback() {
+    super.connectedCallback()
+    this.addEventListener('click', this.handleClick)
+  }
 
-  @property({ type: String, reflect: true }) type:
-    | 'primary'
-    | 'success'
-    | 'info'
-    | 'warning'
-    | 'danger'
-    | 'text'
-    | 'default' = 'default';
-
-  @property({ type: Boolean, reflect: true }) loading: boolean = false;
-
+  disconnectedCallback() {
+    this.removeEventListener('click', this.handleClick)
+  }
   render() {
     return html`
-      <sl-button
-        type=${this.type}
-        .loading=${this.loading}
-        @click=${() => this.submit.emit()}
-        ><slot></slot>
-      </sl-button>
+      <slot></slot>
     `;
   }
 }
