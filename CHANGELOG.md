@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.29](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.28...v0.0.29) (2021-05-22)
+
+
+### Features
+
+* made submit completely functional ([87fc149](https://github.com/sidharthramesh/medblocks-ui/commit/87fc14959481ff9b4b4e29f9d5db93d0495fbf83))
+* warns if wrong paths are set ([92f31de](https://github.com/sidharthramesh/medblocks-ui/commit/92f31def074cecc564963c04eac8d28f47f6bc73))
+
 ### [0.0.28](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.27...v0.0.28) (2021-05-21)
 
 ### [0.0.27](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.26...v0.0.27) (2021-05-21)
