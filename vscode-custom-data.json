@@ -1,0 +1,1057 @@
+{
+  "version": "experimental",
+  "tags": [
+    {
+      "name": "mb-buttons",
+      "path": "./src\\medblocks\\codedtext\\buttons.ts",
+      "description": "An array of buttons to choose from. Expects nested mb-options to actually render buttons.",
+      "attributes": [
+        {
+          "name": "terminology",
+          "description": "Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR)",
+          "type": "string",
+          "default": "\"local\""
+        },
+        {
+          "name": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "description": "Optional label for the element",
+          "type": "string | undefined"
+        },
+        {
+          "name": "data",
+          "description": "Data of CodedText",
+          "type": "CodedText | undefined"
+        },
+        {
+          "name": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "properties": [
+        {
+          "name": "terminology",
+          "attribute": "terminology",
+          "description": "Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR)",
+          "type": "string",
+          "default": "\"local\""
+        },
+        {
+          "name": "path",
+          "attribute": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "attribute": "label",
+          "description": "Optional label for the element",
+          "type": "string | undefined"
+        },
+        {
+          "name": "data",
+          "attribute": "data",
+          "description": "Data of CodedText",
+          "type": "CodedText | undefined"
+        },
+        {
+          "name": "type",
+          "attribute": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "events": [
+        {
+          "name": "mb-input",
+          "description": "Dispatched when the input changes"
+        },
+        {
+          "name": "mb-dependency",
+          "description": "Dispatched if dependencies are needed from an external or parent source"
+        },
+        {
+          "name": "mb-connect",
+          "description": "Dispatched when the component connects"
+        },
+        {
+          "name": "mb-disconnect",
+          "description": "Dispatched when the component disconnects"
+        }
+      ]
+    },
+    {
+      "name": "mb-dropdown",
+      "path": "./src\\medblocks\\codedtext\\dropdown.ts",
+      "properties": [
+        {
+          "name": "styles",
+          "type": "CSSResult"
+        },
+        {
+          "name": "trigger",
+          "type": "HTMLElement"
+        },
+        {
+          "name": "panel",
+          "type": "HTMLElement"
+        },
+        {
+          "name": "positioner",
+          "type": "HTMLElement"
+        },
+        {
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "name": "placement",
+          "type": "\"top\" | \"top-start\" | \"top-end\" | \"bottom\" | \"bottom-start\" | \"bottom-end\" | \"right\" | \"right-start\" | \"right-end\" | \"left\" | \"left-start\" | \"left-end\""
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean"
+        },
+        {
+          "name": "containingElement",
+          "type": "HTMLElement"
+        },
+        {
+          "name": "distance",
+          "type": "number"
+        },
+        {
+          "name": "skidding",
+          "type": "number"
+        },
+        {
+          "name": "hoist",
+          "type": "boolean"
+        },
+        {
+          "name": "slShow",
+          "type": "EventEmitter<void>"
+        },
+        {
+          "name": "slAfterShow",
+          "type": "EventEmitter<void>"
+        },
+        {
+          "name": "slHide",
+          "type": "EventEmitter<void>"
+        },
+        {
+          "name": "slAfterHide",
+          "type": "EventEmitter<void>"
+        }
+      ]
+    },
+    {
+      "name": "mb-filter",
+      "path": "./src\\medblocks\\codedtext\\filter.ts",
+      "attributes": [
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false"
+        }
+      ],
+      "properties": [
+        {
+          "name": "label",
+          "attribute": "label",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "attribute": "value",
+          "type": "string"
+        },
+        {
+          "name": "disabled",
+          "attribute": "disabled",
+          "type": "boolean",
+          "default": "false"
+        }
+      ]
+    },
+    {
+      "name": "mb-option",
+      "path": "./src\\medblocks\\codedtext\\option.ts",
+      "attributes": [
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "value",
+          "attribute": "value",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "attribute": "label",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "mb-search",
+      "path": "./src\\medblocks\\codedtext\\search.ts",
+      "attributes": [
+        {
+          "name": "searchTerm",
+          "type": "string"
+        },
+        {
+          "name": "mock",
+          "type": "string[]",
+          "default": "[]"
+        },
+        {
+          "name": "axios",
+          "type": "AxiosInstance"
+        },
+        {
+          "name": "debounceInterval",
+          "type": "number",
+          "default": "150"
+        },
+        {
+          "name": "hits",
+          "type": "number",
+          "default": "10"
+        },
+        {
+          "name": "terminology",
+          "description": "Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR)",
+          "type": "string",
+          "default": "\"local\""
+        },
+        {
+          "name": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "description": "Optional label for the element",
+          "type": "string | undefined"
+        },
+        {
+          "name": "data",
+          "description": "Data of CodedText",
+          "type": "CodedText | undefined"
+        },
+        {
+          "name": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "properties": [
+        {
+          "name": "searchTerm",
+          "attribute": "searchTerm",
+          "type": "string"
+        },
+        {
+          "name": "mock",
+          "attribute": "mock",
+          "type": "string[]",
+          "default": "[]"
+        },
+        {
+          "name": "axios",
+          "attribute": "axios",
+          "type": "AxiosInstance"
+        },
+        {
+          "name": "debounceInterval",
+          "attribute": "debounceInterval",
+          "type": "number",
+          "default": "150"
+        },
+        {
+          "name": "hits",
+          "attribute": "hits",
+          "type": "number",
+          "default": "10"
+        },
+        {
+          "name": "terminology",
+          "attribute": "terminology",
+          "description": "Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR)",
+          "type": "string",
+          "default": "\"local\""
+        },
+        {
+          "name": "path",
+          "attribute": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "attribute": "label",
+          "description": "Optional label for the element",
+          "type": "string | undefined"
+        },
+        {
+          "name": "data",
+          "attribute": "data",
+          "description": "Data of CodedText",
+          "type": "CodedText | undefined"
+        },
+        {
+          "name": "type",
+          "attribute": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "events": [
+        {
+          "name": "mb-input",
+          "description": "Dispatched when the input changes"
+        },
+        {
+          "name": "mb-dependency",
+          "description": "Dispatched if dependencies are needed from an external or parent source"
+        },
+        {
+          "name": "mb-connect",
+          "description": "Dispatched when the component connects"
+        },
+        {
+          "name": "mb-disconnect",
+          "description": "Dispatched when the component disconnects"
+        }
+      ]
+    },
+    {
+      "name": "mb-select",
+      "path": "./src\\medblocks\\codedtext\\select.ts",
+      "attributes": [
+        {
+          "name": "placeholder",
+          "type": "string"
+        },
+        {
+          "name": "terminology",
+          "description": "Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR)",
+          "type": "string",
+          "default": "\"local\""
+        },
+        {
+          "name": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "description": "Optional label for the element",
+          "type": "string | undefined"
+        },
+        {
+          "name": "data",
+          "description": "Data of CodedText",
+          "type": "CodedText | undefined"
+        },
+        {
+          "name": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "properties": [
+        {
+          "name": "placeholder",
+          "attribute": "placeholder",
+          "type": "string"
+        },
+        {
+          "name": "terminology",
+          "attribute": "terminology",
+          "description": "Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR)",
+          "type": "string",
+          "default": "\"local\""
+        },
+        {
+          "name": "path",
+          "attribute": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "attribute": "label",
+          "description": "Optional label for the element",
+          "type": "string | undefined"
+        },
+        {
+          "name": "data",
+          "attribute": "data",
+          "description": "Data of CodedText",
+          "type": "CodedText | undefined"
+        },
+        {
+          "name": "type",
+          "attribute": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "events": [
+        {
+          "name": "mb-input",
+          "description": "Dispatched when the input changes"
+        },
+        {
+          "name": "mb-dependency",
+          "description": "Dispatched if dependencies are needed from an external or parent source"
+        },
+        {
+          "name": "mb-connect",
+          "description": "Dispatched when the component connects"
+        },
+        {
+          "name": "mb-disconnect",
+          "description": "Dispatched when the component disconnects"
+        }
+      ]
+    },
+    {
+      "name": "mb-context",
+      "path": "./src\\medblocks\\context\\context.ts",
+      "attributes": [
+        {
+          "name": "autocontext",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "description": "Optional label for the element",
+          "type": "string | undefined"
+        },
+        {
+          "name": "data",
+          "description": "Data of the element. Setting this will emit an input event automatically."
+        },
+        {
+          "name": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "properties": [
+        {
+          "name": "autocontext",
+          "attribute": "autocontext",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
+          "name": "path",
+          "attribute": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "attribute": "label",
+          "description": "Optional label for the element",
+          "type": "string | undefined"
+        },
+        {
+          "name": "data",
+          "attribute": "data",
+          "description": "Data of the element. Setting this will emit an input event automatically."
+        },
+        {
+          "name": "type",
+          "attribute": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "events": [
+        {
+          "name": "mb-input",
+          "description": "Dispatched when the input changes"
+        },
+        {
+          "name": "mb-dependency",
+          "description": "Dispatched if dependencies are needed from an external or parent source"
+        },
+        {
+          "name": "mb-connect",
+          "description": "Dispatched when the component connects"
+        },
+        {
+          "name": "mb-disconnect",
+          "description": "Dispatched when the component disconnects"
+        }
+      ]
+    },
+    {
+      "name": "mb-date",
+      "path": "./src\\medblocks\\datetime\\date.ts",
+      "attributes": [
+        {
+          "name": "time",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "description": "Optional label for the element",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "data",
+          "description": "Data of the element. Setting this will emit an input event automatically.",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "properties": [
+        {
+          "name": "time",
+          "attribute": "time",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "path",
+          "attribute": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "attribute": "label",
+          "description": "Optional label for the element",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "data",
+          "attribute": "data",
+          "description": "Data of the element. Setting this will emit an input event automatically.",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "attribute": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "events": [
+        {
+          "name": "mb-input",
+          "description": "Dispatched when the input changes"
+        },
+        {
+          "name": "mb-dependency",
+          "description": "Dispatched if dependencies are needed from an external or parent source"
+        },
+        {
+          "name": "mb-connect",
+          "description": "Dispatched when the component connects"
+        },
+        {
+          "name": "mb-disconnect",
+          "description": "Dispatched when the component disconnects"
+        }
+      ]
+    },
+    {
+      "name": "mb-fhir-form",
+      "path": "./src\\medblocks\\form\\fhirForm.ts",
+      "attributes": [
+        {
+          "name": "ctx",
+          "description": "Context object that is set before submitting form. Automatic inferences are made where possible."
+        },
+        {
+          "name": "overwritectx",
+          "description": "Context will not be automatically inferd. What you pass in will be directly reflected.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "plugin",
+          "description": "Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in.",
+          "type": "MbPlugin",
+          "default": "{}"
+        },
+        {
+          "name": "hermes",
+          "description": "Hermes instance to communicate with for SNOMED CT search elements.",
+          "type": "AxiosInstance"
+        }
+      ],
+      "properties": [
+        {
+          "name": "ctx",
+          "attribute": "ctx",
+          "description": "Context object that is set before submitting form. Automatic inferences are made where possible."
+        },
+        {
+          "name": "overwritectx",
+          "attribute": "overwritectx",
+          "description": "Context will not be automatically inferd. What you pass in will be directly reflected.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "input",
+          "type": "EventEmitter<any>"
+        },
+        {
+          "name": "load",
+          "type": "EventEmitter<any>"
+        },
+        {
+          "name": "plugin",
+          "attribute": "plugin",
+          "description": "Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in.",
+          "type": "MbPlugin",
+          "default": "{}"
+        },
+        {
+          "name": "hermes",
+          "attribute": "hermes",
+          "description": "Hermes instance to communicate with for SNOMED CT search elements.",
+          "type": "AxiosInstance"
+        },
+        {
+          "name": "mbElements",
+          "description": "The child elements are loaded",
+          "type": "{ [path: string]: EhrElement; }",
+          "default": "{}"
+        },
+        {
+          "name": "export",
+          "default": "\"this.serialize.bind(this)\""
+        },
+        {
+          "name": "submit",
+          "type": "EventEmitter<any>"
+        },
+        {
+          "name": "submitButton",
+          "type": "MbSubmit | null"
+        },
+        {
+          "name": "data",
+          "type": "Data"
+        }
+      ],
+      "events": [
+        {
+          "name": "mb-input",
+          "description": "When contents of the form change. The result must be obtained using `e=>e.target.data`."
+        },
+        {
+          "name": "mb-load",
+          "description": "Triggered when the form first loads."
+        },
+        {
+          "name": "mb-submit",
+          "description": "Triggered with all the serialized data in the detail of the Event."
+        }
+      ]
+    },
+    {
+      "name": "mb-form",
+      "path": "./src\\medblocks\\form\\form.ts",
+      "description": "Reactive form that responds to changes in custom elements nested inside.",
+      "attributes": [
+        {
+          "name": "ctx",
+          "description": "Context object that is set before submitting form. Automatic inferences are made where possible."
+        },
+        {
+          "name": "overwritectx",
+          "description": "Context will not be automatically inferd. What you pass in will be directly reflected.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "plugin",
+          "description": "Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in.",
+          "type": "MbPlugin",
+          "default": "{\"getContext\":\"defaultContextData\"}"
+        },
+        {
+          "name": "hermes",
+          "description": "Hermes instance to communicate with for SNOMED CT search elements.",
+          "type": "AxiosInstance"
+        }
+      ],
+      "properties": [
+        {
+          "name": "ctx",
+          "attribute": "ctx",
+          "description": "Context object that is set before submitting form. Automatic inferences are made where possible."
+        },
+        {
+          "name": "overwritectx",
+          "attribute": "overwritectx",
+          "description": "Context will not be automatically inferd. What you pass in will be directly reflected.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "input",
+          "type": "EventEmitter<any>"
+        },
+        {
+          "name": "load",
+          "type": "EventEmitter<any>"
+        },
+        {
+          "name": "plugin",
+          "attribute": "plugin",
+          "description": "Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in.",
+          "type": "MbPlugin",
+          "default": "{\"getContext\":\"defaultContextData\"}"
+        },
+        {
+          "name": "hermes",
+          "attribute": "hermes",
+          "description": "Hermes instance to communicate with for SNOMED CT search elements.",
+          "type": "AxiosInstance"
+        },
+        {
+          "name": "mbElements",
+          "description": "The child elements are loaded",
+          "type": "{ [path: string]: EhrElement; }",
+          "default": "{}"
+        },
+        {
+          "name": "export",
+          "default": "\"this.serialize.bind(this)\""
+        },
+        {
+          "name": "submit",
+          "type": "EventEmitter<any>"
+        },
+        {
+          "name": "submitButton",
+          "type": "MbSubmit | null"
+        },
+        {
+          "name": "data",
+          "type": "Data"
+        }
+      ],
+      "events": [
+        {
+          "name": "mb-input",
+          "description": "When contents of the form change. The result must be obtained using `e=>e.target.data`."
+        },
+        {
+          "name": "mb-load",
+          "description": "Triggered when the form first loads."
+        },
+        {
+          "name": "mb-submit",
+          "description": "Triggered with all the serialized data in the detail of the Event."
+        }
+      ]
+    },
+    {
+      "name": "mb-quantity",
+      "path": "./src\\medblocks\\quantity\\quantity.ts",
+      "attributes": [
+        {
+          "name": "default",
+          "description": "The default unit to choose. Must be the `value` of a child mb-option element",
+          "type": "string"
+        },
+        {
+          "name": "hideunit",
+          "description": "Hides the units. Make sure to set a default unit, or set it programatically.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "description": "Optional label for the element",
+          "type": "string | undefined"
+        },
+        {
+          "name": "data",
+          "description": "Data of the element. Setting this will emit an input event automatically.",
+          "type": "Quantity | undefined"
+        },
+        {
+          "name": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "properties": [
+        {
+          "name": "default",
+          "attribute": "default",
+          "description": "The default unit to choose. Must be the `value` of a child mb-option element",
+          "type": "string"
+        },
+        {
+          "name": "hideunit",
+          "attribute": "hideunit",
+          "description": "Hides the units. Make sure to set a default unit, or set it programatically.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "units",
+          "type": "MbUnit[]",
+          "default": "[]"
+        },
+        {
+          "name": "path",
+          "attribute": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "attribute": "label",
+          "description": "Optional label for the element",
+          "type": "string | undefined"
+        },
+        {
+          "name": "data",
+          "attribute": "data",
+          "description": "Data of the element. Setting this will emit an input event automatically.",
+          "type": "Quantity | undefined"
+        },
+        {
+          "name": "type",
+          "attribute": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "events": [
+        {
+          "name": "mb-input",
+          "description": "Dispatched when the input changes"
+        },
+        {
+          "name": "mb-dependency",
+          "description": "Dispatched if dependencies are needed from an external or parent source"
+        },
+        {
+          "name": "mb-connect",
+          "description": "Dispatched when the component connects"
+        },
+        {
+          "name": "mb-disconnect",
+          "description": "Dispatched when the component disconnects"
+        }
+      ]
+    },
+    {
+      "name": "mb-unit",
+      "path": "./src\\medblocks\\quantity\\unit.ts",
+      "attributes": [
+        {
+          "name": "unit",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "unit",
+          "attribute": "unit",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "attribute": "label",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "mb-submit",
+      "path": "./src\\medblocks\\submit\\submit.ts",
+      "attributes": [
+        {
+          "name": "type",
+          "type": "\"primary\" | \"success\" | \"info\" | \"warning\" | \"danger\" | \"text\" | \"default\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "\"\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "submit",
+          "type": "EventEmitter<any>"
+        },
+        {
+          "name": "type",
+          "attribute": "type",
+          "type": "\"primary\" | \"success\" | \"info\" | \"warning\" | \"danger\" | \"text\" | \"default\"",
+          "default": "\"default\""
+        },
+        {
+          "name": "loading",
+          "attribute": "loading",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "label",
+          "attribute": "label",
+          "type": "string",
+          "default": "\"\""
+        }
+      ]
+    },
+    {
+      "name": "mb-input",
+      "path": "./src\\medblocks\\text\\input.ts",
+      "description": "An input element to capture text",
+      "attributes": [
+        {
+          "name": "textarea",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "description": "Optional label for the element",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "data",
+          "description": "Data of the element. Setting this will emit an input event automatically.",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "properties": [
+        {
+          "name": "textarea",
+          "attribute": "textarea",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "path",
+          "attribute": "path",
+          "description": "Path of the data element. Use the VSCode extension to get the appropriate paths",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "attribute": "label",
+          "description": "Optional label for the element",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "data",
+          "attribute": "data",
+          "description": "Data of the element. Setting this will emit an input event automatically.",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "attribute": "type",
+          "description": "An internal representation of type to handle serializing",
+          "type": "string | undefined"
+        }
+      ],
+      "events": [
+        {
+          "name": "mb-input",
+          "description": "Dispatched when the input changes"
+        },
+        {
+          "name": "mb-dependency",
+          "description": "Dispatched if dependencies are needed from an external or parent source"
+        },
+        {
+          "name": "mb-connect",
+          "description": "Dispatched when the component connects"
+        },
+        {
+          "name": "mb-disconnect",
+          "description": "Dispatched when the component disconnects"
+        }
+      ]
+    }
+  ]
+}
