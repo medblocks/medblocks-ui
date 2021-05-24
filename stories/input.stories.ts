@@ -6,7 +6,6 @@ export default {
   component: 'mb-input',
 };
 
-
 const Template = ({ label = '', textarea = false, data = '' }) => html`
   <mb-input
     @mb-input=${(e: any) => (data = e.target.data)}
@@ -20,7 +19,6 @@ const Template = ({ label = '', textarea = false, data = '' }) => html`
 export const Base = Template.bind({});
 
 Base.args = {
-  label: '',
   textarea: false,
 };
 
@@ -29,15 +27,15 @@ snippet(Base, `<mb-input></mb-input>`);
 export const WithLabel = Template.bind({});
 
 WithLabel.args = {
-  label: 'Input Label',
+  label: 'Input with Label',
 };
 
-snippet(WithLabel, `<mb-input label="Input label"></mb-input>`);
+snippet(WithLabel, `<mb-input label="Input with label"></mb-input>`);
 
 export const Textarea = Template.bind({});
 Textarea.args = {
-  label: 'Textarea Label',
+  label: 'Textarea',
   textarea: true,
 };
 
-snippet(Textarea, `<mb-input label="Textarea Label" textarea></mb-input>`);
+snippet(Textarea, `<mb-input label="Textarea" textarea></mb-input>`);

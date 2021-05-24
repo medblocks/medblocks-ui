@@ -15,15 +15,21 @@ export default class MbSubmit extends LitElement {
     | 'default' = 'default';
 
   @property({ type: Boolean, reflect: true }) loading: boolean = false;
+  @property({ type: String }) label: string = '';
 
   render() {
     return html`
-      <sl-button
-        type=${this.type}
-        .loading=${this.loading}
-        @click=${() => this.submit.emit()}
-        ><slot></slot>
-      </sl-button>
+      <div part="base">
+        ${this.label
+          ? html`<label part="label" class="label">${this.label}</label><br />`
+          : null}
+        <sl-button
+          type=${this.type}
+          .loading=${this.loading}
+          @click=${() => this.submit.emit()}
+          ><slot></slot>
+        </sl-button>
+      </div>
     `;
   }
 }
