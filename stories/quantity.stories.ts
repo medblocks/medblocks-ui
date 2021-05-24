@@ -5,7 +5,6 @@ export default {
   component: 'mb-quantity',
 };
 
-
 const Template = ({ data = undefined, hideunit = false, label = '' }) => html`
   <mb-quantity
     @mb-quantity=${(e: any) => (data = e.target.data)}
@@ -19,11 +18,12 @@ const Template = ({ data = undefined, hideunit = false, label = '' }) => html`
 export const Base = Template.bind({});
 Base.args = {
   hideunit: false,
+  label: 'Quantity Base',
 };
 snippet(Base, `<mb-quantity></mb-quantity>`);
 export const hideUnit = Template.bind({});
 hideUnit.args = {
-  label: 'Quantity Label',
+  label: 'Quantity without unit',
   hideunit: true,
 };
 snippet(hideUnit, `<mb-quantity hideunit=true></mb-quantity>`);

@@ -12,7 +12,7 @@ const Template = ({ data = undefined, label = '', placeholder = '' }) => html`
     .label=${label}
     .placeholder=${placeholder}
   >
-    <mb-option value="option 1" label="Option 1"></mb-option>
+    <mb-option value="option0" label="Option 0"></mb-option>
     <mb-option value="option1" label="Option 1"></mb-option>
     <mb-option value="option2" label="Option 2"></mb-option>
     <mb-option value="option3" label="Option 3"></mb-option>
@@ -26,7 +26,7 @@ Base.args = {
 snippet(
   Base,
   `<mb-select placeholder="Select something" label="Options to choose from">
-  <mb-option value="option 1" label="Option 1"></mb-option>
+  <mb-option value="option0" label="Option 0"></mb-option>
   <mb-option value="option1" label="Option 1"></mb-option>
   <mb-option value="option2" label="Option 2"></mb-option>
   <mb-option value="option3" label="Option 3"></mb-option>
@@ -46,7 +46,7 @@ snippet(
   placeholder="Please select something" 
   label="Preselected dropdown" 
   data={{ code: 'option2', value: 'Option 2', terminology: 'local' }}>
-<mb-option value="option 1" label="Option 1"></mb-option>
+<mb-option value="option0" label="Option 0"></mb-option>
 <mb-option value="option1" label="Option 1"></mb-option>
 <mb-option value="option2" label="Option 2"></mb-option>
 <mb-option value="option3" label="Option 3"></mb-option>
