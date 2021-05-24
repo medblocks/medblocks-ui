@@ -107,10 +107,18 @@ export default class MedblockForm extends LitElement {
   }
 
   set data(data: Data) {
-    Object.keys(this.mbElements).forEach(path => {
+    const mbElementPaths = Object.keys(this.mbElements);
+    const dataPaths = Object.keys(data)
+    mbElementPaths.forEach(path => {
       let element = this.mbElements[path] as EhrElement;
-      element.data = data[path];
+      const value = data[path]
+      element.data = value;
     });
+    // Warnings
+    const inDataButNotElements = dataPaths.filter(path => !mbElementPaths.includes(path))
+    if (inDataButNotElements.length > 0) {
+      console.warn(`These paths are not present in the current form, but were set: ${inDataButNotElements.join(', ')}.\nTry the "parse" method before setting the data on the form.`)
+    }
   }
 
   handleInput(e: CustomEvent) {
