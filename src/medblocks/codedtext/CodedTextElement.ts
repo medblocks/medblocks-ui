@@ -2,9 +2,10 @@ import { property } from 'lit-element';
 import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 
-interface CodedText {
+export interface CodedText {
   code: string;
   value: string;
+  ordinal?: number;
   terminology: string;
 }
 /**

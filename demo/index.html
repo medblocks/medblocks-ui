@@ -1,85 +1,118 @@
-<!doctype html>
-<html lang="en-GB">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="../node_modules/@shoelace-style/shoelace/dist/themes/base.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" />
-  <script type="module" src="../dist/medblocks.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      document.body.classList.remove("is-hidden")
-    });
-  </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment</title>
+    <link rel="stylesheet" href="../node_modules/@shoelace-style/shoelace/dist/themes/base.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" />
+    <script type="module" src="../dist/medblocks.js"></script>
 </head>
 
-<body class="is-hidden">
-  <section class="section">
-    <h1 class="title">Patient registration</h1>
-    <div class="container">
-      <mb-fhir-form id="form">
-        <mb-input class="is-hidden" path="resourceType" data="Patient"></mb-input>
-        <div class="field">
-          <mb-input label="Name" path="name[0].given[0]"></mb-input>
+<body>
+    <div class="section">
+        <div class="container">
+            <mb-form>
+                <!-- Temperature -->
+                <mb-quantity path="covid_care_daily_sheet/vitals/body_temperature/temperature" label="Temperature">
+                    <mb-unit unit="Cel" label="Cel"></mb-unit>
+                    <mb-unit unit="[degF]" label="[degF]"></mb-unit>
+                </mb-quantity>
+                <label for="Bo" class="label">Blood Pressure</label>
+                <mb-quantity path="covid_care_daily_sheet/vitals/blood_pressure/systolic" label="Systolic">
+                    <mb-unit unit="mm[Hg]" label="mm[Hg]"></mb-unit>
+                </mb-quantity>
+                <mb-quantity path="covid_care_daily_sheet/vitals/blood_pressure/diastolic" label="Diastolic">
+                    <mb-unit unit="mm[Hg]" label="mm[Hg]"></mb-unit>
+                </mb-quantity>
+                <mb-quantity path="covid_care_daily_sheet/vitals/pulse_heart_beat/rate" label="Pulse Rate">
+                    <mb-unit unit="/min" label="/min"></mb-unit>
+                </mb-quantity>
+                <p>Labs</p>
+                <mb-input path="covid_care_daily_sheet/lab_results/test_name" label="Test name"
+                    data="Covid Screening Tests"></mb-input>
+                <mb-select label="Ordinal test">
+                    <mb-option value="hello" label="Select me" ordinal="1"></mb-option>
+                    <mb-option value="hello1" label="Select me" ordinal="2"></mb-option>
+                </mb-select>
+                <mb-buttons label="Ordinal test">
+                    <mb-option value="hello" label="Select me" ordinal="1"></mb-option>
+                    <mb-option value="hello1" label="Select me" ordinal="2"></mb-option>
+                </mb-buttons>
+                <mb-checkbox label="Check me please"></mb-checkbox>
+                <mb-percent label="Percent Yaay"></mb-percent>
+                <div>
+                    <mb-context path=covid_care_daily_sheet/category></mb-context>
+                    <mb-context path=covid_care_daily_sheet/context/start_time></mb-context>
+                    <mb-context path=covid_care_daily_sheet/context/setting></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/body_temperature/time></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/body_temperature/subject></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/body_temperature/language></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/body_temperature/encoding></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/blood_pressure/time></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/blood_pressure/subject></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/blood_pressure/language></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/blood_pressure/encoding></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/pulse_heart_beat/time></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/pulse_heart_beat/subject></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/pulse_heart_beat/language></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/pulse_heart_beat/encoding></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/news_uk_rcp/time></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/news_uk_rcp/subject></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/news_uk_rcp/language></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/news_uk_rcp/encoding></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/pulse_oximetry/any_event:0/time></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/pulse_oximetry/subject></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/pulse_oximetry/language></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/pulse_oximetry/encoding></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/respiration/time></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/respiration/subject></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/respiration/language></mb-context>
+                    <mb-context path=covid_care_daily_sheet/vitals/respiration/encoding></mb-context>
+                    <mb-context path=covid_care_daily_sheet/lab_results/time></mb-context>
+                    <mb-context path=covid_care_daily_sheet/lab_results/subject></mb-context>
+                    <mb-context path=covid_care_daily_sheet/lab_results/language></mb-context>
+                    <mb-context path=covid_care_daily_sheet/lab_results/encoding></mb-context>
+                    <mb-context path=covid_care_daily_sheet/medication_management:0/subject></mb-context>
+                    <mb-context path=covid_care_daily_sheet/medication_management:0/language></mb-context>
+                    <mb-context path=covid_care_daily_sheet/medication_management:0/encoding></mb-context>
+                    <mb-context path=covid_care_daily_sheet/medication_management:0/time></mb-context>
+                    <mb-context path=covid_care_daily_sheet/medication_management:0/ism_transition/careflow_step
+                        id="step">
+                    </mb-context>
+                    <mb-context path=covid_care_daily_sheet/medication_management:0/ism_transition/current_state
+                        id="state">
+                    </mb-context>
+                    <mb-context path=covid_care_daily_sheet/composer></mb-context>
+                    <mb-context path=covid_care_daily_sheet/language></mb-context>
+                    <mb-context path=covid_care_daily_sheet/territory></mb-context>
+                </div>
+            </mb-form>
+
         </div>
-        <div class="field">
-          <mb-date label="Date of birth" path="birthDate"></mb-date>
-        </div>
-        <div class="field">
-          <mb-buttons type="code" label="Gender" path="gender">
-            <mb-option value="male" label="Male"></mb-option>
-            <mb-option value="female" label="Female"></mb-option>
-            <mb-option value="other" label="Other"></mb-option>
-          </mb-buttons>
-        </div>
-        <div class="field">
-          <mb-input label="Phone number" path="telecom[0].value"></mb-input>
-        </div>
-        <div class="field">
-          <mb-input path="identifier[0].value" label="Aadhar card number"></mb-input>
-          <mb-input path="identifier[0].system" class="is-hidden" data="aadhar"></mb-input>
-        </div>
-        <div class="field">
-          <mb-input label="Address" textarea path="address[0].text"></mb-input>
-        </div>
-        <label for="" class="label">Attendant information</label>
-        <div class="box">
-          <div class="field">
-            <mb-input label="Name" path="contact[0].name.given[0]"></mb-input>
-          </div>
-          <div class="field">
-            <mb-select label="Relationship" path="contact[0].relationship[0]" type="CodableConcept">
-              <mb-option value="mother" label="Mother"></mb-option>
-              <mb-option value="father" label="Father"></mb-option>
-            </mb-select>
-          </div>
-          <div class="field">
-            <mb-input label="Contact number" path="contact[0].telecom[0].value"></mb-input>
-          </div>
-        </div>
-        <div class="field">
-          <mb-submit type="primary">Save</mb-submit>
-        </div>
-      </mb-fhir-form>
     </div>
-    </div>
-  </section>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script>
-    let form = document.getElementById('form')
-    let fhirServer = axios.create({
-      baseURL: "https://medblocks4covid.aidbox.app/",
-      auth: {
-        username: 'basic',
-        password: 'secret'
-      }
-    })
-    form.addEventListener('mb-load', async () => {
-      const r = await fhirServer.get('/Patient/c8b0f871-98ed-4a5b-a977-cfa5bf0417f7')
-      const imported = form.import(r.data)
-      form.data = imported
-    })
-  </script>
+
+    <script>
+        const careflow_step = {
+            terminology: "local",
+            code: "at0109",
+            value: "Completed"
+        }
+        document.getElementById("step").data = careflow_step
+
+        const current_status = {
+            terminology: 'openehr',
+            value: 'completed',
+            code: '526'
+        }
+
+        document.getElementById("state").data = current_status
+
+
+
+    </script>
 </body>
 
 </html>

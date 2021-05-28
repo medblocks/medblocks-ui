@@ -27,12 +27,12 @@ export default class MbQuantity extends QuantityElement {
 
     sl-input {
       width: 0;
-      flex: 1 1 auto;
+      flex: 3 1 auto;
       margin-right: var(--sl-spacing-x-small);
     }
 
     sl-select {
-      flex: 1 1 auto;
+      flex: 2 1 auto;
       width: 0;
     }
   `;

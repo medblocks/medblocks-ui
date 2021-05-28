@@ -1,5 +1,5 @@
 import { css, customElement, html, state } from 'lit-element';
-import { CodedTextElement } from './CodedTextElement';
+import { CodedText, CodedTextElement } from './CodedTextElement';
 import MbOption from './option';
 import '@shoelace-style/shoelace/dist/components/button/button';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
@@ -47,11 +47,15 @@ export default class CodedTextButtons extends CodedTextElement {
   }
 
   _handleInput(option: MbOption) {
-    this.data = {
+    let data: CodedText = {
       code: option.value,
       value: option.label,
       terminology: this.terminology,
     };
+    if (option.ordinal) {
+      data = { ...data, ordinal: option.ordinal };
+    }
+    this.data = data;
   }
 
   render() {

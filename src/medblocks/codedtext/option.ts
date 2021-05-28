@@ -4,4 +4,5 @@ import { customElement, LitElement, property } from 'lit-element';
 export default class MbOption extends LitElement {
   @property({ type: String, reflect: true }) value: string;
   @property({ type: String, reflect: true }) label: string;
+  @property({ type: Number, reflect: true }) ordinal: number;
 }

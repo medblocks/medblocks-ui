@@ -265,7 +265,7 @@ export default class MbSearch extends CodedTextElement {
         <sl-input
           class=${classMap({ pointer: this._hasValue })}
           slot="trigger"
-          .label=${this.label}
+          .label=${this.label||''}
           @sl-input=${this._handleInput}
           value=${ifDefined(this._display ?? this.searchTerm ?? '')}
           ?readonly=${this._hasValue}

@@ -1,0 +1,2950 @@
+{
+  "templateId": "MCS.CovidCare.DailySheet.v0",
+  "version": "2.3",
+  "defaultLanguage": "en",
+  "languages": [
+    "en"
+  ],
+  "tree": {
+    "id": "covid_care_daily_sheet",
+    "name": "Covid Care Daily Sheet",
+    "localizedName": "Covid Care Daily Sheet",
+    "rmType": "COMPOSITION",
+    "nodeId": "openEHR-EHR-COMPOSITION.encounter.v1",
+    "min": 1,
+    "max": 1,
+    "localizedNames": {
+      "en": "Covid Care Daily Sheet"
+    },
+    "localizedDescriptions": {
+      "en": "Interaction, contact or care event between a subject of care and healthcare provider(s)."
+    },
+    "aqlPath": "",
+    "children": [
+      {
+        "id": "category",
+        "name": "category",
+        "localizedName": "category",
+        "rmType": "DV_CODED_TEXT",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/category",
+        "inputs": [
+          {
+            "suffix": "code",
+            "type": "CODED_TEXT",
+            "list": [
+              {
+                "value": "433",
+                "label": "event",
+                "localizedLabels": {
+                  "en": "event"
+                }
+              }
+            ],
+            "terminology": "openehr"
+          }
+        ],
+        "inContext": true
+      },
+      {
+        "id": "context",
+        "name": "context",
+        "localizedName": "context",
+        "rmType": "EVENT_CONTEXT",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/context",
+        "children": [
+          {
+            "id": "start_time",
+            "name": "start_time",
+            "rmType": "DV_DATE_TIME",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/context/start_time",
+            "inputs": [
+              {
+                "type": "DATETIME"
+              }
+            ],
+            "inContext": true
+          },
+          {
+            "id": "setting",
+            "name": "setting",
+            "rmType": "DV_CODED_TEXT",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/context/setting",
+            "inputs": [
+              {
+                "suffix": "code",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "value",
+                "type": "TEXT"
+              }
+            ],
+            "inContext": true
+          }
+        ]
+      },
+      {
+        "id": "vitals",
+        "name": "Vitals",
+        "localizedName": "Vitals",
+        "rmType": "SECTION",
+        "nodeId": "openEHR-EHR-SECTION.adhoc.v1",
+        "min": 0,
+        "max": 1,
+        "localizedNames": {
+          "en": "Vitals"
+        },
+        "localizedDescriptions": {
+          "en": "A generic section header which should be renamed in a template to suit a specific clinical context."
+        },
+        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']",
+        "children": [
+          {
+            "id": "body_temperature",
+            "name": "Body temperature",
+            "localizedName": "Body temperature",
+            "rmType": "OBSERVATION",
+            "nodeId": "openEHR-EHR-OBSERVATION.body_temperature.v2",
+            "min": 0,
+            "max": 1,
+            "localizedNames": {
+              "en": "Body temperature"
+            },
+            "localizedDescriptions": {
+              "en": "A measurement of the body temperature, which is a surrogate for the core body temperature of the individual."
+            },
+            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.body_temperature.v2]",
+            "children": [
+              {
+                "id": "temperature",
+                "name": "Temperature",
+                "localizedName": "Temperature",
+                "rmType": "DV_QUANTITY",
+                "min": 1,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Temperature"
+                },
+                "localizedDescriptions": {
+                  "en": "The measured temperature."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.body_temperature.v2]/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value",
+                "inputs": [
+                  {
+                    "suffix": "magnitude",
+                    "type": "DECIMAL"
+                  },
+                  {
+                    "suffix": "unit",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "Cel",
+                        "label": "Cel",
+                        "localizedLabels": {
+                          "en": "°C"
+                        },
+                        "validation": {
+                          "precision": {
+                            "min": 1,
+                            "minOp": ">=",
+                            "max": 1,
+                            "maxOp": "<="
+                          },
+                          "range": {
+                            "min": 0,
+                            "minOp": ">=",
+                            "max": 100,
+                            "maxOp": "<"
+                          }
+                        }
+                      },
+                      {
+                        "value": "[degF]",
+                        "label": "[degF]",
+                        "localizedLabels": {
+                          "en": "°F"
+                        },
+                        "validation": {
+                          "precision": {
+                            "min": 1,
+                            "minOp": ">=",
+                            "max": 1,
+                            "maxOp": "<="
+                          },
+                          "range": {
+                            "min": 30,
+                            "minOp": ">=",
+                            "max": 200,
+                            "maxOp": "<"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "time",
+                "name": "time",
+                "rmType": "DV_DATE_TIME",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.body_temperature.v2]/data[at0002]/events[at0003]/time",
+                "inputs": [
+                  {
+                    "type": "DATETIME"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "subject",
+                "name": "subject",
+                "rmType": "PARTY_PROXY",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.body_temperature.v2]/subject",
+                "inputs": [
+                  {
+                    "suffix": "id",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_scheme",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_namespace",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "name",
+                    "type": "TEXT"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "language",
+                "name": "language",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.body_temperature.v2]/language",
+                "inContext": true
+              },
+              {
+                "id": "encoding",
+                "name": "encoding",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.body_temperature.v2]/encoding",
+                "inContext": true
+              }
+            ]
+          },
+          {
+            "id": "blood_pressure",
+            "name": "Blood pressure",
+            "localizedName": "Blood pressure",
+            "rmType": "OBSERVATION",
+            "nodeId": "openEHR-EHR-OBSERVATION.blood_pressure.v2",
+            "min": 0,
+            "max": 1,
+            "localizedNames": {
+              "en": "Blood pressure"
+            },
+            "localizedDescriptions": {
+              "en": "The local measurement of arterial blood pressure which is a surrogate for arterial pressure in the systemic circulation."
+            },
+            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.blood_pressure.v2]",
+            "children": [
+              {
+                "id": "systolic",
+                "name": "Systolic",
+                "localizedName": "Systolic",
+                "rmType": "DV_QUANTITY",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Systolic"
+                },
+                "localizedDescriptions": {
+                  "en": "Peak systemic arterial blood pressure  - measured in systolic or contraction phase of the heart cycle."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.blood_pressure.v2]/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value",
+                "inputs": [
+                  {
+                    "suffix": "magnitude",
+                    "type": "DECIMAL",
+                    "validation": {
+                      "precision": {
+                        "min": 0,
+                        "minOp": ">=",
+                        "max": 0,
+                        "maxOp": "<="
+                      },
+                      "range": {
+                        "min": 0,
+                        "minOp": ">=",
+                        "max": 1000,
+                        "maxOp": "<"
+                      }
+                    }
+                  },
+                  {
+                    "suffix": "unit",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "mm[Hg]",
+                        "label": "mm[Hg]",
+                        "localizedLabels": {
+                          "en": "mmHg"
+                        },
+                        "validation": {
+                          "precision": {
+                            "min": 0,
+                            "minOp": ">=",
+                            "max": 0,
+                            "maxOp": "<="
+                          },
+                          "range": {
+                            "min": 0,
+                            "minOp": ">=",
+                            "max": 1000,
+                            "maxOp": "<"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "diastolic",
+                "name": "Diastolic",
+                "localizedName": "Diastolic",
+                "rmType": "DV_QUANTITY",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Diastolic"
+                },
+                "localizedDescriptions": {
+                  "en": "Minimum systemic arterial blood pressure - measured in the diastolic or relaxation phase of the heart cycle."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.blood_pressure.v2]/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value",
+                "inputs": [
+                  {
+                    "suffix": "magnitude",
+                    "type": "DECIMAL",
+                    "validation": {
+                      "precision": {
+                        "min": 0,
+                        "minOp": ">=",
+                        "max": 0,
+                        "maxOp": "<="
+                      },
+                      "range": {
+                        "min": 0,
+                        "minOp": ">=",
+                        "max": 1000,
+                        "maxOp": "<"
+                      }
+                    }
+                  },
+                  {
+                    "suffix": "unit",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "mm[Hg]",
+                        "label": "mm[Hg]",
+                        "localizedLabels": {
+                          "en": "mmHg"
+                        },
+                        "validation": {
+                          "precision": {
+                            "min": 0,
+                            "minOp": ">=",
+                            "max": 0,
+                            "maxOp": "<="
+                          },
+                          "range": {
+                            "min": 0,
+                            "minOp": ">=",
+                            "max": 1000,
+                            "maxOp": "<"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "time",
+                "name": "time",
+                "rmType": "DV_DATE_TIME",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.blood_pressure.v2]/data[at0001]/events[at0006]/time",
+                "inputs": [
+                  {
+                    "type": "DATETIME"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "subject",
+                "name": "subject",
+                "rmType": "PARTY_PROXY",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.blood_pressure.v2]/subject",
+                "inputs": [
+                  {
+                    "suffix": "id",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_scheme",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_namespace",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "name",
+                    "type": "TEXT"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "language",
+                "name": "language",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.blood_pressure.v2]/language",
+                "inContext": true
+              },
+              {
+                "id": "encoding",
+                "name": "encoding",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.blood_pressure.v2]/encoding",
+                "inContext": true
+              }
+            ],
+            "annotations": {
+              "comment": "Most commonly, use of the term 'blood pressure' refers to measurement of brachial artery pressure in the upper arm."
+            }
+          },
+          {
+            "id": "pulse_heart_beat",
+            "name": "Pulse/Heart beat",
+            "localizedName": "Pulse/Heart beat",
+            "rmType": "OBSERVATION",
+            "nodeId": "openEHR-EHR-OBSERVATION.pulse.v2",
+            "min": 0,
+            "max": 1,
+            "localizedNames": {
+              "en": "Pulse/Heart beat"
+            },
+            "localizedDescriptions": {
+              "en": "The rate and associated attributes for a pulse or heart beat."
+            },
+            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse.v2]",
+            "children": [
+              {
+                "id": "rate",
+                "name": "Rate",
+                "localizedName": "Rate",
+                "rmType": "DV_QUANTITY",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Rate"
+                },
+                "localizedDescriptions": {
+                  "en": "The rate of the pulse or heart beat, measured in beats per minute."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse.v2]/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value",
+                "inputs": [
+                  {
+                    "suffix": "magnitude",
+                    "type": "DECIMAL",
+                    "validation": {
+                      "precision": {
+                        "min": 0,
+                        "minOp": ">=",
+                        "max": 0,
+                        "maxOp": "<="
+                      },
+                      "range": {
+                        "min": 0,
+                        "minOp": ">=",
+                        "max": 1000,
+                        "maxOp": "<"
+                      }
+                    }
+                  },
+                  {
+                    "suffix": "unit",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "/min",
+                        "label": "/min",
+                        "validation": {
+                          "precision": {
+                            "min": 0,
+                            "minOp": ">=",
+                            "max": 0,
+                            "maxOp": "<="
+                          },
+                          "range": {
+                            "min": 0,
+                            "minOp": ">=",
+                            "max": 1000,
+                            "maxOp": "<"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "time",
+                "name": "time",
+                "rmType": "DV_DATE_TIME",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse.v2]/data[at0002]/events[at0003]/time",
+                "inputs": [
+                  {
+                    "type": "DATETIME"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "subject",
+                "name": "subject",
+                "rmType": "PARTY_PROXY",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse.v2]/subject",
+                "inputs": [
+                  {
+                    "suffix": "id",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_scheme",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_namespace",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "name",
+                    "type": "TEXT"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "language",
+                "name": "language",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse.v2]/language",
+                "inContext": true
+              },
+              {
+                "id": "encoding",
+                "name": "encoding",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse.v2]/encoding",
+                "inContext": true
+              }
+            ]
+          },
+          {
+            "id": "news_uk_rcp",
+            "name": "NEWS (UK RCP)",
+            "localizedName": "NEWS (UK RCP)",
+            "rmType": "OBSERVATION",
+            "nodeId": "openEHR-EHR-OBSERVATION.news_uk_rcp.v1",
+            "min": 0,
+            "max": 1,
+            "localizedNames": {
+              "en": "NEWS (UK RCP)"
+            },
+            "localizedDescriptions": {
+              "en": "NEWS (National Early Warning Score) is a simple score used to provide an objective indication of a patient's degree of clinical deterioration. This version follows guidance issued by the UK Royal College of Physicians."
+            },
+            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]",
+            "children": [
+              {
+                "id": "respiration_rate",
+                "name": "Respiration rate",
+                "localizedName": "Respiration rate",
+                "rmType": "DV_ORDINAL",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Respiration rate"
+                },
+                "localizedDescriptions": {
+                  "en": "Range category for the respiratory rate (RR) measurement of a patient."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value",
+                "inputs": [
+                  {
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "at0018",
+                        "label": "12-20",
+                        "localizedLabels": {
+                          "en": "12-20"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The respiratory rate measurement is between 12 and 20 breaths/min; scored as 0 points."
+                        },
+                        "ordinal": 0
+                      },
+                      {
+                        "value": "at0019",
+                        "label": "9-11",
+                        "localizedLabels": {
+                          "en": "9-11"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The respiratory rate measurement is between 9 and 11 breaths/min; scored as 1 point."
+                        },
+                        "ordinal": 1
+                      },
+                      {
+                        "value": "at0020",
+                        "label": "21-24",
+                        "localizedLabels": {
+                          "en": "21-24"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The respiratory rate measurement is between 21 and 24 breaths/min; scored as 2 points."
+                        },
+                        "ordinal": 2
+                      },
+                      {
+                        "value": "at0021",
+                        "label": "<=8 or >=25",
+                        "localizedLabels": {
+                          "en": "<=8 or >=25"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The respiratory rate measurement is less than/equal to 8 breaths/min or greater than/equal to 25 breaths/min; scored as 3 points."
+                        },
+                        "ordinal": 3
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "oxygen_saturation",
+                "name": "Oxygen saturation",
+                "localizedName": "Oxygen saturation",
+                "rmType": "DV_ORDINAL",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Oxygen saturation"
+                },
+                "localizedDescriptions": {
+                  "en": "Range category for the oxygen saturation measurement of a patient."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0029]/value",
+                "inputs": [
+                  {
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "at0030",
+                        "label": ">= 96",
+                        "localizedLabels": {
+                          "en": ">= 96"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The oxygen saturation level is greater than/equal to 96%;scored as 0 points."
+                        },
+                        "ordinal": 0
+                      },
+                      {
+                        "value": "at0031",
+                        "label": "94-95",
+                        "localizedLabels": {
+                          "en": "94-95"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The oxygen saturation level is between 94% and 95%; scored as 1 point."
+                        },
+                        "ordinal": 1
+                      },
+                      {
+                        "value": "at0032",
+                        "label": "92-93",
+                        "localizedLabels": {
+                          "en": "92-93"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The oxygen saturation level is between 92% and 93%; scored as 2 points."
+                        },
+                        "ordinal": 2
+                      },
+                      {
+                        "value": "at0033",
+                        "label": "<=91",
+                        "localizedLabels": {
+                          "en": "<=91"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The oxygen saturation level is less than/equal to 91%; scored as 3 points."
+                        },
+                        "ordinal": 3
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "supplemental_oxygen",
+                "name": "Supplemental oxygen",
+                "localizedName": "Supplemental oxygen",
+                "rmType": "DV_ORDINAL",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Supplemental oxygen"
+                },
+                "localizedDescriptions": {
+                  "en": "Range category depending on whether the patient is receiving supplemental oxygen."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0034]/value",
+                "inputs": [
+                  {
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "at0036",
+                        "label": "No",
+                        "localizedLabels": {
+                          "en": "No"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The patient is not receiving supplemental oxygen; scored as 0 points."
+                        },
+                        "ordinal": 0
+                      },
+                      {
+                        "value": "at0037",
+                        "label": "Yes",
+                        "localizedLabels": {
+                          "en": "Yes"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The patient is receiving supplemental oxygen; scored as 2 points."
+                        },
+                        "ordinal": 2
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "body_temperature",
+                "name": "Body temperature",
+                "localizedName": "Body temperature",
+                "rmType": "DV_ORDINAL",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Body temperature"
+                },
+                "localizedDescriptions": {
+                  "en": "Range category for the body temperature (Temp) measurement of a patient."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0007]/value",
+                "inputs": [
+                  {
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "at0022",
+                        "label": "36.1-38.0",
+                        "localizedLabels": {
+                          "en": "36.1-38.0"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The body temperature measurement is between 36.1 and 38.0 degrees Celsius; scored as 0 points."
+                        },
+                        "ordinal": 0
+                      },
+                      {
+                        "value": "at0023",
+                        "label": "35.1-36.0 or 38.1-39.0",
+                        "localizedLabels": {
+                          "en": "35.1-36.0 or 38.1-39.0"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The body temperature measurement is between 35.1 and 36.0 degrees Celsius or between 38.1 and 39.0 degrees Celsius; scored as 1 point."
+                        },
+                        "ordinal": 1
+                      },
+                      {
+                        "value": "at0038",
+                        "label": ">=39.1",
+                        "localizedLabels": {
+                          "en": ">=39.1"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The body temperature is greater than/equal to 39.1 degrees Celcius; scored as 2 points."
+                        },
+                        "ordinal": 2
+                      },
+                      {
+                        "value": "at0039",
+                        "label": "<=35.0",
+                        "localizedLabels": {
+                          "en": "<=35.0"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The body temperature is less than/equal to 35 degrees Celcius ; scored as 3 points."
+                        },
+                        "ordinal": 3
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "systolic_blood_pressure",
+                "name": "Systolic blood pressure",
+                "localizedName": "Systolic blood pressure",
+                "rmType": "DV_ORDINAL",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Systolic blood pressure"
+                },
+                "localizedDescriptions": {
+                  "en": "Range category for the systolic blood pressure (SBP) measurement of a patient."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value",
+                "inputs": [
+                  {
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "at0014",
+                        "label": "111-219",
+                        "localizedLabels": {
+                          "en": "111-219"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The systolic blood pressure measurement is between 111 and 219 mmHg; scored as 0 points."
+                        },
+                        "ordinal": 0
+                      },
+                      {
+                        "value": "at0015",
+                        "label": "101-110",
+                        "localizedLabels": {
+                          "en": "101-110"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The systolic blood pressure measurement is between 101 and 110 mmHg; scored as 1 point."
+                        },
+                        "ordinal": 1
+                      },
+                      {
+                        "value": "at0016",
+                        "label": "91-100",
+                        "localizedLabels": {
+                          "en": "91-100"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The systolic blood pressure measurement is between 91 and 100 mmHg; scored as 2 points."
+                        },
+                        "ordinal": 2
+                      },
+                      {
+                        "value": "at0017",
+                        "label": "<=90 or >= 220",
+                        "localizedLabels": {
+                          "en": "<=90 or >= 220"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The systolic blood pressure measurement is less than/equal to 90 mmHg or greater than/equal to 220 mmHg; scored as 3 points."
+                        },
+                        "ordinal": 3
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "heart_rate",
+                "name": "Heart rate",
+                "localizedName": "Heart rate",
+                "rmType": "DV_ORDINAL",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Heart rate"
+                },
+                "localizedDescriptions": {
+                  "en": "Range category for the heart rate (HR) measurement of a patient."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0005]/value",
+                "inputs": [
+                  {
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "at0013",
+                        "label": "51-90",
+                        "localizedLabels": {
+                          "en": "51-90"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The heart rate measurement is between 51 and 90 beats/min; scored as 0 points."
+                        },
+                        "ordinal": 0
+                      },
+                      {
+                        "value": "at0012",
+                        "label": "41-50 or 91-110",
+                        "localizedLabels": {
+                          "en": "41-50 or 91-110"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The heart rate measurement is between 41 and 50 beats/min or between 91 and 110 beats/min; scored as 1 point."
+                        },
+                        "ordinal": 1
+                      },
+                      {
+                        "value": "at0011",
+                        "label": "111-130",
+                        "localizedLabels": {
+                          "en": "111-130"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The heart rate measurement is between 111 and 130 beats/min; scored as 2 points."
+                        },
+                        "ordinal": 2
+                      },
+                      {
+                        "value": "at0010",
+                        "label": "<=40 or >=131",
+                        "localizedLabels": {
+                          "en": "<=40 or >=131"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The heart rate measurement is less than/equal to 40 beats/min or greater than/equal to 131 beats/min; scored as 3 points."
+                        },
+                        "ordinal": 3
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "level_of_consciousness",
+                "name": "Level of consciousness",
+                "localizedName": "Level of consciousness",
+                "rmType": "DV_ORDINAL",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Level of consciousness"
+                },
+                "localizedDescriptions": {
+                  "en": "Observed category for the AVPU scale rating of a patient's conscious state."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0008]/value",
+                "inputs": [
+                  {
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "at0024",
+                        "label": "A",
+                        "localizedLabels": {
+                          "en": "A"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The patient is alert or awake; scored as 0 points."
+                        },
+                        "ordinal": 0
+                      },
+                      {
+                        "value": "at0025",
+                        "label": "V, P or U",
+                        "localizedLabels": {
+                          "en": "V, P or U"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The patient responds only to voice or pain, or is unresponsive; scored as 3 points."
+                        },
+                        "ordinal": 3
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "total_score",
+                "name": "Total score",
+                "localizedName": "Total score",
+                "rmType": "DV_COUNT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Total score"
+                },
+                "localizedDescriptions": {
+                  "en": "The total sum of all the NEWS parameter ordinals."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0028]/value",
+                "inputs": [
+                  {
+                    "type": "INTEGER",
+                    "validation": {
+                      "range": {
+                        "min": 0,
+                        "minOp": ">=",
+                        "max": 20,
+                        "maxOp": "<="
+                      }
+                    }
+                  }
+                ],
+                "annotations": {
+                  "comment": "Total score may be generated at run-time."
+                }
+              },
+              {
+                "id": "clinical_risk_category",
+                "name": "Clinical risk category",
+                "localizedName": "Clinical risk category",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Clinical risk category"
+                },
+                "localizedDescriptions": {
+                  "en": "Overall category representing the urgency and scale of the clinical response required in response to the physiological parameters."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0047]/value",
+                "inputs": [
+                  {
+                    "suffix": "code",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "at0048",
+                        "label": "Low",
+                        "localizedLabels": {
+                          "en": "Low"
+                        },
+                        "localizedDescriptions": {
+                          "en": "Ward-based response."
+                        }
+                      },
+                      {
+                        "value": "at0049",
+                        "label": "Low-medium",
+                        "localizedLabels": {
+                          "en": "Low-medium"
+                        },
+                        "localizedDescriptions": {
+                          "en": "Urgent ward-based response."
+                        }
+                      },
+                      {
+                        "value": "at0050",
+                        "label": "Medium",
+                        "localizedLabels": {
+                          "en": "Medium"
+                        },
+                        "localizedDescriptions": {
+                          "en": "Key threshold for urgent response."
+                        }
+                      },
+                      {
+                        "value": "at0051",
+                        "label": "High",
+                        "localizedLabels": {
+                          "en": "High"
+                        },
+                        "localizedDescriptions": {
+                          "en": "Urgent or emergency response."
+                        }
+                      }
+                    ],
+                    "terminology": "local"
+                  }
+                ]
+              },
+              {
+                "id": "comment",
+                "name": "Comment",
+                "localizedName": "Comment",
+                "rmType": "DV_TEXT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Comment"
+                },
+                "localizedDescriptions": {
+                  "en": "Additional narrative about the overall NEWS score not captured in other fields."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0044]/value",
+                "inputs": [
+                  {
+                    "type": "TEXT"
+                  }
+                ]
+              },
+              {
+                "id": "confounding_factors",
+                "name": "Confounding factors",
+                "localizedName": "Confounding factors",
+                "rmType": "DV_TEXT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Confounding factors"
+                },
+                "localizedDescriptions": {
+                  "en": "Description of any incidental factors that may have contributed to the score."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/state[at0041]/items[at0043]/value",
+                "inputs": [
+                  {
+                    "type": "TEXT"
+                  }
+                ],
+                "annotations": {
+                  "comment": "For example: If the patient has COPD."
+                }
+              },
+              {
+                "id": "time",
+                "name": "time",
+                "rmType": "DV_DATE_TIME",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/data[at0001]/events[at0002]/time",
+                "inputs": [
+                  {
+                    "type": "DATETIME"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "subject",
+                "name": "subject",
+                "rmType": "PARTY_PROXY",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/subject",
+                "inputs": [
+                  {
+                    "suffix": "id",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_scheme",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_namespace",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "name",
+                    "type": "TEXT"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "language",
+                "name": "language",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/language",
+                "inContext": true
+              },
+              {
+                "id": "encoding",
+                "name": "encoding",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]/encoding",
+                "inContext": true
+              }
+            ]
+          },
+          {
+            "id": "pulse_oximetry",
+            "name": "Pulse oximetry",
+            "localizedName": "Pulse oximetry",
+            "rmType": "OBSERVATION",
+            "nodeId": "openEHR-EHR-OBSERVATION.pulse_oximetry.v1",
+            "min": 0,
+            "max": 1,
+            "localizedNames": {
+              "en": "Pulse oximetry"
+            },
+            "localizedDescriptions": {
+              "en": "Blood oxygen and related measurements, measured by pulse oximetry or pulse CO-oximetry."
+            },
+            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]",
+            "children": [
+              {
+                "id": "any_event",
+                "name": "Any event",
+                "localizedName": "Any event",
+                "rmType": "EVENT",
+                "nodeId": "at0002",
+                "min": 0,
+                "max": -1,
+                "localizedNames": {
+                  "en": "Any event"
+                },
+                "localizedDescriptions": {
+                  "en": "Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]/data[at0001]/events[at0002]",
+                "children": [
+                  {
+                    "id": "spo",
+                    "name": "SpO₂",
+                    "localizedName": "SpO₂",
+                    "rmType": "DV_PROPORTION",
+                    "min": 0,
+                    "max": 1,
+                    "localizedNames": {
+                      "en": "SpO₂"
+                    },
+                    "localizedDescriptions": {
+                      "en": "The saturation of oxygen in the peripheral blood, measured via pulse oximetry."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value",
+                    "inputs": [
+                      {
+                        "suffix": "numerator",
+                        "type": "DECIMAL",
+                        "validation": {
+                          "range": {
+                            "min": 0,
+                            "minOp": ">=",
+                            "max": 100,
+                            "maxOp": "<="
+                          }
+                        }
+                      },
+                      {
+                        "suffix": "denominator",
+                        "type": "DECIMAL",
+                        "validation": {
+                          "range": {
+                            "min": 100,
+                            "minOp": ">=",
+                            "max": 100,
+                            "maxOp": "<="
+                          }
+                        }
+                      }
+                    ],
+                    "annotations": {
+                      "comment": "SpO₂ is defined as the percentage of oxyhaemoglobin (HbO₂) to the total concentration of haemoglobin (HbO₂ + deoxyhaemoglobin) in peripheral blood."
+                    },
+                    "proportionTypes": [
+                      "percent"
+                    ]
+                  },
+                  {
+                    "id": "inspired_oxygen",
+                    "name": "Inspired oxygen",
+                    "localizedName": "Inspired oxygen",
+                    "rmType": "CLUSTER",
+                    "nodeId": "openEHR-EHR-CLUSTER.inspired_oxygen.v1",
+                    "min": 0,
+                    "max": 1,
+                    "localizedNames": {
+                      "en": "Inspired oxygen"
+                    },
+                    "localizedDescriptions": {
+                      "en": "The amount of oxygen being delivered, or to be delivered, to the patient given as a fraction, percentage or indirectly as a flow rate."
+                    },
+                    "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]/data[at0001]/events[at0002]/state[at0014]/items[openEHR-EHR-CLUSTER.inspired_oxygen.v1]",
+                    "children": [
+                      {
+                        "id": "flow_rate",
+                        "name": "Flow rate",
+                        "localizedName": "Flow rate",
+                        "rmType": "DV_QUANTITY",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                          "en": "Flow rate"
+                        },
+                        "localizedDescriptions": {
+                          "en": "Oxygen flow rate given to an individual."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]/data[at0001]/events[at0002]/state[at0014]/items[openEHR-EHR-CLUSTER.inspired_oxygen.v1]/items[at0051]/value",
+                        "inputs": [
+                          {
+                            "suffix": "magnitude",
+                            "type": "DECIMAL"
+                          },
+                          {
+                            "suffix": "unit",
+                            "type": "CODED_TEXT",
+                            "list": [
+                              {
+                                "value": "ml/min",
+                                "label": "ml/min",
+                                "validation": {
+                                  "precision": {
+                                    "min": 2,
+                                    "minOp": ">=",
+                                    "max": 2,
+                                    "maxOp": "<="
+                                  },
+                                  "range": {
+                                    "min": 0,
+                                    "minOp": ">=",
+                                    "max": 50000,
+                                    "maxOp": "<="
+                                  }
+                                }
+                              },
+                              {
+                                "value": "l/min",
+                                "label": "l/min",
+                                "validation": {
+                                  "precision": {
+                                    "min": 2,
+                                    "minOp": ">=",
+                                    "max": 2,
+                                    "maxOp": "<="
+                                  },
+                                  "range": {
+                                    "min": 0,
+                                    "minOp": ">=",
+                                    "max": 50,
+                                    "maxOp": "<="
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "annotations": {
+                          "comment": "For example '5 l/min'."
+                        }
+                      },
+                      {
+                        "id": "percent_o",
+                        "name": "Percent O₂",
+                        "localizedName": "Percent O₂",
+                        "rmType": "DV_PROPORTION",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                          "en": "Percent O₂"
+                        },
+                        "localizedDescriptions": {
+                          "en": "Percentage of oxygen in inspired air."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]/data[at0001]/events[at0002]/state[at0014]/items[openEHR-EHR-CLUSTER.inspired_oxygen.v1]/items[at0053]/value",
+                        "inputs": [
+                          {
+                            "suffix": "numerator",
+                            "type": "DECIMAL",
+                            "validation": {
+                              "range": {
+                                "min": 0,
+                                "minOp": ">=",
+                                "max": 100,
+                                "maxOp": "<="
+                              }
+                            }
+                          },
+                          {
+                            "suffix": "denominator",
+                            "type": "DECIMAL",
+                            "validation": {
+                              "range": {
+                                "min": 100,
+                                "minOp": ">=",
+                                "max": 100,
+                                "maxOp": "<="
+                              }
+                            }
+                          }
+                        ],
+                        "annotations": {
+                          "comment": "For example: '24 %'"
+                        },
+                        "proportionTypes": [
+                          "percent"
+                        ]
+                      },
+                      {
+                        "id": "on_air",
+                        "name": "On air",
+                        "localizedName": "On air",
+                        "rmType": "DV_BOOLEAN",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                          "en": "On air"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The patient is receiving air, equivalent to 21% O₂ or 0.21 FiO₂ and an oxygen flow rate of 0 litres per minute."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]/data[at0001]/events[at0002]/state[at0014]/items[openEHR-EHR-CLUSTER.inspired_oxygen.v1]/items[at0057]/value",
+                        "inputs": [
+                          {
+                            "type": "BOOLEAN"
+                          }
+                        ],
+                        "annotations": {
+                          "comment": "Where 'On air' is set to true, Flow rate, FiO₂ and Percent O₂ should not be recorded. Conversely 'On air' should be omitted if Flow rate, FiO₂ or Percent O₂ are recorded."
+                        }
+                      },
+                      {
+                        "id": "method_of_oxygen_delivery",
+                        "name": "Method of oxygen delivery",
+                        "localizedName": "Method of oxygen delivery",
+                        "rmType": "DV_TEXT",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                          "en": "Method of oxygen delivery"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The method used to deliver the oxygen."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]/data[at0001]/events[at0002]/state[at0014]/items[openEHR-EHR-CLUSTER.inspired_oxygen.v1]/items[at0054]/value",
+                        "inputs": [
+                          {
+                            "type": "TEXT"
+                          }
+                        ],
+                        "annotations": {
+                          "comment": "Intended to capture only simple description / terms, for example: 'nasal prongs'. The 'Oxygen delivery detail' slot may be used for more detailed or complex recording."
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "time",
+                    "name": "time",
+                    "rmType": "DV_DATE_TIME",
+                    "min": 1,
+                    "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]/data[at0001]/events[at0002]/time",
+                    "inputs": [
+                      {
+                        "type": "DATETIME"
+                      }
+                    ],
+                    "inContext": true
+                  }
+                ]
+              },
+              {
+                "id": "subject",
+                "name": "subject",
+                "rmType": "PARTY_PROXY",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]/subject",
+                "inputs": [
+                  {
+                    "suffix": "id",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_scheme",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_namespace",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "name",
+                    "type": "TEXT"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "language",
+                "name": "language",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]/language",
+                "inContext": true
+              },
+              {
+                "id": "encoding",
+                "name": "encoding",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.pulse_oximetry.v1]/encoding",
+                "inContext": true
+              }
+            ]
+          },
+          {
+            "id": "respiration",
+            "name": "Respiration",
+            "localizedName": "Respiration",
+            "rmType": "OBSERVATION",
+            "nodeId": "openEHR-EHR-OBSERVATION.respiration.v2",
+            "min": 0,
+            "max": 1,
+            "localizedNames": {
+              "en": "Respiration"
+            },
+            "localizedDescriptions": {
+              "en": "The characteristics of spontaneous breathing by an individual."
+            },
+            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.respiration.v2]",
+            "children": [
+              {
+                "id": "rate",
+                "name": "Rate",
+                "localizedName": "Rate",
+                "rmType": "DV_QUANTITY",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Rate"
+                },
+                "localizedDescriptions": {
+                  "en": "The frequency of spontaneous breathing."
+                },
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.respiration.v2]/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value",
+                "inputs": [
+                  {
+                    "suffix": "magnitude",
+                    "type": "DECIMAL",
+                    "validation": {
+                      "precision": {
+                        "min": 0,
+                        "minOp": ">=",
+                        "max": 0,
+                        "maxOp": "<="
+                      },
+                      "range": {
+                        "min": 0,
+                        "minOp": ">=",
+                        "max": 200,
+                        "maxOp": "<="
+                      }
+                    }
+                  },
+                  {
+                    "suffix": "unit",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "/min",
+                        "label": "/min",
+                        "validation": {
+                          "precision": {
+                            "min": 0,
+                            "minOp": ">=",
+                            "max": 0,
+                            "maxOp": "<="
+                          },
+                          "range": {
+                            "min": 0,
+                            "minOp": ">=",
+                            "max": 200,
+                            "maxOp": "<="
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "time",
+                "name": "time",
+                "rmType": "DV_DATE_TIME",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.respiration.v2]/data[at0001]/events[at0002]/time",
+                "inputs": [
+                  {
+                    "type": "DATETIME"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "subject",
+                "name": "subject",
+                "rmType": "PARTY_PROXY",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.respiration.v2]/subject",
+                "inputs": [
+                  {
+                    "suffix": "id",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_scheme",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "id_namespace",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "name",
+                    "type": "TEXT"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "language",
+                "name": "language",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.respiration.v2]/language",
+                "inContext": true
+              },
+              {
+                "id": "encoding",
+                "name": "encoding",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1,'Vitals']/items[openEHR-EHR-OBSERVATION.respiration.v2]/encoding",
+                "inContext": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "lab_results",
+        "name": "Lab Results",
+        "localizedName": "Lab Results",
+        "rmType": "OBSERVATION",
+        "nodeId": "openEHR-EHR-OBSERVATION.laboratory_test_result.v1",
+        "min": 0,
+        "max": 1,
+        "localizedNames": {
+          "en": "Lab Results"
+        },
+        "localizedDescriptions": {
+          "en": "The result, including findings and the laboratory's interpretation, of an investigation performed on specimens collected from an individual or related to that individual."
+        },
+        "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']",
+        "children": [
+          {
+            "id": "test_name",
+            "name": "Test name",
+            "localizedName": "Test name",
+            "rmType": "DV_TEXT",
+            "min": 1,
+            "max": 1,
+            "localizedNames": {
+              "en": "Test name"
+            },
+            "localizedDescriptions": {
+              "en": "Name of the laboratory investigation performed on the specimen(s)."
+            },
+            "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[at0005]/value",
+            "inputs": [
+              {
+                "type": "TEXT"
+              }
+            ],
+            "annotations": {
+              "comment": "A test result may be for a single analyte, or a group of items, including panel tests. It is strongly recommended that 'Test name' be coded with a terminology, for example LOINC or SNOMED CT. For example: 'Glucose', 'Urea and Electrolytes', 'Swab', 'Cortisol (am)', 'Potassium in perspiration' or 'Melanoma histopathology'. The name may sometimes include specimen type and patient state, for example 'Fasting blood glucose' or include other information, as 'Potassium (PNA blood gas)'."
+            }
+          },
+          {
+            "id": "fasting_glucose",
+            "name": "Fasting Glucose",
+            "localizedName": "Fasting Glucose",
+            "rmType": "CLUSTER",
+            "nodeId": "openEHR-EHR-CLUSTER.laboratory_test_analyte.v1",
+            "min": 0,
+            "max": -1,
+            "localizedNames": {
+              "en": "Fasting Glucose"
+            },
+            "localizedDescriptions": {
+              "en": "The result of a laboratory test for a single analyte value."
+            },
+            "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'Fasting Glucose']",
+            "children": [
+              {
+                "id": "analyte_name",
+                "name": "Analyte name",
+                "localizedName": "Analyte name",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Analyte name"
+                },
+                "localizedDescriptions": {
+                  "en": "The name of the analyte result."
+                },
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'Fasting Glucose']/items[at0024]/value",
+                "inputs": [
+                  {
+                    "suffix": "code",
+                    "type": "TEXT",
+                    "terminology": "LOINC"
+                  },
+                  {
+                    "suffix": "value",
+                    "type": "TEXT",
+                    "terminology": "LOINC"
+                  }
+                ],
+                "annotations": {
+                  "comment": "The value for this element is normally supplied in a specialisation, in a template or at run-time to reflect the actual analyte. For example: 'Serum sodium', 'Haemoglobin'. Coding with an external terminology is strongly recommended, such as LOINC, NPU, SNOMED CT, or local lab terminologies."
+                }
+              },
+              {
+                "id": "analyte_result",
+                "name": "Analyte result",
+                "localizedName": "Analyte result",
+                "rmType": "DV_QUANTITY",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Analyte result"
+                },
+                "localizedDescriptions": {
+                  "en": "The value of the analyte result."
+                },
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'Fasting Glucose']/items[at0001]/value",
+                "inputs": [
+                  {
+                    "suffix": "magnitude",
+                    "type": "DECIMAL"
+                  },
+                  {
+                    "suffix": "unit",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "mg/dl",
+                        "label": "mg/dl"
+                      }
+                    ]
+                  }
+                ],
+                "annotations": {
+                  "comment": "For example '7.3 mmol/l', 'Raised'. The 'Any' data type will need to be constrained to an appropriate data type in a specialisation, a template or at run-time to reflect the actual analyte result. The Quantity data type has reference model attributes that include flags for normal/abnormal, reference ranges and approximations - see https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_quantity_class for more details."
+                }
+              }
+            ]
+          },
+          {
+            "id": "postprandial_blood_sugar",
+            "name": "Postprandial Blood Sugar",
+            "localizedName": "Postprandial Blood Sugar",
+            "rmType": "CLUSTER",
+            "nodeId": "openEHR-EHR-CLUSTER.laboratory_test_analyte.v1",
+            "min": 0,
+            "max": 1,
+            "localizedNames": {
+              "en": "Postprandial Blood Sugar"
+            },
+            "localizedDescriptions": {
+              "en": "The result of a laboratory test for a single analyte value."
+            },
+            "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'Postprandial Blood Sugar']",
+            "children": [
+              {
+                "id": "analyte_name",
+                "name": "Analyte name",
+                "localizedName": "Analyte name",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Analyte name"
+                },
+                "localizedDescriptions": {
+                  "en": "The name of the analyte result."
+                },
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'Postprandial Blood Sugar']/items[at0024]/value",
+                "inputs": [
+                  {
+                    "suffix": "code",
+                    "type": "TEXT",
+                    "terminology": "LOINC"
+                  },
+                  {
+                    "suffix": "value",
+                    "type": "TEXT",
+                    "terminology": "LOINC"
+                  }
+                ],
+                "annotations": {
+                  "comment": "The value for this element is normally supplied in a specialisation, in a template or at run-time to reflect the actual analyte. For example: 'Serum sodium', 'Haemoglobin'. Coding with an external terminology is strongly recommended, such as LOINC, NPU, SNOMED CT, or local lab terminologies."
+                }
+              },
+              {
+                "id": "analyte_result",
+                "name": "Analyte result",
+                "localizedName": "Analyte result",
+                "rmType": "DV_QUANTITY",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Analyte result"
+                },
+                "localizedDescriptions": {
+                  "en": "The value of the analyte result."
+                },
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'Postprandial Blood Sugar']/items[at0001]/value",
+                "inputs": [
+                  {
+                    "suffix": "magnitude",
+                    "type": "DECIMAL"
+                  },
+                  {
+                    "suffix": "unit",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "mg/dl",
+                        "label": "mg/dl"
+                      }
+                    ]
+                  }
+                ],
+                "annotations": {
+                  "comment": "For example '7.3 mmol/l', 'Raised'. The 'Any' data type will need to be constrained to an appropriate data type in a specialisation, a template or at run-time to reflect the actual analyte result. The Quantity data type has reference model attributes that include flags for normal/abnormal, reference ranges and approximations - see https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_quantity_class for more details."
+                }
+              }
+            ]
+          },
+          {
+            "id": "crp",
+            "name": "CRP",
+            "localizedName": "CRP",
+            "rmType": "CLUSTER",
+            "nodeId": "openEHR-EHR-CLUSTER.laboratory_test_analyte.v1",
+            "min": 0,
+            "max": 1,
+            "localizedNames": {
+              "en": "CRP"
+            },
+            "localizedDescriptions": {
+              "en": "The result of a laboratory test for a single analyte value."
+            },
+            "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'CRP']",
+            "children": [
+              {
+                "id": "analyte_name",
+                "name": "Analyte name",
+                "localizedName": "Analyte name",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Analyte name"
+                },
+                "localizedDescriptions": {
+                  "en": "The name of the analyte result."
+                },
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'CRP']/items[at0024]/value",
+                "inputs": [
+                  {
+                    "suffix": "code",
+                    "type": "TEXT",
+                    "terminology": "LOINC"
+                  },
+                  {
+                    "suffix": "value",
+                    "type": "TEXT",
+                    "terminology": "LOINC"
+                  }
+                ],
+                "annotations": {
+                  "comment": "The value for this element is normally supplied in a specialisation, in a template or at run-time to reflect the actual analyte. For example: 'Serum sodium', 'Haemoglobin'. Coding with an external terminology is strongly recommended, such as LOINC, NPU, SNOMED CT, or local lab terminologies."
+                }
+              },
+              {
+                "id": "analyte_result",
+                "name": "Analyte result",
+                "localizedName": "Analyte result",
+                "rmType": "DV_QUANTITY",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Analyte result"
+                },
+                "localizedDescriptions": {
+                  "en": "The value of the analyte result."
+                },
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'CRP']/items[at0001]/value",
+                "inputs": [
+                  {
+                    "suffix": "magnitude",
+                    "type": "DECIMAL"
+                  },
+                  {
+                    "suffix": "unit",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "mg/L",
+                        "label": "mg/L"
+                      }
+                    ]
+                  }
+                ],
+                "annotations": {
+                  "comment": "For example '7.3 mmol/l', 'Raised'. The 'Any' data type will need to be constrained to an appropriate data type in a specialisation, a template or at run-time to reflect the actual analyte result. The Quantity data type has reference model attributes that include flags for normal/abnormal, reference ranges and approximations - see https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_quantity_class for more details."
+                }
+              }
+            ]
+          },
+          {
+            "id": "total_wbc",
+            "name": "Total WBC",
+            "localizedName": "Total WBC",
+            "rmType": "CLUSTER",
+            "nodeId": "openEHR-EHR-CLUSTER.laboratory_test_analyte.v1",
+            "min": 0,
+            "max": 1,
+            "localizedNames": {
+              "en": "Total WBC"
+            },
+            "localizedDescriptions": {
+              "en": "The result of a laboratory test for a single analyte value."
+            },
+            "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'Total WBC']",
+            "children": [
+              {
+                "id": "analyte_name",
+                "name": "Analyte name",
+                "localizedName": "Analyte name",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Analyte name"
+                },
+                "localizedDescriptions": {
+                  "en": "The name of the analyte result."
+                },
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'Total WBC']/items[at0024]/value",
+                "inputs": [
+                  {
+                    "suffix": "code",
+                    "type": "TEXT",
+                    "terminology": "LOINC"
+                  },
+                  {
+                    "suffix": "value",
+                    "type": "TEXT",
+                    "terminology": "LOINC"
+                  }
+                ],
+                "annotations": {
+                  "comment": "The value for this element is normally supplied in a specialisation, in a template or at run-time to reflect the actual analyte. For example: 'Serum sodium', 'Haemoglobin'. Coding with an external terminology is strongly recommended, such as LOINC, NPU, SNOMED CT, or local lab terminologies."
+                }
+              },
+              {
+                "id": "analyte_result",
+                "name": "Analyte result",
+                "localizedName": "Analyte result",
+                "rmType": "DV_QUANTITY",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Analyte result"
+                },
+                "localizedDescriptions": {
+                  "en": "The value of the analyte result."
+                },
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'Total WBC']/items[at0001]/value",
+                "inputs": [
+                  {
+                    "suffix": "magnitude",
+                    "type": "DECIMAL"
+                  },
+                  {
+                    "suffix": "unit",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "1/mm3",
+                        "label": "1/mm3",
+                        "localizedLabels": {
+                          "en": "/mm3"
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "annotations": {
+                  "comment": "For example '7.3 mmol/l', 'Raised'. The 'Any' data type will need to be constrained to an appropriate data type in a specialisation, a template or at run-time to reflect the actual analyte result. The Quantity data type has reference model attributes that include flags for normal/abnormal, reference ranges and approximations - see https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_quantity_class for more details."
+                }
+              }
+            ]
+          },
+          {
+            "id": "d-dimer",
+            "name": "D-Dimer",
+            "localizedName": "D-Dimer",
+            "rmType": "CLUSTER",
+            "nodeId": "openEHR-EHR-CLUSTER.laboratory_test_analyte.v1",
+            "min": 0,
+            "max": 1,
+            "localizedNames": {
+              "en": "D-Dimer"
+            },
+            "localizedDescriptions": {
+              "en": "The result of a laboratory test for a single analyte value."
+            },
+            "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'D-Dimer']",
+            "children": [
+              {
+                "id": "analyte_name",
+                "name": "Analyte name",
+                "localizedName": "Analyte name",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                  "en": "Analyte name"
+                },
+                "localizedDescriptions": {
+                  "en": "The name of the analyte result."
+                },
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'D-Dimer']/items[at0024]/value",
+                "inputs": [
+                  {
+                    "suffix": "code",
+                    "type": "TEXT",
+                    "terminology": "LOINC"
+                  },
+                  {
+                    "suffix": "value",
+                    "type": "TEXT",
+                    "terminology": "LOINC"
+                  }
+                ],
+                "annotations": {
+                  "comment": "The value for this element is normally supplied in a specialisation, in a template or at run-time to reflect the actual analyte. For example: 'Serum sodium', 'Haemoglobin'. Coding with an external terminology is strongly recommended, such as LOINC, NPU, SNOMED CT, or local lab terminologies."
+                }
+              },
+              {
+                "id": "analyte_result",
+                "name": "Analyte result",
+                "localizedName": "Analyte result",
+                "rmType": "DV_QUANTITY",
+                "min": 0,
+                "max": -1,
+                "localizedNames": {
+                  "en": "Analyte result"
+                },
+                "localizedDescriptions": {
+                  "en": "The value of the analyte result."
+                },
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_analyte.v1,'D-Dimer']/items[at0001]/value",
+                "inputs": [
+                  {
+                    "suffix": "magnitude",
+                    "type": "DECIMAL"
+                  },
+                  {
+                    "suffix": "unit",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "ug/ml",
+                        "label": "ug/ml"
+                      }
+                    ]
+                  }
+                ],
+                "annotations": {
+                  "comment": "For example '7.3 mmol/l', 'Raised'. The 'Any' data type will need to be constrained to an appropriate data type in a specialisation, a template or at run-time to reflect the actual analyte result. The Quantity data type has reference model attributes that include flags for normal/abnormal, reference ranges and approximations - see https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_quantity_class for more details."
+                }
+              }
+            ]
+          },
+          {
+            "id": "time",
+            "name": "time",
+            "rmType": "DV_DATE_TIME",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/data[at0001]/events[at0002]/time",
+            "inputs": [
+              {
+                "type": "DATETIME"
+              }
+            ],
+            "inContext": true
+          },
+          {
+            "id": "subject",
+            "name": "subject",
+            "rmType": "PARTY_PROXY",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/subject",
+            "inputs": [
+              {
+                "suffix": "id",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "id_scheme",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "id_namespace",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "name",
+                "type": "TEXT"
+              }
+            ],
+            "inContext": true
+          },
+          {
+            "id": "language",
+            "name": "language",
+            "rmType": "CODE_PHRASE",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/language",
+            "inContext": true
+          },
+          {
+            "id": "encoding",
+            "name": "encoding",
+            "rmType": "CODE_PHRASE",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v1,'Lab Results']/encoding",
+            "inContext": true
+          }
+        ]
+      },
+      {
+        "id": "medication_management",
+        "name": "Medication Management",
+        "localizedName": "Medication Management",
+        "rmType": "ACTION",
+        "nodeId": "openEHR-EHR-ACTION.medication.v1",
+        "min": 0,
+        "max": -1,
+        "localizedNames": {
+          "en": "Medication Management"
+        },
+        "localizedDescriptions": {
+          "en": "Any activity related to the planning, scheduling, prescription management, dispensing, administration, cessation and other use of a medication, vaccine, nutritional product or other therapeutic item."
+        },
+        "aqlPath": "/content[openEHR-EHR-ACTION.medication.v1,'Medication Management']",
+        "children": [
+          {
+            "id": "medication_item",
+            "name": "Medication item",
+            "localizedName": "Medication item",
+            "rmType": "DV_CODED_TEXT",
+            "min": 0,
+            "max": 1,
+            "localizedNames": {
+              "en": "Medication item"
+            },
+            "localizedDescriptions": {
+              "en": "Name of the medication, vaccine or other therapeutic/prescribable item which was the focus of the activity."
+            },
+            "aqlPath": "/content[openEHR-EHR-ACTION.medication.v1,'Medication Management']/description[at0017]/items[at0020]/value",
+            "inputs": [
+              {
+                "suffix": "code",
+                "type": "TEXT",
+                "terminology": "SNOMED-CT"
+              },
+              {
+                "suffix": "value",
+                "type": "TEXT",
+                "terminology": "SNOMED-CT"
+              }
+            ],
+            "annotations": {
+              "comment": "For example: 'Atenolol 100mg' or 'Tenormin tablets 100mg'. \r\nIt is strongly recommended that the 'Medication item' is coded with a terminology capable of triggering decision support, where possible. The extent of coding may vary from the simple name of the medication item through to structured details about the actual medication pack used. Free text entry should only be used if there is no appropriate terminology available."
+            }
+          },
+          {
+            "id": "subject",
+            "name": "subject",
+            "rmType": "PARTY_PROXY",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-ACTION.medication.v1,'Medication Management']/subject",
+            "inputs": [
+              {
+                "suffix": "id",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "id_scheme",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "id_namespace",
+                "type": "TEXT"
+              },
+              {
+                "suffix": "name",
+                "type": "TEXT"
+              }
+            ],
+            "inContext": true
+          },
+          {
+            "id": "language",
+            "name": "language",
+            "rmType": "CODE_PHRASE",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-ACTION.medication.v1,'Medication Management']/language",
+            "inContext": true
+          },
+          {
+            "id": "encoding",
+            "name": "encoding",
+            "rmType": "CODE_PHRASE",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-ACTION.medication.v1,'Medication Management']/encoding",
+            "inContext": true
+          },
+          {
+            "id": "time",
+            "name": "time",
+            "rmType": "DV_DATE_TIME",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-ACTION.medication.v1,'Medication Management']/time",
+            "inputs": [
+              {
+                "type": "DATETIME"
+              }
+            ],
+            "inContext": true
+          },
+          {
+            "id": "ism_transition",
+            "name": "ism_transition",
+            "rmType": "ISM_TRANSITION",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/content[openEHR-EHR-ACTION.medication.v1,'Medication Management']/ism_transition",
+            "children": [
+              {
+                "id": "careflow_step",
+                "name": "Careflow_step",
+                "rmType": "DV_CODED_TEXT",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-ACTION.medication.v1,'Medication Management']/ism_transition/careflow_step",
+                "inputs": [
+                  {
+                    "suffix": "code",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "at0109",
+                        "label": "Medication recommended",
+                        "localizedLabels": {
+                          "en": "Medication recommended"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The medication has been recommended but no steps have been taken to initiate prescribing."
+                        },
+                        "currentStates": [
+                          "526"
+                        ]
+                      },
+                      {
+                        "value": "at0145",
+                        "label": "Prescription awaiting authorisation",
+                        "localizedLabels": {
+                          "en": "Prescription awaiting authorisation"
+                        },
+                        "localizedDescriptions": {
+                          "en": "Draft prescription has been prepared and is awaiting confirmation from an authorised clinician. May be used where reauthorisations are performed as a batch. This careflow_step may have a status of 'planned' or 'active', reflecting the need to to handle new orders as well as re-authorised orders."
+                        },
+                        "currentStates": [
+                          "526",
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0013",
+                        "label": "Medication course postponed",
+                        "localizedLabels": {
+                          "en": "Medication course postponed"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The scheduled medication course has been postponed prior to any administration."
+                        },
+                        "currentStates": [
+                          "527"
+                        ]
+                      },
+                      {
+                        "value": "at0012",
+                        "label": "Medication course cancelled",
+                        "localizedLabels": {
+                          "en": "Medication course cancelled"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The planned course of medication has been cancelled prior to any administration."
+                        },
+                        "currentStates": [
+                          "528"
+                        ]
+                      },
+                      {
+                        "value": "at0150",
+                        "label": "Prescription cancelled",
+                        "localizedLabels": {
+                          "en": "Prescription cancelled"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The prescription was cancelled prior to being issued."
+                        },
+                        "currentStates": [
+                          "528"
+                        ]
+                      },
+                      {
+                        "value": "at0016",
+                        "label": "Medication start date/condition set",
+                        "localizedLabels": {
+                          "en": "Medication start date/condition set"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The time to start the medication, or other starting condition, has been set."
+                        },
+                        "currentStates": [
+                          "529"
+                        ]
+                      },
+                      {
+                        "value": "at0153",
+                        "label": "Medication authorised",
+                        "localizedLabels": {
+                          "en": "Medication authorised"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The medication has been formally authorised for use."
+                        },
+                        "currentStates": [
+                          "529"
+                        ]
+                      },
+                      {
+                        "value": "at0002",
+                        "label": "Prescription issued",
+                        "localizedLabels": {
+                          "en": "Prescription issued"
+                        },
+                        "localizedDescriptions": {
+                          "en": "A prescription has been issued for the medication."
+                        },
+                        "currentStates": [
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0003",
+                        "label": "Prescription dispensed",
+                        "localizedLabels": {
+                          "en": "Prescription dispensed"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The ordered medication has been dispensed, for example from a pharmacy to the patient."
+                        },
+                        "currentStates": [
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0106",
+                        "label": "Prescription re-authorised",
+                        "localizedLabels": {
+                          "en": "Prescription re-authorised"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The original medication order has been re-authorised to allow repeat prescription or dispensing. In some jurisdictions an entirely new order must be issued in these circumstances."
+                        },
+                        "currentStates": [
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0010",
+                        "label": "Prescription re-issued",
+                        "localizedLabels": {
+                          "en": "Prescription re-issued"
+                        },
+                        "localizedDescriptions": {
+                          "en": "A prescription has been re-issued for an existing medication order."
+                        },
+                        "currentStates": [
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0148",
+                        "label": "Medication prepared",
+                        "localizedLabels": {
+                          "en": "Medication prepared"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The medication has been physically prepared. For example: preparation of an intravenous mixture."
+                        },
+                        "currentStates": [
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0004",
+                        "label": "Medication course commenced",
+                        "localizedLabels": {
+                          "en": "Medication course commenced"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The medication has been taken by, or administered to, the patient for the first time. Although in some settings this significant date may be computable as the first of several administrations, in other settings, such as primary care, specific administration dates are not readily available."
+                        },
+                        "currentStates": [
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0041",
+                        "label": "Minor change to order",
+                        "localizedLabels": {
+                          "en": "Minor change to order"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The medication order has been changed in a manner which does not require a new instruction/order to be issued, according to local clinical rules."
+                        },
+                        "currentStates": [
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0005",
+                        "label": "Medication reassessed",
+                        "localizedLabels": {
+                          "en": "Medication reassessed"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The individual medication has been reassessed, for example whether the medication should still be taken. This is not intended to capture review of the medication list."
+                        },
+                        "currentStates": [
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0006",
+                        "label": "Dose administered",
+                        "localizedLabels": {
+                          "en": "Dose administered"
+                        },
+                        "localizedDescriptions": {
+                          "en": "A single administration of the medication has taken place."
+                        },
+                        "currentStates": [
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0018",
+                        "label": "Dose administration omitted",
+                        "localizedLabels": {
+                          "en": "Dose administration omitted"
+                        },
+                        "localizedDescriptions": {
+                          "en": "An administration of the medication has been withheld and not given. There is no expectation that it will be given later, though the next dose (if any) should be administered according to the original order."
+                        },
+                        "currentStates": [
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0044",
+                        "label": "Dose administration deferred",
+                        "localizedLabels": {
+                          "en": "Dose administration deferred"
+                        },
+                        "localizedDescriptions": {
+                          "en": "An administration of a dose of the medication has been delayed but is expected to be given as soon as possible."
+                        },
+                        "currentStates": [
+                          "245"
+                        ]
+                      },
+                      {
+                        "value": "at0008",
+                        "label": "Prescription supply delayed",
+                        "localizedLabels": {
+                          "en": "Prescription supply delayed"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The prescription has not been dispensed due to a technical or pharamaceutical supply issue."
+                        },
+                        "currentStates": [
+                          "530"
+                        ]
+                      },
+                      {
+                        "value": "at0009",
+                        "label": "Administrations suspended",
+                        "localizedLabels": {
+                          "en": "Administrations suspended"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The administration of the medication has been suspended until further notice. No further doses should be given until the restart date or conditions have been met. When setting the date/conditions for restart after suspending, a step from ‘Administrations suspended’ and back to 'Medication start date/condition set' should be performed."
+                        },
+                        "currentStates": [
+                          "530"
+                        ]
+                      },
+                      {
+                        "value": "at0011",
+                        "label": "Prescription re-authorisation pending",
+                        "localizedLabels": {
+                          "en": "Prescription re-authorisation pending"
+                        },
+                        "localizedDescriptions": {
+                          "en": "Issue of the prescription is awaiting re-authorisation by a clinician."
+                        },
+                        "currentStates": [
+                          "530"
+                        ]
+                      },
+                      {
+                        "value": "at0015",
+                        "label": "Medication course stopped",
+                        "localizedLabels": {
+                          "en": "Medication course stopped"
+                        },
+                        "localizedDescriptions": {
+                          "en": "Administration of the medication has been ceased during the period of the intended course."
+                        },
+                        "currentStates": [
+                          "531"
+                        ]
+                      },
+                      {
+                        "value": "at0039",
+                        "label": "Major change to order",
+                        "localizedLabels": {
+                          "en": "Major change to order"
+                        },
+                        "localizedDescriptions": {
+                          "en": "A major change to the order was required, resulting in this order being stopped and a replacement order being started."
+                        },
+                        "currentStates": [
+                          "531"
+                        ]
+                      },
+                      {
+                        "value": "at0151",
+                        "label": "Prescription invalid or expired",
+                        "localizedLabels": {
+                          "en": "Prescription invalid or expired"
+                        },
+                        "localizedDescriptions": {
+                          "en": "Prescription has been invalidated or has expired without being fulfilled."
+                        },
+                        "currentStates": [
+                          "531"
+                        ]
+                      },
+                      {
+                        "value": "at0007",
+                        "label": "Medication course completed",
+                        "localizedLabels": {
+                          "en": "Medication course completed"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The medication course has been completed as planned."
+                        },
+                        "currentStates": [
+                          "532"
+                        ]
+                      },
+                      {
+                        "value": "at0152",
+                        "label": "Prescription fulfilled",
+                        "localizedLabels": {
+                          "en": "Prescription fulfilled"
+                        },
+                        "localizedDescriptions": {
+                          "en": "The prescription has been fulfilled successfully."
+                        },
+                        "currentStates": [
+                          "532"
+                        ]
+                      }
+                    ],
+                    "terminology": "openehr"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "current_state",
+                "name": "Current_state",
+                "rmType": "DV_CODED_TEXT",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-ACTION.medication.v1,'Medication Management']/ism_transition/current_state",
+                "inputs": [
+                  {
+                    "suffix": "code",
+                    "type": "CODED_TEXT",
+                    "list": [
+                      {
+                        "value": "526",
+                        "label": "planned",
+                        "localizedLabels": {
+                          "en": "planned"
+                        }
+                      },
+                      {
+                        "value": "526",
+                        "label": "planned",
+                        "localizedLabels": {
+                          "en": "planned"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "527",
+                        "label": "postponed",
+                        "localizedLabels": {
+                          "en": "postponed"
+                        }
+                      },
+                      {
+                        "value": "528",
+                        "label": "cancelled",
+                        "localizedLabels": {
+                          "en": "cancelled"
+                        }
+                      },
+                      {
+                        "value": "528",
+                        "label": "cancelled",
+                        "localizedLabels": {
+                          "en": "cancelled"
+                        }
+                      },
+                      {
+                        "value": "529",
+                        "label": "scheduled",
+                        "localizedLabels": {
+                          "en": "scheduled"
+                        }
+                      },
+                      {
+                        "value": "529",
+                        "label": "scheduled",
+                        "localizedLabels": {
+                          "en": "scheduled"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "245",
+                        "label": "active",
+                        "localizedLabels": {
+                          "en": "active"
+                        }
+                      },
+                      {
+                        "value": "530",
+                        "label": "suspended",
+                        "localizedLabels": {
+                          "en": "suspended"
+                        }
+                      },
+                      {
+                        "value": "530",
+                        "label": "suspended",
+                        "localizedLabels": {
+                          "en": "suspended"
+                        }
+                      },
+                      {
+                        "value": "530",
+                        "label": "suspended",
+                        "localizedLabels": {
+                          "en": "suspended"
+                        }
+                      },
+                      {
+                        "value": "531",
+                        "label": "aborted",
+                        "localizedLabels": {
+                          "en": "aborted"
+                        }
+                      },
+                      {
+                        "value": "531",
+                        "label": "aborted",
+                        "localizedLabels": {
+                          "en": "aborted"
+                        }
+                      },
+                      {
+                        "value": "531",
+                        "label": "aborted",
+                        "localizedLabels": {
+                          "en": "aborted"
+                        }
+                      },
+                      {
+                        "value": "532",
+                        "label": "completed",
+                        "localizedLabels": {
+                          "en": "completed"
+                        }
+                      },
+                      {
+                        "value": "532",
+                        "label": "completed",
+                        "localizedLabels": {
+                          "en": "completed"
+                        }
+                      }
+                    ],
+                    "terminology": "openehr"
+                  }
+                ],
+                "inContext": true
+              },
+              {
+                "id": "transition",
+                "name": "transition",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": 1,
+                "aqlPath": "/content[openEHR-EHR-ACTION.medication.v1,'Medication Management']/ism_transition/transition",
+                "inputs": [
+                  {
+                    "suffix": "code",
+                    "type": "TEXT"
+                  },
+                  {
+                    "suffix": "value",
+                    "type": "TEXT"
+                  }
+                ],
+                "inContext": true
+              }
+            ],
+            "inContext": true
+          }
+        ],
+        "annotations": {
+          "comment": "This is not limited to activities performed based on medication orders from clinicians, but could also include for example taking over the counter medication."
+        }
+      },
+      {
+        "id": "composer",
+        "name": "composer",
+        "rmType": "PARTY_PROXY",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/composer",
+        "inputs": [
+          {
+            "suffix": "id",
+            "type": "TEXT"
+          },
+          {
+            "suffix": "id_scheme",
+            "type": "TEXT"
+          },
+          {
+            "suffix": "id_namespace",
+            "type": "TEXT"
+          },
+          {
+            "suffix": "name",
+            "type": "TEXT"
+          }
+        ],
+        "inContext": true
+      },
+      {
+        "id": "language",
+        "name": "language",
+        "rmType": "CODE_PHRASE",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/language",
+        "inContext": true
+      },
+      {
+        "id": "territory",
+        "name": "territory",
+        "rmType": "CODE_PHRASE",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/territory",
+        "inContext": true
+      }
+    ]
+  }
+}

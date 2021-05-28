@@ -1,7 +1,7 @@
 import { customElement, property, state } from 'lit-element';
 import { html } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { CodedTextElement } from './CodedTextElement';
+import { CodedTextElement, CodedText } from './CodedTextElement';
 import MbOption from './option';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 
@@ -23,6 +23,13 @@ export default class MbSelect extends CodedTextElement {
     return this._options.filter(option => option.value === code)[0].label;
   }
 
+  getOrdinal(code: string) {
+    return (
+      this._options.filter(option => option.value === code)[0]?.ordinal ||
+      undefined
+    );
+  }
+
   get _optionElements(): NodeListOf<MbOption> {
     return this.querySelectorAll('mb-option');
   }
@@ -30,11 +37,16 @@ export default class MbSelect extends CodedTextElement {
   handleInput(e: CustomEvent) {
     const select = e.target as SlSelect;
     if (select.value && typeof select.value === 'string') {
-      this.data = {
+      let data: CodedText = {
         code: select.value,
         value: this.getLabel(select.value),
-        terminology: this.terminology,
+        terminology: this.terminology
       };
+      const ordinal = this.getOrdinal(select.value);
+      if (ordinal) {
+        data = { ...data, ordinal };
+      }
+      this.data = data;
       this._mbInput.emit();
     }
   }
