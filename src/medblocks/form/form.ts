@@ -56,18 +56,18 @@ export default class MedblockForm extends LitElement {
   parse(data: any) {
     return this.plugin.parse(this.mbElements, data);
   }
-  
+
   /**Serialize EHRElement to the output format - eg: openEHR FLAT format, FHIR resource.*/
   serialize(mbElements = this.mbElements) {
     return this.plugin.serialize(mbElements);
   }
 
   /**Parses and sets the form data to current data */
-  import(data: any){
-    this.data = this.parse(data)
+  import(data: any) {
+    this.data = this.parse(data);
   }
 
-  export = this.serialize.bind(this)
+  export = this.serialize.bind(this);
 
   getStructured(flat: Data, path?: string) {
     return unflattenComposition(flat, path);
@@ -82,18 +82,22 @@ export default class MedblockForm extends LitElement {
   }
 
   insertContext() {
+    const nonNullPaths = Object.keys(this.mbElements).filter(
+      k => typeof this.mbElements[k].data !== 'undefined'
+    );
+    console.log(nonNullPaths);
     Object.values(this.mbElements)
       .filter((element: MbContext) => !!element.autocontext)
       .forEach((element: MbContext) => {
         const path = element.path;
         const contextData = this.overwritectx
-          ? this.plugin.getContext(path, this.ctx)
-          : element.data ?? this.plugin.getContext(path, this.ctx);
+          ? this.plugin.getContext(path, this.ctx, nonNullPaths)
+          : element.data ??
+            this.plugin.getContext(path, this.ctx, nonNullPaths);
         element.data = contextData;
       });
   }
 
-  
   get submitButton(): MbSubmit | null {
     return this.querySelector('mb-submit');
   }
@@ -108,16 +112,22 @@ export default class MedblockForm extends LitElement {
 
   set data(data: Data) {
     const mbElementPaths = Object.keys(this.mbElements);
-    const dataPaths = Object.keys(data)
+    const dataPaths = Object.keys(data);
     mbElementPaths.forEach(path => {
       let element = this.mbElements[path] as EhrElement;
-      const value = data[path]
+      const value = data[path];
       element.data = value;
     });
     // Warnings
-    const inDataButNotElements = dataPaths.filter(path => !mbElementPaths.includes(path))
+    const inDataButNotElements = dataPaths.filter(
+      path => !mbElementPaths.includes(path)
+    );
     if (inDataButNotElements.length > 0) {
-      console.warn(`These paths are not present in the current form, but were set: ${inDataButNotElements.join(', ')}.\nTry the "parse" method before setting the data on the form.`)
+      console.warn(
+        `These paths are not present in the current form, but were set: ${inDataButNotElements.join(
+          ', '
+        )}.\nTry the "parse" method before setting the data on the form.`
+      );
     }
   }
 

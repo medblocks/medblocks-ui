@@ -9,60 +9,6 @@ export interface Ctx {
   composer_name?: string;
 }
 
-function defaultContextData(path: string, ctx: Ctx = {}): any {
-  const parts = path.split('/');
-  const contextId = parts[parts.length - 1];
-  switch (contextId) {
-    case 'start_time':
-    case 'time':
-      return ctx.time || new Date().toISOString();
-    case 'category':
-      return {
-        code: '433',
-        value: 'event',
-        terminology: 'openehr',
-      };
-    case 'setting':
-      return {
-        code: '238',
-        value: 'other care',
-        terminology: 'openehr',
-      };
-    case 'language':
-      return {
-        code: ctx.language || 'en',
-        terminology: 'ISO_639-1',
-      };
-    case 'territory':
-      return {
-        code: ctx.territory || 'IN',
-        terminology: 'ISO_3166-1',
-      };
-
-    case 'encoding':
-      return {
-        code: 'UTF-8',
-        terminology: 'IANA_character-sets',
-      };
-    case 'composer':
-      if (ctx.composer_name) {
-        return {
-          name: ctx.composer_name,
-        };
-      } else {
-        console.warn(
-          "Please set composer_name field on ctx property. Setting 'Medblocks UI' for now."
-        );
-        return {
-          name: 'Medblocks UI',
-        };
-      }
-    default:
-      console.warn(`[${path}]: Unprocessed context`);
-      return;
-  }
-}
-
 function toFlat(data: Data): Data {
   const flat: any = {};
   Object.keys(data).forEach(path => {
@@ -121,6 +67,26 @@ export function unflattenComposition(flat: any, path?: string) {
   return unflatten(formatFlatComposition(newObject));
 }
 
+function toInsertContext(path: string, nonNullPaths: string[]): boolean {
+  const segments = path.split('/');
+  // Root context Eg: template/language
+  if (segments.length <= 2) {
+    return true;
+  }
+  const previousSegment = segments[segments.length - 2];
+  const previousPath = segments.slice(0, -1).join('/');
+  // Eg: context/start_time or context/setting
+  if (previousSegment === 'context') {
+    return true;
+  }
+  // Eg: templates/vitals/body_temperature/time will only return if some templates/vitals/body_temperature/* is defined
+  if (nonNullPaths.some(p => p.startsWith(previousPath))) {
+    return true;
+  }
+
+  return false;
+}
+
 export const openEHRFlatPlugin: MbPlugin = {
   parse(_, data) {
     return fromFlat(data);
@@ -134,5 +100,61 @@ export const openEHRFlatPlugin: MbPlugin = {
     return toFlat(data);
   },
 
-  getContext: defaultContextData,
+  getContext(path, ctx = {}, nonNullPaths) {
+    if (!toInsertContext(path, nonNullPaths)) {
+      return;
+    }
+
+    let parts = path.split('/');
+    const contextId = parts[parts.length - 1];
+    switch (contextId) {
+      case 'start_time':
+      case 'time':
+        return ctx.time || new Date().toISOString();
+      case 'category':
+        return {
+          code: '433',
+          value: 'event',
+          terminology: 'openehr',
+        };
+      case 'setting':
+        return {
+          code: '238',
+          value: 'other care',
+          terminology: 'openehr',
+        };
+      case 'language':
+        return {
+          code: ctx.language || 'en',
+          terminology: 'ISO_639-1',
+        };
+      case 'territory':
+        return {
+          code: ctx.territory || 'IN',
+          terminology: 'ISO_3166-1',
+        };
+
+      case 'encoding':
+        return {
+          code: 'UTF-8',
+          terminology: 'IANA_character-sets',
+        };
+      case 'composer':
+        if (ctx.composer_name) {
+          return {
+            name: ctx.composer_name,
+          };
+        } else {
+          console.warn(
+            "Please set composer_name field on ctx property. Setting 'Medblocks UI' for now."
+          );
+          return {
+            name: 'Medblocks UI',
+          };
+        }
+      default:
+        console.warn(`[${path}]: Unprocessed context`);
+        return;
+    }
+  },
 };

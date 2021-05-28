@@ -14,7 +14,7 @@
 <body>
     <div class="section">
         <div class="container">
-            <mb-form>
+            <mb-form id="form">
                 <!-- Temperature -->
                 <mb-quantity path="covid_care_daily_sheet/vitals/body_temperature/temperature" label="Temperature">
                     <mb-unit unit="Cel" label="Cel"></mb-unit>
@@ -33,16 +33,6 @@
                 <p>Labs</p>
                 <mb-input path="covid_care_daily_sheet/lab_results/test_name" label="Test name"
                     data="Covid Screening Tests"></mb-input>
-                <mb-select label="Ordinal test">
-                    <mb-option value="hello" label="Select me" ordinal="1"></mb-option>
-                    <mb-option value="hello1" label="Select me" ordinal="2"></mb-option>
-                </mb-select>
-                <mb-buttons label="Ordinal test">
-                    <mb-option value="hello" label="Select me" ordinal="1"></mb-option>
-                    <mb-option value="hello1" label="Select me" ordinal="2"></mb-option>
-                </mb-buttons>
-                <mb-checkbox label="Check me please"></mb-checkbox>
-                <mb-percent label="Percent Yaay"></mb-percent>
                 <div>
                     <mb-context path=covid_care_daily_sheet/category></mb-context>
                     <mb-context path=covid_care_daily_sheet/context/start_time></mb-context>
@@ -79,11 +69,9 @@
                     <mb-context path=covid_care_daily_sheet/medication_management:0/language></mb-context>
                     <mb-context path=covid_care_daily_sheet/medication_management:0/encoding></mb-context>
                     <mb-context path=covid_care_daily_sheet/medication_management:0/time></mb-context>
-                    <mb-context path=covid_care_daily_sheet/medication_management:0/ism_transition/careflow_step
-                        id="step">
+                    <mb-context path=covid_care_daily_sheet/medication_management:0/ism_transition/careflow_step>
                     </mb-context>
-                    <mb-context path=covid_care_daily_sheet/medication_management:0/ism_transition/current_state
-                        id="state">
+                    <mb-context path=covid_care_daily_sheet/medication_management:0/ism_transition/current_state>
                     </mb-context>
                     <mb-context path=covid_care_daily_sheet/composer></mb-context>
                     <mb-context path=covid_care_daily_sheet/language></mb-context>
@@ -95,20 +83,19 @@
     </div>
 
     <script>
-        const careflow_step = {
-            terminology: "local",
-            code: "at0109",
-            value: "Completed"
+        const ctx = {
+            "careflow_step": {
+                terminology: 'openehr',
+                value: 'completed',
+                code: '526'
+            },
+            "careflow_step": {
+                terminology: "local",
+                code: "at0109",
+                value: "Completed"
+            }
         }
-        document.getElementById("step").data = careflow_step
-
-        const current_status = {
-            terminology: 'openehr',
-            value: 'completed',
-            code: '526'
-        }
-
-        document.getElementById("state").data = current_status
+        document.getElementById("form").ctx = ctx
 
 
 

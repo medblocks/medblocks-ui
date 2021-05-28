@@ -11,5 +11,5 @@ export interface MbPlugin {
   /**Parse output format to internal representation. */
   parse(mbElements: { [path: string]: EhrElement }, data: any): any;
   /**Handle an empty mb-context given a ctx object. */
-  getContext(path: string, ctx: any): any;
+  getContext(path: string, ctx: any, nonNullPaths: string[]): any;
 }
