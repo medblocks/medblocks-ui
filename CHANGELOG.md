@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.30](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.29...v0.0.30) (2021-05-28)
+
+
+### Features
+
+* added new components - percentage, checkbox and ordinals ([9aca673](https://github.com/sidharthramesh/medblocks-ui/commit/9aca673be65f7fe75a38f7a7c89ede5c5c6ca288))
+
 ### [0.0.29](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.28...v0.0.29) (2021-05-22)
 
 
