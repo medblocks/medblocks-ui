@@ -56,23 +56,18 @@ export default class MbQuantity extends QuantityElement {
       this.handleChildChange();
     });
     observer.observe(this, { attributes: true, childList: true });
-    setTimeout(() => {
-      if (this.default) {
-        this.data = {
-          ...this.data,
-          unit: this.default,
-        };
-        this._mbInput.emit();
-      }
-    }, 50);
   }
 
   handleInput(e: CustomEvent) {
     const input = e.target as SlInput;
-    this.data = {
-      ...this.data,
-      magnitude: parseFloat(input.value),
-    };
+    if (input.value === '') {
+      this.data = undefined;
+    } else {
+      this.data = {
+        unit: this.data?.unit || this.default,
+        magnitude: parseFloat(input.value),
+      };
+    }
   }
 
   handleSelect(e: CustomEvent) {

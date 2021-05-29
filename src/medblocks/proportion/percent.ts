@@ -16,11 +16,15 @@ export default class MbPercent extends EhrElement {
 
   _handleChange(e: CustomEvent) {
     const inputElement = e.target as SlInput;
-    this.data = {
-      numerator: parseFloat(inputElement.value),
-      denominator: 100,
-      type: 2,
-    };
+    if (inputElement.value === '') {
+      this.data = undefined;
+    } else {
+      this.data = {
+        numerator: parseFloat(inputElement.value),
+        denominator: 100,
+        type: 2,
+      };
+    }
     this._mbInput.emit();
   }
 
