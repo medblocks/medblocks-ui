@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.35](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.34...v0.0.35) (2021-05-29)
+
+
+### Features
+
+* added checkbox any element ([c751d58](https://github.com/sidharthramesh/medblocks-ui/commit/c751d589f0049413a1d00ebe473e0c2b1e7fbd9b))
+
 ### [0.0.34](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.33...v0.0.34) (2021-05-29)
 
 
