@@ -72,10 +72,21 @@ export default class MbQuantity extends QuantityElement {
 
   handleSelect(e: CustomEvent) {
     const select = e.target as SlSelect;
-    this.data = {
-      ...this.data,
-      unit: select.value as string,
-    };
+    if (select.value) {
+      this.data = {
+        ...this.data,
+        unit: select.value as string,
+      };
+    } else {
+      if (this.data?.magnitude) {
+        this.data = {
+          ...this.data,
+          unit: undefined,
+        };
+      } else {
+        this.data = undefined;
+      }
+    }
   }
   render() {
     return html`
