@@ -16,7 +16,9 @@
         <div class="container">
             <mb-form id="form">
                 <!-- Temperature -->
-                <mb-quantity path="covid_care_daily_sheet/vitals/body_temperature/temperature" label="Temperature" default="[degF]">
+                <mb-checkbox-any bind='{"Hello": "there"}' label="Check me"></mb-checkbox-any>
+                <mb-quantity path="covid_care_daily_sheet/vitals/body_temperature/temperature" label="Temperature"
+                    default="[degF]">
                     <mb-unit unit="Cel" label="Cel"></mb-unit>
                     <mb-unit unit="[degF]" label="F"></mb-unit>
                 </mb-quantity>
@@ -85,21 +87,13 @@
     <script>
         const ctx = {
             "careflow_step": {
-                terminology: 'openehr',
-                value: 'completed',
-                code: '526'
-            },
-            "careflow_step": {
+                terminology: ' openehr', value: 'completed', code: '526'
+            }, "careflow_step": {
                 terminology: "local",
-                code: "at0109",
-                value: "Completed"
+                code: "at0109", value: "Completed"
             }
         }
-        document.getElementById("form").ctx = ctx
-
-
-
-    </script>
+        document.getElementById("form").ctx = ctx</script>
 </body>
 
 </html>
