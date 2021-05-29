@@ -53,7 +53,7 @@ export default class CodedTextButtons extends CodedTextElement {
       terminology: this.terminology,
     };
     if (option.ordinal) {
-      data = { ...data, ordinal: option.ordinal };
+      data = { ...data, ordinal: parseInt(option.ordinal as any) };
     }
     this.data = data;
   }

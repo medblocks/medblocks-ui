@@ -40,11 +40,11 @@ export default class MbSelect extends CodedTextElement {
       let data: CodedText = {
         code: select.value,
         value: this.getLabel(select.value),
-        terminology: this.terminology
+        terminology: this.terminology,
       };
       const ordinal = this.getOrdinal(select.value);
       if (ordinal) {
-        data = { ...data, ordinal };
+        data = { ...data, ordinal: parseInt(ordinal as any) };
       }
       this.data = data;
       this._mbInput.emit();
