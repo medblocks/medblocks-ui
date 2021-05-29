@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.31](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.30...v0.0.31) (2021-05-29)
+
+
+### Bug Fixes
+
+* context inserts only for present elements ([97ed191](https://github.com/sidharthramesh/medblocks-ui/commit/97ed191aa14360b7674dd2dab2691ad6d38fa7f5))
+
 ### [0.0.30](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.29...v0.0.30) (2021-05-28)
 
 
