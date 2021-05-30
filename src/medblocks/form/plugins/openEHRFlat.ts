@@ -111,6 +111,11 @@ export const openEHRFlatPlugin: MbPlugin = {
 
     let parts = path.split('/');
     const contextId = parts[parts.length - 1];
+
+    if (ctx[contextId] != null) {
+      return ctx[contextId];
+    }
+
     switch (contextId) {
       case 'start_time':
       case 'time':
