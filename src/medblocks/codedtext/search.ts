@@ -72,9 +72,10 @@ export default class MbSearch extends CodedTextElement {
 
   @property({ type: String }) parentAxiosKey: string = 'hermes';
 
-  @property({ type: Object }) searchFunction: Function = hermesPlugin;
-
-  @property({ type: Object }) joinConstraints: Function = joinSnomedConstraints;
+  @property({ type: Object }) plugin = {
+    search: hermesPlugin,
+    getConstraints: joinSnomedConstraints,
+  };
 
   @state() _moreHits: number = 0;
 
@@ -106,10 +107,7 @@ export default class MbSearch extends CodedTextElement {
     const filters = this._filters
       ?.filter(filter => !filter.disabled)
       ?.map(filter => filter.value);
-    if (filters?.length > 0) {
-      return filters.join(' OR ');
-    }
-    return;
+    return this.plugin.getConstraints(filters);
   }
 
   get _viewMore() {
