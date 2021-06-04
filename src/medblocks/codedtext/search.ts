@@ -22,7 +22,8 @@ import '@shoelace-style/shoelace/dist/components/menu/menu';
 import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/tag/tag';
-import '@shoelace-style/shoelace/dist/components/icon-button/icon-button'
+import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
+import { hermesPlugin, joinSnomedConstraints } from './searchFunctions';
 
 @customElement('mb-search')
 export default class MbSearch extends CodedTextElement {
@@ -69,6 +70,12 @@ export default class MbSearch extends CodedTextElement {
 
   @property({ type: Number }) hits = 10;
 
+  @property({ type: String }) parentAxiosKey: string = 'hermes';
+
+  @property({ type: Object }) searchFunction: Function = hermesPlugin;
+
+  @property({ type: Object }) joinConstraints: Function = joinSnomedConstraints;
+
   @state() _moreHits: number = 0;
 
   @state() _debouncing: boolean = false;
@@ -95,14 +102,14 @@ export default class MbSearch extends CodedTextElement {
     dropdown.show();
   }
 
-  get _contraints() {
+  get _constraint() {
     const filters = this._filters
       ?.filter(filter => !filter.disabled)
       ?.map(filter => filter.value);
     if (filters?.length > 0) {
       return filters.join(' OR ');
     }
-    return null;
+    return;
   }
 
   get _viewMore() {
@@ -131,7 +138,7 @@ export default class MbSearch extends CodedTextElement {
 
   get _parentAxios(): AxiosInstance {
     const dependencyEvent = this._mbDependency.emit({
-      detail: { key: 'hermes' },
+      detail: { key: this.parentAxiosKey },
     });
     return dependencyEvent.detail.value;
   }
@@ -153,31 +160,23 @@ export default class MbSearch extends CodedTextElement {
     }
     try {
       const axios = this.axios ? this.axios : this._parentAxios;
-      const response = await axios.get('/snomed/search', {
-        params: {
-          s: this.searchTerm,
-          maxHits: this._maxHits,
-          constraint: this._contraints,
-        },
+      const result = await hermesPlugin({
+        searchString: this.searchTerm,
+        axios,
+        constraint: this._constraint,
       });
-      console.log(response);
-      const results = response.data.map(
-        (term: {
-          id: number;
-          conceptId: number;
-          term: string;
-          preferredTerm: string;
-        }) =>
+      const results = result.map(
+        r =>
           html`
             <sl-menu-item
-              value=${term.conceptId}
-              .label=${term.preferredTerm}
+              value=${r.value}
+              .label=${r.label}
               .terminology=${this.terminology}
             >
-              ${term.preferredTerm === term.term
+              ${r.star
                 ? html`<sl-icon slot="suffix" name="star"></sl-icon>`
                 : null}
-              ${term.term}
+              ${r.label}
             </sl-menu-item>
           `
       );
@@ -265,7 +264,7 @@ export default class MbSearch extends CodedTextElement {
         <sl-input
           class=${classMap({ pointer: this._hasValue })}
           slot="trigger"
-          .label=${this.label||''}
+          .label=${this.label || ''}
           @sl-input=${this._handleInput}
           value=${ifDefined(this._display ?? this.searchTerm ?? '')}
           ?readonly=${this._hasValue}
@@ -284,7 +283,10 @@ export default class MbSearch extends CodedTextElement {
         ${this._hasValue || !this.searchTerm
           ? null
           : html`
-              <sl-menu style="min-width: 300px" @sl-select=${this._handleSelect}>
+              <sl-menu
+                style="min-width: 300px"
+                @sl-select=${this._handleSelect}
+              >
                 ${until(this.getResults())}
                 ${this._filters?.length > 0
                   ? html`<div class="tags">
