@@ -107,7 +107,7 @@ export default class MbSearch extends CodedTextElement {
     const filters = this._filters
       ?.filter(filter => !filter.disabled)
       ?.map(filter => filter.value);
-    return this.plugin.getConstraints(filters);
+    return this.plugin?.getConstraints(filters);
   }
 
   get _viewMore() {
@@ -178,6 +178,9 @@ export default class MbSearch extends CodedTextElement {
             </sl-menu-item>
           `
       );
+      if (results?.length === 0) {
+        return html`<sl-menu-item disabled>No results</sl-menu-item>`;
+      }
       return this._maxHits === results.length
         ? [...results, this._viewMore]
         : results;
