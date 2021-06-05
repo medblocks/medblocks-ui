@@ -36,6 +36,9 @@ export default class MedblockForm extends LitElement {
   /**Context will not be automatically inferd. What you pass in will be directly reflected. */
   @property({ type: Boolean, reflect: true }) overwritectx: boolean = false;
 
+  /**Skip validation of form */
+  @property({ type: Boolean, reflect: true }) novalidate: boolean = false;
+
   @event('mb-input') input: EventEmitter<any>;
 
   @event('mb-load') load: EventEmitter<any>;
@@ -50,7 +53,15 @@ export default class MedblockForm extends LitElement {
   @state() mbElements: { [path: string]: EhrElement } = {};
 
   /**Runs validation on all the elements. Returns validation message. */
-  validate() {}
+  validate(): boolean {
+    if (this.novalidate) {
+      return true;
+    }
+    const report = Object.values(this.mbElements).map((el: EhrElement) => {
+      return el.reportValidity();
+    });
+    return report.every(a => a === true);
+  }
 
   /**Parse output format to internal representation. */
   parse(data: any) {
@@ -75,10 +86,12 @@ export default class MedblockForm extends LitElement {
 
   @event('mb-submit') submit: EventEmitter<any>;
   async handleSubmit() {
-    this.insertContext();
-    await 0;
-    const data = this.serialize();
-    this.submit.emit({ detail: data, cancelable: true });
+    if (this.validate()) {
+      this.insertContext();
+      await 0;
+      const data = this.serialize();
+      this.submit.emit({ detail: data, cancelable: true });
+    }
   }
 
   insertContext() {

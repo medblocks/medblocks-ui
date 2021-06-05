@@ -17,16 +17,17 @@ export default abstract class EhrElement extends LitElement {
   abstract data: any;
 
   /**An internal representation of type to handle serializing */
-  @property({type: String, reflect: true})
+  @property({ type: String, reflect: true })
   type?: string;
 
   /**Event Emitter for mb-input */
   @event('mb-input') _mbInput: EventEmitter<any>;
 
   /**Function to validate the element during form submit */
-  checkValidation(): boolean {
+  reportValidity(): boolean {
     return true;
   }
+
   @event('mb-dependency') _mbDependency: EventEmitter<{
     key: string;
     value: any;

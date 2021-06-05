@@ -40,6 +40,12 @@ export default class MbQuantity extends QuantityElement {
   /**The default unit to choose. Must be the `value` of a child mb-option element */
   @property({ type: String, reflect: true }) default: string;
 
+  /** Required form validation */
+  @property({ type: Boolean, reflect: true }) required: boolean = false;
+
+  @property({ type: Number, reflect: true }) max: number | string;
+
+  @property({ type: Number, reflect: true }) min: number | string;
   /** Hides the units. Make sure to set a default unit, or set it programatically. */
   @property({ type: Boolean, reflect: true }) hideunit: boolean = false;
 
@@ -50,6 +56,10 @@ export default class MbQuantity extends QuantityElement {
     this.units = [...(this.querySelectorAll('mb-unit') as NodeListOf<MbUnit>)];
   }
 
+  reportValidity() {
+    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    return input.reportValidity();
+  }
   connectedCallback() {
     super.connectedCallback();
     const observer = new MutationObserver(() => {
@@ -91,6 +101,9 @@ export default class MbQuantity extends QuantityElement {
   render() {
     return html`
       <sl-input
+        .required=${this.required}
+        .max=${this.max}
+        .min=${this.min}
         label=${ifDefined(this.label)}
         type="number"
         @sl-input=${this.handleInput}
