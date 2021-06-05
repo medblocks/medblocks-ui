@@ -14,6 +14,12 @@ export default class MbPercent extends EhrElement {
       }
     | undefined = undefined;
 
+  @property({ type: Boolean, reflect: true }) required: boolean = false;
+
+  @property({ type: Number, reflect: true }) max: number | string;
+
+  @property({ type: Number, reflect: true }) min: number | string;
+
   _handleChange(e: CustomEvent) {
     const inputElement = e.target as SlInput;
     if (inputElement.value === '') {
@@ -28,8 +34,16 @@ export default class MbPercent extends EhrElement {
     this._mbInput.emit();
   }
 
+  reportValidity() {
+    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    return input.reportValidity();
+  }
+
   render() {
     return html`<sl-input
+      ?required=${this.required}
+      .min=${this.min}
+      .max=${this.max}
       type="number"
       label=${ifDefined(this.label)}
       @sl-input=${this._handleChange}
