@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.44](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.43...v0.0.44) (2021-06-05)
+
+
+### Features
+
+* added disabled prop for checkbox ([2b452d3](https://github.com/sidharthramesh/medblocks-ui/commit/2b452d3c3f3ecc1f3cc04a49d30346837cb0a2a5))
+
 ### [0.0.43](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.42...v0.0.43) (2021-06-05)
 
 
