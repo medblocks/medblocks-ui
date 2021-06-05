@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.43](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.42...v0.0.43) (2021-06-05)
+
+
+### Features
+
+* added validation for percent ([c956b92](https://github.com/sidharthramesh/medblocks-ui/commit/c956b92003bfb9687f3c69459c2b4d367a0ea4c8))
+
 ### [0.0.42](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.41...v0.0.42) (2021-06-05)
 
 
