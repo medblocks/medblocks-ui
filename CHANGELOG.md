@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.41...v0.0.42) (2021-06-05)
+
+
+### Features
+
+* added validation for mb-quantity ([c10bd46](https://github.com/sidharthramesh/medblocks-ui/commit/c10bd46f4fdfe1eb7f198b48dbb64b63a4064d9f))
+
 ### [0.0.41](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.40...v0.0.41) (2021-06-04)
 
 
