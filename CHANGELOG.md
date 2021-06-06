@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.46](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.45...v0.0.46) (2021-06-06)
+
+
+### Features
+
+* added new validation for input ([76da879](https://github.com/sidharthramesh/medblocks-ui/commit/76da8791d9d806ab812dda769eb7cbc263240cb4))
+
 ### [0.0.45](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.44...v0.0.45) (2021-06-06)
 
 
