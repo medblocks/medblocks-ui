@@ -21,6 +21,12 @@ export default class MbInput extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
+  @property({ type: String, reflect: true }) type: string;
+
+  @property({ type: Number, reflect: true }) min: number;
+
+  @property({ type: Number, reflect: true }) max: number;
+
   @event('mb-input')
   _mbInput: EventEmitter<string>;
 
@@ -52,7 +58,9 @@ export default class MbInput extends EhrElement {
         `
       : html`
           <sl-input
-            type=${this.type as any}
+            min=${this.min}
+            max=${this.max}
+            type=${this.datatype as any}
             ?required=${this.required}
             label=${this.label}
             @sl-input=${this.handleInput}

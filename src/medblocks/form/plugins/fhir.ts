@@ -4,7 +4,7 @@ import { MbPlugin } from './plugins';
 import { flatten, unflatten } from '../utils';
 
 const serialize = (mbElement: EhrElement) => {
-  if (mbElement.type === 'CodableConcept') {
+  if (mbElement.datatype === 'CodableConcept') {
     const codable = mbElement as CodedTextElement;
     if (codable.data?.code) {
       return {
@@ -19,7 +19,7 @@ const serialize = (mbElement: EhrElement) => {
       };
     }
     return;
-  } else if (mbElement.type === 'code') {
+  } else if (mbElement.datatype === 'code') {
     const code = mbElement as CodedTextElement;
     if (code.data?.code) {
       return code.data?.code;
@@ -30,7 +30,7 @@ const serialize = (mbElement: EhrElement) => {
 };
 
 const deserialize = (mbElement: EhrElement, data: any) => {
-  if (mbElement.type === 'CodableConcept') {
+  if (mbElement.datatype === 'CodableConcept') {
     const terminology = data?.coding?.[0].system;
     const code = data?.coding?.[0].code;
     const value = data?.coding?.[0].display;
@@ -42,7 +42,7 @@ const deserialize = (mbElement: EhrElement, data: any) => {
       };
     }
     return;
-  } else if (mbElement.type === 'code') {
+  } else if (mbElement.datatype === 'code') {
     const el = mbElement as CodedTextElement;
     const code = data;
     const terminology = el.terminology;
