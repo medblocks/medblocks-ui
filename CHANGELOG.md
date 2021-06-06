@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.48](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.47...v0.0.48) (2021-06-06)
+
+
+### Bug Fixes
+
+* added minlength. maxlength validation ([cf7d5bd](https://github.com/sidharthramesh/medblocks-ui/commit/cf7d5bd7184d6a52e06b6f1fe384249c863d04f3))
+
 ### [0.0.47](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.46...v0.0.47) (2021-06-06)
 
 ### [0.0.46](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.45...v0.0.46) (2021-06-06)
