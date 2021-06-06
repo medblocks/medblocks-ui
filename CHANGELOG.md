@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.45](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.44...v0.0.45) (2021-06-06)
+
+
+### Bug Fixes
+
+* search bug fix ([8d3675f](https://github.com/sidharthramesh/medblocks-ui/commit/8d3675ff9dd4d8d5bb7df6e3c67ef841bccd2e21))
+
 ### [0.0.44](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.43...v0.0.44) (2021-06-05)
 
 
