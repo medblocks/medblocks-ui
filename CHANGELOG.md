@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.50](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.49...v0.0.50) (2021-06-06)
+
+
+### Bug Fixes
+
+* fix hermes plugin to return actual term ([e927605](https://github.com/sidharthramesh/medblocks-ui/commit/e927605269c4a95b6254fa32d1d6de8ff4355f3a))
+
 ### [0.0.49](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.48...v0.0.49) (2021-06-06)
 
 
