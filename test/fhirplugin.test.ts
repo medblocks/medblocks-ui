@@ -21,7 +21,7 @@ describe('FHIR Plugin', () => {
             <mb-date label="Date of birth" path="birthDate"></mb-date>
           </div>
           <div class="field">
-            <mb-buttons type="code" label="Gender" path="gender">
+            <mb-buttons datatype="code" label="Gender" path="gender">
               <mb-option value="male" label="Male"></mb-option>
               <mb-option value="female" label="Female"></mb-option>
               <mb-option value="other" label="Other"></mb-option>
@@ -57,7 +57,7 @@ describe('FHIR Plugin', () => {
               <mb-select
                 label="Relationship"
                 path="contact[0].relationship[0]"
-                type="CodableConcept"
+                datatype="CodableConcept"
               >
                 <mb-option value="mother" label="Mother"></mb-option>
                 <mb-option value="father" label="Father"></mb-option>
