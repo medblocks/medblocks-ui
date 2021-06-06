@@ -54,8 +54,8 @@ export default class MbInput extends EhrElement {
     return this.textarea
       ? html`
           <sl-textarea
-            maxlength=${this.maxlength}
-            minlength=${this.minlength}
+            .maxlength=${this.maxlength}
+            .minlength=${this.minlength}
             ?required=${this.required}
             label=${this.label}
             @sl-input=${this.handleInput}
@@ -64,11 +64,11 @@ export default class MbInput extends EhrElement {
         `
       : html`
           <sl-input
-            min=${this.min}
-            max=${this.max}
-            maxlength=${this.maxlength}
-            minlength=${this.minlength}
-            type=${this.datatype as any}
+            .min=${this.min}
+            .max=${this.max}
+            .maxlength=${this.maxlength}
+            .minlength=${this.minlength}
+            .type=${this.type as any}
             ?required=${this.required}
             label=${this.label}
             @sl-input=${this.handleInput}
