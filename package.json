@@ -17,7 +17,7 @@
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc && npm run manifest",
     "prepublish": "npm run build",
-    "release": "standard-version -a",
+    "release": "npm run test && standard-version -a",
     "postrelease": "git push --follow-tags origin master",
     "manifest": "wca analyze src --format json --outFile ./dist/custom-elements.json && node web-component-manifest.mjs && wca analyze src --format json --outFile ./vscode-custom-data.json",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
