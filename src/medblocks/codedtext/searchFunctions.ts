@@ -40,7 +40,7 @@ export const hermesPlugin: SearchFunction = async options => {
       preferredTerm: string;
     }) => ({
       value: term.conceptId,
-      label: term.preferredTerm,
+      label: term.term,
     })
   );
 };
