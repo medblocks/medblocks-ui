@@ -159,6 +159,7 @@ export default class MbSearch extends CodedTextElement {
     try {
       const axios = this.axios ? this.axios : this._parentAxios;
       const result = await this.plugin.search({
+        maxHits: this._maxHits,
         searchString: this.searchTerm,
         axios,
         constraint: this._constraint,

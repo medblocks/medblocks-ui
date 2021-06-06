@@ -19,7 +19,7 @@ export default class MbInput extends EhrElement {
 
   @property({ type: String }) label: string = '';
 
-  @property({ type: Boolean, reflect: true}) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required: boolean = false;
 
   @event('mb-input')
   _mbInput: EventEmitter<string>;
@@ -52,7 +52,7 @@ export default class MbInput extends EhrElement {
         `
       : html`
           <sl-input
-            type=${this.type}
+            type=${this.type as any}
             ?required=${this.required}
             label=${this.label}
             @sl-input=${this.handleInput}
