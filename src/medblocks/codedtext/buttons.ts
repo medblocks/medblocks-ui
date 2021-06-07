@@ -3,13 +3,15 @@ import { CodedText, CodedTextElement } from './CodedTextElement';
 import MbOption from './option';
 import '@shoelace-style/shoelace/dist/components/button/button';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
-
+import { SlSelect } from '@shoelace-style/shoelace';
+import { property } from 'lit-element';
 /**
  * An array of buttons to choose from. Expects nested mb-options to actually render buttons.
  * @inheritdoc
  */
 @customElement('mb-buttons')
 export default class CodedTextButtons extends CodedTextElement {
+  @property({ type: Boolean, reflect: true }) required: boolean = true;
   /** @ignore */
   static styles = css`
     .buttons {
@@ -45,7 +47,10 @@ export default class CodedTextButtons extends CodedTextElement {
       ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),
     ];
   }
-
+  reportValidity() {
+    const button = this.shadowRoot!.querySelector('sl-select') as SlSelect;
+    return button.reportValidity();
+  }
   _handleInput(option: MbOption) {
     let data: CodedText = {
       code: option.value,
@@ -70,10 +75,15 @@ export default class CodedTextButtons extends CodedTextElement {
               html` <sl-button
                 @click=${() => this._handleInput(option)}
                 type=${this.data?.code === option.value ? 'primary' : 'default'}
-                >${option.label}</sl-button
-              >`
+                >${option.label}
+              </sl-button>`
           )}
         </div>
+        <input
+          style="transform:scale(0.05)"
+          name="input"
+          required=${this.required}
+        />
       </div>
     `;
   }
