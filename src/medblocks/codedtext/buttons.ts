@@ -11,7 +11,7 @@ import { property } from 'lit-element';
  */
 @customElement('mb-buttons')
 export default class CodedTextButtons extends CodedTextElement {
-  @property({ type: Boolean, reflect: true }) required: boolean = true;
+  @property({ type: Boolean, reflect: true }) required: boolean = false;
   /** @ignore */
   static styles = css`
     .buttons {
@@ -48,8 +48,8 @@ export default class CodedTextButtons extends CodedTextElement {
     ];
   }
   reportValidity() {
-    const button = this.shadowRoot!.querySelector('sl-select') as SlSelect;
-    return button.reportValidity();
+    const input = this.shadowRoot!.querySelector('input') as HTMLInputElement;
+    return input.reportValidity();
   }
   _handleInput(option: MbOption) {
     let data: CodedText = {
