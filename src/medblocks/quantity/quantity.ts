@@ -49,6 +49,7 @@ export default class MbQuantity extends QuantityElement {
   /** Hides the units. Make sure to set a default unit, or set it programatically. */
   @property({ type: Boolean, reflect: true }) hideunit: boolean = false;
 
+  @property({ type: Number, reflect: true }) step: number;
   @state()
   units: MbUnit[] = [];
 
@@ -101,6 +102,7 @@ export default class MbQuantity extends QuantityElement {
   render() {
     return html`
       <sl-input
+        .step=${this.step ?? 'any'}
         .required=${this.required}
         .max=${this.max}
         .min=${this.min}
