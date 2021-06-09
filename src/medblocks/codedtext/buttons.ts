@@ -3,7 +3,7 @@ import { CodedText, CodedTextElement } from './CodedTextElement';
 import MbOption from './option';
 import '@shoelace-style/shoelace/dist/components/button/button';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
-import { SlSelect } from '@shoelace-style/shoelace';
+// import { SlSelect } from '@shoelace-style/shoelace';
 import { property } from 'lit-element';
 /**
  * An array of buttons to choose from. Expects nested mb-options to actually render buttons.
@@ -65,7 +65,7 @@ export default class CodedTextButtons extends CodedTextElement {
 
   render() {
     return html`
-      <div part="base">
+      <div style="position:relative;z-index:2" part="base">
         ${this.label
           ? html`<label part="label" class="label">${this.label}</label>`
           : null}
@@ -80,7 +80,7 @@ export default class CodedTextButtons extends CodedTextElement {
           )}
         </div>
         <input
-          style="transform:scale(0.05)"
+          style="transform:scale(0.05);position:absolute;top:0"
           name="input"
           required=${this.required}
         />
