@@ -49,6 +49,7 @@ export default class CodedTextButtons extends CodedTextElement {
   }
   reportValidity() {
     const input = this.shadowRoot!.querySelector('input') as HTMLInputElement;
+
     return input.reportValidity();
   }
   _handleInput(option: MbOption) {
@@ -61,9 +62,13 @@ export default class CodedTextButtons extends CodedTextElement {
       data = { ...data, ordinal: parseInt(option.ordinal as any) };
     }
     this.data = data;
+    if (this.data) {
+      this.value = 'valid';
+    }
   }
 
   render() {
+    console.log(this._options);
     return html`
       <div style="position:relative;z-index:2" part="base">
         ${this.label
@@ -80,7 +85,8 @@ export default class CodedTextButtons extends CodedTextElement {
           )}
         </div>
         <input
-          style="transform:scale(0.05);position:absolute;top:0"
+          value=${this.value}
+          style="transform:scale(0.025);position:absolute;top:40px;opacity:0.1"
           name="input"
           required=${this.required}
         />
