@@ -68,7 +68,6 @@ export default class CodedTextButtons extends CodedTextElement {
   }
 
   render() {
-    console.log(this._options);
     return html`
       <div style="position:relative;z-index:2" part="base">
         ${this.label

@@ -10,7 +10,7 @@ import MbSelect from '../src/medblocks/codedtext/select';
 import '../src/medblocks/codedtext/select'
 import '../src/medblocks/codedtext/option'
 
-describe('MbQuantity', () => {
+describe('MbSelect', () => {
 
   it('emits data on input', async () => {
     const mbselect = await fixture<MbSelect>(
@@ -26,6 +26,7 @@ describe('MbQuantity', () => {
   });
 
   it('emits data with correct terminology', async ()=>{
+
     const mbselect = await fixture<MbSelect>(
       html`<mb-select label="Hello there" terminology="SOME-TERMINOLOGY">
         <mb-option value="testUnit" label="Test Unit"></mb-option>

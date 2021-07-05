@@ -154,15 +154,11 @@ export const openEHRFlatPlugin: MbPlugin = {
             name: ctx.composer_name,
           };
         } else {
-          console.warn(
-            "Please set composer_name field on ctx property. Setting 'Medblocks UI' for now."
-          );
           return {
             name: 'Medblocks UI',
           };
         }
       default:
-        console.warn(`[${path}]: Unprocessed context`);
         return;
     }
   },
