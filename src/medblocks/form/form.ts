@@ -98,7 +98,6 @@ export default class MedblockForm extends LitElement {
     const nonNullPaths = Object.keys(this.mbElements).filter(
       k => typeof this.mbElements[k].data !== 'undefined'
     );
-    console.log(nonNullPaths);
     Object.values(this.mbElements)
       .filter((element: MbContext) => !!element.autocontext)
       .forEach((element: MbContext) => {

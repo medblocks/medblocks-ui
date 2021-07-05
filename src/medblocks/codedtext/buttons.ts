@@ -3,13 +3,15 @@ import { CodedText, CodedTextElement } from './CodedTextElement';
 import MbOption from './option';
 import '@shoelace-style/shoelace/dist/components/button/button';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
-
+// import { SlSelect } from '@shoelace-style/shoelace';
+import { property } from 'lit-element';
 /**
  * An array of buttons to choose from. Expects nested mb-options to actually render buttons.
  * @inheritdoc
  */
 @customElement('mb-buttons')
 export default class CodedTextButtons extends CodedTextElement {
+  @property({ type: Boolean, reflect: true }) required: boolean = false;
   /** @ignore */
   static styles = css`
     .buttons {
@@ -45,7 +47,11 @@ export default class CodedTextButtons extends CodedTextElement {
       ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),
     ];
   }
+  reportValidity() {
+    const input = this.shadowRoot!.querySelector('input') as HTMLInputElement;
 
+    return input.reportValidity();
+  }
   _handleInput(option: MbOption) {
     let data: CodedText = {
       code: option.value,
@@ -56,11 +62,14 @@ export default class CodedTextButtons extends CodedTextElement {
       data = { ...data, ordinal: parseInt(option.ordinal as any) };
     }
     this.data = data;
+    if (this.data) {
+      this.value = 'valid';
+    }
   }
 
   render() {
     return html`
-      <div part="base">
+      <div style="position:relative;z-index:2" part="base">
         ${this.label
           ? html`<label part="label" class="label">${this.label}</label>`
           : null}
@@ -70,10 +79,16 @@ export default class CodedTextButtons extends CodedTextElement {
               html` <sl-button
                 @click=${() => this._handleInput(option)}
                 type=${this.data?.code === option.value ? 'primary' : 'default'}
-                >${option.label}</sl-button
-              >`
+                >${option.label}
+              </sl-button>`
           )}
         </div>
+        <input
+          value=${this.value}
+          style="transform:scale(0.025);position:absolute;top:40px;opacity:0.1"
+          name="input"
+          required=${this.required}
+        />
       </div>
     `;
   }

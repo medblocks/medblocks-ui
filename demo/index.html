@@ -33,9 +33,14 @@
                 <mb-quantity path="covid_care_daily_sheet/vitals/pulse_heart_beat/rate" label="Pulse Rate">
                     <mb-unit unit="/min" label="/min"></mb-unit>
                 </mb-quantity>
+                <mb-buttons path="hello" label="Buttons validation" required>
+                    <mb-option value="something" label="Hello"></mb-option>
+                    <mb-option value="something2" label="There"></mb-option>
+                </mb-buttons>
                 <p>Labs</p>
                 <mb-input path="covid_care_daily_sheet/lab_results/test_name" label="Test name"
                     data="Covid Screening Tests"></mb-input>
+               
                 <div>
                     <mb-context path=covid_care_daily_sheet/category></mb-context>
                     <mb-context path=covid_care_daily_sheet/context/start_time></mb-context>

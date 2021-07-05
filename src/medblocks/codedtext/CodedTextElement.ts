@@ -17,5 +17,6 @@ export class CodedTextElement extends EhrElement {
   @property({ type: Object }) data: CodedText | undefined;
   /**Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR) */
   @property({ type: String }) terminology: string = 'local';
+  @property({ type: String }) value: string = '';
   @event('mb-input') _mbInput: EventEmitter<CodedText>;
 }
