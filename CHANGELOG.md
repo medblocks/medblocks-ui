@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.51](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.50...v0.0.51) (2021-07-05)
+
+
+### Bug Fixes
+
+* triggers validation error for mb-buttons ([d62fc2d](https://github.com/sidharthramesh/medblocks-ui/commit/d62fc2de197ac0008c8e5f4dea2b4b97d68e0422))
+
 ### [0.0.50](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.49...v0.0.50) (2021-06-06)
 
 
