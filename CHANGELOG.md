@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.53](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.52...v0.0.53) (2021-07-05)
+
+### [0.0.51](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.50...v0.0.51) (2021-06-09)
+
+
+### Bug Fixes
+
+* added decimal points to quantity by default ([08bf3cc](https://github.com/sidharthramesh/medblocks-ui/commit/08bf3ccf115aec7cb823daebe7194b0f18e51529))
+
 ### [0.0.52](https://github.com/sidharthramesh/medblocks-ui/compare/v0.0.50...v0.0.52) (2021-07-05)
 
 
