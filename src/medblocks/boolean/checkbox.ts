@@ -5,7 +5,7 @@ import EhrElement from '../EhrElement';
 
 @customElement('mb-checkbox')
 export default class MbCheckBox extends EhrElement {
-  @property({ type: Boolean }) data: boolean = false;
+  @property({ type: Boolean }) data: boolean | undefined = undefined;
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
   _handleChange(e: CustomEvent) {
     const checkbox = e.target as SlCheckbox;
@@ -16,6 +16,7 @@ export default class MbCheckBox extends EhrElement {
     return html`<sl-checkbox
       ?disabled=${this.disabled}
       ?checked=${this.data}
+      ?indeterminate=${this.data == null}
       @sl-change=${this._handleChange}
       >${this.label}</sl-checkbox
     >`;

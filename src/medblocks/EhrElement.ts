@@ -11,7 +11,7 @@ export default abstract class EhrElement extends LitElement {
   /**Path of the data element. Use the VSCode extension to get the appropriate paths */
   @property({ type: String, reflect: true }) path: string;
   /**Optional label for the element */
-  @property({ type: String, reflect: true }) label?: string;
+  @property({ type: String, reflect: true }) label?: string;      
 
   /**Data of the element. Setting this will emit an input event automatically. */
   abstract data: any;

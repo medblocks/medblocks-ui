@@ -96,7 +96,7 @@ export default class MedblockForm extends LitElement {
 
   insertContext() {
     const nonNullPaths = Object.keys(this.mbElements).filter(
-      k => typeof this.mbElements[k].data !== 'undefined'
+      k =>  this.mbElements[k].data != null                                 ///// check if breaks ////
     );
     Object.values(this.mbElements)
       .filter((element: MbContext) => !!element.autocontext)
@@ -160,8 +160,7 @@ export default class MedblockForm extends LitElement {
 
   handleChildDisconnect(e: CustomEvent) {
     const path = e.detail;
-    const { [path]: _, ...rest } = this.mbElements;
-    this.mbElements = rest;
+    delete this.mbElements[path]
     this.input.emit();
   }
 
@@ -178,6 +177,7 @@ export default class MedblockForm extends LitElement {
     this.addEventListener('mb-connect', this.handleChildConnect);
     this.addEventListener('mb-disconnect', this.handleChildDisconnect);
     this.load.emit();
+    console.log("Hello World");
   }
 
   disconnectedCallback() {

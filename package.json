@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && npm run manifest",
+    "build": "tsc ",
     "prepublish": "npm run build",
     "release": "npm run test && standard-version -a",
     "postrelease": "git push --follow-tags origin master",
