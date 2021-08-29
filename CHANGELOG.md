@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.55](https://github.com/medblocks/medblocks-ui/compare/v0.0.54...v0.0.55) (2021-08-29)
+
+
+### Features
+
+* :sparkles: mb-text-select added ([6dbdf3f](https://github.com/medblocks/medblocks-ui/commit/6dbdf3f15bf79d6fa520a69f9b171b267c882647))
+* :sparkles: mb-text-select added ([314af6a](https://github.com/medblocks/medblocks-ui/commit/314af6aafe8af547cf9535e910e2dee8c4802426))
+
 ### [0.0.54](https://github.com/medblocks/medblocks-ui/compare/v0.0.53...v0.0.54) (2021-08-27)
 
 
