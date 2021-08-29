@@ -20,3 +20,4 @@ import './src/medblocks/datetime/date';
 import './src/medblocks/boolean/checkbox';
 import './src/medblocks/proportion/percent';
 import './src/medblocks/context/checkboxAny';
+import './src/medblocks/text/text-select';
