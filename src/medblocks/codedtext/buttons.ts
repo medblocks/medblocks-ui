@@ -87,7 +87,7 @@ export default class CodedTextButtons extends CodedTextElement {
           value=${this.value}
           style="transform:scale(0.025);position:absolute;top:40px;opacity:0.1"
           name="input"
-          required=${this.required}
+          ?required=${this.required}
         />
       </div>
     `;
