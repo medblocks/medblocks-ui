@@ -1,4 +1,4 @@
-// import { playwrightLauncher } from '@web/test-runner-playwright';
+import { chromeLauncher } from '@web/test-runner';
 
 export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   files: 'dist/test/**/*.test.js',
@@ -19,11 +19,9 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   // concurrency: 1,
 
   /** Browsers to run tests on */
-  // browsers: [
-  //   playwrightLauncher({ product: 'chromium' }),
-  //   playwrightLauncher({ product: 'firefox' }),
-  //   playwrightLauncher({ product: 'webkit' }),
-  // ],
+  browsers: [
+    chromeLauncher({ launchOptions: { args: ['--no-sandbox'] } })
+  ],
 
   // See documentation for all available options
 });

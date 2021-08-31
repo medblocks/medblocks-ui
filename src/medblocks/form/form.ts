@@ -96,7 +96,7 @@ export default class MedblockForm extends LitElement {
 
   insertContext() {
     const nonNullPaths = Object.keys(this.mbElements).filter(
-      k =>  this.mbElements[k].data != null                                 ///// check if breaks ////
+      k => this.mbElements[k].data != null                                 ///// check if breaks ////
     );
     Object.values(this.mbElements)
       .filter((element: MbContext) => !!element.autocontext)
@@ -105,7 +105,7 @@ export default class MedblockForm extends LitElement {
         const contextData = this.overwritectx
           ? this.plugin.getContext(path, this.ctx, nonNullPaths)
           : element.data ??
-            this.plugin.getContext(path, this.ctx, nonNullPaths);
+          this.plugin.getContext(path, this.ctx, nonNullPaths);
         element.data = contextData;
       });
   }
@@ -158,13 +158,18 @@ export default class MedblockForm extends LitElement {
     this.input.emit();
   }
 
-  handleChildDisconnect(e: CustomEvent) {
-    const path = e.detail;
-    console.log("disconnected this path",path)
-    // delete this.mbElements[path]
+
+  handleChildPathChange(e: CustomEvent<{ oldPath: string, newPath: string }>) {
+    const detail = e.detail
+    const element = this.mbElements[detail.oldPath]
+    this.removeMbElement(detail.oldPath)
+    this.mbElements[detail.newPath] = element
+    this.input.emit()
+  }
+
+  removeMbElement(path: string) {
     const { [path]: _, ...rest } = this.mbElements;
     this.mbElements = rest;
-    this.input.emit();
   }
 
   handleDependency(e: CustomEvent<{ key: string; value: any }>) {
@@ -174,26 +179,54 @@ export default class MedblockForm extends LitElement {
 
     e.detail.value = dependencies[e.detail.key];
   }
+
+  @state() observer: MutationObserver
+
   async connectedCallback() {
     super.connectedCallback();
+    this.observer = new MutationObserver((mutationList, _) => {
+      let updated = false
+      mutationList.forEach(record => {
+        if (record.addedNodes.length > 0) {
+          record.addedNodes.forEach((node: EhrElement) => {
+            if (node.isMbElement) {
+              this.mbElements[node.path] = node
+              updated = true
+            }
+          })
+        }
+
+        if (record.removedNodes.length > 0) {
+          record.removedNodes.forEach((node: EhrElement) => {
+            if (node.isMbElement) {
+              const { [node.path]: _, ...rest } = this.mbElements;
+              this.mbElements = rest;
+              updated = true
+            }
+          })
+        }
+
+        if (updated) {
+          this.input.emit()
+        }
+      })
+    })
+    this.observer.observe(this, { childList: true, attributes: false, subtree: true })
+    this.addEventListener('mb-connect', this.handleChildConnect)
     this.addEventListener('mb-dependency', this.handleDependency);
-    this.addEventListener('mb-connect', this.handleChildConnect);
-    this.addEventListener('mb-disconnect', this.handleChildDisconnect);
+    this.addEventListener('mb-path-change', this.handleChildPathChange);
     this.load.emit();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    this.removeEventListener('mb-connect', this.handleChildConnect)
     this.removeEventListener('mb-dependency', this.handleDependency);
-    this.removeEventListener('mb-connect', this.handleChildConnect);
-    this.removeEventListener('mb-disconnect', this.handleChildDisconnect);
+    this.removeEventListener('mb-path-change', this.handleChildPathChange);
+    this.observer.disconnect()
   }
 
   render() {
-    return html`<slot
-      @slotchange=${this.handleSlotChange}
-      @mb-input=${this.handleInput}
-      @mb-trigger-submit=${this.handleSubmit}
-    ></slot> `;
+    return html`<slot @slotchange=${this.handleSlotChange} @mb-input=${this.handleInput} @mb-trigger-submit=${this.handleSubmit}></slot>`;
   }
 }
