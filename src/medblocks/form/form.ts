@@ -188,16 +188,15 @@ export default class MedblockForm extends LitElement {
     this.observer = new MutationObserver((mutationList, _) => {
       let updated = false
       mutationList.forEach(record => {
-        if (record.addedNodes.length > 0) {
-          record.addedNodes.forEach((node: EhrElement) => {
-            if (node.isMbElement) {
-              console.log("adding", node.path)
-              this.mbElements[node.path] = node
-              updated = true
-            }
-          })
-        }
-
+        // if (record.addedNodes.length > 0) {
+        //   record.addedNodes.forEach((node: EhrElement) => {
+        //     if (node.isMbElement) {
+        //       console.log("adding", node.path)
+        //       this.mbElements[node.path] = node
+        //       updated = true
+        //     }
+        //   })
+        // }
         if (record.removedNodes.length > 0) {
           record.removedNodes.forEach((node: EhrElement) => {
             if (node.isMbElement) {
@@ -205,6 +204,18 @@ export default class MedblockForm extends LitElement {
               const { [node.path]: _, ...rest } = this.mbElements;
               this.mbElements = rest;
               updated = true
+            } else {
+              if (node.nodeType === node.ELEMENT_NODE) {
+                const allNodes = node.querySelectorAll("*") //Very slow
+                allNodes.forEach((node: EhrElement)=>{
+                  if (node.isMbElement) {
+                    console.log("removing nested element", node.path)
+                    const { [node.path]: _, ...rest } = this.mbElements;
+                    this.mbElements = rest
+                    updated = true
+                  }
+                })
+              }
             }
           })
         }
@@ -214,7 +225,7 @@ export default class MedblockForm extends LitElement {
         }
       })
     })
-    this.observer.observe(this, { childList: true, attributes: false, subtree: true })
+    this.observer.observe(this, { childList: true, subtree: true, attributes: false })
     this.addEventListener('mb-connect', this.handleChildConnect)
     this.addEventListener('mb-dependency', this.handleDependency);
     this.addEventListener('mb-path-change', this.handleChildPathChange);
