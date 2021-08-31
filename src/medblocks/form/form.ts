@@ -160,7 +160,9 @@ export default class MedblockForm extends LitElement {
 
   handleChildDisconnect(e: CustomEvent) {
     const path = e.detail;
-    delete this.mbElements[path]
+    // delete this.mbElements[path]
+    const { [path]: _, ...rest } = this.mbElements;
+    this.mbElements = rest;
     this.input.emit();
   }
 
@@ -177,7 +179,6 @@ export default class MedblockForm extends LitElement {
     this.addEventListener('mb-connect', this.handleChildConnect);
     this.addEventListener('mb-disconnect', this.handleChildDisconnect);
     this.load.emit();
-    console.log("Hello World");
   }
 
   disconnectedCallback() {
