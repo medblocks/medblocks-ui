@@ -160,6 +160,7 @@ export default class MedblockForm extends LitElement {
 
   handleChildDisconnect(e: CustomEvent) {
     const path = e.detail;
+    console.log("disconnected this path",path)
     // delete this.mbElements[path]
     const { [path]: _, ...rest } = this.mbElements;
     this.mbElements = rest;
