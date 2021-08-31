@@ -160,6 +160,7 @@ export default class MedblockForm extends LitElement {
 
 
   handleChildPathChange(e: CustomEvent<{ oldPath: string, newPath: string }>) {
+    console.log("Path changed", e.detail)
     const detail = e.detail
     const element = this.mbElements[detail.oldPath]
     this.removeMbElement(detail.oldPath)
@@ -190,6 +191,7 @@ export default class MedblockForm extends LitElement {
         if (record.addedNodes.length > 0) {
           record.addedNodes.forEach((node: EhrElement) => {
             if (node.isMbElement) {
+              console.log("adding", node.path)
               this.mbElements[node.path] = node
               updated = true
             }
@@ -199,6 +201,7 @@ export default class MedblockForm extends LitElement {
         if (record.removedNodes.length > 0) {
           record.removedNodes.forEach((node: EhrElement) => {
             if (node.isMbElement) {
+              console.log("removing", node.path)
               const { [node.path]: _, ...rest } = this.mbElements;
               this.mbElements = rest;
               updated = true
