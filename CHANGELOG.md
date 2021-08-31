@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.57](https://github.com/medblocks/medblocks-ui/compare/v0.0.56...v0.0.57) (2021-08-31)
+
+
+### Bug Fixes
+
+* :bug: Fixed a bug where mbElements don't get removed ([c85e03b](https://github.com/medblocks/medblocks-ui/commit/c85e03b3f48119b918b31bbac713f0e57a20f9f4)), closes [#36](https://github.com/medblocks/medblocks-ui/issues/36)
+
 ### [0.0.56](https://github.com/medblocks/medblocks-ui/compare/v0.0.55...v0.0.56) (2021-08-31)
 
 
