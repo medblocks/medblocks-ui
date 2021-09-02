@@ -10,6 +10,10 @@
   "files": [
     "dist/medblocks.js",
     "dist/medblocks.d.ts",
+    "dist/styles.js",
+    "dist/styles.d.ts",
+    "dist/shoelace.js",
+    "dist/shoelace.d.ts",
     "vscode-custom-data.json",
     "dist/src"
   ],
