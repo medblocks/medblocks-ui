@@ -3,6 +3,7 @@
 import { registerIcons } from './src/internal/icons';
 registerIcons();
 
+import "@shoelace-style/shoelace/dist/themes/light.css"
 import './src/medblocks/form/form';
 import './src/medblocks/form/fhirForm';
 
