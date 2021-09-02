@@ -12,11 +12,18 @@ export interface Ctx {
 function toFlat(data: Data): Data {
   const flat: any = {};
   Object.keys(data).forEach(path => {
-    const value = data[path];
+    const value = data[path];           
     if (typeof value === 'object') {
-      Object.keys(value).forEach(frag => {
-        flat[`${path}|${frag}`] = value[frag];
-      });
+      if(Array.isArray(value)){
+        value.forEach((val,i) => {
+          flat[`${path}:${i}`] = val;
+        });
+      }else{
+        Object.keys(value).forEach(frag => {
+          flat[`${path}|${frag}`] = value[frag];
+        });
+      }
+      
     } else {
       flat[path] = value;
     }

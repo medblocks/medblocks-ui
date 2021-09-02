@@ -17,6 +17,8 @@ export default class MbSelect extends CodedTextElement {
 
   @property({ type: String, reflect: true }) placeholder: string;
 
+  @property({type:Boolean,reflect:true}) multiple:boolean = false; 
+  
   @state() _options: MbOption[] = [];
 
   getLabel(code: string) {
