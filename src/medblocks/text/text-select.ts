@@ -28,7 +28,7 @@ export default class MbTextSelect extends EhrElement {
 
   handleInput(e: CustomEvent) {
     const select = e.target as SlSelect;
-    if (select.value ) {
+    if (select.value ){
       this.data=select.value
       this._mbInput.emit();
     }
