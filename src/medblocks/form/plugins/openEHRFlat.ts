@@ -9,14 +9,31 @@ export interface Ctx {
   composer_name?: string;
 }
 
+function multipleSelectArray(value:string[],path:string,flat:any){
+   value.forEach((val,i)=>{
+     if(typeof val==='object'){
+       Object.keys(val).forEach(item=>{
+         flat[`${path}:${i}|${item}`]=val[item]
+       })
+     }else{
+       flat[`${path}:${i}`]=val
+     }
+     
+   })
+}
 function toFlat(data: Data): Data {
   const flat: any = {};
   Object.keys(data).forEach(path => {
-    const value = data[path];
+    const value = data[path];           
     if (typeof value === 'object') {
-      Object.keys(value).forEach(frag => {
-        flat[`${path}|${frag}`] = value[frag];
-      });
+      if(Array.isArray(value)){
+        multipleSelectArray(value,path,flat)
+      }else{
+        Object.keys(value).forEach(frag => {
+          flat[`${path}|${frag}`] = value[frag];
+        });
+      }
+      
     } else {
       flat[path] = value;
     }
@@ -37,6 +54,7 @@ function fromFlat(flat: Data): Data {
   });
   return data;
 }
+
 
 function formatPath(path: string) {
   return path
@@ -92,8 +110,25 @@ function toInsertContext(path: string, nonNullPaths: string[]): boolean {
 }
 
 export const openEHRFlatPlugin: MbPlugin = {
-  parse(_, data) {
-    return fromFlat(data);
+  parse(mbElements, data) {
+    const parsedData = fromFlat(data);
+    const mbElementsWithMultiple = Object.keys(mbElements).filter(path=>{
+        const element = mbElements[path] as any;
+        return element.multiple;
+    })
+    let pathWithMultiple:string[] = [];
+    let dataWithMultiple:{[path:string]:any[]} = {}
+
+    mbElementsWithMultiple.forEach(basePath=>{
+      const elementsWithBasePath = Object.keys(parsedData).filter(path=>path.startsWith(basePath));
+      const arrayOfValues = elementsWithBasePath.map(path=>parsedData[path]);
+      dataWithMultiple = {...dataWithMultiple,[basePath]:arrayOfValues};
+      pathWithMultiple = [...pathWithMultiple,...elementsWithBasePath];
+    })
+    pathWithMultiple.forEach(path=>{
+      delete parsedData[path];
+    })
+    return {...parsedData,...dataWithMultiple}
   },
 
   serialize(mbElements) {

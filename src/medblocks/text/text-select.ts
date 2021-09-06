@@ -13,8 +13,9 @@ import EhrElement from '../EhrElement';
 
 @customElement('mb-text-select')
 export default class MbTextSelect extends EhrElement {
-  @property({ type: String }) data: string | undefined;
+  @property({ type: Object }) data: string[] | string | undefined;
   @property({ type: String }) terminology: string;
+  @property({type:Boolean,reflect:true}) multiple:boolean = false; 
 
   @property({ type: String, reflect: true }) placeholder: string;
 
@@ -27,7 +28,7 @@ export default class MbTextSelect extends EhrElement {
 
   handleInput(e: CustomEvent) {
     const select = e.target as SlSelect;
-    if (select.value && typeof select.value === 'string') {
+    if (select.value ){
       this.data=select.value
       this._mbInput.emit();
     }
@@ -51,6 +52,7 @@ export default class MbTextSelect extends EhrElement {
     return html`
       <sl-select
         clearable
+        ?multiple = ${this.multiple}
         placeholder=${this.placeholder ?? 'Please select'}
         label=${ifDefined(this.label)}
         @sl-change=${this.handleInput}
