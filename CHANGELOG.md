@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.62](https://github.com/medblocks/medblocks-ui/compare/v0.0.61...v0.0.62) (2021-09-06)
+
+
+### Features
+
+* mb-select added to medblocks-ui ([36b47e4](https://github.com/medblocks/medblocks-ui/commit/36b47e40bd4f9090637ea52d1ad096b0ddf00dd4))
+
 ### [0.0.61](https://github.com/medblocks/medblocks-ui/compare/v0.0.60...v0.0.61) (2021-09-02)
 
 ### [0.0.60](https://github.com/medblocks/medblocks-ui/compare/v0.0.59...v0.0.60) (2021-09-02)
