@@ -1,9 +1,15 @@
-import { customElement, property } from 'lit-element';
+import { customElement, property,css } from 'lit-element';
 import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 
 @customElement('mb-context')
 export default class MbContext extends EhrElement {
+   /** @ignore */
+   static styles = css`
+   :host {
+     display: none;
+   }
+ `;
   @property({ type: Object })
   data: any;
 
