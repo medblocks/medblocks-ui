@@ -7,94 +7,12 @@
     <title>Assessment</title>
     <link
       rel="stylesheet"
-      href="../node_modules/@shoelace-style/shoelace/dist/themes/base.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
+      href="../node_modules/@shoelace-style/shoelace/dist/themes/light.css"
     />
     <script type="module" src="../dist/medblocks.js"></script>
   </head>
 
   <body>
-    <h2>Covid Form</h2>
-    <mb-form id="form">
-      <mb-input
-      path='pdjallergy.v0/adverse_reaction_list/adverse_reaction_risk:0/substance'
-      label="Substance"
-      required
-  ></mb-input>
-  <mb-date
-      time
-      path='pdjallergy.v0/adverse_reaction_list/adverse_reaction_risk:0/onset_of_last_reaction'
-      label="Onset of reaction"
-  ></mb-date>
-      <mb-select
-                path='pdjallergy.v0/adverse_reaction_list/adverse_reaction_risk:0/status'
-                label="Status"
-            >
-                <mb-option value="at0127" label="Suspected" />
-                <mb-option value="at0064" label="Likely" />
-                <mb-option value="at0065" label="Confirmed" />
-                <mb-option value="at0067" label="Resolved" />
-                <mb-option value="at0066" label="Refuted" />
-            </mb-select>
-      <mb-text-select multiple
-            path='pdjallergy.v0/adverse_reaction_list/adverse_reaction_risk:0/reaction_event:0/manifestation'
-            label="Manifestation"
-        >
-            <mb-option value="Rash" label="Rash" />
-            <mb-option value="Itching" label="Itching" />
-            <mb-option value="Sneezing" label="Sneezing" />
-            <mb-option value="Watering of eyes" label="Watering of eyes" />
-            <mb-option
-                value="Breathing difficulty"
-                label="Breathing difficulty"
-            />
-            <mb-option value="Anaphylaxis" label="Anaphylaxis" />
-        </mb-text-select>
-      <mb-select 
-      path='pdjallergy.v0/adverse_reaction_list/adverse_reaction_risk:0/reaction_event:0/severity_of_reaction'
-      label="Severity of reaction"
-  >
-      <mb-option value="at0093" label="Mild" />
-      <mb-option value="at0092" label="Moderate" />
-      <mb-option value="at0090" label="Severe" />
-  </mb-select>
-     </div>
-
-      <mb-input
-          path="pdjallergy.v0/adverse_reaction_list/adverse_reaction_risk:0/comment"
-          label="Comment"
-      ></mb-input>
-     
-      
-      <mb-context path="covid.form.v1/composer"></mb-context>
-      <mb-context path="covid.form.v1/language"></mb-context>
-      <mb-context path="covid.form.v1/territory"></mb-context>
-      <mb-submit><sl-button>Submit</sl-button></mb-submit>
-    </mb-form>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-      const Form = document.getElementById('form')
-      Form.addEventListener('mb-submit', e => {
-        console.log(e.detail)
-      })
-      const ctx = {
-        careflow_step: {
-          terminology: ' openehr',
-          value: 'completed',
-          code: '526'
-        },
-        current_state: {
-          terminology: 'local',
-          code: 'at0109',
-          value: 'Completed'
-        }
-      }
-      document.getElementById('form').ctx = ctx
-      const snomed = axios.create({ baseURL: 'http://10.32.10.200:9200/v1' })
-      document.querySelector('mb-search').axios = snomed
-    </script>
+    <mb-input-multiple></mb-input-multiple>
   </body>
 </html>
