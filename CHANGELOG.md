@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.65](https://github.com/medblocks/medblocks-ui/compare/v0.0.63...v0.0.65) (2021-09-09)
+
+
+### Features
+
+* mb-input-multiple is added to medblocks-ui ([dc0042e](https://github.com/medblocks/medblocks-ui/commit/dc0042e3fbfc1daf69b14ec3e56b1c248d4551db))
+
 ### [0.0.64](https://github.com/medblocks/medblocks-ui/compare/v0.0.63...v0.0.64) (2021-09-09)
 
 
