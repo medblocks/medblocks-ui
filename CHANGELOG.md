@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.66](https://github.com/medblocks/medblocks-ui/compare/v0.0.65...v0.0.66) (2021-09-12)
+
+
+### Bug Fixes
+
+* added test for input-multiple and text-select ([6384b0a](https://github.com/medblocks/medblocks-ui/commit/6384b0a0233a2cb6d91920b12f6a6f6479514148))
+
 ### [0.0.65](https://github.com/medblocks/medblocks-ui/compare/v0.0.63...v0.0.65) (2021-09-09)
 
 
