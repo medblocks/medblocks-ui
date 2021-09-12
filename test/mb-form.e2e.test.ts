@@ -170,7 +170,7 @@ describe('Form e2e', ()=>{
                 }
             ]
         };
-        form.data = resource
+        // form.data = resource
         const parsed = form.parse(resource)
         form.data = parsed
         await elementUpdated(form)

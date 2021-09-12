@@ -49,7 +49,6 @@ export default class CodedTextButtons extends CodedTextElement {
   }
   reportValidity() {
     const input = this.shadowRoot!.querySelector('input') as HTMLInputElement;
-
     return input.reportValidity();
   }
   _handleInput(option: MbOption) {

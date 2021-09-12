@@ -1,6 +1,9 @@
 import { SlInput } from '@shoelace-style/shoelace';
 import { customElement, property, html, state ,css} from 'lit-element';
 import EhrElement from '../EhrElement';
+import '@shoelace-style/shoelace/dist/components/input/input';
+import '@shoelace-style/shoelace/dist/components/icon/icon';
+import '@shoelace-style/shoelace/dist/components/tag/tag';
 
 @customElement('mb-input-multiple')
 export default class MbInputMultiple extends EhrElement {
