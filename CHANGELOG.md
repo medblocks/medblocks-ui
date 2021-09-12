@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.67](https://github.com/medblocks/medblocks-ui/compare/v0.0.66...v0.0.67) (2021-09-12)
+
+
+### Bug Fixes
+
+* :bug: can use arrow keys to navigate through mb-search ([2577f06](https://github.com/medblocks/medblocks-ui/commit/2577f06280b759b10fd99a2f6f631de4d1c507d4))
+
 ### [0.0.66](https://github.com/medblocks/medblocks-ui/compare/v0.0.65...v0.0.66) (2021-09-12)
 
 
