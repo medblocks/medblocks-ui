@@ -18,6 +18,8 @@ export default class MbDateTime extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) time: boolean = false;
 
+  @property({ type: Boolean, reflect: true }) required: boolean = false;
+
   @event('mb-input') _mbInput: EventEmitter<any>;
 
   handleInput(e: CustomEvent) {
@@ -26,9 +28,15 @@ export default class MbDateTime extends EhrElement {
     this._mbInput.emit();
   }
 
+  reportValidity() {
+    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    return input.reportValidity();
+  }
+
   render() {
     return html`
       <sl-input
+        ?required=${this.required}
         type="${this.time ? 'datetime-local' : ('date' as any)}"
         label=${this.label}
         @sl-input=${this.handleInput}

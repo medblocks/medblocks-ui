@@ -13,7 +13,139 @@
   </head>
 
   <body>
-   <mb-input-multiple ></mb-input-multiple>
-    </script>
+    <mb-form>
+      <!-- <div>
+        <mb-quantity required label="Somrhting"></mb-quantity>
+      </div> -->
+
+      <!-- <div>
+        <mb-input required id="input" path="adsadasd" label="input"></mb-input>
+        <script>
+          const input = document.getElementById('input')
+          input.data = 'Athul'
+        </script>
+      </div> -->
+
+      <div>
+        <mb-checkbox
+          required
+          label="Check that"
+          id="checkbox"
+          path="adsada"
+        ></mb-checkbox>
+        <script>
+          const check = document.getElementById('checkbox')
+          check.data = true
+        </script>
+      </div>
+
+      <!-- <div>
+        <mb-select required id="select">
+          <mb-option value="mother" label="Mother"></mb-option>
+          <mb-option value="father" label="Father"></mb-option>
+        </mb-select>
+        <script>
+          const select = document.getElementById('select')
+          select.data = {
+            code: 'mother',
+            value: 'mother',
+            terminology: 'local'
+          }
+        </script>
+      </div> -->
+
+      <!-- <div>
+        <mb-search path="search"> </mb-search>
+      </div> -->
+
+      <!-- <div>
+        <mb-buttons required id="btn" type="code" label="Gender" path="gender">
+          <mb-option value="male" label="Male"></mb-option>
+          <mb-option value="female" label="Female"></mb-option>
+          <mb-option value="other" label="Other"></mb-option>
+        </mb-buttons>
+        <script>
+          const button = document.getElementById('btn')
+          button.data = {
+              code: 'male',
+              value: 'Male',
+              terminology: 'local'
+            }
+        </script>
+      </div> -->
+
+      <!-- <div>
+        <mb-percent required></mb-percent>
+      </div> -->
+
+      <!-- <div>
+        <mb-input-multiple ></mb-input-multiple>
+      </div> -->
+
+      <!-- <div>
+        <mb-text-select required path="text-select">
+          <mb-option value="mother" label="Mother"></mb-option>
+              <mb-option value="father" label="Father"></mb-option>
+        </mb-text-select>
+      </div> -->
+
+      <!-- <div>
+        <mb-input-multiple required></mb-input-multiple>
+      </div> -->
+
+      <!-- <div>
+          <mb-date required></mb-date>
+        </div> -->
+      <!-- <div>
+        <mb-percent required label="mark" path="percent"></mb-percent>
+      </div> -->
+
+      <div>
+        <mb-submit type="primary"><sl-button>Save</sl-button></mb-submit>
+      </div>
+    </mb-form>
+    <!-- <style>
+      :root {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      }
+
+      body {
+        text-align: center;
+        padding: 1em;
+        margin: 0 auto;
+      }
+
+      img {
+        height: 16rem;
+        width: 16rem;
+      }
+
+      h1 {
+        color: #ff3e00;
+        text-transform: uppercase;
+        font-size: 4rem;
+        font-weight: 100;
+        line-height: 1.1;
+        margin: 2rem auto;
+        max-width: 14rem;
+      }
+
+      p {
+        max-width: 14rem;
+        margin: 1rem auto;
+        line-height: 1.35;
+      }
+
+      @media (min-width: 480px) {
+        h1 {
+          max-width: none;
+        }
+
+        p {
+          max-width: none;
+        }
+      }
+    </style> -->
   </body>
 </html>

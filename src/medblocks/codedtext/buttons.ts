@@ -15,8 +15,8 @@ export default class CodedTextButtons extends CodedTextElement {
   /** @ignore */
   static styles = css`
     .buttons {
-      display: flex;
-      flex-wrap: wrap;
+      // display: flex;
+      // flex-wrap: wrap;
       gap: var(--sl-spacing-xx-small);
     }
 
@@ -47,10 +47,12 @@ export default class CodedTextButtons extends CodedTextElement {
       ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),
     ];
   }
+  
   reportValidity() {
     const input = this.shadowRoot!.querySelector('input') as HTMLInputElement;
     return input.reportValidity();
   }
+
   _handleInput(option: MbOption) {
     let data: CodedText = {
       code: option.value,
@@ -83,7 +85,7 @@ export default class CodedTextButtons extends CodedTextElement {
           )}
         </div>
         <input
-          value=${this.value}
+          value=${this.data?.code || ""}
           style="transform:scale(0.025);position:absolute;top:40px;opacity:0.1"
           name="input"
           ?required=${this.required}

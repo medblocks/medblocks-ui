@@ -14,13 +14,16 @@ import EhrElement from '../EhrElement';
 @customElement('mb-text-select')
 export default class MbTextSelect extends EhrElement {
   @property({ type: Object }) data: string[] | string | undefined;
+
   @property({ type: String }) terminology: string;
-  @property({type:Boolean,reflect:true}) multiple:boolean = false; 
+
+  @property({ type: Boolean, reflect: true }) multiple: boolean = false;
+
+  @property({ type: Boolean, reflect: true }) required: boolean = false;
 
   @property({ type: String, reflect: true }) placeholder: string;
 
   @state() _options: MbOption[] = [];
-
 
   get _optionElements(): NodeListOf<MbOption> {
     return this.querySelectorAll('mb-option');
@@ -28,8 +31,8 @@ export default class MbTextSelect extends EhrElement {
 
   handleInput(e: CustomEvent) {
     const select = e.target as SlSelect;
-    if (select.value ){
-      this.data=select.value
+    if (select.value) {
+      this.data = select.value;
       this._mbInput.emit();
     }
   }
@@ -48,11 +51,17 @@ export default class MbTextSelect extends EhrElement {
     ];
   }
 
+  reportValidity() {
+    const select = this.shadowRoot!.querySelector('sl-select') as SlSelect;
+    return select.reportValidity();
+  }
+
   render() {
     return html`
       <sl-select
         clearable
-        ?multiple = ${this.multiple}
+        ?required=${this.required}
+        ?multiple=${this.multiple}
         placeholder=${this.placeholder ?? 'Please select'}
         label=${ifDefined(this.label)}
         @sl-change=${this.handleInput}

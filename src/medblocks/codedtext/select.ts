@@ -14,12 +14,14 @@ import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
 @customElement('mb-select')
 export default class MbSelect extends CodedTextElement {
   @property({ type: String }) terminology: string;
-  @property({ type: Object }) data: CodedText | CodedText[]| undefined;
-  
+  @property({ type: Object }) data: CodedText | CodedText[] | undefined;
+
   @property({ type: String, reflect: true }) placeholder: string;
 
-  @property({type:Boolean,reflect:true}) multiple:boolean = false; 
-  
+  @property({ type: Boolean, reflect: true }) multiple: boolean = false;
+
+  @property({ type: Boolean, reflect: true }) required: boolean = false;
+
   @state() _options: MbOption[] = [];
 
   getLabel(code: string) {
@@ -36,28 +38,27 @@ export default class MbSelect extends CodedTextElement {
   get _optionElements(): NodeListOf<MbOption> {
     return this.querySelectorAll('mb-option');
   }
-
+  
   handleInput(e: CustomEvent) {
     const select = e.target as SlSelect;
     if (select.value && typeof select.value === 'object') {
-        let data: CodedText[] = select.value.map((item:string)=>{
-          let codedtext:CodedText = {
-            code: item,
-            value: this.getLabel(item),
-            terminology: this.terminology,
-          }
-          const ordinal = this.getOrdinal(item);
+      let data: CodedText[] = select.value.map((item: string) => {
+        let codedtext: CodedText = {
+          code: item,
+          value: this.getLabel(item),
+          terminology: this.terminology,
+        };
+        const ordinal = this.getOrdinal(item);
         if (ordinal) {
-         codedtext = { ...codedtext, ordinal: parseInt(ordinal as any) };
+          codedtext = { ...codedtext, ordinal: parseInt(ordinal as any) };
         }
         return codedtext;
       });
-      if(JSON.stringify(this.data) !== JSON.stringify(data)){
-         this.data = data;
-         this._mbInput.emit();
+      if (JSON.stringify(this.data) !== JSON.stringify(data)) {
+        this.data = data;
+        this._mbInput.emit();
       }
-    }
-    else if (select.value && typeof select.value === 'string') {
+    } else if (select.value && typeof select.value === 'string') {
       let data: CodedText = {
         code: select.value,
         value: this.getLabel(select.value),
@@ -79,26 +80,29 @@ export default class MbSelect extends CodedTextElement {
     observer.observe(this, { childList: true });
     this.handleChildChange();
   }
-
+  
   handleChildChange() {
     this._options = [
       ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),
     ];
   }
-
-  getValue(data:CodedText | CodedText[]| undefined):string|string[]{
-    if(data==null) return '';
-    else if(Array.isArray(data)) 
-        return data.map((item)=>item.code || "")
-    else
-      return data?.code || ""
+  
+  getValue(data: CodedText | CodedText[] | undefined): string | string[] {
+    if (data == null) return '';
+    else if (Array.isArray(data)) return data.map(item => item.code || '');
+    else return data?.code || '';
   }
-
+  
+  reportValidity() {
+    const select = this.shadowRoot!.querySelector('sl-select') as SlSelect;
+    return select.reportValidity();
+  }
   render() {
     return html`
       <sl-select
         clearable
-        ?multiple = ${this.multiple}
+        ?required=${this.required}
+        ?multiple=${this.multiple}
         placeholder=${this.placeholder ?? 'Please select'}
         label=${ifDefined(this.label)}
         @sl-change=${this.handleInput}
@@ -107,7 +111,7 @@ export default class MbSelect extends CodedTextElement {
           this._mbInput.emit();
         }}
         .hoist=${true}
-        .value=${this.getValue(this.data)} 
+        .value=${this.getValue(this.data)}
       >
         ${this._options.map(
           option =>
@@ -120,5 +124,3 @@ export default class MbSelect extends CodedTextElement {
     `;
   }
 }
-
-
