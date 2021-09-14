@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.68](https://github.com/medblocks/medblocks-ui/compare/v0.0.67...v0.0.68) (2021-09-14)
+
+
+### Bug Fixes
+
+* :bug: checked validation of all elements , also wrote test for each of them ([dd08b77](https://github.com/medblocks/medblocks-ui/commit/dd08b770fd58289b2368ecfcb918cbceb15f1cab))
+
 ### [0.0.67](https://github.com/medblocks/medblocks-ui/compare/v0.0.66...v0.0.67) (2021-09-12)
 
 
