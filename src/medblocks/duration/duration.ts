@@ -66,9 +66,9 @@ export default class MbDuration extends EhrElement {
     const p = [year, month, week, day].join('');
 
     const timePart = t ? `T${t}` : '';
-    const periodPart = p ? `P${p}` : '';
+    const periodPart = p ? `${p}` : '';
 
-    return `${periodPart}${timePart}`;
+    return `P${periodPart}${timePart}`;
   }
 
   get data() {
