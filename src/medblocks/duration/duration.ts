@@ -34,16 +34,18 @@ export default class MbDuration extends EhrElement {
   @state() _state : {[period: string]: string | undefined} = {}
 
   parsePeriod(period: string) {
-    const [periodPart, t] = period.split('T');
-    const p = periodPart.replace('P', '');
-    this._state.year = this.getPart(p, 'Y');
-    this._state.month = this.getPart(p, 'M');
-    this._state.week = this.getPart(p, 'W');
-    this._state.day = this.getPart(p, 'D');
-    if (t) {
-      this._state.hour = this.getPart(t, 'H');
-      this._state.minute = this.getPart(t, 'M');
-      this._state.second = this.getPart(t, 'S');
+    if(period){
+      const [periodPart, t] = period.split('T');
+      const p = periodPart.replace('P', '');
+      this._state.year = this.getPart(p, 'Y');
+      this._state.month = this.getPart(p, 'M');
+      this._state.week = this.getPart(p, 'W');
+      this._state.day = this.getPart(p, 'D');
+      if (t) {
+        this._state.hour = this.getPart(t, 'H');
+        this._state.minute = this.getPart(t, 'M');
+        this._state.second = this.getPart(t, 'S');
+      }
     }
   }
 
