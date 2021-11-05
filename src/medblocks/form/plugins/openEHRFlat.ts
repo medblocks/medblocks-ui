@@ -21,7 +21,7 @@ function multipleSelectArray(value:string[],path:string,flat:any){
      
    })
 }
-function toFlat(data: Data): Data {
+export function toFlat(data: Data): Data {
   const flat: any = {};
   Object.keys(data).forEach(path => {
     const value = data[path];           
@@ -30,7 +30,11 @@ function toFlat(data: Data): Data {
         multipleSelectArray(value,path,flat)
       }else{
         Object.keys(value).forEach(frag => {
-          flat[`${path}|${frag}`] = value[frag];
+          if(frag!=='_root'){
+            flat[`${path}|${frag}`] = value[frag];
+          }else{
+            flat[path]= value[frag];
+          }
         });
       }
       
@@ -41,16 +45,27 @@ function toFlat(data: Data): Data {
   return flat;
 }
 
-function fromFlat(flat: Data): Data {
+export function fromFlat(flat: Data): Data {
   let data: Data = {};
   Object.keys(flat).map(path => {
     const value = flat[path];
     const [subpath, frag] = path.split('|');
     if (frag) {
+      if(typeof data[subpath] !== "object"){
+        data[subpath] = { "_root": data[subpath] };
+      }
       data[subpath] = { ...data[subpath], [frag]: value };
     } else {
-      data[subpath] = value;
+      if(data[subpath]){
+        data[subpath] = { ...data[subpath], "_root": value };
+      }else{
+        data[subpath] = value;  
+      }
     }
+    //   "ncd/pulse_oximetry/any_event:0/spo": 0.02,
+    // "ncd/pulse_oximetry/any_event:0/spo|numerator": 2.0,
+    // "ncd/pulse_oximetry/any_event:0/spo|denominator": 100.0,
+    // "ncd/pulse_oximetry/any_event:0/spo|type": 2,
   });
   return data;
 }

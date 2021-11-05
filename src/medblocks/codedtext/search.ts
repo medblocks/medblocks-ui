@@ -210,7 +210,7 @@ export default class MbSearch extends CodedTextElement {
     this.data = {
       value: menuItem.label,
       code: menuItem.value,
-      terminology: menuItem.terminology,
+      terminology: this.terminology,
     };
     this._mbInput.emit();
   }

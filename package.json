@@ -15,7 +15,9 @@
     "dist/shoelace.js",
     "dist/shoelace.d.ts",
     "vscode-custom-data.json",
-    "dist/src"
+    "dist/src",
+    "dist/utils.js",
+    "dist/utils.d.ts"
   ],
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
