@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.71](https://github.com/medblocks/medblocks-ui/compare/v0.0.70...v0.0.71) (2021-11-05)
+
+
+### Bug Fixes
+
+* :bug: migrated transform from medblocks-ui vscode-extension ([3c70930](https://github.com/medblocks/medblocks-ui/commit/3c709307715ee78234656f98e9eea038a6461280))
+
 ### [0.0.70](https://github.com/medblocks/medblocks-ui/compare/v0.0.69...v0.0.70) (2021-10-19)
 
 
