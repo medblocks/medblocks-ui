@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.72](https://github.com/medblocks/medblocks-ui/compare/v0.0.71...v0.0.72) (2021-11-09)
+
+
+### Bug Fixes
+
+* :bug: Fixed issue in mb-context triggerng by [] ([101b19f](https://github.com/medblocks/medblocks-ui/commit/101b19fe540e4392792e38d13fa877c89cbc08fa))
+
 ### [0.0.71](https://github.com/medblocks/medblocks-ui/compare/v0.0.70...v0.0.71) (2021-11-05)
 
 
