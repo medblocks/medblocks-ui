@@ -3,7 +3,7 @@
 ##  Download achetypes needed for the form from Clinical Knowledge Manager (CKM)
 Archetypes needed for you system can be scoped out from openEHR's Clinical Knowledge Manager website and downloaded. Download the Archetype files in ADL format and make sure to include at least one Root Archetype.
 
-https://ckm.openehr.org/ckm/
+[Clinical Knowledge Manager](https://ckm.openehr.org/ckm)
 
 ![image](https://user-images.githubusercontent.com/57724250/139653489-9c599863-55bc-4557-a1ba-faf4face7506.png)
 
@@ -12,7 +12,7 @@ https://ckm.openehr.org/ckm/
 ##  Create a new repository in Archetype Designer
 Archetype Designer is a tool provided by Better to create templates and archetypes. If you cannot find a archetype specific to your needs, you can create one on Archetype Designer.
 
-https://tools.openehr.org/designer/#/
+[Archetype Designer](https://tools.openehr.org/designer/#/)
 
 ![image](https://user-images.githubusercontent.com/57724250/139653721-5a6a0216-9bfe-434f-befd-263015b852eb.png)
 
