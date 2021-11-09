@@ -108,5 +108,5 @@ The code generated will contain limited CSS, so use TailwindCSS, Bootstrap or Sh
 ---
 
 ## For a detailed and comprehensive Guide to develop an application using openEHR Standard
-[Click Here] (https://www.youtube.com/watch?v=kOU2HGqK23o&list=PLUr-PTsPYKV4Cl7gUe5sPoCQEfRJ3FpWW&ab_channel=SidharthRamesh)
+[Click Here](https://www.youtube.com/watch?v=kOU2HGqK23o&list=PLUr-PTsPYKV4Cl7gUe5sPoCQEfRJ3FpWW&ab_channel=SidharthRamesh)
 
