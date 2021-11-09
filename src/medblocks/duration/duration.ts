@@ -33,7 +33,7 @@ export default class MbDuration extends EhrElement {
 
   @state() _state : {[period: string]: string | undefined} = {}
 
-  parsePeriod(period: string) {
+  parsePeriod(period: string|undefined) {
     if(period){
       const [periodPart, t] = period.split('T');
       const p = periodPart.replace('P', '');
@@ -55,7 +55,7 @@ export default class MbDuration extends EhrElement {
     return match ? match[1] : undefined;
   }
 
-  serializePeriod(): string {
+  serializePeriod(): string|undefined {
     const hour = this._state.hour ? `${this._state.hour}H` : '';
     const minute = this._state.minute ? `${this._state.minute}M` : '';
     const second = this._state.second ? `${this._state.second}S` : '';
@@ -69,7 +69,7 @@ export default class MbDuration extends EhrElement {
 
     const timePart = t ? `T${t}` : '';
     const periodPart = p ? `P${p}` : '';
-
+      if(!periodPart && !timePart) return undefined
       if(!periodPart && timePart)
         return `P${timePart}`
       else
@@ -77,11 +77,11 @@ export default class MbDuration extends EhrElement {
 
   }
 
-  get data() {
+  get data():string|undefined {
     return this.serializePeriod();
   }
 
-  set data(period: string) {
+  set data(period: string|undefined) {
     const oldVal = this.data
     this.parsePeriod(period);
     this.requestUpdate('data',oldVal)

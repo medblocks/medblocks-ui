@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    <mb-form>
+    
       <!-- <div>
         <mb-duration year required label="Duration"></mb-duration>
       </div> -->
@@ -101,127 +101,159 @@
       <!-- <div>
         <mb-percent required label="mark" path="percent"></mb-percent>
       </div> -->
-
-      <mb-context path="ncd/context/start_time"></mb-context>
-      <mb-context path="ncd/context/setting"></mb-context>
-      <mb-quantity default="Cel" path="ncd/body_temperature/any_event:0/temperature" label="Temperature">
-                      <mb-unit unit="Cel" label="Cel"></mb-unit>
-                  </mb-quantity>
-      <mb-context path="ncd/body_temperature/any_event:0/time"></mb-context>
-      <mb-context path="ncd/body_temperature/language"></mb-context>
-      <mb-context path="ncd/body_temperature/encoding"></mb-context>
-      <mb-context path="ncd/body_temperature/subject"></mb-context>
-      <mb-quantity default="mm[Hg]" path="ncd/blood_pressure/any_event:0/systolic" label="Systolic">
-                      <mb-unit unit="mm[Hg]" label="mm[Hg]"></mb-unit>
-                  </mb-quantity>
-      <mb-quantity default="mm[Hg]" path="ncd/blood_pressure/any_event:0/diastolic" label="Diastolic">
-                      <mb-unit unit="mm[Hg]" label="mm[Hg]"></mb-unit>
-                  </mb-quantity>
-      <mb-context path="ncd/blood_pressure/any_event:0/time"></mb-context>
-      <mb-context path="ncd/blood_pressure/language"></mb-context>
-      <mb-context path="ncd/blood_pressure/encoding"></mb-context>
-      <mb-context path="ncd/blood_pressure/subject"></mb-context>
-      <mb-quantity default="/min" path="ncd/pulse_heart_beat/any_event:0/rate" label="Rate">
-                      <mb-unit unit="/min" label="/min"></mb-unit>
-                  </mb-quantity>
-      <mb-select path="ncd/pulse_heart_beat/any_event:0/regularity" label="Regularity">
-                  <mb-option value="at0006" label="Regular"></mb-option>
+      <mb-form  ctx='{
+        system_or_structure_examined: "Entire body",
+        narrative: "Giving medication",
+      }'>
+      <mb-context path="opdvisit.v0/category"></mb-context>
+      <mb-context path="opdvisit.v0/context/start_time"></mb-context>
+      <mb-context path="opdvisit.v0/context/setting"></mb-context>
+      <p class="font-bold text-lg">Presenting problem</p>
+      <mb-search
+      path="opdvisit.v0/reason_for_encounter/presenting_problem:0"
+      hits={5}
+      terminology="Snomed CT"
+    >
+      <mb-filter value="<404684003" label="Clinical Findings" />
+    </mb-search>
+      <mb-context path="opdvisit.v0/reason_for_encounter/subject"></mb-context>
+      <mb-context path="opdvisit.v0/reason_for_encounter/language"></mb-context>
+      <mb-context path="opdvisit.v0/reason_for_encounter/encoding"></mb-context>
+      <mb-input path="opdvisit.v0/history/story_history/story:0" label="Story"></mb-input>
+      <mb-input path="opdvisit.v0/history/story_history/symptom_sign:0/symptoms" label="Symptoms"></mb-input>
+      <mb-checkbox path="opdvisit.v0/history/story_history/symptom_sign:0/nil_significant" label="Nil significant"></mb-checkbox>
+      <mb-input path="opdvisit.v0/history/story_history/symptom_sign:0/body_site:0" label="Body site"></mb-input>
+      <mb-input path="opdvisit.v0/history/story_history/symptom_sign:0/description" label="Description"></mb-input>
+      <mb-date time path="opdvisit.v0/history/story_history/symptom_sign:0/episode_onset" label="Episode onset"></mb-date>
+      <mb-duration year month hour path="opdvisit.v0/history/story_history/symptom_sign:0/duration" label="Duration"></mb-duration>
+      <mb-select path="opdvisit.v0/history/story_history/symptom_sign:0/progression:0" label="Progression" terminology="local">
+                    <mb-option value="at0183" label="Worsening"></mb-option>
+      <mb-option value="at0182" label="Unchanged"></mb-option>
+      <mb-option value="at0181" label="Improving"></mb-option>
+      <mb-option value="at0184" label="Resolved"></mb-option>
+                  </mb-select>
+      <mb-input path="opdvisit.v0/history/story_history/symptom_sign:0/modifying_factor:0/factor" label="Factor"></mb-input>
+      <mb-select path="opdvisit.v0/history/story_history/symptom_sign:0/modifying_factor:0/effect" label="Effect" terminology="local">
+                    <mb-option value="at0159" label="Relieves"></mb-option>
+      <mb-option value="at0156" label="No effect"></mb-option>
+      <mb-option value="at0158" label="Worsens"></mb-option>
+                  </mb-select>
+      <mb-input path="opdvisit.v0/history/story_history/symptom_sign:0/comment" label="Comment"></mb-input>
+      <mb-context path="opdvisit.v0/history/story_history/time"></mb-context>
+      <mb-context path="opdvisit.v0/history/story_history/subject"></mb-context>
+      <mb-context path="opdvisit.v0/history/story_history/language"></mb-context>
+      <mb-context path="opdvisit.v0/history/story_history/encoding"></mb-context>
+      
+      
+      <mb-input path="opdvisit.v0/history/family_history/per_family_member:0/relationship" label="Relationship"></mb-input>
+      <mb-input path="opdvisit.v0/history/family_history/per_family_member:0/clinical_history:0/problem_diagnosis_name" label="Problem/diagnosis name"></mb-input>
+      <mb-date time path="opdvisit.v0/history/family_history/last_updated" label="Last Updated"></mb-date>
+      <mb-context path="opdvisit.v0/history/family_history/subject"></mb-context>
+      <mb-context path="opdvisit.v0/history/family_history/language"></mb-context>
+      <mb-context path="opdvisit.v0/history/family_history/encoding"></mb-context>
+      
+      
+      <mb-quantity default="/min" path="opdvisit.v0/examination_findings/vital_signs/pulse_heart_beat/rate" label="Rate">
+                        <mb-unit unit="/min" label="/min"></mb-unit>
+                    </mb-quantity>
+      <mb-select path="opdvisit.v0/examination_findings/vital_signs/pulse_heart_beat/regularity" label="Regularity" terminology="local">
+                    <mb-option value="at0006" label="Regular"></mb-option>
       <mb-option value="at1028" label="Irregular"></mb-option>
-                </mb-select>
-      <mb-context path="ncd/pulse_heart_beat/any_event:0/time"></mb-context>
-      <mb-context path="ncd/pulse_heart_beat/language"></mb-context>
-      <mb-context path="ncd/pulse_heart_beat/encoding"></mb-context>
-      <mb-context path="ncd/pulse_heart_beat/subject"></mb-context>
-      <mb-quantity default="cm" path="ncd/height_length/any_event:0/height_length" label="Height/Length">
-                      <mb-unit unit="cm" label="cm"></mb-unit>
-      <mb-unit unit="[in_i]" label="[in_i]"></mb-unit>
-                  </mb-quantity>
-      <mb-context path="ncd/height_length/any_event:0/time"></mb-context>
-      <mb-context path="ncd/height_length/language"></mb-context>
-      <mb-context path="ncd/height_length/encoding"></mb-context>
-      <mb-context path="ncd/height_length/subject"></mb-context>
-      <mb-quantity default="kg" path="ncd/body_weight/any_event:0/weight" label="Weight">
-                      <mb-unit unit="kg" label="kg"></mb-unit>
-      <mb-unit unit="[lb_av]" label="[lb_av]"></mb-unit>
-      <mb-unit unit="g" label="g"></mb-unit>
-                  </mb-quantity>
-      <mb-context path="ncd/body_weight/any_event:0/time"></mb-context>
-      <mb-context path="ncd/body_weight/language"></mb-context>
-      <mb-context path="ncd/body_weight/encoding"></mb-context>
-      <mb-context path="ncd/body_weight/subject"></mb-context>
-      <mb-quantity default="cm" path="ncd/waist_circumference/any_event:0/waist_circumference" label="Waist circumference">
-                      <mb-unit unit="cm" label="cm"></mb-unit>
-      <mb-unit unit="[in_i]" label="[in_i]"></mb-unit>
-                  </mb-quantity>
-      <mb-context path="ncd/waist_circumference/any_event:0/time"></mb-context>
-      <mb-context path="ncd/waist_circumference/language"></mb-context>
-      <mb-context path="ncd/waist_circumference/encoding"></mb-context>
-      <mb-context path="ncd/waist_circumference/subject"></mb-context>
-      <mb-quantity default="cm" path="ncd/hip_circumference/hip_circumference" label="Hip circumference">
-                      <mb-unit unit="cm" label="cm"></mb-unit>
-      <mb-unit unit="[in_i]" label="[in_i]"></mb-unit>
-                  </mb-quantity>
-      <mb-context path="ncd/hip_circumference/time"></mb-context>
-      <mb-context path="ncd/hip_circumference/language"></mb-context>
-      <mb-context path="ncd/hip_circumference/encoding"></mb-context>
-      <mb-context path="ncd/hip_circumference/subject"></mb-context>
-      <mb-percent path="ncd/pulse_oximetry/any_event:0/spo" label="SpO₂"></mb-percent>
-      <mb-context path="ncd/pulse_oximetry/any_event:0/time"></mb-context>
-      <mb-context path="ncd/pulse_oximetry/language"></mb-context>
-      <mb-context path="ncd/pulse_oximetry/encoding"></mb-context>
-      <mb-context path="ncd/pulse_oximetry/subject"></mb-context>
-      <mb-input path="ncd/laboratory_test_result/any_event:0/test_name" label="Test name"></mb-input>
-      <mb-quantity default="mmol/dl" path="ncd/laboratory_test_result/any_event:0/blood_glucose/blood_glucose_level" label="Blood Glucose Level">
-                      <mb-unit unit="mmol/dl" label="mmol/dl"></mb-unit>
-                  </mb-quantity>
-      <mb-quantity default="g/dl" path="ncd/laboratory_test_result/any_event:0/haemoglobin/haemoglobin" label="Haemoglobin">
-                      <mb-unit unit="g/dl" label="g/dl"></mb-unit>
-                  </mb-quantity>
-      <mb-quantity default="mg/dl" path="ncd/laboratory_test_result/any_event:0/cholesterol/cholesterol" label="Cholesterol">
-                      <mb-unit unit="mg/dl" label="mg/dl"></mb-unit>
-                  </mb-quantity>
-      <mb-quantity default="mg/dl" path="ncd/laboratory_test_result/any_event:0/uric_acid/uric_acid" label="Uric Acid">
-                      <mb-unit unit="mg/dl" label="mg/dl"></mb-unit>
-                  </mb-quantity>
-      <mb-select path="ncd/laboratory_test_result/any_event:0/blood_group/analyte_name" label="Analyte name" terminology="LOINC">
-                  <mb-option value="882-1" label="ABO and Rh group [Type] in Blood"></mb-option>
-                </mb-select>
-                <mb-buttons path="ncd/laboratory_test_result/any_event:0/blood_group/blood_group" label="Blood Group" terminology="SNOMED-CT">
-                  <mb-option value="278147001" label="O +ve"></mb-option>
-            <mb-option value="278148006" label="O -ve"></mb-option>
-            <mb-option value="278149003" label="A +ve"></mb-option>
-            <mb-option value="278152006" label="A -ve"></mb-option>
-            <mb-option value="278150003" label="B +ve"></mb-option>
-            <mb-option value="278153001" label="B -ve"></mb-option>
-            <mb-option value="278151004" label="AB +ve"></mb-option>
-            <mb-option value="278154007" label="AB -ve"></mb-option>
-                  </mb-buttons>
-      <mb-context path="ncd/laboratory_test_result/any_event:0/time"></mb-context>
-      <mb-context path="ncd/laboratory_test_result/language"></mb-context>
-      <mb-context path="ncd/laboratory_test_result/encoding"></mb-context>
-      <mb-context path="ncd/laboratory_test_result/subject"></mb-context>
-      <mb-select path=ncd/urinalysis/point_in_time:0/glucose label="Glucose">
-            <mb-option value="at0115" label="Negative" ordinal="1"></mb-option>
-      <mb-option value="at0116" label="Trace" ordinal="2"></mb-option>
-      <mb-option value="at0117" label="1+" ordinal="3"></mb-option>
-      <mb-option value="at0118" label="2+" ordinal="4"></mb-option>
-      <mb-option value="at0119" label="3+" ordinal="5"></mb-option>
-      <mb-option value="at0120" label="4+" ordinal="6"></mb-option></mb-select>
-      <mb-select path=ncd/urinalysis/point_in_time:0/protein label="Protein">
-            <mb-option value="at0096" label="Negative" ordinal="1"></mb-option>
-      <mb-option value="at0097" label="Trace" ordinal="2"></mb-option>
-      <mb-option value="at0098" label="1+" ordinal="3"></mb-option>
-      <mb-option value="at0099" label="2+" ordinal="4"></mb-option>
-      <mb-option value="at0100" label="3+" ordinal="5"></mb-option>
-      <mb-option value="at0101" label="4+" ordinal="6"></mb-option></mb-select>
-      <mb-context path="ncd/urinalysis/point_in_time:0/time"></mb-context>
-      <mb-context path="ncd/urinalysis/language"></mb-context>
-      <mb-context path="ncd/urinalysis/encoding"></mb-context>
-      <mb-context path="ncd/urinalysis/subject"></mb-context>
-      <mb-context path="ncd/category"></mb-context>
-      <mb-context path="ncd/language"></mb-context>
-      <mb-context path="ncd/territory"></mb-context>
-      <mb-context path="ncd/composer"></mb-context>
+                  </mb-select>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/pulse_heart_beat/time"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/pulse_heart_beat/subject"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/pulse_heart_beat/language"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/pulse_heart_beat/encoding"></mb-context>
+     
+      <mb-quantity default="mm[Hg]" path="opdvisit.v0/examination_findings/vital_signs/blood_pressure/systolic" label="Systolic">
+              <mb-unit unit="mm[Hg]" label="mm[Hg]"></mb-unit>
+      </mb-quantity>
+      <mb-quantity default="mm[Hg]" path="opdvisit.v0/examination_findings/vital_signs/blood_pressure/diastolic" label="Diastolic">
+              <mb-unit unit="mm[Hg]" label="mm[Hg]"></mb-unit>
+      </mb-quantity>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/blood_pressure/time"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/blood_pressure/subject"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/blood_pressure/language"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/blood_pressure/encoding"></mb-context>
+      
+      <mb-quantity default="Cel" path="opdvisit.v0/examination_findings/vital_signs/body_temperature/temperature" label="Temperature">
+              <mb-unit unit="Cel" label="Cel"></mb-unit>
+              <mb-unit unit="[degF]" label="[degF]"></mb-unit>
+      </mb-quantity>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/body_temperature/time"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/body_temperature/subject"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/body_temperature/language"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/body_temperature/encoding"></mb-context>
+      
+      <mb-quantity default="kg" path="opdvisit.v0/examination_findings/vital_signs/body_weight/any_event:0/weight" label="Weight">
+              <mb-unit unit="kg" label="kg"></mb-unit>
+              <mb-unit unit="[lb_av]" label="[lb_av]"></mb-unit>
+              <mb-unit unit="g" label="g"></mb-unit>
+      </mb-quantity>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/body_weight/any_event:0/time"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/body_weight/subject"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/body_weight/language"></mb-context>
+      <mb-context path="opdvisit.v0/examination_findings/vital_signs/body_weight/encoding"></mb-context>
+     
+      <mb-input path="opdvisit.v0/physical_examination_findings/description" label="Description"></mb-input>
+      <mb-input path="opdvisit.v0/physical_examination_findings/examination_findings/system_or_structure_examined" label="System or structure examined"></mb-input>
+      <mb-input path="opdvisit.v0/physical_examination_findings/examination_findings/body_site" label="Body site"></mb-input>
+      <mb-checkbox path="opdvisit.v0/physical_examination_findings/examination_findings/no_abnormality_detected" label="No abnormality detected"></mb-checkbox>
+      <mb-input path="opdvisit.v0/physical_examination_findings/examination_findings/clinical_description" label="Clinical description"></mb-input>
+      <mb-input path="opdvisit.v0/physical_examination_findings/interpretation:0" label="Interpretation"></mb-input>
+      <mb-input path="opdvisit.v0/physical_examination_findings/comment" label="Comment"></mb-input>
+      <mb-input path="opdvisit.v0/physical_examination_findings/confounding_factors:0" label="Confounding factors"></mb-input>
+      <mb-input path="opdvisit.v0/physical_examination_findings/position" label="Position"></mb-input>
+      <mb-context path="opdvisit.v0/physical_examination_findings/time"></mb-context>
+      <mb-context path="opdvisit.v0/physical_examination_findings/subject"></mb-context>
+      <mb-context path="opdvisit.v0/physical_examination_findings/language"></mb-context>
+      <mb-context path="opdvisit.v0/physical_examination_findings/encoding"></mb-context>
+      
+      
+      <p class="font-bold text-lg">Problem/Diagnosis name</p>
+        <mb-search
+          path="opdvisit.v0/problem_diagnosis/problem_diagnosis_name"
+          hits={5}
+          terminology="Snomed CT"
+        >
+          <mb-filter value="<404684003" label="Clinical Findings" />
+        </mb-search>
+      <mb-input path="opdvisit.v0/problem_diagnosis/clinical_description" label="Clinical description"></mb-input>
+      <mb-input-multiple path="opdvisit.v0/problem_diagnosis/body_site" label="Body site"></mb-input-multiple>
+      <mb-date time path="opdvisit.v0/problem_diagnosis/date_time_of_onset" label="Date/time of onset"></mb-date>
+      <mb-select path="opdvisit.v0/problem_diagnosis/severity" label="Severity" terminology="local">
+                    <mb-option value="at0047" label="Mild"></mb-option>
+      <mb-option value="at0048" label="Moderate"></mb-option>
+      <mb-option value="at0049" label="Severe"></mb-option>
+                  </mb-select>
+      <mb-input path="opdvisit.v0/problem_diagnosis/course_description" label="Course description"></mb-input>
+      <mb-date time path="opdvisit.v0/problem_diagnosis/date_time_of_resolution" label="Date/time of resolution"></mb-date>
+      <mb-select path="opdvisit.v0/problem_diagnosis/diagnostic_certainty" label="Diagnostic certainty" terminology="local">
+                    <mb-option value="at0074" label="Suspected"></mb-option>
+      <mb-option value="at0075" label="Probable"></mb-option>
+      <mb-option value="at0076" label="Confirmed"></mb-option>
+                  </mb-select>
+      <mb-input path="opdvisit.v0/problem_diagnosis/comment" label="Comment"></mb-input>
+      <mb-date time path="opdvisit.v0/problem_diagnosis/last_updated" label="Last updated"></mb-date>
+      <mb-context path="opdvisit.v0/problem_diagnosis/subject"></mb-context>
+      <mb-context path="opdvisit.v0/problem_diagnosis/language"></mb-context>
+      <mb-context path="opdvisit.v0/problem_diagnosis/encoding"></mb-context>
+    
+      <mb-input path="opdvisit.v0/medication_order/order:0/medication_item" label="Medication item"></mb-input>
+      <mb-input path="opdvisit.v0/medication_order/order:0/route:0" label="Route"></mb-input>
+      <mb-input path="opdvisit.v0/medication_order/order:0/additional_instruction:0" label="Additional instruction"></mb-input>
+      <mb-date time path="opdvisit.v0/medication_order/order:0/order_details/order_start_date_time" label="Order start date/time"></mb-date>
+      <mb-date time path="opdvisit.v0/medication_order/order:0/order_details/order_stop_date_time" label="Order stop date/time"></mb-date>
+      <mb-context path="opdvisit.v0/medication_order/order:0/timing"></mb-context>
+      <mb-context path="opdvisit.v0/medication_order/order:0/action_archetype_id"></mb-context>
+      <mb-context path="opdvisit.v0/medication_order/subject"></mb-context>
+      <mb-context path="opdvisit.v0/medication_order/narrative"></mb-context>
+      <mb-context path="opdvisit.v0/medication_order/language"></mb-context>
+      <mb-context path="opdvisit.v0/medication_order/encoding"></mb-context>
+      <mb-date time path="opdvisit.v0/medication_order/expiry_time" label="expiry_time"></mb-date>
+      <mb-context path="opdvisit.v0/composer"></mb-context>
+      <mb-context path="opdvisit.v0/language"></mb-context>
+      <mb-context path="opdvisit.v0/territory"></mb-context>
 
       <div>
         <mb-submit type="primary"><sl-button>Save</sl-button></mb-submit>

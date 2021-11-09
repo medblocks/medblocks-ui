@@ -151,7 +151,7 @@ export const openEHRFlatPlugin: MbPlugin = {
     Object.entries(mbElements).map(([path, node]) => {
       data[path] = (node as any).data;
     });
-    return toFlat(data);
+    return JSON.parse(JSON.stringify(toFlat(data)));
   },
 
   getContext(path, ctx = {}, nonNullPaths) {

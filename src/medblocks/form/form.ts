@@ -91,13 +91,14 @@ export default class MedblockForm extends LitElement {
       this.insertContext();
       await 0;
       const data = this.serialize();
+      console.log(data)
       this.submit.emit({ detail: data, cancelable: true });
     }
   }
 
   insertContext() {
     const nonNullPaths = Object.keys(this.mbElements).filter(
-      k => this.mbElements[k].data != null                                 ///// check if breaks ////
+      k => (this.mbElements[k].data != null &&  this.mbElements[k].data != (Array.isArray(this.mbElements[k].data) && this.mbElements[k].data.length>0) )                              ///// check if breaks ////
     );
     Object.values(this.mbElements)
       .filter((element: MbContext) => !!element.autocontext)
