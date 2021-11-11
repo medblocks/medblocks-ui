@@ -31,6 +31,8 @@ export default class MbInput extends EhrElement {
 
   @property({ type: Number, reflect: true }) maxlength: number;
 
+  @property({type: Boolean, reflect: true}) disabled: boolean;
+
   @event('mb-input')
   _mbInput: EventEmitter<string>;
 
@@ -54,6 +56,7 @@ export default class MbInput extends EhrElement {
     return this.textarea
       ? html`
           <sl-textarea
+            .disabled=${this.disabled}
             .maxlength=${this.maxlength}
             .minlength=${this.minlength}
             ?required=${this.required}
@@ -64,6 +67,7 @@ export default class MbInput extends EhrElement {
         `
       : html`
           <sl-input
+            .disabled=${this.disabled}
             .min=${this.min}
             .max=${this.max}
             .maxlength=${this.maxlength}
