@@ -1,5 +1,3 @@
-
-
 import {
     html,
     fixture,
@@ -19,23 +17,30 @@ import MbSelect from '../src/medblocks/codedtext/select';
   
   describe('MbSelect', () => {
   
-    // it('data if not provided', async () => {
-    //   const mbPercent = await fixture<MbSelect>(
-    //     html`<mb-percent label="Test 1"></mb-percent>`
-    //   );
-    //   const input = querySelectorDeep('input') as HTMLInputElement
-    //   setTimeout(() => {
-    //     input.dispatchEvent(new Event('input'));
-    //   });
-    //   const event: any = await oneEvent(mbPercent, 'mb-input');
-    //   expect(event.target.data).to.eq(undefined);
-    // });
+    it('data if not provided', async () => {
+      const mbPercent = await fixture<MbSelect>(
+        html`<mb-select label="Test 1"></mb-select>`
+      );
+      const input = querySelectorDeep('input') as HTMLInputElement
+      setTimeout(() => {
+        input.dispatchEvent(new Event('input'));
+      });
+      const event: any = await oneEvent(mbPercent, 'mb-input');
+      expect(event.target.data).to.eq(undefined);
+    });
   
   
     it('emits data on input', async () => {
       const mbselect = await fixture<MbSelect>( 
         html`
-        <mb-checkbox path="opdvisit.v0/history/story_history/symptom_sign:0/nil_significant" label="Nil significant"></mb-checkbox>`
+         <mb-select path=ncd/urinalysis/point_in_time:0/protein label="Protein" >
+              <mb-option value="at0096" label="Negative" ordinal="1"></mb-option>
+              <mb-option value="at0097" label="Trace" ordinal="2"></mb-option>
+              <mb-option value="at0098" label="1+" ordinal="3"></mb-option>
+              <mb-option value="at0099" label="2+" ordinal="4"></mb-option>
+              <mb-option value="at0100" label="3+" ordinal="5"></mb-option>
+              <mb-option value="at0101" label="4+" ordinal="6"></mb-option>
+        </mb-select>`
       );
       const select = querySelectorDeep('sl-select') as HTMLSelectElement
       select.value = 'at0096';
@@ -48,7 +53,14 @@ import MbSelect from '../src/medblocks/codedtext/select';
     
     it('changes input on setting data', async () => {
       const mbOrdinal = await fixture<MbSelect>(
-        html`<mb-checkbox path="opdvisit.v0/history/story_history/symptom_sign:0/nil_significant" label="Nil significant"></mb-checkbox>`
+        html`<mb-select path=ncd/urinalysis/point_in_time:0/protein label="Protein" terminology="SOME-TERMINOLOGY" id="ordinal">
+              <mb-option value="at0096" label="Negative" ordinal="1"></mb-option>
+              <mb-option value="at0097" label="Trace" ordinal="2"></mb-option>
+              <mb-option value="at0098" label="1+" ordinal="3"></mb-option>
+              <mb-option value="at0099" label="2+" ordinal="4"></mb-option>
+              <mb-option value="at0100" label="3+" ordinal="5"></mb-option>
+              <mb-option value="at0101" label="4+" ordinal="6"></mb-option>
+        </mb-select>`
       );
       const select = querySelectorDeep('sl-select') as HTMLSelectElement
       setTimeout(()=>{
@@ -63,20 +75,26 @@ import MbSelect from '../src/medblocks/codedtext/select';
     it('SpO2 template data loading', async ()=>{
       const form = await fixture<MbForm>(html`
       <mb-form>
-      <mb-context path="opdvisit.v0/category"></mb-context>
-        <mb-context path="opdvisit.v0/context/start_time"></mb-context>
-        <mb-context path="opdvisit.v0/context/setting"></mb-context>
+      <mb-context path="ncd/context/start_time"></mb-context>
+      <mb-context path="ncd/context/setting"></mb-context>
      
-      <mb-checkbox path="opdvisit.v0/history/story_history/symptom_sign:0/nil_significant" label="Nil significant"></mb-checkbox>
-      <mb-context path="opdvisit.v0/history/story_history/time"></mb-context>
-        <mb-context path="opdvisit.v0/history/story_history/subject"></mb-context>
-        <mb-context path="opdvisit.v0/history/story_history/language"></mb-context>
-        <mb-context path="opdvisit.v0/history/story_history/encoding"></mb-context>
+      <mb-select path=ncd/urinalysis/point_in_time:0/protein label="Protein" id="ordinal">
+            <mb-option value="at0096" label="Negative" ordinal="1"></mb-option>
+            <mb-option value="at0097" label="Trace" ordinal="2"></mb-option>
+            <mb-option value="at0098" label="1+" ordinal="3"></mb-option>
+            <mb-option value="at0099" label="2+" ordinal="4"></mb-option>
+            <mb-option value="at0100" label="3+" ordinal="5"></mb-option>
+            <mb-option value="at0101" label="4+" ordinal="6"></mb-option>
+      </mb-select>
+      <mb-context path="ncd/urinalysis/point_in_time:0/time"></mb-context>
+      <mb-context path="ncd/urinalysis/language"></mb-context>
+      <mb-context path="ncd/urinalysis/encoding"></mb-context>
+      <mb-context path="ncd/urinalysis/subject"></mb-context>
   
       <mb-context path="ncd/category"></mb-context>
-      <mb-context path="opdvisit.v0/composer"></mb-context>
-        <mb-context path="opdvisit.v0/language"></mb-context>
-        <mb-context path="opdvisit.v0/territory"></mb-context>
+      <mb-context path="ncd/language"></mb-context>
+      <mb-context path="ncd/territory"></mb-context>
+      <mb-context path="ncd/composer"></mb-context>
       </mb-form>
       `)
       form.import(
