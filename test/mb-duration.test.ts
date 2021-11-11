@@ -22,7 +22,6 @@ describe('MbDuration', () => {
       year[0].dispatchEvent(new Event('input'));
     });
     const event: any = await oneEvent(mbDuration, 'mb-input');
-    console.log(event.target.data)
     expect(event.target.data).to.eq(undefined);
   });
 

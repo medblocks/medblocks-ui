@@ -91,7 +91,6 @@ export default class MedblockForm extends LitElement {
       this.insertContext();
       await 0;
       const data = this.serialize();
-      console.log(data)
       this.submit.emit({ detail: data, cancelable: true });
     }
   }
