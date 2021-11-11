@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.74](https://github.com/medblocks/medblocks-ui/compare/v0.0.73...v0.0.74) (2021-11-11)
+
+
+### Bug Fixes
+
+* added bundle to npm and removed unused dependencies ([acb130e](https://github.com/medblocks/medblocks-ui/commit/acb130e8b295a3487ca250bf2dd264fe70a9f4b2))
+* removed console logs ([0047ff1](https://github.com/medblocks/medblocks-ui/commit/0047ff16317adf57e4c93961036d6ae3bcc3346c))
+
 ### [0.0.73](https://github.com/medblocks/medblocks-ui/compare/v0.0.72...v0.0.73) (2021-11-11)
 
 
