@@ -51,7 +51,7 @@ export function fromFlat(flat: Data): Data {
     const value = flat[path];
     const [subpath, frag] = path.split('|');
     if (frag) {
-      if(typeof data[subpath] !== "object"){
+      if(data[subpath] && typeof data[subpath] !== "object"){
         data[subpath] = { "_root": data[subpath] };
       }
       data[subpath] = { ...data[subpath], [frag]: value };
