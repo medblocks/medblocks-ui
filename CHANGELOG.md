@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.73](https://github.com/medblocks/medblocks-ui/compare/v0.0.72...v0.0.73) (2021-11-11)
+
+
+### Bug Fixes
+
+* removed storybook ([205e3b9](https://github.com/medblocks/medblocks-ui/commit/205e3b92b5eda488f59853529161a0992c09293c))
+
 ### [0.0.72](https://github.com/medblocks/medblocks-ui/compare/v0.0.71...v0.0.72) (2021-11-09)
 
 
