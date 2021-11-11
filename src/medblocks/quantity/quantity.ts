@@ -49,6 +49,8 @@ export default class MbQuantity extends QuantityElement {
   /** Hides the units. Make sure to set a default unit, or set it programatically. */
   @property({ type: Boolean, reflect: true }) hideunit: boolean = false;
 
+  @property({type: Boolean, reflect: true}) disabled: boolean;
+
   @property({ type: Number, reflect: true }) step: number;
   @state()
   units: MbUnit[] = [];
@@ -102,6 +104,7 @@ export default class MbQuantity extends QuantityElement {
   render() {
     return html`
       <sl-input
+        .disabled=${this.disabled}
         .step=${this.step ?? 'any'}
         .required=${this.required}
         .max=${this.max}
@@ -112,6 +115,7 @@ export default class MbQuantity extends QuantityElement {
         .value=${this.data?.magnitude?.toString() || ''}
       ></sl-input>
       <sl-select
+      .disabled=${this.disabled}
         style="${this.hideunit ? 'display: none' : ''}"
         placeholder="Select units"
         .value=${this.data?.unit ?? ''}
