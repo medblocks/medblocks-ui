@@ -17,7 +17,8 @@
     "vscode-custom-data.json",
     "dist/src",
     "dist/utils.js",
-    "dist/utils.d.ts"
+    "dist/utils.d.ts",
+    "dist/bundle.js"
   ],
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
@@ -51,7 +52,6 @@
     "@web/test-runner-puppeteer": "^0.10.0",
     "chai-as-promised": "^7.1.1",
     "concurrently": "^5.3.0",
-    "copy-and-watch": "^0.1.5",
     "esbuild": "^0.13.13",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^7.2.0",
