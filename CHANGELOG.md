@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 ### [0.0.76](https://github.com/medblocks/medblocks-ui/compare/v0.0.75...v0.0.76) (2021-11-11)
+
+### [0.0.76](https://github.com/medblocks/medblocks-ui/compare/v0.0.75...v0.0.76) (2021-11-11)
 ### Features
 
 * added disabled property to mb-quantity, mb-date, mb-select  ([66e4c6c](https://github.com/medblocks/medblocks-ui/commit/66e4c6c7eff6ae25e1809cc1af2f0d1848e5aba9))
