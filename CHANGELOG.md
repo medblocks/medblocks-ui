@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.75](https://github.com/medblocks/medblocks-ui/compare/v0.0.74...v0.0.75) (2021-11-11)
+
+
+### Features
+
+* added disabled property to mb-input ([cf746f9](https://github.com/medblocks/medblocks-ui/commit/cf746f96728d8dac8ab58b7b9c074674967eb5c8))
+
 ### [0.0.74](https://github.com/medblocks/medblocks-ui/compare/v0.0.73...v0.0.74) (2021-11-11)
 
 
