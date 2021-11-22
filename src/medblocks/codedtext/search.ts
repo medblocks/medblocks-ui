@@ -297,7 +297,7 @@ export default class MbSearch extends CodedTextElement {
                           html`<sl-tag
                             ?clearable=${!f.disabled}
                             size="medium"
-                            type=${f.disabled ? 'info' : 'primary'}
+                            type=${f.disabled ? 'neutral' : 'primary'}
                             @click=${() => {
                               f.disabled = !f.disabled;
                             }}
