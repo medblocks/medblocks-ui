@@ -19,6 +19,8 @@ export default class MbDateTime extends EhrElement {
   @property({ type: Boolean, reflect: true }) time: boolean = false;
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
+  
+  @property({type: Boolean, reflect: true}) disabled: boolean;
 
   @event('mb-input') _mbInput: EventEmitter<any>;
 
@@ -36,6 +38,7 @@ export default class MbDateTime extends EhrElement {
   render() {
     return html`
       <sl-input
+      .disabled=${this.disabled}
         ?required=${this.required}
         type="${this.time ? 'datetime-local' : ('date' as any)}"
         label=${this.label}
