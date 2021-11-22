@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.77](https://github.com/medblocks/medblocks-ui/compare/v0.0.76...v0.0.77) (2021-11-22)
+
+
+### Bug Fixes
+
+* updated mb-search with shoelace api change ([8fc54d0](https://github.com/medblocks/medblocks-ui/commit/8fc54d00df2c6f8cc9dece6800d1fe500a887729))
+
 ### [0.0.76](https://github.com/medblocks/medblocks-ui/compare/v0.0.75...v0.0.76) (2021-11-11)
 
 ### Features
