@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.78](https://github.com/medblocks/medblocks-ui/compare/v0.0.77...v0.0.78) (2021-11-23)
+
+
+### Features
+
+* added mb-proportion for handling unitary DV_PROPORTION ([537363f](https://github.com/medblocks/medblocks-ui/commit/537363f80f9028f1536f2ebe7611cfbb273a190a))
+* Tests for Ordinal and percent ([b10e060](https://github.com/medblocks/medblocks-ui/commit/b10e060d21290533a6fa2812119a79c95cf5f338))
+
+
+### Bug Fixes
+
+* Bug fixes in mb-proportion ([b866e61](https://github.com/medblocks/medblocks-ui/commit/b866e6109459d969be7e444eb96f3d1f7f2c1e9c))
+
 ### [0.0.77](https://github.com/medblocks/medblocks-ui/compare/v0.0.76...v0.0.77) (2021-11-22)
 
 
