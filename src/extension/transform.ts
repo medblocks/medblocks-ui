@@ -85,7 +85,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
     {
       name: 'Select',
       html: `<mb-select path="${n.path}" label="${n.name || ''}" terminology="${
-        n.inputs[0].terminology
+        n.inputs[0].terminology || "local"
       }">
               ${
                 n.inputs && n.inputs[0] && n.inputs[0].list
@@ -103,7 +103,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
       name: 'Buttons',
       html: `<mb-buttons path="${n.path}" label="${
         n.name || ''
-      }" terminology="${n.inputs[0].terminology}">
+      }" terminology="${n.inputs[0].terminology || "local"}">
         ${
           n.inputs && n.inputs[0] && n.inputs[0].list
             ? n.inputs[0].list
@@ -119,7 +119,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
     {
       name: 'Search',
       html: `<mb-search path="${n.path}" label="${n.name || ''}" terminology="${
-        n.inputs[0].terminology
+        n.inputs[0].terminology|| "local"
       }">
           <mb-filter label="Conditions" value="404684003"></mb-filter>
         </mb-search>`,
@@ -137,15 +137,15 @@ const transformations: { [rmType: string]: TransformFunction } = {
   
   
   n => [
-    ...(n.proportionTypes?.filter((props: any) => props === 'percent').length
+    ...(n.proportionTypes?.some((props: any) => props === 'percent')
       ? [
           {
-            name: 'Percent-Auto',
+            name: 'Percent',
             html: `<mb-proportion path="${n.path}" label="${n.name || ''}" min="0" max="100" step="1"></mb-proportion>`,
           },
         ]
       : []),
-    ...(n.proportionTypes?.filter((props: any) => props === 'unitary').length
+    ...(n.proportionTypes?.some((props: any) => props === 'unitary')
       ? [
           {
             name: 'Unitary',
@@ -153,10 +153,10 @@ const transformations: { [rmType: string]: TransformFunction } = {
           },
         ]
       : []),
-    {
-      name: 'Mb-Percent',
-      html: `<mb-proportion path="${n.path}" label="${n.name || ''}" ></mb-proportion>`,
-    },
+    // {
+    //   name: 'Mb-Percent',
+    //   html: `<mb-proportion path="${n.path}" label="${n.name || ''}" ></mb-proportion>`,
+    // },
   ],
   DV_TEXT: n => [
     {
