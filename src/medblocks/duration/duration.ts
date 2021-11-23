@@ -30,6 +30,7 @@ export default class MbDuration extends EhrElement {
   @property({ type: Boolean, reflect: true }) minute: boolean = false;
   @property({ type: Boolean, reflect: true }) second: boolean = false;
   @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({type: Boolean, reflect: true}) disabled: boolean;
 
   @state() _state : {[period: string]: string | undefined} = {}
 
@@ -117,6 +118,7 @@ export default class MbDuration extends EhrElement {
     .filter(a=>allDurations[a])
 
     return toRender.map(a=>html`<sl-input
+    .disabled=${this.disabled}
       id=${a}
       type="number"
       ?required=${this.required}
