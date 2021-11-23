@@ -4,7 +4,7 @@ import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import { ifDefined } from 'lit-html/directives/if-defined';
 
-@customElement('mb-percent')
+@customElement('mb-proportion')
 export default class MbPercent extends EhrElement {
   @property({ type: Object }) data:
     | {
@@ -20,6 +20,10 @@ export default class MbPercent extends EhrElement {
 
   @property({ type: Number, reflect: true }) min: number | string;
 
+  @property({ type: String, reflect: true }) step: string = "0.01";
+
+  @property({type: String, reflect: true}) type: 'percent' | 'unitary'
+
   _handleChange(e: CustomEvent) {
     const inputElement = e.target as SlInput;
     if (inputElement.value === '') {
@@ -27,8 +31,8 @@ export default class MbPercent extends EhrElement {
     } else {
       this.data = {
         numerator: parseFloat(inputElement.value),
-        denominator: 100,
-        type: 2,
+        denominator: this.type === 'unitary' ? 1 : 100,
+        type: this.type === 'unitary' ? 1 : 2,
       };
     }
     this._mbInput.emit();
@@ -45,11 +49,12 @@ export default class MbPercent extends EhrElement {
       .min=${this.min}
       .max=${this.max}
       type="number"
+      step=${this.step}
       label=${ifDefined(this.label)}
       @sl-input=${this._handleChange}
       .value=${this.data?.numerator?.toString() || ''}
     >
-    <sl-icon name="decimal" library="medblocks" slot="prefix"></sl-icon>
+    <sl-icon name=${this.type === 'unitary' ? 'decimal': 'percent'} library="medblocks" slot="prefix"></sl-icon>
     </sl-input>`;
   }
 }
