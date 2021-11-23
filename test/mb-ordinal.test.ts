@@ -15,20 +15,7 @@ import MbSelect from '../src/medblocks/codedtext/select';
 
 
   
-  describe('MbSelect', () => {
-  
-    it('data if not provided', async () => {
-      const mbPercent = await fixture<MbSelect>(
-        html`<mb-select label="Test 1"></mb-select>`
-      );
-      const input = querySelectorDeep('input') as HTMLInputElement
-      setTimeout(() => {
-        input.dispatchEvent(new Event('input'));
-      });
-      const event: any = await oneEvent(mbPercent, 'mb-input');
-      expect(event.target.data).to.eq(undefined);
-    });
-  
+  describe('MbOrdinal', () => {
   
     it('emits data on input', async () => {
       const mbselect = await fixture<MbSelect>( 
@@ -46,7 +33,6 @@ import MbSelect from '../src/medblocks/codedtext/select';
       select.value = 'at0096';
       select.dispatchEvent(new CustomEvent('sl-change'));
       const event: any = await oneEvent(mbselect, 'mb-input');
-      console.log(event.target.data)
       expect(event.target.data).to.eql({code: 'at0096', value: 'Negative', terminology: 'local',ordinal: 1});
     });
   
@@ -121,7 +107,6 @@ import MbSelect from '../src/medblocks/codedtext/select';
           "ncd/composer|name": "Medblocks UI" 
         }
       )
-      console.log(form.data)
       const mbOrdinal = document.getElementById('ordinal') as MbSelect;
       expect(mbOrdinal.data).to.eql({ code: 'at0098', value: '1+', ordinal: 3 })
     })
