@@ -13,6 +13,8 @@ export default class MbContext extends EhrElement {
   @property({ type: Object })
   data: any;
 
+  @property({ type: Object }) bind: any = undefined;
+
   @event('mb-input')
   _mbInput: EventEmitter<any>;
 

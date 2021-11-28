@@ -1,6 +1,7 @@
 import { MbPlugin } from './plugins';
 import { unflatten } from '../utils';
 import { Data } from '../utils';
+import MbContext from '../../context/context';
 
 export interface Ctx {
   time?: string;
@@ -154,14 +155,17 @@ export const openEHRFlatPlugin: MbPlugin = {
     return JSON.parse(JSON.stringify(toFlat(data)));
   },
 
-  getContext(path, ctx = {}, nonNullPaths) {
+  getContext(path, ctx = {}, nonNullPaths,mbElements) {
     if (!toInsertContext(path, nonNullPaths)) {
       return;
     }
 
     let parts = path.split('/');
     const contextId = parts[parts.length - 1];
-
+    let context = mbElements[path] as MbContext
+    if(context.bind){
+      return context.bind;
+    }
     if (ctx[contextId] != null) {
       return ctx[contextId];
     }

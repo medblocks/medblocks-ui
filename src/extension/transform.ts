@@ -141,7 +141,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
       ? [
           {
             name: 'Percent',
-            html: `<mb-proportion path="${n.path}" label="${n.name || ''}" min="0" max="100" step="1"></mb-proportion>`,
+            html: `<mb-proportion path="${n.path}" label="${n.name || ''}" min="0" max="100" step="1" type="percent"></mb-proportion>`,
           },
         ]
       : []),
@@ -253,7 +253,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
   DV_ORDINAL: n => [
     {
       name: 'Ordinal',
-      html: `<mb-select path=${n.path} label="${n.name || ''}" terminology="${
+      html: `<mb-select path="${n.path}" label="${n.name || ''}" terminology="${
         n.inputs[0].terminology
       }">
         ${

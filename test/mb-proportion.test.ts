@@ -29,7 +29,7 @@ import '../medblocks'
     });
   
   
-    it('emits data on input', async () => {
+    it('emits unitary data on input', async () => {
       const mbPercent = await fixture<MbPercent>(
         html`<mb-proportion label="Test 2"></mb-proportion>`
       );
@@ -40,6 +40,26 @@ import '../medblocks'
       });
       const event: any = await oneEvent(mbPercent, 'mb-input');
       expect(event.target.data).to.eql({ numerator: 0.2, denominator: 1, type: 1 });
+    });
+
+    it('emits percent data on input', async () => {
+      const mbPercent = await fixture<MbPercent>(
+        html`<mb-proportion
+        path="ncd-triage/pulse_oximetry/any_event:0/spo"
+        label="SpO₂"
+        min="0"
+        max="100"
+        step="1"
+        type="percent"
+      ></mb-proportion>`
+      );
+      const input = querySelectorDeep('input') as HTMLInputElement
+      setTimeout(() => {
+        input.value = '3';
+        input.dispatchEvent(new Event('input')); 
+      });
+      const event: any = await oneEvent(mbPercent, 'mb-input');
+      expect(event.target.data).to.eql({ numerator: 3, denominator: 100, type: 2 });
     });
   
     

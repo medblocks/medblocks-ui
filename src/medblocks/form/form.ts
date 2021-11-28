@@ -104,9 +104,9 @@ export default class MedblockForm extends LitElement {
       .forEach((element: MbContext) => {
         const path = element.path;
         const contextData = this.overwritectx
-          ? this.plugin.getContext(path, this.ctx, nonNullPaths)
+          ? this.plugin.getContext(path, this.ctx, nonNullPaths,this.mbElements)
           : element.data ??
-          this.plugin.getContext(path, this.ctx, nonNullPaths);
+          this.plugin.getContext(path, this.ctx, nonNullPaths,this.mbElements);
         element.data = contextData;
       });
   }
