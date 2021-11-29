@@ -66,6 +66,9 @@ export default class CodedTextButtons extends CodedTextElement {
     if (this.data) {
       this.value = 'valid';
     }
+    if(option.type){
+      console.log(option.type)
+    }
   }
 
   render() {
@@ -79,7 +82,7 @@ export default class CodedTextButtons extends CodedTextElement {
             option =>
               html` <sl-button
                 @click=${() => this._handleInput(option)}
-                type=${this.data?.code === option.value ? 'primary' : 'default'}
+                type=${this.data?.code === option.value ? 'primary': option.type ? option.type : 'default'}
                 >${option.label}
               </sl-button>`
           )}
