@@ -2,6 +2,7 @@ import { CodedTextElement } from '../../codedtext/CodedTextElement';
 import EhrElement from '../../EhrElement';
 import { MbPlugin } from './plugins';
 import { flatten, unflatten } from '../utils';
+import MbContext from '../../context/context';
 
 const serialize = (mbElement: EhrElement) => {
   if (mbElement.datatype === 'CodableConcept') {
@@ -71,6 +72,18 @@ const isEmpty = (value: any): boolean => {
   return false;
 };
 
+function toInsertContext(path:String,nonNullPaths:string[]):boolean{
+  if(path==='resourceType'){
+    return true
+  }                                                               // identifier[0].system
+  const segments = path.split('.');                               // [identifier[0],system]    
+  let previousPath = segments.slice(0,-1).join('.');              // identifier[0]
+  if(nonNullPaths.some(p=>p.startsWith(previousPath))){           
+    return true;                                                  // if(identifier[0].value)
+  }
+  return false;
+}
+
 export const FHIRPlugin: MbPlugin = {
   serialize(mbElements) {
     let transformed: { [path: string]: any } = {};
@@ -110,7 +123,19 @@ export const FHIRPlugin: MbPlugin = {
     return newObj;
   },
 
-  getContext(path, ctx) {
-    console.log({ path, ctx });
+  getContext(path, ctx={},nonNullPaths,mbElements) {
+     if(!toInsertContext(path,nonNullPaths)){
+       return
+     }
+     let context = mbElements[path] as MbContext
+     if(context.bind){
+       return context.bind
+     } 
+     let parts = path.split('.');                                            //  [identifier[0],system]
+     let partsLength = parts.length                                          //  2
+     const contextId = parts.slice(partsLength-2,partsLength).join('.')      //  identifier[0].system
+     if(ctx[contextId]!==null){            
+       return ctx[contextId]                                                 // if(ctx[identifier[0].system])
+     }
   },
 };
