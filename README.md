@@ -2,11 +2,11 @@
 
 # Medblocks UI
 
+[Documenaion](https://docs.medblocks.org/medblocks-ui/quick-start)
+
 Web Components for rapid development of openEHR and FHIR systems.
 
 [![Medblocks UI Web components demo](https://img.youtube.com/vi/ng9lkQKa2KE/0.jpg)](https://www.youtube.com/watch?v=ng9lkQKa2KE)
-
-More more information read the [documentation](https://github.com/medblocks/medblocks-ui/blob/master/documentation/readme.md).
 
 ## Testing with Web Test Runner
 
@@ -20,20 +20,6 @@ To run the tests in watch mode (for &lt;abbr title=&#34;test driven development&
 
 ```bash
 npm run test:watch
-```
-
-## Demoing with Storybook
-
-To run a local instance of Storybook for your component, run
-
-```bash
-npm run storybook
-```
-
-To build a production version of Storybook, run
-
-```bash
-npm run storybook:build
 ```
 
 ## Tooling configs
