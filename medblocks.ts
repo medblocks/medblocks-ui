@@ -26,4 +26,5 @@ import './src/medblocks/text/text-select';
 import './src/medblocks/text/input-multiple';
 import './src/medblocks/duration/duration';
 import './src/medblocks/proportion/proportion';
+import './src/medblocks/count/count';
 
