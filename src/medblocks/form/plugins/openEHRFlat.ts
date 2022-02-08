@@ -8,6 +8,8 @@ export interface Ctx {
   language?: string;
   territory?: string;
   composer_name?: string;
+  _health_care_facility?:string;
+  _health_care_facility_id?:string;
 }
 
 function multipleSelectArray(value:string[],path:string,flat:any){
