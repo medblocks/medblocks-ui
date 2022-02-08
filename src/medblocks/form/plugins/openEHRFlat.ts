@@ -211,6 +211,22 @@ export const openEHRFlatPlugin: MbPlugin = {
           return {
             name: 'Medblocks UI',
           };
+        };
+      case '_health_care_facility':
+        if(ctx._health_care_facility){
+          return {
+            name: ctx._health_care_facility,
+            id:ctx._health_care_facility_id || 'Encounter ID',
+            id_scheme: 'Encounter',
+            id_namespace: 'FHIR'
+          }
+        }else{
+          return {
+            name: 'Medblocks Hospital',
+            id:ctx._health_care_facility_id || 'Encounter ID',
+            id_scheme: 'Encounter',
+            id_namespace: 'FHIR'
+          }
         }
       default:
         return;
