@@ -307,6 +307,8 @@ describe('Form e2e', ()=>{
       <mb-context path="ncd/language"></mb-context>
       <mb-context path="ncd/territory"></mb-context>
       <mb-context path="ncd/composer"></mb-context>
+      <mb-context path="ncd/context/_health_care_facility"></mb-context>
+     
       </mb-form>
       `)
       form.import(
@@ -416,15 +418,22 @@ describe('Form e2e', ()=>{
           "ncd/category|code": "433",
           "ncd/category|value": "event",
           "ncd/category|terminology": "openehr",
-          "ncd/composer|name": "Medblocks UI"
+          "ncd/composer|name": "Medblocks UI",
+          "ncd/context/_health_care_facility|name": "Medblocks Hospital",
+          "ncd/context/_health_care_facility|id": "12345",
+          "ncd/context/_health_care_facility|id_scheme": "Encounter",
+          "ncd/context/_health_care_facility|id_namespace": "FHIR"
+         
         }
       )
       const mbPercent = document.getElementById('percentage') as MbPercent;
       expect(mbPercent.data).to.eql({ _root: 0.02, numerator: 2, denominator: 100, type: 2 })
     })
+
+
     it('DRX template context issue', async ()=>{
       const form = await fixture<MbForm>(html`
-      <mb-form>
+      <mb-form  .ctx=${{'_health_care_facility_id':'12345'}}> 
       <mb-context path="opdvisit.v0/category"></mb-context>
       <mb-context path="opdvisit.v0/context/start_time"></mb-context>
       <mb-context path="opdvisit.v0/context/setting"></mb-context>
@@ -574,11 +583,13 @@ describe('Form e2e', ()=>{
       <mb-context path="opdvisit.v0/composer"></mb-context>
       <mb-context path="opdvisit.v0/language"></mb-context>
       <mb-context path="opdvisit.v0/territory"></mb-context>
+      <mb-context path="opdvisit.v0/context/_health_care_facility"></mb-context>
       </mb-form>
       `)
       setTimeout(()=>form.handleSubmit())
       let data = await oneEvent(form,'mb-submit') ;
-      expect(data.detail).to.eql({ 
+      console.log("opdvisit data",data.detail)
+      expect(data.detail).to.eql({  
         "opdvisit.v0/context/start_time": data.detail["opdvisit.v0/context/start_time"],
         "opdvisit.v0/context/setting|code": "238",
         "opdvisit.v0/context/setting|value": "other care",
@@ -591,6 +602,10 @@ describe('Form e2e', ()=>{
         "opdvisit.v0/territory|code": "IN",
         "opdvisit.v0/territory|terminology": "ISO_3166-1",
         "opdvisit.v0/composer|name": "Medblocks UI", 
+        "opdvisit.v0/context/_health_care_facility|name": "Medblocks Hospital",
+        "opdvisit.v0/context/_health_care_facility|id": "12345",
+        "opdvisit.v0/context/_health_care_facility|id_scheme": "Encounter",
+        "opdvisit.v0/context/_health_care_facility|id_namespace": "FHIR"
     })
     })
 })

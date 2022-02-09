@@ -65,10 +65,6 @@ export function fromFlat(flat: Data): Data {
         data[subpath] = value;  
       }
     }
-    //   "ncd/pulse_oximetry/any_event:0/spo": 0.02,
-    // "ncd/pulse_oximetry/any_event:0/spo|numerator": 2.0,
-    // "ncd/pulse_oximetry/any_event:0/spo|denominator": 100.0,
-    // "ncd/pulse_oximetry/any_event:0/spo|type": 2,
   });
   return data;
 }
@@ -215,21 +211,12 @@ export const openEHRFlatPlugin: MbPlugin = {
           };
         };
       case '_health_care_facility':
-        if(ctx._health_care_facility){
           return {
-            name: ctx._health_care_facility,
+            name: ctx._health_care_facility || 'Medblocks Hospital',
             id:ctx._health_care_facility_id || 'Encounter ID',
             id_scheme: 'Encounter',
             id_namespace: 'FHIR'
           }
-        }else{
-          return {
-            name: 'Medblocks Hospital',
-            id:ctx._health_care_facility_id || 'Encounter ID',
-            id_scheme: 'Encounter',
-            id_namespace: 'FHIR'
-          }
-        }
       default:
         return;
     }
