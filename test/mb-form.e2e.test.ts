@@ -5,6 +5,7 @@ import { querySelectorDeep } from 'query-selector-shadow-dom'
 import MbForm from '../src/medblocks/form/form'
 import '../medblocks'
 import MbPercent from '../src/medblocks/proportion/percent'
+import MbCount from '../src/medblocks/count/count'
 
 describe('Form e2e', ()=>{
     it('should set the data property properly', async ()=>{
@@ -303,6 +304,7 @@ describe('Form e2e', ()=>{
       <mb-context path="ncd/urinalysis/language"></mb-context>
       <mb-context path="ncd/urinalysis/encoding"></mb-context>
       <mb-context path="ncd/urinalysis/subject"></mb-context>
+      <mb-count path="ncd/urinalysis/point_in_time:0/tota_score" id="count"></mb-count>
       <mb-context path="ncd/category"></mb-context>
       <mb-context path="ncd/language"></mb-context>
       <mb-context path="ncd/territory"></mb-context>
@@ -411,6 +413,7 @@ describe('Form e2e', ()=>{
           "ncd/urinalysis/point_in_time:0/protein|value": "1+",
           "ncd/urinalysis/point_in_time:0/protein|ordinal": 3,
           "ncd/urinalysis/point_in_time:0/time": "2021-11-05T05:11:05.498Z",
+          "ncd/urinalysis/point_in_time:0/tota_score":3,
           "ncd/urinalysis/language|code": "en",
           "ncd/urinalysis/language|terminology": "ISO_639-1",
           "ncd/urinalysis/encoding|code": "UTF-8",
@@ -427,6 +430,8 @@ describe('Form e2e', ()=>{
         }
       )
       const mbPercent = document.getElementById('percentage') as MbPercent;
+      const mbCount = document.getElementById('count') as MbCount;
+      console.log('mbCount data',mbCount.data)
       expect(mbPercent.data).to.eql({ _root: 0.02, numerator: 2, denominator: 100, type: 2 })
     })
 

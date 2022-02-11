@@ -53,7 +53,7 @@ export default class MbQuantity extends QuantityElement {
 
   @property({ type: Number, reflect: true }) step: number;
   @state()
-  units: MbUnit[] = [];
+  units: MbUnit[] = []
 
   handleChildChange() {
     this.units = [...(this.querySelectorAll('mb-unit') as NodeListOf<MbUnit>)];
@@ -100,14 +100,11 @@ export default class MbQuantity extends QuantityElement {
         this.data = undefined;
       }
     }
+   
+   let Unit = this.units.filter(unit=>unit.unit === select.value)[0]
+   this.max = Unit.max;
+   this.min = Unit.min
 
-  }
-
-  handleUnits(min: any,max: any){
-    this.min = min
-    this.max = max
-
-    console.log("min,max =>",min,max)
   }
 
 
@@ -133,7 +130,7 @@ export default class MbQuantity extends QuantityElement {
       >
         ${this.units.map(
           unit =>
-            html`<sl-menu-item value=${unit.unit} max=${unit.max} min=${unit.min} @sl-change=${this.handleUnits(unit.min,unit.max)}  >${unit.label}</sl-menu-item>`
+            html`<sl-menu-item value=${unit.unit} max=${unit.max} min=${unit.min} >${unit.label}</sl-menu-item>`
         )}
       </sl-select>
       <slot style="display: none" @slotchange=${this.handleChildChange}></slot>
