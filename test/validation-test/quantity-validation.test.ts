@@ -12,7 +12,9 @@ describe('quantity validation test',()=>{
         const form = await fixture<MbForm>(
             html`
             <mb-form>
-                <mb-quantity path="test/1"></mb-quantity>
+                <mb-quantity path="test/1">
+                <mb-unit unit="cm" label="cm" min="0" max="1000"></mb-unit>
+                </mb-quantity>
             </mb-form>
             `
         )
@@ -23,7 +25,9 @@ describe('quantity validation test',()=>{
         const form = await fixture<MbForm>(
             html`
             <mb-form>
-                <mb-quantity path="test/1"></mb-quantity>
+                <mb-quantity  path="test/1">
+                <mb-unit unit="cm" label="cm" min="0" max="1000"></mb-unit>
+                </mb-quantity>
             </mb-form>
             `
         )
@@ -36,7 +40,9 @@ describe('quantity validation test',()=>{
         const form = await fixture<MbForm>(
             html`
             <mb-form>
-                <mb-quantity required path="test/1"></mb-quantity>
+                <mb-quantity required path="test/1">
+                <mb-unit unit="cm" label="cm" min="0" max="1000"></mb-unit>
+                </mb-quantity>
             </mb-form>
             `
         )
@@ -47,7 +53,9 @@ describe('quantity validation test',()=>{
         const form = await fixture<MbForm>(
             html`
             <mb-form>
-                <mb-quantity required path="test/1"></mb-quantity>
+                <mb-quantity  required path="test/1">
+                <mb-unit unit="cm" label="cm" min="0" max="1000"></mb-unit>
+                </mb-quantity>
             </mb-form>
             `
         )
