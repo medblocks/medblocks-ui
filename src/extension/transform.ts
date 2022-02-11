@@ -73,7 +73,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
                       ? n.inputs[1].list
                           .map(
                             unit =>
-                              `<mb-unit unit="${unit.value}" label="${unit.label}"></mb-unit>`
+                              `<mb-unit unit="${unit.value}" label="${unit.label}" min="${unit.validation?.min}" max="${unit.validation?.max}"></mb-unit>`
                           )
                           .join('\n')
                       : ''

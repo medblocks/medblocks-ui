@@ -102,6 +102,7 @@ export default class MbQuantity extends QuantityElement {
     }
    
    let Unit = this.units.filter(unit=>unit.unit === select.value)[0]
+   console.log(Unit)
    this.max = Unit.max;
    this.min = Unit.min
 
