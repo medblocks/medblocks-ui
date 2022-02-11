@@ -100,7 +100,17 @@ export default class MbQuantity extends QuantityElement {
         this.data = undefined;
       }
     }
+
   }
+
+  handleUnits(min: any,max: any){
+    this.min = min
+    this.max = max
+
+    console.log("min,max =>",min,max)
+  }
+
+
   render() {
     return html`
       <sl-input
@@ -123,7 +133,7 @@ export default class MbQuantity extends QuantityElement {
       >
         ${this.units.map(
           unit =>
-            html`<sl-menu-item value=${unit.unit}>${unit.label}</sl-menu-item>`
+            html`<sl-menu-item value=${unit.unit} max=${unit.max} min=${unit.min} @sl-change=${this.handleUnits(unit.min,unit.max)}  >${unit.label}</sl-menu-item>`
         )}
       </sl-select>
       <slot style="display: none" @slotchange=${this.handleChildChange}></slot>

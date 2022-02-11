@@ -28,7 +28,7 @@
       </div> -->
 
   <!-- <div>
-        <mb-input required id="input" path="adsadasd" label="input"></mb-input>
+        <mb-input min=0 max=100 required id="input" path="adsadasd" label="input"></mb-input>
         <script>
           const input = document.getElementById('input')
           input.data = 'Athul'
@@ -65,7 +65,7 @@
   <!-- <div>
         <mb-search path="search"> </mb-search>
       </div> -->
-
+<!-- 
   <div>
         <mb-buttons required id="btn" type="code" label="Gender" path="gender">
           <mb-option  value="male" label="Male" ></mb-option>
@@ -73,7 +73,7 @@
           <mb-option value="other" label="Other"></mb-option>
         </mb-buttons>
       
-      </div>
+      </div> -->
 
   <!-- <div>
         <mb-percent required></mb-percent>
@@ -100,11 +100,18 @@
   <!-- <div>
         <mb-percent required label="mark" path="percent"></mb-percent>
       </div> -->
+    
+
+
+      <mb-quantity default="Cel" path="ncd/body_temperature/any_event:0/temperature" label="Temperature">
+                        <mb-unit unit="Cel" label="Cel" min="0" max="100"></mb-unit>
+                        <mb-unit unit="degF" label="degF" min="50" max="150"></mb-unit>
+                        <mb-unit unit="K" label="K" min="273" max="373"></mb-unit>
+                    </mb-quantity>
+
+                  <!--
       <mb-context path="ncd/context/start_time"></mb-context>
       <mb-context path="ncd/context/setting"></mb-context>
-      <mb-quantity default="Cel" path="ncd/body_temperature/any_event:0/temperature" label="Temperature">
-                        <mb-unit unit="Cel" label="Cel"></mb-unit>
-                    </mb-quantity>
       <mb-context path="ncd/body_temperature/any_event:0/time"></mb-context>
       <mb-context path="ncd/body_temperature/language"></mb-context>
       <mb-context path="ncd/body_temperature/encoding"></mb-context>
@@ -219,7 +226,7 @@
       <mb-context path="ncd/category"></mb-context>
       <mb-context path="ncd/language"></mb-context>
       <mb-context path="ncd/territory"></mb-context>
-      <mb-context path="ncd/composer"></mb-context>
+      <mb-context path="ncd/composer"></mb-context> -->
 
     <div>
       <mb-submit type="primary">
