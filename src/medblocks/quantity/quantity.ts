@@ -43,17 +43,17 @@ export default class MbQuantity extends QuantityElement {
   /** Required form validation */
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
-  @property({ type: Number, reflect: true }) max: number | string;
+  @property({ type: Number, reflect: true }) max: number | string | null;
 
-  @property({ type: Number, reflect: true }) min: number | string;
+  @property({ type: Number, reflect: true }) min: number | string | null;
   /** Hides the units. Make sure to set a default unit, or set it programatically. */
   @property({ type: Boolean, reflect: true }) hideunit: boolean = false;
 
-  @property({type: Boolean, reflect: true}) disabled: boolean;
+  @property({ type: Boolean, reflect: true }) disabled: boolean;
 
   @property({ type: Number, reflect: true }) step: number;
   @state()
-  units: MbUnit[] = []
+  units: MbUnit[] = [];
 
   handleChildChange() {
     this.units = [...(this.querySelectorAll('mb-unit') as NodeListOf<MbUnit>)];
@@ -100,14 +100,12 @@ export default class MbQuantity extends QuantityElement {
         this.data = undefined;
       }
     }
-   
-   let Unit = this.units.filter(unit=>unit.unit === select.value)[0]
-   console.log(Unit)
-   this.max = Unit.max;
-   this.min = Unit.min
 
+    let Unit = this.units.filter(unit => unit.unit === select.value)[0];
+
+    this.max = Unit ? Unit.max : null;
+    this.min = Unit ? Unit.min : null;
   }
-
 
   render() {
     return html`
@@ -123,7 +121,7 @@ export default class MbQuantity extends QuantityElement {
         .value=${this.data?.magnitude?.toString() || ''}
       ></sl-input>
       <sl-select
-      .disabled=${this.disabled}
+        .disabled=${this.disabled}
         style="${this.hideunit ? 'display: none' : ''}"
         placeholder="Select units"
         .value=${this.data?.unit ?? ''}
@@ -131,7 +129,12 @@ export default class MbQuantity extends QuantityElement {
       >
         ${this.units.map(
           unit =>
-            html`<sl-menu-item value=${unit.unit} max=${unit.max} min=${unit.min} >${unit.label}</sl-menu-item>`
+            html`<sl-menu-item
+              value=${unit.unit}
+              max=${unit.max}
+              min=${unit.min}
+              >${unit.label}</sl-menu-item
+            >`
         )}
       </sl-select>
       <slot style="display: none" @slotchange=${this.handleChildChange}></slot>

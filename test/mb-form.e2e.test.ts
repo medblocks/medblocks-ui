@@ -431,7 +431,7 @@ describe('Form e2e', ()=>{
       )
       const mbPercent = document.getElementById('percentage') as MbPercent;
       const mbCount = document.getElementById('count') as MbCount;
-      console.log('mbCount data',mbCount.data)
+      expect(mbCount.data).to.eql(3)
       expect(mbPercent.data).to.eql({ _root: 0.02, numerator: 2, denominator: 100, type: 2 })
     })
 
@@ -593,7 +593,7 @@ describe('Form e2e', ()=>{
       `)
       setTimeout(()=>form.handleSubmit())
       let data = await oneEvent(form,'mb-submit') ;
-      console.log("opdvisit data",data.detail)
+      // console.log("opdvisit data",data.detail)
       expect(data.detail).to.eql({  
         "opdvisit.v0/context/start_time": data.detail["opdvisit.v0/context/start_time"],
         "opdvisit.v0/context/setting|code": "238",
