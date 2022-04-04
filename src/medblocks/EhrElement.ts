@@ -48,6 +48,7 @@ export default abstract class EhrElement extends LitElement {
   connectedCallback() {
     super.connectedCallback()
     this._mbConnect.emit({ detail: this.path })
+    this._mbInput.emit()
   }
 
   @watch('data')
