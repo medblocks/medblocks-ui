@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.88](https://github.com/medblocks/medblocks-ui/compare/v0.0.87...v0.0.88) (2022-04-04)
+
+
+### Bug Fixes
+
+* checkbox any data was not binding correctly ([1336588](https://github.com/medblocks/medblocks-ui/commit/13365880570674fd3b4ee615714845bab976d231))
+
 ### [0.0.87](https://github.com/medblocks/medblocks-ui/compare/v0.0.86...v0.0.87) (2022-03-16)
 
 ### [0.0.86](https://github.com/medblocks/medblocks-ui/compare/v0.0.85...v0.0.86) (2022-02-12)
