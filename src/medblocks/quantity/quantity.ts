@@ -28,6 +28,10 @@ export default class MbQuantity extends QuantityElement {
     sl-input {
       width: 0;
       flex: 3 1 auto;
+      
+    }
+
+    .margin-xs {
       margin-right: var(--sl-spacing-x-small);
     }
 
@@ -110,6 +114,7 @@ export default class MbQuantity extends QuantityElement {
   render() {
     return html`
       <sl-input
+        class=${this.hideunit ? '' : 'margin-xs'}
         .disabled=${this.disabled}
         .step=${this.step ?? 'any'}
         .required=${this.required}
