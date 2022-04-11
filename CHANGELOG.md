@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.92](https://github.com/medblocks/medblocks-ui/compare/v0.0.91...v0.0.92) (2022-04-11)
+
+
+### Features
+
+* single units are disabled by default ([b71eace](https://github.com/medblocks/medblocks-ui/commit/b71eacec89197c7e1e5c1c9d3ff9e496833ed362))
+
 ### [0.0.91](https://github.com/medblocks/medblocks-ui/compare/v0.0.90...v0.0.91) (2022-04-11)
 
 
