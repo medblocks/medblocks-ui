@@ -15,7 +15,15 @@
   <body>
     <mb-form id="form" >
       <mb-multimedia path="123"></mb-multimedia>
-      <mb-quantity></mb-quantity>
+      <mb-quantity
+      default="kg"
+      path="vitagroup-patient-monitoring.v0/vital_signs/body_weight/any_event:0/weight"
+      label="Weight"
+  >
+      <mb-unit unit="kg" label="kg" min="0" max="1000" />
+      <mb-unit unit="[lb_av]" label="[lb_av]" min="0" max="2000" />
+      <mb-unit unit="g" label="g" min="0" max="1000000" />
+  </mb-quantity>
       <div>
         <mb-submit type="primary">
           <sl-button>Save</sl-button>
