@@ -72,6 +72,8 @@ export default class MbSearch extends CodedTextElement {
 
   @property({ type: String }) parentAxiosKey: string = 'hermes';
 
+  @property({type: String, reflect: true}) placeholder = "Type to search"
+
   @property({ type: Object }) plugin = {
     search: hermesPlugin,
     getConstraints: joinSnomedConstraints,
@@ -272,7 +274,7 @@ export default class MbSearch extends CodedTextElement {
           ?readonly=${this._hasValue}
           ?clearable=${this._hasValue}
           @sl-clear=${this._handleClear}
-          placeholder="Type to search"
+          placeholder=${this.placeholder}
         >
           ${this._hasValue
             ? null
