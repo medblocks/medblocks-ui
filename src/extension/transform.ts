@@ -129,10 +129,10 @@ const transformations: { [rmType: string]: TransformFunction } = {
   ],
   DV_COUNT: n => [
     {
-      name: 'Quantity',
-      html: `<mb-quantity path="${n.path}" label="${
+      name: 'Count',
+      html: `<mb-count path="${n.path}" label="${
         n.name || ''
-      }" hideunit></mb-quantity>`,
+      }"></mb-count>`,
     },
   ],
   DV_PROPORTION:
