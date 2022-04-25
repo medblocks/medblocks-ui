@@ -15,9 +15,9 @@ export default class CodedTextButtons extends CodedTextElement {
   /** @ignore */
   static styles = css`
     .buttons {
-      // display: flex;
-      // flex-wrap: wrap;
-      gap: var(--sl-spacing-xx-small);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sl-spacing-xx-small) ;
     }
 
     .label {
