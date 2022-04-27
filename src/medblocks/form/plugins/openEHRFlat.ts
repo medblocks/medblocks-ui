@@ -2,45 +2,69 @@ import { MbPlugin } from './plugins';
 import { unflatten } from '../utils';
 import { Data } from '../utils';
 import MbContext from '../../context/context';
+import EhrElement from '../../EhrElement';
 
 export interface Ctx {
   time?: string;
   language?: string;
   territory?: string;
   composer_name?: string;
-  _health_care_facility?:string;
-  _health_care_facility_id?:string;
+  _health_care_facility?: string;
+  _health_care_facility_id?: string;
 }
 
-function multipleSelectArray(value:string[],path:string,flat:any){
-   value.forEach((val,i)=>{
-     if(typeof val==='object'){
-       Object.keys(val).forEach(item=>{
-         flat[`${path}:${i}|${item}`]=val[item]
-       })
-     }else{
-       flat[`${path}:${i}`]=val
-     }
-     
-   })
+function multipleSelectArray(
+  value: string[],
+  path: string,
+  flat: any,
+  prefix: string | undefined,
+  suffix: string | undefined
+): any {
+  value.forEach((val, i) => {
+    if (typeof val === 'object') {
+      Object.keys(val).forEach(item => {
+        if (prefix && suffix) {
+          flat[`${prefix}:${i}/${suffix}|${item}`] = val[item];
+        } else {
+          flat[`${path}:${i}|${item}`] = val[item];
+        }
+      });
+    } else {
+      if (prefix && suffix) {
+        flat[`${prefix}:${i}}/${suffix}`] = val;
+      } else {
+        flat[`${path}:${i}`] = val;
+      }
+    }
+  });
 }
-export function toFlat(data: Data): Data {
+
+export function toFlat(
+  data: Data,
+  mbElements: { [path: string]: EhrElement }
+): Data {
   const flat: any = {};
   Object.keys(data).forEach(path => {
-    const value = data[path];           
+    const value = data[path];
+    const ehrElement = mbElements[path];
     if (typeof value === 'object') {
-      if(Array.isArray(value)){
-        multipleSelectArray(value,path,flat)
-      }else{
+      if (Array.isArray(value)) {
+        multipleSelectArray(
+          value,
+          path,
+          flat,
+          ehrElement?.repeatprefix,
+          ehrElement?.repeatsuffix
+        );
+      } else {
         Object.keys(value).forEach(frag => {
-          if(frag!=='_root'){
+          if (frag !== '_root') {
             flat[`${path}|${frag}`] = value[frag];
-          }else{
-            flat[path]= value[frag];
+          } else {
+            flat[path] = value[frag];
           }
         });
       }
-      
     } else {
       flat[path] = value;
     }
@@ -53,22 +77,22 @@ export function fromFlat(flat: Data): Data {
   Object.keys(flat).map(path => {
     const value = flat[path];
     const [subpath, frag] = path.split('|');
+
     if (frag) {
-      if(data[subpath] && typeof data[subpath] !== "object"){
-        data[subpath] = { "_root": data[subpath] };
+      if (data[subpath] && typeof data[subpath] !== 'object') {
+        data[subpath] = { _root: data[subpath] };
       }
       data[subpath] = { ...data[subpath], [frag]: value };
     } else {
-      if(data[subpath]){
-        data[subpath] = { ...data[subpath], "_root": value };
-      }else{
-        data[subpath] = value;  
+      if (data[subpath]) {
+        data[subpath] = { ...data[subpath], _root: value };
+      } else {
+        data[subpath] = value;
       }
     }
   });
   return data;
 }
-
 
 function formatPath(path: string) {
   return path
@@ -126,23 +150,37 @@ function toInsertContext(path: string, nonNullPaths: string[]): boolean {
 export const openEHRFlatPlugin: MbPlugin = {
   parse(mbElements, data) {
     const parsedData = fromFlat(data);
-    const mbElementsWithMultiple = Object.keys(mbElements).filter(path=>{
-        const element = mbElements[path] as any;
-        return element.multiple;
-    })
-    let pathWithMultiple:string[] = [];
-    let dataWithMultiple:{[path:string]:any[]} = {}
 
-    mbElementsWithMultiple.forEach(basePath=>{
-      const elementsWithBasePath = Object.keys(parsedData).filter(path=>path.startsWith(basePath));
-      const arrayOfValues = elementsWithBasePath.map(path=>parsedData[path]);
-      dataWithMultiple = {...dataWithMultiple,[basePath]:arrayOfValues};
-      pathWithMultiple = [...pathWithMultiple,...elementsWithBasePath];
-    })
-    pathWithMultiple.forEach(path=>{
+    const mbElementsWithMultiple = Object.keys(mbElements).filter(path => {
+      const element = mbElements[path] as any;
+      return element.multiple;
+    });
+    let pathWithMultiple: string[] = [];
+    let dataWithMultiple: { [path: string]: any[] } = {};
+
+    mbElementsWithMultiple.forEach(basePath => {
+      let prefix = mbElements[basePath].repeatprefix;
+      let suffix = mbElements[basePath].repeatsuffix;
+      let elementsWithBasePath;
+      if (prefix && suffix) {
+        elementsWithBasePath = Object.keys(parsedData).filter(
+          path =>
+            path.startsWith(prefix as string) && path.endsWith(suffix as string)
+        );
+      } else {
+        elementsWithBasePath = Object.keys(parsedData).filter(path =>
+          path.startsWith(basePath)
+        );
+      }
+      const arrayOfValues = elementsWithBasePath.map(path => parsedData[path]);
+      dataWithMultiple = { ...dataWithMultiple, [basePath]: arrayOfValues };
+      pathWithMultiple = [...pathWithMultiple, ...elementsWithBasePath];
+    });
+    pathWithMultiple.forEach(path => {
       delete parsedData[path];
-    })
-    return {...parsedData,...dataWithMultiple}
+    });
+
+    return { ...parsedData, ...dataWithMultiple };
   },
 
   serialize(mbElements) {
@@ -150,18 +188,18 @@ export const openEHRFlatPlugin: MbPlugin = {
     Object.entries(mbElements).map(([path, node]) => {
       data[path] = (node as any).data;
     });
-    return JSON.parse(JSON.stringify(toFlat(data)));
+    return JSON.parse(JSON.stringify(toFlat(data, mbElements)));
   },
 
-  getContext(path, ctx = {}, nonNullPaths,mbElements) {
+  getContext(path, ctx = {}, nonNullPaths, mbElements) {
     if (!toInsertContext(path, nonNullPaths)) {
       return;
     }
 
     let parts = path.split('/');
     const contextId = parts[parts.length - 1];
-    let context = mbElements[path] as MbContext
-    if(context.bind){
+    let context = mbElements[path] as MbContext;
+    if (context.bind) {
       return context.bind;
     }
     if (ctx[contextId] != null) {
@@ -209,14 +247,14 @@ export const openEHRFlatPlugin: MbPlugin = {
           return {
             name: 'Medblocks UI',
           };
-        };
+        }
       case '_health_care_facility':
-          return {
-            name: ctx._health_care_facility || 'Medblocks Hospital',
-            id:ctx._health_care_facility_id || 'Encounter ID',
-            id_scheme: 'Encounter',
-            id_namespace: 'FHIR'
-          }
+        return {
+          name: ctx._health_care_facility || 'Medblocks Hospital',
+          id: ctx._health_care_facility_id || 'Encounter ID',
+          id_scheme: 'Encounter',
+          id_namespace: 'FHIR',
+        };
       default:
         return;
     }

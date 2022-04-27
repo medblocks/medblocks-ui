@@ -41,7 +41,7 @@ import MbSelect from '../src/medblocks/codedtext/select';
       select.value = 'at0096';
       select.dispatchEvent(new CustomEvent('sl-change'));
       const event: any = await oneEvent(mbselect, 'mb-input');
-      console.log(event.target.data)
+      // console.log(event.target.data)
       expect(event.target.data).to.eql({code: 'at0096', value: 'Negative', terminology: 'local',ordinal: 1});
     });
   
@@ -103,7 +103,7 @@ import MbSelect from '../src/medblocks/codedtext/select';
           "ncd/composer|name": "Medblocks UI" 
         }
       )
-      console.log(form.data)
+      // console.log(form.data)
       const mbOrdinal = document.getElementById('ordinal') as MbSelect;
       expect(mbOrdinal.data).to.eql({ code: 'at0098', value: '1+', ordinal: 3 })
     })

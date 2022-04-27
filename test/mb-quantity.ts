@@ -29,7 +29,7 @@ describe('MbQuantity', () => {
     select.dispatchEvent(new CustomEvent('sl-change'))
  
     const event: any = await oneEvent(mbquantity, 'mb-input'); 
-    console.log("quantity",event.target.data)
+    // console.log("quantity",event.target.data)
     expect(event.target.data).to.eql({unit: 'cm', magnitude: 234});
   });
 

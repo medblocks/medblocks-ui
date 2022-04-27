@@ -12,6 +12,11 @@ export default abstract class EhrElement extends LitElement {
   @property({ type: String, reflect: true }) path: string;
   /**Optional label for the element */
   @property({ type: String, reflect: true }) label?: string;
+  
+  @property({ type: String, reflect: true }) repeatsuffix?: string;
+  @property({ type: String, reflect: true }) repeatprefix?: string;
+
+
 
   /**Data of the element. Setting this will emit an input event automatically. */
   abstract data: any;
