@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.96](https://github.com/medblocks/medblocks-ui/compare/v0.0.95...v0.0.96) (2022-04-27)
+
+
+### Features
+
+* multiple select with prefix and suffix ([9ca969c](https://github.com/medblocks/medblocks-ui/commit/9ca969c1bcd92d80591bb9b2502c7183db625536))
+
 ### [0.0.95](https://github.com/medblocks/medblocks-ui/compare/v0.0.94...v0.0.95) (2022-04-25)
 
 ### [0.0.94](https://github.com/medblocks/medblocks-ui/compare/v0.0.93...v0.0.94) (2022-04-23)
