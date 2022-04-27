@@ -429,6 +429,7 @@ describe('Form e2e', ()=>{
          
         }
       )
+      await elementUpdated(form);
       const mbPercent = document.getElementById('percentage') as MbPercent;
       const mbCount = document.getElementById('count') as MbCount;
       expect(mbCount.data).to.eql(3)
