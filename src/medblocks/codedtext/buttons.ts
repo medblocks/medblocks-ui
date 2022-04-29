@@ -12,6 +12,7 @@ import { property } from 'lit-element';
 @customElement('mb-buttons')
 export default class CodedTextButtons extends CodedTextElement {
   @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
   /** @ignore */
   static styles = css`
     .buttons {
@@ -81,6 +82,7 @@ export default class CodedTextButtons extends CodedTextElement {
           ${this._options.map(
             option =>
               html` <sl-button
+                ?disabled=${this.disabled}
                 @click=${() => this._handleInput(option)}
                 type=${this.data?.code === option.value ? 'primary': option.type ? option.type : 'default'}
                 >${option.label}
