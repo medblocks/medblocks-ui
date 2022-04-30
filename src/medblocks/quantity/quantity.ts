@@ -140,7 +140,7 @@ export default class MbQuantity extends QuantityElement {
         .value=${this.data?.magnitude?.toString() || ''}
       ></sl-input>
       <sl-select
-        .disabled=${this.disabled || this.enablesingleunit ? false : this.units.length === 1}
+        .disabled=${this.disabled || (this.enablesingleunit ? false : this.units.length === 1)}
         style="${this.hideunit ? 'display: none' : ''}"
         placeholder="Select units"
         .value=${this.displayUnit}

@@ -12,9 +12,9 @@
     <script type="module" src="../dist/medblocks.js"></script>
   </head>
 
-  <body >
+  <body>
     <mb-form id="form">
-      <mb-buttons
+      <!-- <mb-buttons
       multiple
       repeatsuffix="psychic_suffering_details"
       repeatprefix="ssiad_priesm.v0/psychic_and_cognitive_evaluation/psychic_screening_questionnaire/any_event:0/psychic_condition"
@@ -55,7 +55,15 @@
         label="Social link loss with the entourage and in general"
       />
       <mb-option value="at0050" label="Other" />
-    </mb-buttons>
+    </mb-buttons> -->
+      <mb-quantity
+      disabled="true"
+        default="kg/m2"
+        path="ssiad_priesm/physiological_parameters/body_mass_index/any_event:0/body_mass_index"
+        label="bodymassindex"
+      >
+        <mb-unit unit="kg/m2" label="kg/m2" min="0" max="1000" />
+      </mb-quantity>
       <div>
         <mb-submit type="primary">
           <sl-button>Save</sl-button>
