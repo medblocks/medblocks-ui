@@ -34,8 +34,7 @@
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "test": "tsc && wtr",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch \" \"wtr --watch\"",
-    "build-react": "node scripts/build-react.mjs --dir ./dist",
-    "cem:run": "cem analyze --litelement --outdir ./dist"
+    "build-react": "node scripts/build-react.mjs --dir ./dist"
   },
   "dependencies": {
     "@shoelace-style/shoelace": "2.0.0-beta.50",
