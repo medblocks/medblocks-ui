@@ -4,7 +4,7 @@ import { customElement, html, property } from 'lit-element';
 import EhrElement from '../EhrElement';
 
 @customElement('mb-checkbox-any')
-export default class MbCheckBox extends EhrElement {
+export default class MbCheckBoxAny extends EhrElement {
   @property({ type: Object }) data: any = undefined;
   @property({ type: Object }) checked: boolean;
   @property({ type: Object }) bind: any = undefined;

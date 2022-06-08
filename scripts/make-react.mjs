@@ -20,8 +20,7 @@ const index = [];
 
 components.map(component => {
   try{
-
-    const tagWithoutPrefix = component.tagName.replace(/^sl-/, '');
+    const tagWithoutPrefix = component.tagName.replace(/^mb-/, '');
     const componentDir = path.join(reactDir, tagWithoutPrefix);
     const componentFile = path.join(componentDir, 'index.ts');
     const importPath = component.modulePath.replace(/^src\//, '').replace(/\.ts$/, '');

@@ -43,7 +43,7 @@ fs.mkdirSync(outdir, { recursive: true });
       });
       console.log(buildResult);
       console.log(chalk.green(`The build has been generated at ${outdir} 📦\n`));
-
+      process.exit(0);
     }catch(e){
       console.log(chalk.red(e));
       process.exit(1);
