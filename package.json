@@ -47,6 +47,7 @@
     "@custom-elements-manifest/analyzer": "^0.6.3",
     "@open-wc/eslint-config": "^4.3.0",
     "@open-wc/testing": "^2.5.33",
+    "@open-wc/testing-helpers": "^2.1.2",
     "@types/chai-as-promised": "^7.1.4",
     "@types/mocha": "^9.1.1",
     "@types/query-selector-shadow-dom": "^1.0.0",
