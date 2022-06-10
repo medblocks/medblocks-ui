@@ -105,5 +105,8 @@
   "prettier": {
     "singleQuote": true,
     "arrowParens": "avoid"
+  },
+  "publishConfig": {
+    "neutralboy:registry": "https://npm.pkg.github.com"
   }
 }
