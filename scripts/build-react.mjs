@@ -24,7 +24,7 @@ fs.mkdirSync(outdir, { recursive: true });
 
       const buildResult = await esbuild.build({
         format: "esm",
-        target: "es2016",
+        target: "es2017",
         entryPoints: [
           "./medblocks.ts",
           ...(await globby('./src/medblocks/**/!(*.).ts')),
