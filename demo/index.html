@@ -10,60 +10,29 @@
       href="../node_modules/@shoelace-style/shoelace/dist/themes/light.css"
     />
     <script type="module" src="../dist/medblocks.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        let form = document.getElementById('form');
+        let checked = document.getElementById('checkbox')
+        checked.bind = { code: '0000' }
+        // console.log(checked)
+        form.import({
+          'aarthy.refraction.v0/refraction_assessment/any_event:0/dilatation:0|code':
+            '0000'
+        })
+      })
+    </script>
   </head>
 
   <body>
     <mb-form id="form">
-      <!-- <mb-buttons
-      multiple
-      repeatsuffix="psychic_suffering_details"
-      repeatprefix="ssiad_priesm.v0/psychic_and_cognitive_evaluation/psychic_screening_questionnaire/any_event:0/psychic_condition"
-      path="ssiad_priesm.v0/psychic_and_cognitive_evaluation/psychic_screening_questionnaire/any_event:0/psychic_condition:0/psychic_suffering_details"
-      label="Psychic suffering Details"
-      terminology="local"
-      multiple
-    >
-      <mb-option
-        value="at0040"
-        label="Discouragement, having less fun"
-      />
-      <mb-option value="at0041" label="Self-worth loss" />
-      <mb-option value="at0042" label="Nutrition" />
-      <mb-option
-        value="at0043"
-        label="Neglected personal appearence"
-      />
-      <mb-option
-        value="at0044"
-        label="Disinterest for usual activities"
-      />
-      <mb-option
-        value="at0045"
-        label="Disinterest for housekeeping"
-      />
-      <mb-option
-        value="at0046"
-        label="Bad medical treatment observance"
-      />
-      <mb-option value="at0047" label="Alcohol consumption" />
-      <mb-option
-        value="at0048"
-        label="How does the patient feel (anxiety, cry, prefer to die, sleep troubles)"
-      />
-      <mb-option
-        value="at0049"
-        label="Social link loss with the entourage and in general"
-      />
-      <mb-option value="at0050" label="Other" />
-    </mb-buttons> -->
-      <mb-quantity
-      disabled="true"
-        default="kg/m2"
-        path="ssiad_priesm/physiological_parameters/body_mass_index/any_event:0/body_mass_index"
-        label="bodymassindex"
+      <mb-checkbox-any
+        id="checkbox"
+        path="aarthy.refraction.v0/refraction_assessment/any_event:0/dilatation:0"
+        label="Dilatation"
+        terminology="SNOMED-CT"
       >
-        <mb-unit unit="kg/m2" label="kg/m2" min="0" max="1000" />
-      </mb-quantity>
+      </mb-checkbox-any>
       <div>
         <mb-submit type="primary">
           <sl-button>Save</sl-button>
