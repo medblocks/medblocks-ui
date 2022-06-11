@@ -1,4 +1,5 @@
-import { css, customElement, html, property } from 'lit-element';
+import { css, html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { event, EventEmitter } from '../../internal/decorators';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
@@ -19,7 +20,7 @@ export default class MbDateTime extends EhrElement {
   @property({ type: Boolean, reflect: true }) time: boolean = false;
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
-  
+
   @property({type: Boolean, reflect: true}) disabled: boolean;
 
   @event('mb-input') _mbInput: EventEmitter<any>;

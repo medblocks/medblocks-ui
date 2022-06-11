@@ -1,11 +1,9 @@
 import {
   css,
-  customElement,
   html,
-  state,
   LitElement,
-  property,
-} from 'lit-element';
+} from 'lit';
+import {property, customElement, state} from 'lit/decorators.js';
 import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 import MbContext from '../context/context';
@@ -85,7 +83,7 @@ export default class MedblockForm extends LitElement {
   }
 
   @event('mb-submit') submit: EventEmitter<any>;
- 
+
   async handleSubmit() {
     if (this.validate()) {
       this.insertContext();

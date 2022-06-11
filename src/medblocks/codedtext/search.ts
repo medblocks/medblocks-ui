@@ -1,11 +1,13 @@
 import {
   css,
-  customElement,
   html,
+  TemplateResult
+} from 'lit';
+import {
+  customElement,
   state,
-  property,
-  TemplateResult,
-} from 'lit-element';
+  property
+} from "lit/decorators.js"
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { until } from 'lit-html/directives/until.js';
 import { classMap } from 'lit-html/directives/class-map';

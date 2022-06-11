@@ -1,4 +1,5 @@
-import { LitElement, property } from 'lit-element';
+import { LitElement} from 'lit';
+import {property} from 'lit/decorators.js';
 import { event, EventEmitter, watch } from '../internal/decorators';
 
 /**This is an abstract base class to extend other elements from
@@ -12,7 +13,7 @@ export default abstract class EhrElement extends LitElement {
   @property({ type: String, reflect: true }) path: string;
   /**Optional label for the element */
   @property({ type: String, reflect: true }) label?: string;
-  
+
   @property({ type: String, reflect: true }) repeatsuffix?: string;
   @property({ type: String, reflect: true }) repeatprefix?: string;
 

@@ -1,4 +1,4 @@
-import { property } from 'lit-element';
+import { property } from 'lit/decorators.js';
 import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 

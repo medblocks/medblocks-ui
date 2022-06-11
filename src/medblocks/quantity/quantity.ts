@@ -1,4 +1,5 @@
-import { css, customElement, html, property, state } from 'lit-element';
+import { css, html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 import MbUnit from './unit';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
@@ -28,7 +29,7 @@ export default class MbQuantity extends QuantityElement {
     sl-input {
       width: 0;
       flex: 3 1 auto;
-      
+
     }
 
     .margin-xs {
@@ -116,13 +117,13 @@ export default class MbQuantity extends QuantityElement {
 
   get displayUnit(){
     if (this.data?.unit){
-      return this.data?.unit 
+      return this.data?.unit
     }
     if (this.default){
       return this.default
     }
     return ''
-    
+
   }
 
   render() {

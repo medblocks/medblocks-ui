@@ -1,4 +1,5 @@
-import { css, customElement, html, state } from 'lit-element';
+import { customElement, state } from 'lit/decorators.js';
+import { css, html } from "lit"
 import { CodedText, CodedTextElement } from './CodedTextElement';
 import MbOption from './option';
 import '@shoelace-style/shoelace/dist/components/button/button';
@@ -48,7 +49,7 @@ export default class CodedTextButtons extends CodedTextElement {
       ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),
     ];
   }
-  
+
   reportValidity() {
     const input = this.shadowRoot!.querySelector('input') as HTMLInputElement;
     return input.reportValidity();

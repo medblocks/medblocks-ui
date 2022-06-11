@@ -1,4 +1,5 @@
-import { customElement, html, property, state, css } from 'lit-element';
+import { css, html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import EhrElement from '../EhrElement';
@@ -108,7 +109,7 @@ export default class MbDuration extends EhrElement {
       return input.reportValidity()
     }
   }
-  
+
   getInputs() {
     const allDurations: any = {
       year: this.year, month: this.month, week: this.week,day: this.day, hour: this.hour, minute: this.minute, second: this.second
