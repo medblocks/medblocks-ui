@@ -75,7 +75,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
                       ? n.inputs[1].list
                           .map(
                             unit =>
-                              `<mb-unit unit="${unit.value}" label="${unit.label}" min="${unit.validation?.range.min}" max="${unit.validation?.range.max}"></mb-unit>`
+                              `<mb-unit unit="${unit?.value}" label="${unit?.label || ''}" min="${unit?.validation?.range?.min || ''}" max="${unit?.validation?.range?.max || ''}"></mb-unit>`
                           )
                           .join('\n')
                       : ''
@@ -136,8 +136,8 @@ const transformations: { [rmType: string]: TransformFunction } = {
     },
   ],
   DV_PROPORTION:
-  
-  
+
+
   n => [
     ...(n.proportionTypes?.some((props: any) => props === 'percent')
       ? [
