@@ -24,7 +24,7 @@ fs.mkdirSync(outdir, { recursive: true });
 
       const buildResult = await esbuild.build({
         format: "esm",
-        target: "es2017",
+        target: "es2016",
         entryPoints: [
           "./medblocks.ts",
           ...(await globby('./src/medblocks/**/!(*.).ts')),
@@ -35,9 +35,7 @@ fs.mkdirSync(outdir, { recursive: true });
         chunkNames: 'chunks/[name].[hash]',
         incremental: true,
         bundle: true,
-        define: {
-          'process.env.NODE_ENV': '"production"'
-        },
+        define: { },
         external: ["lit", "react", "@lit-labs/react"],
         splitting: true,
         plugins: []
