@@ -108,6 +108,6 @@
     "arrowParens": "avoid"
   },
   "publishConfig": {
-    "@OWNER:registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   }
 }

@@ -18,13 +18,13 @@ fs.mkdirSync(outdir, { recursive: true });
 (async () => {
     console.log("Loaded Async code block");
     try{
-      execSync(`cem analyze --packagejson --litelement --dev --outdir "${outdir}" --globs "./src/**" --exclude "./dist/** ./demo/** ./test/** ./stories/**"`, {stdio: "inherit"});
+      execSync(`cem analyze --packagejson --litelement --outdir "${outdir}" --globs "./src/**" --exclude "./dist/** ./demo/** ./test/** ./stories/**"`, {stdio: "inherit"});
       execSync(`node scripts/make-react.mjs --outdir "${outdir}"`, { stdio: "inherit" });
       execSync(`tsc --project ./tsconfig.json --outdir "${outdir}"`, { stdio: 'inherit' });
 
       const buildResult = await esbuild.build({
         format: "esm",
-        target: "es2017",
+        target: "es2016",
         entryPoints: [
           "./medblocks.ts",
           ...(await globby('./src/medblocks/**/!(*.).ts')),
