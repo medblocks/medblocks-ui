@@ -1,6 +1,6 @@
 import { SlMenuItem } from '@shoelace-style/shoelace';
 import SlDropdown from '@shoelace-style/shoelace/dist/components/dropdown/dropdown'
-import { customElement } from 'lit-element';
+import { customElement } from 'lit/decorators.js';
 
 
 @customElement('mb-dropdown')
@@ -40,13 +40,13 @@ export default class MbDropDown extends SlDropdown {
       // Focus on a menu item
       if (event.key === 'ArrowDown' && firstMenuItem) {
         const menu = this.getMenu();
-        menu.setCurrentItem(firstMenuItem);
+        menu?.setCurrentItem(firstMenuItem);
         firstMenuItem.focus();
         return;
       }
 
       if (event.key === 'ArrowUp' && lastMenuItem) {
-        menu.setCurrentItem(lastMenuItem);
+        menu?.setCurrentItem(lastMenuItem);
         lastMenuItem.focus();
         return;
       }
@@ -55,7 +55,8 @@ export default class MbDropDown extends SlDropdown {
     // Other keys bring focus to the menu and initiate type-to-select behavior
     const ignoredKeys = ['Tab', 'Shift', 'Meta', 'Ctrl', 'Alt'];
     if (this.open && menu && !ignoredKeys.includes(event.key)) {
-      menu.typeToSelect(event.key);
+      // const { key } = event;
+      menu.typeToSelect(event);
       return;
     }
   }
