@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.102](https://github.com/medblocks/medblocks-ui/compare/v0.0.101...v0.0.102) (2022-06-14)
+
+
+### Bug Fixes
+
+* context was not being populated with checkbox set to false ([adde3f6](https://github.com/medblocks/medblocks-ui/commit/adde3f6d1125b2804721ce2bba55da2251da7564))
+
 ### [0.0.101](https://github.com/medblocks/medblocks-ui/compare/v0.0.100...v0.0.101) (2022-06-11)
 
 ### [0.0.100](https://github.com/medblocks/medblocks-ui/compare/v0.0.99...v0.0.100) (2022-06-11)
