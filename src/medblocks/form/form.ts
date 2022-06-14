@@ -85,29 +85,58 @@ export default class MedblockForm extends LitElement {
   }
 
   @event('mb-submit') submit: EventEmitter<any>;
- 
+
   async handleSubmit() {
     if (this.validate()) {
       this.insertContext();
       await 0;
       const data = this.serialize();
-      console.log(data)
+      console.log(data);
       this.submit.emit({ detail: data, cancelable: true });
     }
   }
 
-  insertContext() {
-    const nonNullPaths = Object.keys(this.mbElements).filter(
-      k => (this.mbElements[k].data != null &&  this.mbElements[k].data != (Array.isArray(this.mbElements[k].data) && this.mbElements[k].data.length>0) )                              ///// check if breaks ////
+  isNotEmpty(value: any) {
+    // array check
+    if (Array.isArray(value)) {
+      return value.length > 0;
+    }
+    // object check
+    if (value && Object.getPrototypeOf(value) === Object.prototype) {
+      return Object.keys(value).length > 0;
+    }
+
+    // null and undefined check
+    return value != null;
+  }
+
+  nonEmptyPaths() {
+    // undefined, null, [], {} are considered empty
+    return Object.keys(this.mbElements).filter(k =>
+      this.isNotEmpty(this.mbElements[k].data)
     );
+  }
+
+  insertContext() {
+    const nonNullPaths = this.nonEmptyPaths();
     Object.values(this.mbElements)
       .filter((element: MbContext) => !!element.autocontext)
       .forEach((element: MbContext) => {
         const path = element.path;
         const contextData = this.overwritectx
-          ? this.plugin.getContext(path, this.ctx, nonNullPaths,this.mbElements)
+          ? this.plugin.getContext(
+              path,
+              this.ctx,
+              nonNullPaths,
+              this.mbElements
+            )
           : element.data ??
-          this.plugin.getContext(path, this.ctx, nonNullPaths,this.mbElements);
+            this.plugin.getContext(
+              path,
+              this.ctx,
+              nonNullPaths,
+              this.mbElements
+            );
         element.data = contextData;
       });
   }
@@ -160,13 +189,12 @@ export default class MedblockForm extends LitElement {
     this.input.emit();
   }
 
-
-  handleChildPathChange(e: CustomEvent<{ oldPath: string, newPath: string }>) {
-    const detail = e.detail
-    const element = this.mbElements[detail.oldPath]
-    this.removeMbElement(detail.oldPath)
-    this.mbElements[detail.newPath] = element
-    this.input.emit()
+  handleChildPathChange(e: CustomEvent<{ oldPath: string; newPath: string }>) {
+    const detail = e.detail;
+    const element = this.mbElements[detail.oldPath];
+    this.removeMbElement(detail.oldPath);
+    this.mbElements[detail.newPath] = element;
+    this.input.emit();
   }
 
   removeMbElement(path: string) {
@@ -182,12 +210,12 @@ export default class MedblockForm extends LitElement {
     e.detail.value = dependencies[e.detail.key];
   }
 
-  @state() observer: MutationObserver
+  @state() observer: MutationObserver;
 
   async connectedCallback() {
     super.connectedCallback();
     this.observer = new MutationObserver((mutationList, _) => {
-      let updated = false
+      let updated = false;
       mutationList.forEach(record => {
         // if (record.addedNodes.length > 0) {
         //   record.addedNodes.forEach((node: EhrElement) => {
@@ -203,29 +231,33 @@ export default class MedblockForm extends LitElement {
             if (node.isMbElement) {
               const { [node.path]: _, ...rest } = this.mbElements;
               this.mbElements = rest;
-              updated = true
+              updated = true;
             } else {
               if (node.nodeType === node.ELEMENT_NODE) {
-                const allNodes = node.querySelectorAll("*") //Very slow
-                allNodes.forEach((node: EhrElement)=>{
+                const allNodes = node.querySelectorAll('*'); //Very slow
+                allNodes.forEach((node: EhrElement) => {
                   if (node.isMbElement) {
                     const { [node.path]: _, ...rest } = this.mbElements;
-                    this.mbElements = rest
-                    updated = true
+                    this.mbElements = rest;
+                    updated = true;
                   }
-                })
+                });
               }
             }
-          })
+          });
         }
 
         if (updated) {
-          this.input.emit()
+          this.input.emit();
         }
-      })
-    })
-    this.observer.observe(this, { childList: true, subtree: true, attributes: false })
-    this.addEventListener('mb-connect', this.handleChildConnect)
+      });
+    });
+    this.observer.observe(this, {
+      childList: true,
+      subtree: true,
+      attributes: false,
+    });
+    this.addEventListener('mb-connect', this.handleChildConnect);
     this.addEventListener('mb-dependency', this.handleDependency);
     this.addEventListener('mb-path-change', this.handleChildPathChange);
     this.load.emit();
@@ -233,13 +265,17 @@ export default class MedblockForm extends LitElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('mb-connect', this.handleChildConnect)
+    this.removeEventListener('mb-connect', this.handleChildConnect);
     this.removeEventListener('mb-dependency', this.handleDependency);
     this.removeEventListener('mb-path-change', this.handleChildPathChange);
-    this.observer.disconnect()
+    this.observer.disconnect();
   }
 
   render() {
-    return html`<slot @slotchange=${this.handleSlotChange} @mb-input=${this.handleInput} @mb-trigger-submit=${this.handleSubmit}></slot>`;
+    return html`<slot
+      @slotchange=${this.handleSlotChange}
+      @mb-input=${this.handleInput}
+      @mb-trigger-submit=${this.handleSubmit}
+    ></slot>`;
   }
 }

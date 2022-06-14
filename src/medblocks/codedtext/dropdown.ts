@@ -1,13 +1,14 @@
 import { SlMenuItem } from '@shoelace-style/shoelace';
-import SlDropdown from '@shoelace-style/shoelace/dist/components/dropdown/dropdown'
+import SlDropdown from '@shoelace-style/shoelace/dist/components/dropdown/dropdown';
 import { customElement } from 'lit-element';
-
 
 @customElement('mb-dropdown')
 export default class MbDropDown extends SlDropdown {
   handleTriggerKeyDown(event: KeyboardEvent) {
     const menu = this.getMenu();
-    const menuItems = menu ? ([...menu.querySelectorAll('sl-menu-item')] as SlMenuItem[]) : [];
+    const menuItems = menu
+      ? ([...menu.querySelectorAll('sl-menu-item')] as SlMenuItem[])
+      : [];
     const firstMenuItem = menuItems[0];
     const lastMenuItem = menuItems[menuItems.length - 1];
 
@@ -40,13 +41,13 @@ export default class MbDropDown extends SlDropdown {
       // Focus on a menu item
       if (event.key === 'ArrowDown' && firstMenuItem) {
         const menu = this.getMenu();
-        menu.setCurrentItem(firstMenuItem);
+        menu?.setCurrentItem(firstMenuItem);
         firstMenuItem.focus();
         return;
       }
 
       if (event.key === 'ArrowUp' && lastMenuItem) {
-        menu.setCurrentItem(lastMenuItem);
+        menu?.setCurrentItem(lastMenuItem);
         lastMenuItem.focus();
         return;
       }
@@ -55,7 +56,7 @@ export default class MbDropDown extends SlDropdown {
     // Other keys bring focus to the menu and initiate type-to-select behavior
     const ignoredKeys = ['Tab', 'Shift', 'Meta', 'Ctrl', 'Alt'];
     if (this.open && menu && !ignoredKeys.includes(event.key)) {
-      menu.typeToSelect(event.key);
+      menu.typeToSelect(event.key as any);
       return;
     }
   }
