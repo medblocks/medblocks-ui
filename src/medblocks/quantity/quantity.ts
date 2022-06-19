@@ -1,4 +1,4 @@
-import { css, customElement, html, property, state } from 'lit-element';
+import { css, customElement, html, property, query, state } from 'lit-element';
 import MbUnit from './unit';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
@@ -28,7 +28,6 @@ export default class MbQuantity extends QuantityElement {
     sl-input {
       width: 0;
       flex: 3 1 auto;
-      
     }
 
     .margin-xs {
@@ -58,7 +57,7 @@ export default class MbQuantity extends QuantityElement {
   @property({ type: Number, reflect: true }) step: number;
 
   /** Automatically disables the unit if only a single unit is present */
-  @property({type: Boolean, reflect: true}) enablesingleunit: boolean = false
+  @property({ type: Boolean, reflect: true }) enablesingleunit: boolean = false;
   @state()
   units: MbUnit[] = [];
 
@@ -70,6 +69,13 @@ export default class MbQuantity extends QuantityElement {
     const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
     return input.reportValidity();
   }
+
+  @query('sl-input')
+  inputElement: SlInput;
+
+  @query('sl-select')
+  selectElement: SlSelect;
+
   connectedCallback() {
     super.connectedCallback();
     const observer = new MutationObserver(() => {
@@ -78,51 +84,36 @@ export default class MbQuantity extends QuantityElement {
     observer.observe(this, { attributes: true, childList: true });
   }
 
-  handleInput(e: CustomEvent) {
-    const input = e.target as SlInput;
-    if (input.value === '') {
+  handleInput() {
+    const magnitude = this.inputElement.value
+      ? parseFloat(this.inputElement.value)
+      : undefined;
+    const unit = (this.selectElement.value as string) || this.default;
+    if (!magnitude) {
       this.data = undefined;
     } else {
       this.data = {
-        unit: this.data?.unit || this.default,
-        magnitude: parseFloat(input.value),
+        unit,
+        magnitude,
       };
     }
-  }
-
-  handleSelect(e: CustomEvent) {
-    const select = e.target as SlSelect;
-    if (select.value) {
-      this.data = {
-        ...this.data,
-        unit: select.value as string,
-      };
-    } else {
-      if (this.data?.magnitude) {
-        this.data = {
-          ...this.data,
-          unit: undefined,
-        };
-      } else {
-        this.data = undefined;
-      }
-    }
-
-    let Unit = this.units.filter(unit => unit.unit === select.value)[0];
+    let Unit = this.units.filter(
+      unit => unit.unit === this.selectElement.value
+    )[0];
 
     this.max = Unit ? Unit.max : null;
     this.min = Unit ? Unit.min : null;
+    this._mbInput.emit();
   }
 
-  get displayUnit(){
-    if (this.data?.unit){
-      return this.data?.unit 
+  get displayUnit() {
+    if (this.data?.unit) {
+      return this.data?.unit;
     }
-    if (this.default){
-      return this.default
+    if (this.default) {
+      return this.default;
     }
-    return ''
-    
+    return '';
   }
 
   render() {
@@ -140,11 +131,12 @@ export default class MbQuantity extends QuantityElement {
         .value=${this.data?.magnitude?.toString() || ''}
       ></sl-input>
       <sl-select
-        .disabled=${this.disabled || (this.enablesingleunit ? false : this.units.length === 1)}
+        .disabled=${this.disabled ||
+        (this.enablesingleunit ? false : this.units.length === 1)}
         style="${this.hideunit ? 'display: none' : ''}"
         placeholder="Select units"
         .value=${this.displayUnit}
-        @sl-change=${this.handleSelect}
+        @sl-change=${this.handleInput}
       >
         ${this.units.map(
           unit =>

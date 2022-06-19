@@ -7,7 +7,8 @@ import '../medblocks';
 import MbPercent from '../src/medblocks/proportion/percent';
 import MbCount from '../src/medblocks/count/count';
 import MbCheckBox from '../src/medblocks/boolean/checkbox';
-import MedblockForm from '../src/medblocks/form/form';
+import MbInput from '../src/medblocks/text/input';
+import { SlInput } from '@shoelace-style/shoelace';
 
 describe('Form e2e', () => {
   it('should set the data property properly', async () => {
@@ -826,7 +827,7 @@ describe('Form e2e', () => {
       'opdvisit.v0/context/_health_care_facility|id_namespace': 'FHIR',
     });
   });
-  it('should render contexts properly', async () => {
+  it('should render contexts properly (aarthy.screening.v0)', async () => {
     const form = await fixture<MbForm>(html` <mb-form
       .ctx=${{
         composer: {
@@ -1101,11 +1102,139 @@ describe('Form e2e', () => {
       ]
     ).to.eql('One eyed');
   });
-  it('should return correct null status', () => {
-    const form = new MedblockForm();
-    expect(form.isNotEmpty(true)).eq(true);
-    expect(form.isNotEmpty([])).eq(false);
-    expect(form.isNotEmpty({})).eq(false);
-    expect(form.isNotEmpty(false)).eq(true);
+  it('should not populate context on bind back and edit to null', async () => {
+    const form = await fixture<MbForm>(html` <mb-form
+      .ctx=${{
+        composer: {
+          name: 'Sidharth Ramesh',
+        },
+        health_care_facility: {
+          name: 'Aarthy Eye Hospital',
+          id: 'Example Encounter ID',
+          id_scheme: 'aarthy',
+          id_namespace: 'aarthy',
+        },
+        test_name: 'Blood Sugar Test',
+      }}
+    >
+      <div class="flex gap-3 flex-col ">
+        <mb-context path="aarthy.screening.v0/category" />
+        <mb-context path="aarthy.screening.v0/context/start_time" />
+        <mb-context path="aarthy.screening.v0/context/setting" />
+        <mb-quantity
+            class="my-2"
+            default="/min"
+            path="aarthy.screening.v0/pulse_heart_beat/any_event:0/rate"
+            label="Pulse Rate"
+          >
+            <mb-unit unit="/min" label="/min" min="" max="1000" />
+          </mb-quantity>
+          <mb-quantity
+            class="my-2"
+            default="mm[Hg]"
+            path="aarthy.screening.v0/blood_pressure/systolic"
+            label="Systolic"
+          >
+            <mb-unit unit="mm[Hg]" label="mm[Hg]" min="" max="1000" />
+          </mb-quantity>
+          <mb-quantity
+            class="my-2"
+            default="mm[Hg]"
+            path="aarthy.screening.v0/blood_pressure/diastolic"
+            label="Diastolic"
+          >
+            <mb-unit unit="mm[Hg]" label="mm[Hg]" min="" max="1000" />
+          </mb-quantity>
+        </div>
+        <mb-context
+          path="aarthy.screening.v0/pulse_heart_beat/any_event:0/time"
+        />
+        <mb-context path="aarthy.screening.v0/pulse_heart_beat/subject" />
+        <mb-context path="aarthy.screening.v0/pulse_heart_beat/language" />
+        <mb-context path="aarthy.screening.v0/pulse_heart_beat/encoding" />
+        <mb-context path="aarthy.screening.v0/blood_pressure/time" />
+        <mb-context path="aarthy.screening.v0/blood_pressure/subject" />
+        <mb-context path="aarthy.screening.v0/blood_pressure/language" />
+        <mb-context path="aarthy.screening.v0/blood_pressure/encoding" />
+        <mb-context path="aarthy.screening.v0/composer" />
+        <mb-context path="aarthy.screening.v0/language" />
+        <mb-context path="aarthy.screening.v0/territory" />
+        <mb-submit id="submit">
+          <sl-button>Submit</sl-button>
+        </mb-submit>
+      </div>
+    </mb-form>`);
+
+    form.import({
+      'aarthy.screening.v0/category|code': '433',
+      'aarthy.screening.v0/category|value': 'event',
+      'aarthy.screening.v0/category|terminology': 'openehr',
+      'aarthy.screening.v0/context/start_time': '2022-06-14T06:16:48.223Z',
+      'aarthy.screening.v0/context/setting|code': '238',
+      'aarthy.screening.v0/context/setting|value': 'other care',
+      'aarthy.screening.v0/context/setting|terminology': 'openehr',
+      'aarthy.screening.v0/pulse_heart_beat/any_event:0/rate|unit': '/min',
+      'aarthy.screening.v0/pulse_heart_beat/any_event:0/rate|magnitude': 67,
+      'aarthy.screening.v0/blood_pressure/systolic|unit': 'mm[Hg]',
+      'aarthy.screening.v0/blood_pressure/systolic|magnitude': 140,
+      'aarthy.screening.v0/blood_pressure/diastolic|unit': 'mm[Hg]',
+      'aarthy.screening.v0/blood_pressure/diastolic|magnitude': 99,
+      'aarthy.screening.v0/pulse_heart_beat/any_event:0/time':
+        '2022-06-14T06:16:48.224Z',
+      'aarthy.screening.v0/pulse_heart_beat/language|code': 'en',
+      'aarthy.screening.v0/pulse_heart_beat/language|terminology': 'ISO_639-1',
+      'aarthy.screening.v0/pulse_heart_beat/encoding|code': 'UTF-8',
+      'aarthy.screening.v0/pulse_heart_beat/encoding|terminology':
+        'IANA_character-sets',
+      'aarthy.screening.v0/blood_pressure/time': '2022-06-14T06:16:48.224Z',
+      'aarthy.screening.v0/blood_pressure/language|code': 'en',
+      'aarthy.screening.v0/blood_pressure/language|terminology': 'ISO_639-1',
+      'aarthy.screening.v0/blood_pressure/encoding|code': 'UTF-8',
+      'aarthy.screening.v0/blood_pressure/encoding|terminology':
+        'IANA_character-sets',
+      'aarthy.screening.v0/composer|name': 'Sidharth',
+      'aarthy.screening.v0/language|code': 'en',
+      'aarthy.screening.v0/language|terminology': 'ISO_639-1',
+      'aarthy.screening.v0/territory|code': 'IN',
+      'aarthy.screening.v0/territory|terminology': 'ISO_3166-1',
+    });
+    const pulse = querySelectorDeep('mb-quantity', form) as MbInput;
+    // const ctx = querySelectorDeep('#oneeye_ctx', form) as MbContext;
+    const slInput = querySelectorDeep('sl-input', pulse) as SlInput;
+    slInput.value = '';
+    var event = new CustomEvent('sl-input', {
+      bubbles: true,
+      cancelable: true,
+    });
+    slInput.dispatchEvent(event);
+    await oneEvent(form, 'mb-input');
+    setTimeout(() => form.handleSubmit());
+    let data = await oneEvent(form, 'mb-submit');
+    expect(data.detail).to.eql({
+      'aarthy.screening.v0/category|code': '433',
+      'aarthy.screening.v0/category|value': 'event',
+      'aarthy.screening.v0/category|terminology': 'openehr',
+      'aarthy.screening.v0/context/start_time':
+        data.detail['aarthy.screening.v0/context/start_time'],
+      'aarthy.screening.v0/context/setting|code': '238',
+      'aarthy.screening.v0/context/setting|value': 'other care',
+      'aarthy.screening.v0/context/setting|terminology': 'openehr',
+      'aarthy.screening.v0/blood_pressure/systolic|unit': 'mm[Hg]',
+      'aarthy.screening.v0/blood_pressure/systolic|magnitude': 140,
+      'aarthy.screening.v0/blood_pressure/diastolic|unit': 'mm[Hg]',
+      'aarthy.screening.v0/blood_pressure/diastolic|magnitude': 99,
+      'aarthy.screening.v0/blood_pressure/time':
+        data.detail['aarthy.screening.v0/blood_pressure/time'],
+      'aarthy.screening.v0/blood_pressure/language|code': 'en',
+      'aarthy.screening.v0/blood_pressure/language|terminology': 'ISO_639-1',
+      'aarthy.screening.v0/blood_pressure/encoding|code': 'UTF-8',
+      'aarthy.screening.v0/blood_pressure/encoding|terminology':
+        'IANA_character-sets',
+      'aarthy.screening.v0/composer|name': 'Sidharth',
+      'aarthy.screening.v0/language|code': 'en',
+      'aarthy.screening.v0/language|terminology': 'ISO_639-1',
+      'aarthy.screening.v0/territory|code': 'IN',
+      'aarthy.screening.v0/territory|terminology': 'ISO_3166-1',
+    });
   });
 });

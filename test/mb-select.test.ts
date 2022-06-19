@@ -150,19 +150,18 @@ describe('MbSelect', () => {
     const select = querySelectorDeep('sl-select') as SlSelect;
     select.value = ['testUnit', 'testUnit2'];
     select.dispatchEvent(new CustomEvent('sl-change'));
-     await oneEvent(form, 'mb-input');
-    setTimeout(()=>form.handleSubmit(),0);
-    let data = await oneEvent(form,'mb-submit') ;
+    await oneEvent(form, 'mb-input');
+    setTimeout(() => form.handleSubmit(), 0);
+    let data = await oneEvent(form, 'mb-submit');
     expect(data.detail).to.eql({
       'mbselect:0/multiple|code': 'testUnit',
       'mbselect:0/multiple|value': 'Test Unit',
-      'mbselect:0/multiple|terminology': 'SOME-TERMINOLOGY',   
+      'mbselect:0/multiple|terminology': 'SOME-TERMINOLOGY',
       'mbselect:1/multiple|code': 'testUnit2',
       'mbselect:1/multiple|value': 'Test Unit2',
-      'mbselect:1/multiple|terminology': 'SOME-TERMINOLOGY'    
+      'mbselect:1/multiple|terminology': 'SOME-TERMINOLOGY',
     });
   });
-
 
   it('on multiple selection without prefix and suffix , emits correct data', async () => {
     const form = await fixture<MedblockForm>(
@@ -183,19 +182,18 @@ describe('MbSelect', () => {
     const select = querySelectorDeep('sl-select') as SlSelect;
     select.value = ['testUnit', 'testUnit2'];
     select.dispatchEvent(new CustomEvent('sl-change'));
-     await oneEvent(form, 'mb-input');
-    setTimeout(()=>form.handleSubmit(),0);
-    let data = await oneEvent(form,'mb-submit') ;
+    await oneEvent(form, 'mb-input');
+    setTimeout(() => form.handleSubmit(), 0);
+    let data = await oneEvent(form, 'mb-submit');
     expect(data.detail).to.eql({
       'mbselect:0/multiple:0|code': 'testUnit',
       'mbselect:0/multiple:0|value': 'Test Unit',
-      'mbselect:0/multiple:0|terminology': 'SOME-TERMINOLOGY',   
+      'mbselect:0/multiple:0|terminology': 'SOME-TERMINOLOGY',
       'mbselect:0/multiple:1|code': 'testUnit2',
       'mbselect:0/multiple:1|value': 'Test Unit2',
-      'mbselect:0/multiple:1|terminology': 'SOME-TERMINOLOGY'    
+      'mbselect:0/multiple:1|terminology': 'SOME-TERMINOLOGY',
     });
   });
-
 
   it('on multiple select with prefix and suffix , binds data correctly', async () => {
     const form = await fixture<MedblockForm>(
@@ -220,14 +218,12 @@ describe('MbSelect', () => {
     form.import({
       'mbselect:0/multiple|code': 'testUnit',
       'mbselect:0/multiple|value': 'Test Unit',
-      'mbselect:0/multiple|terminology': 'SOME-TERMINOLOGY',   
+      'mbselect:0/multiple|terminology': 'SOME-TERMINOLOGY',
       'mbselect:1/multiple|code': 'testUnit2',
       'mbselect:1/multiple|value': 'Test Unit2',
-      'mbselect:1/multiple|terminology': 'SOME-TERMINOLOGY'    
-    })
+      'mbselect:1/multiple|terminology': 'SOME-TERMINOLOGY',
+    });
     await elementUpdated(form);
-    console.log(mbselect.data) 
-    console.log(select.value)
     expect(select.value).to.eql(['testUnit', 'testUnit2']);
     expect(mbselect.data).to.eql([
       {
@@ -240,10 +236,9 @@ describe('MbSelect', () => {
         value: 'Test Unit2',
         terminology: 'SOME-TERMINOLOGY',
       },
-    ])
+    ]);
   });
-  
-  
+
   it('on multiple select without prefix and suffix , binds data correctly', async () => {
     const form = await fixture<MedblockForm>(
       html`
@@ -265,11 +260,11 @@ describe('MbSelect', () => {
     form.import({
       'mbselect:0/multiple:0|code': 'testUnit',
       'mbselect:0/multiple:0|value': 'Test Unit',
-      'mbselect:0/multiple:0|terminology': 'SOME-TERMINOLOGY',   
+      'mbselect:0/multiple:0|terminology': 'SOME-TERMINOLOGY',
       'mbselect:0/multiple:1|code': 'testUnit2',
       'mbselect:0/multiple:1|value': 'Test Unit2',
-      'mbselect:0/multiple:1|terminology': 'SOME-TERMINOLOGY'    
-    })
+      'mbselect:0/multiple:1|terminology': 'SOME-TERMINOLOGY',
+    });
     await elementUpdated(form);
     expect(select.value).to.eql(['testUnit', 'testUnit2']);
     expect(mbselect.data).to.eql([
@@ -283,6 +278,6 @@ describe('MbSelect', () => {
         value: 'Test Unit2',
         terminology: 'SOME-TERMINOLOGY',
       },
-    ])
+    ]);
   });
 });

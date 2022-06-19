@@ -18,9 +18,12 @@ export default class MbContext extends EhrElement {
   @event('mb-input')
   _mbInput: EventEmitter<any>;
 
+  /** Automatically populate this context field if empty */
   @property({ type: Boolean })
   autocontext: boolean = true;
-
+  
+  /** Automatically populate this context field if empty */
+  
   connectedCallback() {
     super.connectedCallback();
     setTimeout(() => {

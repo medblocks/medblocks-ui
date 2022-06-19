@@ -31,7 +31,7 @@ function multipleSelectArray(
       });
     } else {
       if (prefix && suffix) {
-        flat[`${prefix}:${i}}/${suffix}`] = val;
+        flat[`${prefix}:${i}/${suffix}`] = val;
       } else {
         flat[`${path}:${i}`] = val;
       }

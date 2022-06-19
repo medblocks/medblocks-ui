@@ -91,7 +91,7 @@ export default class MedblockForm extends LitElement {
       this.insertContext();
       await 0;
       const data = this.serialize();
-      console.log(data);
+      // console.log(data);
       this.submit.emit({ detail: data, cancelable: true });
     }
   }
@@ -106,38 +106,67 @@ export default class MedblockForm extends LitElement {
       return Object.keys(value).length > 0;
     }
 
+    if (value === '') {
+      return false;
+    }
     // null and undefined check
     return value != null;
   }
 
+  isContextElement(element: EhrElement) {
+    return (element as any)?.autocontext != null;
+  }
   nonEmptyPaths() {
     // undefined, null, [], {} are considered empty
-    return Object.keys(this.mbElements).filter(k =>
-      this.isNotEmpty(this.mbElements[k].data)
+    // Context elements are also considered empty for this purpose
+    return Object.keys(this.mbElements).filter(
+      k =>
+        this.isNotEmpty(this.mbElements[k].data) &&
+        !this.isContextElement(this.mbElements[k])
+    );
+    // .filter(k => (this.mbElements[k] as MbContext)?.autocontext != null);
+  }
+
+  nonContextPaths() {
+    return Object.keys(this.mbElements).filter(
+      k => (this.mbElements[k] as MbContext)?.autocontext == null
     );
   }
 
   insertContext() {
     const nonNullPaths = this.nonEmptyPaths();
+    // TODO: Delete context for paths where there is
     Object.values(this.mbElements)
       .filter((element: MbContext) => !!element.autocontext)
       .forEach((element: MbContext) => {
         const path = element.path;
-        const contextData = this.overwritectx
-          ? this.plugin.getContext(
-              path,
-              this.ctx,
-              nonNullPaths,
-              this.mbElements
-            )
-          : element.data ??
-            this.plugin.getContext(
-              path,
-              this.ctx,
-              nonNullPaths,
-              this.mbElements
-            );
-        element.data = contextData;
+        const valueToInsert = this.plugin.getContext(
+          path,
+          this.ctx,
+          nonNullPaths,
+          this.mbElements
+        );
+
+        if (valueToInsert != null) {
+          // Insert old value or new value depending on overwritectx
+          const contextData = this.overwritectx
+            ? this.plugin.getContext(
+                path,
+                this.ctx,
+                nonNullPaths,
+                this.mbElements
+              )
+            : element.data ??
+              this.plugin.getContext(
+                path,
+                this.ctx,
+                nonNullPaths,
+                this.mbElements
+              );
+          element.data = contextData;
+        } else {
+          element.data = undefined;
+        }
       });
   }
 
