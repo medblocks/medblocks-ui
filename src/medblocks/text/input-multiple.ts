@@ -14,7 +14,7 @@ export default class MbInputMultiple extends EhrElement {
       flex-direction: column;
     }
     sl-tag {
-      margin: var(--sl-spacing-x-small) var(--sl-spacing-xx-small) 0 0;
+      margin: var(--sl-spacing-x-small) var(--sl-spacing-x-small) 0 0;
     }
     sl-icon {
       font-size: var(--sl-font-size-large);
@@ -24,6 +24,8 @@ export default class MbInputMultiple extends EhrElement {
   @property({ type: Array }) data: string[] = [];
 
   @property({ type: Boolean }) multiple: boolean = true;
+
+  @property({ type: Boolean , reflect: true }) hidehelp: boolean = false;
 
   @property({ type: String, reflect: true }) placeholder: string = '';
 
@@ -70,7 +72,7 @@ export default class MbInputMultiple extends EhrElement {
     return html`
       <sl-input
         ?required=${this.required }
-        help-text=${`Press enter to add ${this.placeholder}`}
+        help-text=${this.hidehelp ? "" : `Press enter to add ${this.placeholder}`}
         @sl-input=${this.handleInput}
         label=${this.label || ''}
         .value=${this.value}
