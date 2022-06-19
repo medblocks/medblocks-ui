@@ -23,6 +23,8 @@ export default class MbInput extends EhrElement {
 
   @property({ type: String, reflect: true }) type: string;
 
+  @property({ type: String, reflect: true }) placeholder: string = '';
+
   @property({ type: Number, reflect: true }) min: number;
 
   @property({ type: Number, reflect: true }) max: number;
@@ -61,6 +63,7 @@ export default class MbInput extends EhrElement {
             .minlength=${this.minlength}
             ?required=${this.required}
             label=${this.label}
+            placeholder=${this.placeholder}
             @sl-input=${this.handleInput}
             value=${this.data || ''}
           ></sl-textarea>
@@ -75,6 +78,7 @@ export default class MbInput extends EhrElement {
             .type=${this.type as any}
             ?required=${this.required}
             label=${this.label}
+            placeholder=${this.placeholder}
             @sl-input=${this.handleInput}
             value=${this.data || ''}
           ></sl-input>
