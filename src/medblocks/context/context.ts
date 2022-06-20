@@ -1,19 +1,19 @@
-import { customElement, property,css } from 'lit-element';
+import { customElement, property, css } from 'lit-element';
 import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 
 @customElement('mb-context')
 export default class MbContext extends EhrElement {
-   /** @ignore */
-   static styles = css`
-   :host {
-     display: none;
-   }
- `;
+  /** @ignore */
+  static styles = css`
+    :host {
+      display: none;
+    }
+  `;
   @property({ type: Object })
   data: any;
 
-  @property({ type: Object }) bind: any = undefined;
+  @property() bind: any = undefined;
 
   @event('mb-input')
   _mbInput: EventEmitter<any>;
@@ -21,9 +21,9 @@ export default class MbContext extends EhrElement {
   /** Automatically populate this context field if empty */
   @property({ type: Boolean })
   autocontext: boolean = true;
-  
+
   /** Automatically populate this context field if empty */
-  
+
   connectedCallback() {
     super.connectedCallback();
     setTimeout(() => {
