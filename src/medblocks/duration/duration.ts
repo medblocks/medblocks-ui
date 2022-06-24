@@ -51,7 +51,7 @@ export default class MbDuration extends EhrElement {
   }
 
   getPart(periodPart: string, part: string): string | undefined {
-    const myRegexp = new RegExp(`(\\d)${part}`, 'g');
+    const myRegexp = new RegExp(`(\\d+)${part}`, 'g');
     const match = myRegexp.exec(periodPart);
     return match ? match[1] : undefined;
   }
@@ -108,7 +108,7 @@ export default class MbDuration extends EhrElement {
       return input.reportValidity()
     }
   }
-  
+
   getInputs() {
     const allDurations: any = {
       year: this.year, month: this.month, week: this.week,day: this.day, hour: this.hour, minute: this.minute, second: this.second
