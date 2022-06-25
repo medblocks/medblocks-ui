@@ -20,12 +20,32 @@ export default class MbInputMultiple extends EhrElement {
       font-size: var(--sl-font-size-large);
       cursor: pointer;
     }
+
+    .print-only {
+      display: none;
+    }
+
+    @media print {
+      sl-tag {
+        display: none;
+      }
+
+
+      sl-input {
+        display: none;
+      }
+
+      .print-only {
+        margin: var(--sl-spacing-x-small) var(--sl-spacing-x-small) 0 0;
+        display: inline-block;
+      }
+    }
   `;
   @property({ type: Array }) data: string[] = [];
 
   @property({ type: Boolean }) multiple: boolean = true;
 
-  @property({ type: Boolean , reflect: true }) hidehelp: boolean = false;
+  @property({ type: Boolean, reflect: true }) hidehelp: boolean = false;
 
   @property({ type: String, reflect: true }) placeholder: string = '';
 
@@ -62,8 +82,8 @@ export default class MbInputMultiple extends EhrElement {
 
   reportValidity() {
     const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
-    if(this.data.length>0){
-      return true
+    if (this.data.length > 0) {
+      return true;
     }
     return input.reportValidity();
   }
@@ -71,8 +91,10 @@ export default class MbInputMultiple extends EhrElement {
   render() {
     return html`
       <sl-input
-        ?required=${this.required }
-        help-text=${this.hidehelp ? "" : `Press enter to add ${this.placeholder}`}
+        ?required=${this.required}
+        help-text=${this.hidehelp
+          ? ''
+          : `Press enter to add ${this.placeholder}`}
         @sl-input=${this.handleInput}
         label=${this.label || ''}
         .value=${this.value}
@@ -92,6 +114,9 @@ export default class MbInputMultiple extends EhrElement {
               >${s}</sl-tag
             >`
         )}
+      </div>
+      <div class="print-only">
+        <p>${this.data.join(', ')}</p>
       </div>
     `;
   }
