@@ -12,6 +12,7 @@ export default class MbInputMultiple extends EhrElement {
     :host {
       display: flex;
       flex-direction: column;
+      border: 1px solid black;
     }
     sl-tag {
       margin: var(--sl-spacing-x-small) var(--sl-spacing-x-small) 0 0;
@@ -30,14 +31,13 @@ export default class MbInputMultiple extends EhrElement {
         display: none;
       }
 
-
       sl-input {
         display: none;
       }
-
       .print-only {
-        margin: var(--sl-spacing-x-small) var(--sl-spacing-x-small) 0 0;
-        display: inline-block;
+        display:inline-block;
+        margin : 0px;
+        padding:2px;
       }
     }
   `;
@@ -115,9 +115,9 @@ export default class MbInputMultiple extends EhrElement {
             >`
         )}
       </div>
-      <div class="print-only">
-        <p>${this.data.join(', ')}</p>
-      </div>
+      <p class="print-only">
+        <span>${this.data.join(', ') || "-"}</span>
+      </p>
     `;
   }
 }
