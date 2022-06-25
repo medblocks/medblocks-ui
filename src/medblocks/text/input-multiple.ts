@@ -12,7 +12,6 @@ export default class MbInputMultiple extends EhrElement {
     :host {
       display: flex;
       flex-direction: column;
-      border: 1px solid black;
     }
     sl-tag {
       margin: var(--sl-spacing-x-small) var(--sl-spacing-x-small) 0 0;
