@@ -20,6 +20,22 @@ export default class MbDuration extends EhrElement {
       width: 0;
       flex: 1 1 auto;
     }
+
+    .print-only {
+      display: none;
+    }
+
+    @media print {
+      .print-only {
+        display: inline-block;
+        margin: 0px;
+        padding: 2px;
+      }
+
+      sl-input {
+        display: none;
+      }
+    }
   `;
 
   @property({ type: Boolean, reflect: true }) year: boolean = false;
@@ -96,6 +112,10 @@ export default class MbDuration extends EhrElement {
     this._mbInput.emit()
   }
 
+  getDate(value: string|undefined) {
+    return value?.replace(/[^0-9]/g, '');
+  }
+
   formatDuration(value: string) : string {
       return value.charAt(0).toUpperCase() + value.slice(1)+'s'
   }
@@ -136,6 +156,7 @@ export default class MbDuration extends EhrElement {
     <div>
     ${this.getInputs()}
     </div>
+    <p class="print-only">${this.getDate(this.data) || '-'}</p>
     `
   }
 }
