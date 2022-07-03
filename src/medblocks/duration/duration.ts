@@ -35,6 +35,9 @@ export default class MbDuration extends EhrElement {
       sl-input {
         display: none;
       }
+      .label {
+        display: none;
+      }
     }
   `;
 
@@ -46,12 +49,12 @@ export default class MbDuration extends EhrElement {
   @property({ type: Boolean, reflect: true }) minute: boolean = false;
   @property({ type: Boolean, reflect: true }) second: boolean = false;
   @property({ type: Boolean, reflect: true }) required: boolean = false;
-  @property({type: Boolean, reflect: true}) disabled: boolean;
+  @property({ type: Boolean, reflect: true }) disabled: boolean;
 
-  @state() _state : {[period: string]: string | undefined} = {}
+  @state() _state: { [period: string]: string | undefined } = {};
 
-  parsePeriod(period: string|undefined) {
-    if(period){
+  parsePeriod(period: string | undefined) {
+    if (period) {
       const [periodPart, t] = period.split('T');
       const p = periodPart.replace('P', '');
       this._state.year = this.getPart(p, 'Y');
@@ -72,7 +75,7 @@ export default class MbDuration extends EhrElement {
     return match ? match[1] : undefined;
   }
 
-  serializePeriod(): string|undefined {
+  serializePeriod(): string | undefined {
     const hour = this._state.hour ? `${this._state.hour}H` : '';
     const minute = this._state.minute ? `${this._state.minute}M` : '';
     const second = this._state.second ? `${this._state.second}S` : '';
@@ -86,77 +89,81 @@ export default class MbDuration extends EhrElement {
 
     const timePart = t ? `T${t}` : '';
     const periodPart = p ? `P${p}` : '';
-      if(!periodPart && !timePart) return undefined
-      if(!periodPart && timePart)
-        return `P${timePart}`
-      else
-        return `${periodPart}${timePart}`;
-
+    if (!periodPart && !timePart) return undefined;
+    if (!periodPart && timePart) return `P${timePart}`;
+    else return `${periodPart}${timePart}`;
   }
 
-  get data():string|undefined {
+  get data(): string | undefined {
     return this.serializePeriod();
   }
 
-  set data(period: string|undefined) {
-    const oldVal = this.data
+  set data(period: string | undefined) {
+    const oldVal = this.data;
     this.parsePeriod(period);
-    this.requestUpdate('data',oldVal)
+    this.requestUpdate('data', oldVal);
   }
 
-  handleInput(value:string,e:CustomEvent){
-    const oldVal = this.data
+  handleInput(value: string, e: CustomEvent) {
+    const oldVal = this.data;
     const target = e.target as SlInput;
-    this._state = {...this._state, [value]: target.value};
-    this.requestUpdate('data', oldVal)
-    this._mbInput.emit()
+    this._state = { ...this._state, [value]: target.value };
+    this.requestUpdate('data', oldVal);
+    this._mbInput.emit();
   }
 
-  getDate(value: string|undefined) {
+  getDate(value: string | undefined) {
     return value?.replace(/[^0-9]/g, '');
   }
 
-  formatDuration(value: string) : string {
-      return value.charAt(0).toUpperCase() + value.slice(1)+'s'
+  formatDuration(value: string): string {
+    return value.charAt(0).toUpperCase() + value.slice(1) + 's';
   }
 
   reportValidity() {
     if (this.data) {
-      return true
+      return true;
     } else {
       const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
-      return input.reportValidity()
+      return input.reportValidity();
     }
   }
 
   getInputs() {
     const allDurations: any = {
-      year: this.year, month: this.month, week: this.week,day: this.day, hour: this.hour, minute: this.minute, second: this.second
-    }
-    const durationKeys = Object.keys(allDurations)
-    const toRender =  durationKeys.every(a=>allDurations[a]===false) ? durationKeys : durationKeys
-    .filter(a=>allDurations[a])
+      year: this.year,
+      month: this.month,
+      week: this.week,
+      day: this.day,
+      hour: this.hour,
+      minute: this.minute,
+      second: this.second,
+    };
+    const durationKeys = Object.keys(allDurations);
+    const toRender = durationKeys.every(a => allDurations[a] === false)
+      ? durationKeys
+      : durationKeys.filter(a => allDurations[a]);
 
-    return toRender.map(a=>html`<sl-input
-    .disabled=${this.disabled}
-      id=${a}
-      type="number"
-      ?required=${this.required}
-      help-text=${this.formatDuration(a)}
-      .value=${this._state[a] || ''}
-      @sl-input=${(e: CustomEvent)=>this.handleInput(a,e)}
-      ></sl-input>`)
+    return toRender.map(
+      a => html`<sl-input
+        .disabled=${this.disabled}
+        id=${a}
+        type="number"
+        ?required=${this.required}
+        help-text=${this.formatDuration(a)}
+        .value=${this._state[a] || ''}
+        @sl-input=${(e: CustomEvent) => this.handleInput(a, e)}
+      ></sl-input>`
+    );
   }
 
-  render(){
+  render() {
     return html`
-    ${this.label
-          ? html`<label part="label" class="label">${this.label}</label>`
-          : null}
-    <div>
-    ${this.getInputs()}
-    </div>
-    <p class="print-only">${this.getDate(this.data) || '-'}</p>
-    `
+      ${this.label
+        ? html`<label part="label" class="label">${this.label}</label>`
+        : null}
+      <div>${this.getInputs()}</div>
+      <p class="print-only">${this.getDate(this.data) || '-'}</p>
+    `;
   }
 }

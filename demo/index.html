@@ -12,7 +12,7 @@
     <script type="module" src="../dist/medblocks.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        let form = document.getElementById('form');
+        let form = document.getElementById('form')
         let checked = document.getElementById('checkbox')
         checked.bind = { code: '0000' }
         // console.log(checked)
@@ -33,6 +33,11 @@
         terminology="SNOMED-CT"
       >
       </mb-checkbox-any>
+      <mb-input label="Input"></mb-input>
+      <mb-duration day label="Duration"></mb-duration>
+      <mb-quantity label="Quantity" default="[diop]">
+        <mb-unit unit="[diop]" label="[diop]" />
+      </mb-quantity>
       <div>
         <mb-submit type="primary">
           <sl-button>Save</sl-button>

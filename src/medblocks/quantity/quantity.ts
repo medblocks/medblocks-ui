@@ -38,6 +38,24 @@ export default class MbQuantity extends QuantityElement {
       flex: 2 1 auto;
       width: 0;
     }
+    .print-only {
+      display: none;
+    }
+
+    @media print {
+      .print-only {
+        display: inline-block;
+        margin: 0px;
+        padding: 2px;
+      }
+
+      sl-input {
+        display: none;
+      }
+      sl-select {
+        display: none;
+      }
+    }
   `;
 
   /**The default unit to choose. Must be the `value` of a child mb-option element */
@@ -149,6 +167,7 @@ export default class MbQuantity extends QuantityElement {
         )}
       </sl-select>
       <slot style="display: none" @slotchange=${this.handleChildChange}></slot>
+      <p class="print-only">${this.data?.magnitude || '-'} ${this.data?.unit || "-"}</p>
     `;
   }
 }
