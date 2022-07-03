@@ -1,4 +1,4 @@
-import { customElement, html, property } from 'lit-element';
+import { customElement, html, property, css } from 'lit-element';
 import { event, EventEmitter } from '../../internal/decorators';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
@@ -13,6 +13,26 @@ import SlTextarea from '@shoelace-style/shoelace/dist/components/textarea/textar
  */
 @customElement('mb-input')
 export default class MbInput extends EhrElement {
+  static styles = css`
+    .print-only {
+      display: none;
+    }
+
+    @media print {
+      .print-only {
+        display: inline-block;
+        margin: 0px;
+        padding: 2px;
+      }
+
+      sl-input {
+        display: none;
+      }
+      sl-textarea {
+        display: none;
+      }
+    }
+  `;
   @property({ type: String }) data: string;
 
   @property({ type: Boolean, reflect: true }) textarea: boolean = false;
@@ -33,7 +53,7 @@ export default class MbInput extends EhrElement {
 
   @property({ type: Number, reflect: true }) maxlength: number;
 
-  @property({type: Boolean, reflect: true}) disabled: boolean;
+  @property({ type: Boolean, reflect: true }) disabled: boolean;
 
   @event('mb-input')
   _mbInput: EventEmitter<string>;
@@ -67,6 +87,7 @@ export default class MbInput extends EhrElement {
             @sl-input=${this.handleInput}
             value=${this.data || ''}
           ></sl-textarea>
+          <p class="print-only">${this.data || '-'}</p>
         `
       : html`
           <sl-input
@@ -82,6 +103,7 @@ export default class MbInput extends EhrElement {
             @sl-input=${this.handleInput}
             value=${this.data || ''}
           ></sl-input>
+          <p class="print-only">${this.data || '-'}</p>
         `;
   }
 }
