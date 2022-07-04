@@ -167,7 +167,7 @@ export default class MbQuantity extends QuantityElement {
         )}
       </sl-select>
       <slot style="display: none" @slotchange=${this.handleChildChange}></slot>
-      <p class="print-only">${this.data?.magnitude || '-'} ${this.data?.unit || "-"}</p>
+      <p class="print-only">${this.data?.magnitude || '-'}</p>
     `;
   }
 }

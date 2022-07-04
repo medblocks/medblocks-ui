@@ -6,7 +6,7 @@ import EhrElement from '../EhrElement';
 @customElement('mb-duration')
 export default class MbDuration extends EhrElement {
   static styles = css`
-    div {
+    .duration {
       display: flex;
       gap: 10px;
     }
@@ -31,11 +31,10 @@ export default class MbDuration extends EhrElement {
         margin: 0px;
         padding: 2px;
       }
-
-      sl-input {
+      .label {
         display: none;
       }
-      .label {
+      .duration{
         display: none;
       }
     }
@@ -112,9 +111,6 @@ export default class MbDuration extends EhrElement {
     this._mbInput.emit();
   }
 
-  getDate(value: string | undefined) {
-    return value?.replace(/[^0-9]/g, '');
-  }
 
   formatDuration(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1) + 's';
@@ -162,8 +158,8 @@ export default class MbDuration extends EhrElement {
       ${this.label
         ? html`<label part="label" class="label">${this.label}</label>`
         : null}
-      <div>${this.getInputs()}</div>
-      <p class="print-only">${this.getDate(this.data) || '-'}</p>
+      <div class="duration">${this.getInputs()}</div>
+      <p class="print-only">${this._state.day || '-'}</p>
     `;
   }
 }
