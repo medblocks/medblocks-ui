@@ -10,15 +10,14 @@
       href="../node_modules/@shoelace-style/shoelace/dist/themes/light.css"
     />
     <script type="module" src="../dist/medblocks.js"></script>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         let form = document.getElementById('form')
-        let checked = document.getElementById('checkbox')
-        checked.bind = { code: '0000' }
-        // console.log(checked)
-        form.import({
-          'aarthy.refraction.v0/refraction_assessment/any_event:0/dilatation:0|code':
-            '0000'
+        form.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1' })
+        form.addEventListener('mb-submit', function (e) {
+          e.preventDefault()
+         console.log(e.detail)
         })
       })
     </script>
@@ -26,18 +25,13 @@
 
   <body>
     <mb-form id="form">
-      <mb-checkbox-any
-        id="checkbox"
-        path="aarthy.refraction.v0/refraction_assessment/any_event:0/dilatation:0"
-        label="Dilatation"
-        terminology="SNOMED-CT"
-      >
-      </mb-checkbox-any>
-      <mb-input label="Input"></mb-input>
-      <mb-duration day label="Duration"></mb-duration>
-      <mb-quantity label="Quantity" default="[diop]">
-        <mb-unit unit="[diop]" label="[diop]" />
-      </mb-quantity>
+      <mb-search-multiple label="Chief Complaints" path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
+        <mb-filter
+                    label="Conditions"
+                    value="^181000271107 | (finding) | OR <272379006 | Event (event) |"
+                  />
+      </mb-search-multiple  >
+      <br/>
       <div>
         <mb-submit type="primary">
           <sl-button>Save</sl-button>

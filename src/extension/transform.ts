@@ -126,6 +126,14 @@ const transformations: { [rmType: string]: TransformFunction } = {
           <mb-filter label="Conditions" value="404684003"></mb-filter>
         </mb-search>`,
     },
+    {
+      name: 'Search-Multiple',
+      html: `<mb-search-multiple path="${n.path}" label="${n.name || ''}" terminology="${
+        n.inputs[0].terminology|| "local"
+      }">
+          <mb-filter label="Conditions" value="404684003"></mb-filter>
+        </mb-search>`,
+    },
   ],
   DV_COUNT: n => [
     {
@@ -186,39 +194,32 @@ const transformations: { [rmType: string]: TransformFunction } = {
               }
             </mb-text-select>`,
     },
-    ...(n.path.endsWith(':0')
-      ? [
-          {
-            name: 'Input-Multiple',
-            html: `<mb-input-multiple path="${n.path.slice(
-              0,
-              n.path.length - 2
-            )}" label="${n.name || ''}"></mb-input-multiple>`,
-          },
-        ]
-      : []),
-    ...(n.path.endsWith(':0')
-      ? [
-          {
-            name: 'Text-Select-Multiple',
-            html: `<mb-text-select multiple path="${n.path.slice(
-              0,
-              n.path.length - 2
-            )}" label="${n.name || ''}">
-              ${
-                n.inputs && n.inputs[0] && n.inputs[0].list
-                  ? n.inputs[0].list
-                      .map(
-                        option =>
-                          `<mb-option value="${option.value}" label="${option.label}"></mb-option>`
-                      )
-                      .join('\n')
-                  : ''
-              }
-            </mb-text-select>`,
-          },
-        ]
-      : []),
+    {
+      name: 'Input-Multiple',
+      html: `<mb-input-multiple path="${n.path.slice(
+        0,
+        n.path.length - 2
+      )}" label="${n.name || ''}"></mb-input-multiple>`,
+    },
+    {
+      name: 'Text-Select-Multiple',
+      html: `<mb-text-select multiple path="${n.path.slice(
+        0,
+        n.path.length - 2
+      )}" label="${n.name || ''}">
+        ${
+          n.inputs && n.inputs[0] && n.inputs[0].list
+            ? n.inputs[0].list
+                .map(
+                  option =>
+                    `<mb-option value="${option.value}" label="${option.label}"></mb-option>`
+                )
+                .join('\n')
+            : ''
+        }
+      </mb-text-select>`,
+    },
+  
   ],
   DV_DURATION: n => [
     {
