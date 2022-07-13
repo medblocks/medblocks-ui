@@ -29,4 +29,5 @@ import './src/medblocks/proportion/proportion';
 import './src/medblocks/count/count';
 import './src/medblocks/multimedia/multimedia';
 import './src/medblocks/codedtext/search-multiple';
+import './src/medblocks/SuggestWrapper'
 
