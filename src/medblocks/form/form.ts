@@ -40,6 +40,11 @@ export default class MedblockForm extends LitElement {
   /**Skip validation of form */
   @property({ type: Boolean, reflect: true }) novalidate: boolean = false;
 
+  @property({ type: String, reflect: true }) templateId: string = '';
+
+  /** Should sending suggestions be disabled? */
+  @property({ type: Boolean, reflect: true }) nosuggest: boolean = false;
+
   @event('mb-input') input: EventEmitter<any>;
 
   @event('mb-load') load: EventEmitter<any>;
@@ -204,12 +209,24 @@ export default class MedblockForm extends LitElement {
     }
   }
 
-  @property({ type: Boolean }) iframeCds: boolean = true;
+  /** The domain to use in postMessage when sending suggestions */
+  @property({ type: String, reflect: true }) suggestDomain: string = '*';
 
   handleInput(e: CustomEvent) {
     e.stopPropagation();
-    if (window.top && this.iframeCds) {
-      window.top.postMessage({ type: 'mb-input', data: this.data }, '*');
+    // If loaded in iframe, send suggestions out.
+    if (window.top && !this.nosuggest) {
+      window.top.postMessage(
+        {
+          type: 'mb-input',
+          data: {
+            composition: this.data,
+            templateId: this.templateId,
+            format: 'MB-FLAT',
+          },
+        },
+        this.suggestDomain
+      );
     }
     this.input.emit();
   }
@@ -284,6 +301,18 @@ export default class MedblockForm extends LitElement {
     }
   }
 
+  handleParentMessage = (e: MessageEvent) => {
+    console.log('Received message in mb-form', e.data);
+    const message = e?.data;
+    if (message?.type === 'mb-suggestion') {
+      const suggestion = message?.data?.suggestion;
+      const templateId = message?.data?.templateId;
+      if (suggestion && this.templateId === templateId) {
+        this.addSuggestion(suggestion);
+      }
+    }
+  };
+
   @state() observer: MutationObserver;
 
   async connectedCallback() {
@@ -335,6 +364,9 @@ export default class MedblockForm extends LitElement {
     this.addEventListener('mb-dependency', this.handleDependency);
     this.addEventListener('mb-path-change', this.handleChildPathChange);
     this.addEventListener('mb-suggestion', this.handleSuggestion);
+    if (window.top && !this.nosuggest) {
+      window.addEventListener('message', this.handleParentMessage);
+    }
     this.load.emit();
   }
 
@@ -344,6 +376,9 @@ export default class MedblockForm extends LitElement {
     this.removeEventListener('mb-dependency', this.handleDependency);
     this.removeEventListener('mb-path-change', this.handleChildPathChange);
     this.removeEventListener('mb-suggestion', this.handleSuggestion);
+    if (window.top && !this.nosuggest) {
+      window.removeEventListener('message', this.handleParentMessage);
+    }
     this.observer.disconnect();
   }
 

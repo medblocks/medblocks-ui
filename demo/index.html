@@ -24,16 +24,18 @@
   </head>
 
   <body>
-    <mb-form id="form" style="display: flex; gap:15px; flex-direction: column">
+    <mb-form id="form" style="display: flex; gap:15px; flex-direction: column" templateid="testing_template.v0">
       <mb-checkbox-any
         id="checkbox"
-        path="aarthy.refraction.v0/refraction_assessment/any_event:0/dilatation:0"
+        path="input"
         label="Dilatation"
-        terminology="SNOMED-CT"
+        bind="Hello there"
       >
       </mb-checkbox-any>
-      <mb-input label="Input"></mb-input>
-      <mb-duration day label="Duration"></mb-duration>
+      <mb-input path="input/path" label="Input"></mb-input>
+      <mb-suggest>
+        <mb-duration day label="Duration" path="duration/path"></mb-duration>
+      </mb-suggest>
       <mb-suggest>
         <mb-input-multiple label="Text" default="[diop]" path="quantity/path">
         </mb-input-multiple>

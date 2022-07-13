@@ -5,12 +5,13 @@ import EhrElement from '../EhrElement';
 
 @customElement('mb-checkbox-any')
 export default class MbCheckBox extends EhrElement {
-  @property({ type: Object }) data: any = undefined;
-  @property({ type: Object }) bind: any = undefined;
+  @property() data: any = undefined;
+  @property() bind: any = undefined;
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
   _handleChange(e: CustomEvent) {
     const checkbox = e.target as SlCheckbox;
     this.data = checkbox.checked ? this.bind : undefined;
+    this._mbInput.emit();
   }
 
   render() {
