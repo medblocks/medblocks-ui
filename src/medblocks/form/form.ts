@@ -302,7 +302,6 @@ export default class MedblockForm extends LitElement {
   }
 
   handleParentMessage = (e: MessageEvent) => {
-    console.log('Received message in mb-form', e.data);
     const message = e?.data;
     if (message?.type === 'mb-suggestion') {
       const suggestion = message?.data?.suggestion;
