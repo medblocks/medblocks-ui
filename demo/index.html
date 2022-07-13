@@ -10,15 +10,14 @@
       href="../node_modules/@shoelace-style/shoelace/dist/themes/light.css"
     />
     <script type="module" src="../dist/medblocks.js"></script>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         let form = document.getElementById('form')
-        let checked = document.getElementById('checkbox')
-        checked.bind = { code: '0000' }
-        // console.log(checked)
-        form.import({
-          'aarthy.refraction.v0/refraction_assessment/any_event:0/dilatation:0|code':
-            '0000'
+        form.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1' })
+        form.addEventListener('mb-submit', function (e) {
+          e.preventDefault()
+         console.log(e.detail)
         })
       })
     </script>
