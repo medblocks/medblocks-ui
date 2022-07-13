@@ -111,6 +111,7 @@ export default class MbSearchMultiple extends CodedTextElement {
     this.searchTerm = inputElement.value;
     const dropdown = this.renderRoot.querySelector('mb-dropdown') as SlDropdown;
     dropdown.show();
+    this._mbInput.emit();
   }
 
   get _constraint() {
@@ -178,19 +179,26 @@ export default class MbSearchMultiple extends CodedTextElement {
         r =>
           html`
             <sl-menu-item
+              .text=${r?.text}
               value=${r.value}
               .label=${r.label}
               .terminology=${this.terminology}
             >
               ${r.star
-                ? html`<sl-icon slot="suffix" name="star"></sl-icon>`
+                ? html`<sl-icon slot="suffix" name="star" library="medblocks"></sl-icon>`
+                : null}
+              ${r.text
+                ? html`<sl-icon slot="suffix" name="fonts" library="medblocks"></sl-icon>`
                 : null}
               ${r.label}
             </sl-menu-item>
           `
       );
       if (results?.length === 0) {
-        return html`<sl-menu-item disabled>No results</sl-menu-item>`;
+        return html`<sl-menu-item disabled>No results</sl-menu-item
+          ><sl-menu-item .value=${this.searchTerm} .text=${true}
+            ><sl-icon name="fonts" slot="suffix" library="medblocks"></sl-icon>${this.searchTerm}</sl-menu-item
+          >`;
       }
       return this._maxHits === results.length
         ? [...results, this._viewMore]
@@ -199,9 +207,12 @@ export default class MbSearchMultiple extends CodedTextElement {
       console.error(e);
       return html`
         <sl-menu-item disabled>
-          <sl-icon name="exclamation-triangle" slot="prefix"></sl-icon>
+          <sl-icon name="exclamation-triangle" slot="prefix" library="medblocks"></sl-icon>
           An unexpected error occured
         </sl-menu-item>
+        <sl-menu-item .value=${this.searchTerm} .text=${true}
+          ><sl-icon name="fonts" slot="prefix" library="medblocks"></sl-icon>${this.searchTerm}</sl-menu-item
+        >
       `;
     }
   }
@@ -217,20 +228,23 @@ export default class MbSearchMultiple extends CodedTextElement {
 
   _handleSelect(e: CustomEvent) {
     const menuItem = e.detail.item;
-    this.value = {
-      value: menuItem.label,
-      code: menuItem.value,
-      terminology: this.terminology,
-    };
-    this.addValue()
-    // this._mbInput.emit();
+    console.log(menuItem.value, menuItem.text);
+    if (menuItem.text) {
+      this.value = menuItem.value;
+    } else {
+      this.value = {
+        value: menuItem.label,
+        code: menuItem.value,
+        terminology: this.terminology,
+      };
+    }
+    this.addValue();
   }
   addValue() {
-    if(this.data == null ) this.data = [];
+    if (this.data == null) this.data = [];
     this.data = [...this.data, this.value];
     this.value = {};
-    this.searchTerm = ""
-    // console.log(this.data, this.value);
+    this.searchTerm = '';
     this._mbInput.emit();
   }
 
@@ -255,7 +269,6 @@ export default class MbSearchMultiple extends CodedTextElement {
     ];
   }
 
-
   get _hasValue() {
     return this?.value?.value && this?.value?.code ? true : false;
   }
@@ -269,7 +282,7 @@ export default class MbSearchMultiple extends CodedTextElement {
   }
 
   handleClear(tagIndex: number) {
-    this.data = this.data.filter((_:any, i:any) => i !== tagIndex);
+    this.data = this.data.filter((_: any, i: any) => i !== tagIndex);
     this._mbInput.emit();
   }
 
@@ -301,7 +314,6 @@ export default class MbSearchMultiple extends CodedTextElement {
               ></sl-icon>`}
         </sl-input>
 
-
         ${this._hasValue || !this.searchTerm
           ? null
           : html`
@@ -331,12 +343,13 @@ export default class MbSearchMultiple extends CodedTextElement {
       </mb-dropdown>
       <div>
         ${this.data?.map(
-          (s:any, i:any) =>
+          (s: any, i: any) =>
             html`<sl-tag
+              type=${typeof s === 'string' ? 'neutral' : 'primary'}
               size="medium"
               @sl-clear=${() => this.handleClear(i)}
               clearable
-              >${s.value}</sl-tag
+              >${typeof s === 'string' ? s : s.value}</sl-tag
             >`
         )}
       </div>

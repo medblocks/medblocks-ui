@@ -14,7 +14,7 @@ export interface CodedText {
  */
 export class CodedTextElement extends EhrElement {
   /**Data of CodedText */
-  @property({ type: Object }) data: CodedText | undefined | any;
+  @property({ type: Object }) data: CodedText | string | undefined | any;
   /**Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR) */
   @property({ type: String }) terminology: string = 'local';
   @property({ type: String }) value: string = '';

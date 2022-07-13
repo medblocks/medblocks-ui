@@ -72,7 +72,7 @@ export default class MbSearch extends CodedTextElement {
 
   @property({ type: String }) parentAxiosKey: string = 'hermes';
 
-  @property({type: String, reflect: true}) placeholder = "Type to search"
+  @property({ type: String, reflect: true }) placeholder = 'Type to search';
 
   @property({ type: Object }) plugin = {
     search: hermesPlugin,
@@ -84,6 +84,7 @@ export default class MbSearch extends CodedTextElement {
   @state() _debouncing: boolean = false;
 
   @state() _debounceTimeout: number;
+
 
   get _maxHits() {
     return this.hits + this._moreHits;
@@ -103,6 +104,7 @@ export default class MbSearch extends CodedTextElement {
     this.searchTerm = inputElement.value;
     const dropdown = this.renderRoot.querySelector('mb-dropdown') as SlDropdown;
     dropdown.show();
+    this._mbInput.emit();
   }
 
   get _constraint() {
@@ -170,19 +172,26 @@ export default class MbSearch extends CodedTextElement {
         r =>
           html`
             <sl-menu-item
+              .text=${r?.text}
               value=${r.value}
               .label=${r.label}
               .terminology=${this.terminology}
             >
               ${r.star
-                ? html`<sl-icon slot="suffix" name="star"></sl-icon>`
+                ? html`<sl-icon slot="suffix" name="star" library="medblocks"></sl-icon>`
+                : null}
+              ${r.text
+                ? html`<sl-icon slot="suffix" name="fonts" library="medblocks"></sl-icon>`
                 : null}
               ${r.label}
             </sl-menu-item>
           `
       );
       if (results?.length === 0) {
-        return html`<sl-menu-item disabled>No results</sl-menu-item>`;
+        return html`<sl-menu-item disabled>No results</sl-menu-item
+        ><sl-menu-item .value=${this.searchTerm} .text=${true}
+          ><sl-icon name="fonts" slot="suffix" library="medblocks"></sl-icon>${this.searchTerm}</sl-menu-item
+        >`;
       }
       return this._maxHits === results.length
         ? [...results, this._viewMore]
@@ -190,11 +199,14 @@ export default class MbSearch extends CodedTextElement {
     } catch (e) {
       console.error(e);
       return html`
-        <sl-menu-item disabled>
-          <sl-icon name="exclamation-triangle" slot="prefix"></sl-icon>
-          An unexpected error occured
-        </sl-menu-item>
-      `;
+      <sl-menu-item disabled>
+        <sl-icon name="exclamation-triangle" slot="prefix" library="medblocks"></sl-icon>
+        An unexpected error occured
+      </sl-menu-item>
+      <sl-menu-item .value=${this.searchTerm} .text=${true}
+        ><sl-icon name="fonts" slot="prefix" library="medblocks"></sl-icon>${this.searchTerm}</sl-menu-item
+      >
+    `;
     }
   }
 
@@ -209,11 +221,15 @@ export default class MbSearch extends CodedTextElement {
 
   _handleSelect(e: CustomEvent) {
     const menuItem = e.detail.item;
-    this.data = {
-      value: menuItem.label,
-      code: menuItem.value,
-      terminology: this.terminology,
-    };
+      if (menuItem.text) {
+      this.data = menuItem.value;
+    } else {
+      this.data = {
+        value: menuItem.label,
+        code: menuItem.value,
+        terminology: this.terminology,
+      };
+    }
     this._mbInput.emit();
   }
 
@@ -249,6 +265,7 @@ export default class MbSearch extends CodedTextElement {
   }
 
   get _display() {
+    if(typeof this.data === "string") {return this.data}
     return this._hasValue ? this.data?.value : undefined;
   }
 
