@@ -15,6 +15,7 @@ import { AxiosInstance } from 'axios';
 import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
 import { MbPlugin } from './plugins/plugins';
 import MbSubmit from '../submit/submit';
+import SuggestWrapper, { Suggestion } from '../SuggestWrapper';
 
 /**
  * Reactive form that responds to changes in custom elements nested inside.
@@ -203,8 +204,13 @@ export default class MedblockForm extends LitElement {
     }
   }
 
+  @property({ type: Boolean }) iframeCds: boolean = true;
+
   handleInput(e: CustomEvent) {
     e.stopPropagation();
+    if (window.top && this.iframeCds) {
+      window.top.postMessage({ type: 'mb-input', data: this.data }, '*');
+    }
     this.input.emit();
   }
 
@@ -237,6 +243,45 @@ export default class MedblockForm extends LitElement {
     };
 
     e.detail.value = dependencies[e.detail.key];
+  }
+
+  addSuggestion(data: any) {
+    const suggestElements = Object.keys(data)
+      .map(key => {
+        return {
+          key,
+          suggest: this.mbElements[key]?.parentElement as SuggestWrapper,
+        };
+      })
+      .filter(({ suggest }) => suggest?.nodeName === 'MB-SUGGEST');
+    suggestElements.forEach(({ key, suggest }) => {
+      const suggestions = data[key];
+      suggest.suggestions = suggestions;
+      suggest.path = key;
+    });
+  }
+
+  handleSuggestion(e: CustomEvent<{ suggestion: Suggestion; path: string }>) {
+    const { suggestion, path } = e.detail;
+    console.log('Handling suggestion', path, suggestion);
+    const element = this.mbElements[path];
+    const oldData = element.data;
+    console.log({ oldData, element });
+    if (suggestion.op === 'replace') {
+      element.data = suggestion.data;
+    } else if (suggestion.op === 'add') {
+      if (Array.isArray(element.data)) {
+        element.data = [...oldData, suggestion.data];
+      } else if (element.data == null) {
+        element.data = [suggestion.data];
+      } else {
+        // replace if it's not array
+        element.data = suggestion.data;
+      }
+    } else {
+      // default to replace
+      element.data = suggestion.data;
+    }
   }
 
   @state() observer: MutationObserver;
@@ -289,6 +334,7 @@ export default class MedblockForm extends LitElement {
     this.addEventListener('mb-connect', this.handleChildConnect);
     this.addEventListener('mb-dependency', this.handleDependency);
     this.addEventListener('mb-path-change', this.handleChildPathChange);
+    this.addEventListener('mb-suggestion', this.handleSuggestion);
     this.load.emit();
   }
 
@@ -297,6 +343,7 @@ export default class MedblockForm extends LitElement {
     this.removeEventListener('mb-connect', this.handleChildConnect);
     this.removeEventListener('mb-dependency', this.handleDependency);
     this.removeEventListener('mb-path-change', this.handleChildPathChange);
+    this.removeEventListener('mb-suggestion', this.handleSuggestion);
     this.observer.disconnect();
   }
 

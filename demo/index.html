@@ -25,7 +25,7 @@
   </head>
 
   <body>
-    <mb-form id="form">
+    <mb-form id="form" style="display: flex; gap:15px; flex-direction: column">
       <mb-checkbox-any
         id="checkbox"
         path="aarthy.refraction.v0/refraction_assessment/any_event:0/dilatation:0"
@@ -35,9 +35,10 @@
       </mb-checkbox-any>
       <mb-input label="Input"></mb-input>
       <mb-duration day label="Duration"></mb-duration>
-      <mb-quantity label="Quantity" default="[diop]">
-        <mb-unit unit="[diop]" label="[diop]" />
-      </mb-quantity>
+      <mb-suggest>
+        <mb-input-multiple label="Text" default="[diop]" path="quantity/path">
+        </mb-input-multiple>
+      </mb-suggest>
       <div>
         <mb-submit type="primary">
           <sl-button>Save</sl-button>
