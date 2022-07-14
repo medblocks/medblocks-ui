@@ -107,6 +107,7 @@ export default class MbInputMultiple extends EhrElement {
         ${this.data.map(
           (s, i) =>
             html`<sl-tag
+              type="neutral"
               size="medium"
               @sl-clear=${() => this.handleClear(i)}
               clearable

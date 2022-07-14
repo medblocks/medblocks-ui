@@ -4,47 +4,151 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Assessment</title>
+    <title>Medblocks UI Kitchen Sink</title>
     <link
       rel="stylesheet"
       href="../node_modules/@shoelace-style/shoelace/dist/themes/light.css"
     />
+    <style>
+      p {
+        font-weight: 800;
+      }
+    </style>
     <script type="module" src="../dist/medblocks.js"></script>
     <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script>
+      let suggestionSet = false
       document.addEventListener('DOMContentLoaded', function () {
-        let form = document.getElementById('form')
+        let form = document.getElementById('form1')
         form.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1' })
         form.addEventListener('mb-submit', function (e) {
           e.preventDefault()
          console.log(e.detail)
+        })
+        let form2 = document.getElementById('form2')
+        form2.addEventListener('mb-input', ()=>{
+          if (!suggestionSet)
+          form2.addSuggestion({
+            "other_symptoms": [{data: "Body ache", label: "Body ache", id: 1, op:'add'},{data: "Cold", label: "Cold", id: 2, op:'add'}, {data: "Sore Throat", label: "Sore Throat", id: 2, op:'add'}],
+            "chief_complaints": [{data: "Fever", label: "Fever", id: 1}],
+            "duration": [{data: 'P2D', label: '2 days', id: 1}, {data: 'P1M', label: '1 month', id: 2}]
+        })
+        suggestionSet = true
         })
       })
     </script>
   </head>
 
   <body>
-    <mb-form id="form" style="display: flex; gap:15px; flex-direction: column" templateid="testing_template.v0">
-      <mb-checkbox-any
-        id="checkbox"
-        path="input"
-        label="Dilatation"
-        bind="Hello there"
-      >
-      </mb-checkbox-any>
-      <mb-input path="input/path" label="Input"></mb-input>
-      <mb-suggest>
-        <mb-duration day label="Duration" path="duration/path"></mb-duration>
-      </mb-suggest>
-      <mb-suggest>
-        <mb-input-multiple label="Text" default="[diop]" path="quantity/path">
-        </mb-input-multiple>
-      </mb-suggest>
-      <div>
-        <mb-submit type="primary">
-          <sl-button>Save</sl-button>
-        </mb-submit>
-      </div>
-    </mb-form>
+    <div style="max-width: 700px;">
+      <mb-form id="form1" style="display: flex; gap:15px; flex-direction: column" templateid="testing_template.v0">
+        <div style="display: flex; gap:15px; flex-direction: column">
+          <p>DV_TEXT</p>
+          <mb-input label="Diagnosis (mb-input)"></mb-input>
+          <mb-input textarea label="History of Presenting Illness (mb-input textarea)"></mb-input>
+          <mb-text-select label="Triage Status (mb-input-select)">
+            <mb-option value="red" label="Red"></mb-option>
+            <mb-option value="green" label="Green"></mb-option>
+            <mb-option value="blue" label="Blue"></mb-option>
+          </mb-text-select>
+          <mb-input-multiple label="Symptoms (mb-input-multiple)"></mb-input-multiple>
+          <mb-search terminology="SNOMED-CT" label="Chief Complaints (mb-search)" path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
+            <mb-filter 
+              label="Conditions"
+              value="^181000271107 | (finding) | OR <272379006 | Event (event) |"
+              ></mb-filter>
+          </mb-search>
+          <mb-search-multiple terminology="SNOMED-CT" label="Chief Complaints (mb-search-multiple)" path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
+            <mb-filter
+              label="Conditions"
+              value="^181000271107 | (finding) | OR <272379006 | Event (event) |"
+            ></mb-filter>
+          </mb-search-multiple>
+          <p>DV_QUANTITY</p>
+          <mb-quantity label="Temperature (mb-quantity)" default="F">
+            <mb-unit unit="F" label="°F"></mb-unit>
+            <mb-unit unit="C" label="°C"></mb-unit>
+          </mb-quantity>
+          <mb-quantity label="Blood Pressure (mb-quantity with only one unit)" default="mm[Hg]">
+            <mb-unit unit="mm[Hg]" label="mmHg"></mb-unit>
+          </mb-quantity>
+          <mb-quantity hideunit label="Pulse (mb-quantity hideunit)" default="/min">
+            <mb-unit unit="/min" label="/min"></mb-unit>
+          </mb-quantity>
+          <p>DV_CODED_TEXT</p>
+            <mb-select label="Posture (mb-select)">
+              <mb-option value="Sitting" label="Sitting"></mb-option>
+              <mb-option value="Standing" label="Standing"></mb-option>
+              <mb-option value="Supine" label="Supine"></mb-option>
+            </mb-select>
+            <mb-select multiple label="Signs (mb-select-multiple)" terminology="SNOMED-CT">
+              <mb-option value="123445" label="Cough"></mb-option>
+              <mb-option value="232321" label="Fever"></mb-option>
+              <mb-option value="323123" label="Sore Throat"></mb-option>
+            </mb-select>
+            <mb-buttons label="Posture (mb-buttons)">
+              <mb-option value="Sitting" label="Sitting"></mb-option>
+              <mb-option value="Standing" label="Standing"></mb-option>
+              <mb-option value="Supine" label="Supine"></mb-option>
+            </mb-buttons>
+          <p>DV_COUNT</p>
+          <mb-count label="Pain on a scale of 1-10 (mb-count)"></mb-count>
+          <p>DV_PROPORTION</p>
+            <mb-proportion label="Waist-Hip Ratio (mb-proportion)"></mb-proportion>
+            <mb-percent label="SpO2 (mb-percent)"></mb-percent>
+          <p>DV_DURATION</p>
+            <mb-duration year month label="Symptom present for (mb-duration year month)"></mb-duration>
+            <mb-duration month week day label="Medication Direction Duration (mb-duration all)"></mb-duration>
+            <mb-duration year month week day hour minute second label="Super accurate direction duration (mb-duration month week day)"></mb-duration>
+          <p>DV_DATE_TIME</p>
+            <mb-date label="Onset (mb-date)"></mb-date>
+            <mb-date time label="Exact Onset (mb-date time)"></mb-date>
+          <p>DV_DATE</p>
+            <mb-date label="Onset (mb-date)"></mb-date>
+          <p>DV_BOOLEAN</p>
+            <mb-checkbox label="No complaints"></mb-checkbox>
+          <p>DV_ORDINAL</p>
+            <mb-select label="Glasgow Coma Scale" terminology="local">
+              <mb-option value="a" label="Spontaneous" ordinal="4"></mb-option>
+              <mb-option value="b" label="To sound" ordinal="3"></mb-option>
+              <mb-option value="c" label="To pressure" ordinal="2"></mb-option>
+              <mb-option value="d" label="None" ordinal="1"></mb-option>
+            </mb-select>
+          <p>CONTEXT</p>
+          <mb-checkbox-any
+            id="checkbox"
+            path="input"
+            label="Has diabetis"
+            bind="Diabetis Mellitus"
+          >
+        </mb-checkbox-any>
+        <mb-context path="context" bind="ctx_bind"></mb-context>
+        </div>
+      </mb-form>
+      <hr>
+        <mb-form style="display: flex; gap:15px; flex-direction: column" id="form2">
+          <p>SUGGESTION (Type to see)</p>
+          <mb-suggest>
+            <mb-input path="chief_complaints" label="Chief complaints"></mb-input>
+          </mb-suggest>
+          <mb-suggest>
+            <mb-duration day month label="Duration" path="duration"></mb-duration>
+          </mb-suggest>
+          <mb-suggest>
+            <mb-input-multiple label="Text" path="other_symptoms">
+            </mb-input-multiple>
+          </mb-suggest>
+          <div>
+            <mb-submit type="primary">
+              <sl-button>Save</sl-button>
+            </mb-submit>
+          </div>
+        </mb-form>
+    </div>
+    <div>
+      <pre>
+
+      </pre>
+    </div>
   </body>
 </html>
