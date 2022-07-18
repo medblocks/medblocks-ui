@@ -42,7 +42,7 @@
   <body>
     <div style="max-width: 700px;">
       <mb-form id="form1" style="display: flex; gap:15px; flex-direction: column" templateid="testing_template.v0">
-        <div style="display: flex; gap:15px; flex-direction: column">
+        <!-- <div style="display: flex; gap:15px; flex-direction: column">
           <p>DV_TEXT</p>
           <mb-input label="Diagnosis (mb-input)"></mb-input>
           <mb-input textarea label="History of Presenting Illness (mb-input textarea)"></mb-input>
@@ -53,7 +53,7 @@
           </mb-text-select>
           <mb-input-multiple label="Symptoms (mb-input-multiple)"></mb-input-multiple>
           <mb-search terminology="SNOMED-CT" label="Chief Complaints (mb-search)" path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
-            <mb-filter 
+            <mb-filter
               label="Conditions"
               value="^181000271107 | (finding) | OR <272379006 | Event (event) |"
               ></mb-filter>
@@ -137,7 +137,16 @@
           <mb-suggest>
             <mb-input-multiple label="Text" path="other_symptoms">
             </mb-input-multiple>
-          </mb-suggest>
+          </mb-suggest> -->
+          <mb-buttons-multiple
+							path="aarthy.refraction.v0/refraction_assessment/any_event:0/refractive_correction"
+							label=""
+							terminology="local_terms"
+						>
+							<mb-option value="1" label="Autorefractometer" />
+							<mb-option value="2" label="Refraction" />
+							<mb-option value="3" label="Present Spectacles" />
+						</mb-buttons-multiple>
           <div>
             <mb-submit type="primary">
               <sl-button>Save</sl-button>

@@ -14,6 +14,7 @@ import './src/medblocks/codedtext/filter';
 import './src/medblocks/codedtext/option';
 import './src/medblocks/text/input';
 import './src/medblocks/codedtext/buttons';
+import './src/medblocks/codedtext/buttons-multiple';
 import './src/medblocks/quantity/quantity';
 import './src/medblocks/quantity/unit';
 import './src/medblocks/context/context';
