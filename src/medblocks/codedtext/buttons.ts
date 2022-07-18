@@ -48,7 +48,7 @@ export default class CodedTextButtons extends CodedTextElement {
       ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),
     ];
   }
-  
+
   reportValidity() {
     const input = this.shadowRoot!.querySelector('input') as HTMLInputElement;
     return input.reportValidity();
@@ -63,7 +63,7 @@ export default class CodedTextButtons extends CodedTextElement {
     if (option.ordinal) {
       data = { ...data, ordinal: parseInt(option.ordinal as any) };
     }
-    this.data = data;
+    this.data?.code === data.code ? this.data = undefined : this.data = data;
     if (this.data) {
       this.value = 'valid';
     }
