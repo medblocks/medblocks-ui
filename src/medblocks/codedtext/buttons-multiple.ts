@@ -71,21 +71,20 @@ export default class CodedTextButtons extends CodedTextElement {
     this.addValue();
   }
 
-  valueExists(code:string) {
-    return this.data?.some((el:any)=>el.code === code);
+  valueExists(code: string) {
+    return this.data?.some((el: any) => el.code === code);
   }
 
   addValue() {
     if (this.data == null) this.data = [];
-    if(this.valueExists(this.value.code)){
+    if (this.valueExists(this.value.code)) {
       this.data = this.data?.filter((d: any) => d.code !== this.value.code);
-    }else{
+    } else {
       this.data = [...this.data, this.value];
     }
     this.value = {};
     this._mbInput.emit();
   }
-
 
   render() {
     return html`
@@ -104,7 +103,13 @@ export default class CodedTextButtons extends CodedTextElement {
                   : option.type
                   ? option.type
                   : 'default'}
-                >${option.label}
+                >${this.valueExists(option.value)
+                  ? html`<sl-icon
+                      library="medblocks"
+                      name="check2"
+                      slot="prefix"
+                    ></sl-icon>`
+                  : null}${option.label}
               </sl-button>`
           )}
         </div>
