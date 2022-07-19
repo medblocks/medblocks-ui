@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.116](https://github.com/medblocks/medblocks-ui/compare/v0.0.115...v0.0.116) (2022-07-19)
+
+
+### Features
+
+* buttons-multiple indication ([0b28366](https://github.com/medblocks/medblocks-ui/commit/0b283660a562f33ef853666cdad6f81fbb6bacaa))
+
 ### [0.0.115](https://github.com/medblocks/medblocks-ui/compare/v0.0.114...v0.0.115) (2022-07-19)
 
 ### [0.0.114](https://github.com/medblocks/medblocks-ui/compare/v0.0.113...v0.0.114) (2022-07-19)
