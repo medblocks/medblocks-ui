@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.117](https://github.com/medblocks/medblocks-ui/compare/v0.0.116...v0.0.117) (2022-07-22)
+
+
+### Bug Fixes
+
+* date format saved as iso string ([03cb27a](https://github.com/medblocks/medblocks-ui/commit/03cb27a66dcd8cc3023202e7de15082ecb578c8e))
+
 ### [0.0.116](https://github.com/medblocks/medblocks-ui/compare/v0.0.115...v0.0.116) (2022-07-19)
 
 

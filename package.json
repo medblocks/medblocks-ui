@@ -1,6 +1,6 @@
 {
   "name": "medblocks-ui",
-  "version": "0.0.116",
+  "version": "0.0.117",
   "description": "Web components for building healthcare interfaces",
   "author": "Sidharth Ramesh",
   "license": "Apache-2.0",
@@ -24,7 +24,7 @@
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc && npm run bundle",
     "prepublish": "npm run build",
-    "release": "npm run test && standard-version -a",
+    "release": "npm run test && standard-version -a && git push --follow-tags origin master",
     "bundle": "esbuild medblocks.ts --bundle --outfile=dist/bundle.js",
     "postrelease": "git push --follow-tags origin master",
     "docs": "wca analyze src --format md --outDir ./documentation/",
