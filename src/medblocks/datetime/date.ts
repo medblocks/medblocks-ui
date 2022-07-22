@@ -43,8 +43,8 @@ export default class MbDateTime extends EhrElement {
     if (time) {
       if (data) {
         const date = data.split('T')[0]; //  ["2022-07-09", "06:27:00.000Z"]
-        const timeString = new Date(data).toLocaleTimeString(); //   "11:57:00 AM"
-        const time = timeString.slice(0, timeString.length - 6); //   "11:57"
+        const timeString = new Date(data).toTimeString(); //   "11:57:00 GMT+0530 (India Standard Time)"
+        const time = timeString.slice(0, 5); //   "11:57"
         const dateTime_ = `${date}T${time}`;
         return dateTime_; //   "2022-07-09T11:57"
       } else return '';
