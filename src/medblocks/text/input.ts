@@ -33,7 +33,7 @@ export default class MbInput extends EhrElement {
       }
     }
   `;
-  @property({ type: String }) data: string;
+  @property({ type: String }) data: string | undefined;
 
   @property({ type: Boolean, reflect: true }) textarea: boolean = false;
 
@@ -60,7 +60,7 @@ export default class MbInput extends EhrElement {
 
   handleInput(e: CustomEvent) {
     const inputElement = e.target as SlInput;
-    this.data = inputElement.value;
+    this.data = inputElement.value ?  inputElement.value :  undefined;
     this._mbInput.emit();
   }
 
