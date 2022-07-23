@@ -19,4 +19,5 @@ export class CodedTextElement extends EhrElement {
   @property({ type: String }) terminology: string = 'local';
   @property({ type: String }) value: string = '';
   @event('mb-input') _mbInput: EventEmitter<CodedText>;
+  @event('change') _mbChange: EventEmitter<CodedText>;
 }

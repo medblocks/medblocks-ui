@@ -147,6 +147,12 @@
 							<mb-option value="2" label="Refraction" />
 							<mb-option value="3" label="Present Spectacles" />
 						</mb-buttons-multiple>
+            <mb-select label="Posture (mb-select)" id="mbSelect">
+              <mb-option value="Sitting" label="Sitting"></mb-option>
+              <mb-option value="Standing" label="Standing"></mb-option>
+              <mb-option value="Supine" label="Supine"></mb-option>
+            </mb-select>
+
           <div>
             <mb-submit type="primary">
               <sl-button>Save</sl-button>
@@ -160,4 +166,10 @@
       </pre>
     </div>
   </body>
+  <script>
+    const mbSelect = document.getElementById('mbSelect');
+    mbSelect.addEventListener('change', (e) => {
+      console.log(e.target.data);
+    });
+  </script>
 </html>

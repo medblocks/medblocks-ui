@@ -57,6 +57,7 @@ export default class MbSelect extends CodedTextElement {
       if (JSON.stringify(this.data) !== JSON.stringify(data)) {
         this.data = data;
         this._mbInput.emit();
+        this._mbChange.emit();
       }
     } else if (select.value && typeof select.value === 'string') {
       let data: CodedText = {
@@ -70,6 +71,7 @@ export default class MbSelect extends CodedTextElement {
       }
       this.data = data;
       this._mbInput.emit();
+      this._mbChange.emit();
     }
   }
   connectedCallback() {
@@ -109,6 +111,7 @@ export default class MbSelect extends CodedTextElement {
         @sl-clear=${() => {
           this.data = undefined;
           this._mbInput.emit();
+          this._mbChange.emit();
         }}
         .hoist=${true}
         .value=${this.getValue(this.data)}
