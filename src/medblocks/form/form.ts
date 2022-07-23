@@ -11,7 +11,6 @@ import EhrElement from '../EhrElement';
 import MbContext from '../context/context';
 import { Data } from './utils';
 import { AxiosInstance } from 'axios';
-
 import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
 import { MbPlugin } from './plugins/plugins';
 import MbSubmit from '../submit/submit';
@@ -58,7 +57,7 @@ export default class MedblockForm extends LitElement {
   /** The child elements are loaded  */
   @state() mbElements: { [path: string]: EhrElement } = {};
 
-  /**Runs validation on all the elements. Returns validation message. */
+  /** Runs validation on all the elements. Returns validation message. */
   validate(): boolean {
     if (this.novalidate) {
       return true;
@@ -97,7 +96,6 @@ export default class MedblockForm extends LitElement {
       this.insertContext();
       await 0;
       const data = this.serialize();
-      // console.log(data);
       this.submit.emit({ detail: data, cancelable: true });
     }
   }
@@ -191,6 +189,13 @@ export default class MedblockForm extends LitElement {
   set data(data: Data) {
     const mbElementPaths = Object.keys(this.mbElements);
     const dataPaths = Object.keys(data);
+    // TODO Set calculate and set count of repeatable elements (mb-repeatable)
+    
+    
+    // storing in a deferredData and seting after mb-connect below.
+    
+
+    // Set data points
     mbElementPaths.forEach(path => {
       let element = this.mbElements[path] as EhrElement;
       const value = data[path];
@@ -204,10 +209,17 @@ export default class MedblockForm extends LitElement {
       console.warn(
         `These paths are not present in the current form, but were set: ${inDataButNotElements.join(
           ', '
-        )}.\nTry the "parse" method before setting the data on the form.`
+        )}.\nTry the "parse" method before setting the data on the form. Storing this for later use if the path becomes available later.`
       );
+      const object = Object.fromEntries(
+        inDataButNotElements.map(key => [key, data[key]])
+      );
+      this.deferredData = { ...this.deferredData, ...object };
     }
   }
+
+  @state()
+  deferredData: Data = {};
 
   /** The domain to use in postMessage when sending suggestions */
   @property({ type: String, reflect: true }) suggestDomain: string = '*';
@@ -235,9 +247,30 @@ export default class MedblockForm extends LitElement {
     this.input.emit();
   }
 
+  getTarget(e: CustomEvent) {
+    // For getting input from within shadow dom
+    return e.composedPath()[0];
+  }
+
   handleChildConnect(e: CustomEvent) {
     const path = e.detail;
-    this.mbElements[path] = e.target as EhrElement;
+    this.mbElements[path] = this.getTarget(e) as EhrElement;
+    // Check if data is present in deferred data
+    if (this.deferredData[path] != null) {
+      const { [path]: data, ...excluded } = this.deferredData;
+      this.mbElements[path].data = data;
+      this.deferredData = excluded;
+    }
+    this.input.emit();
+  }
+
+  // Does not work except for mb-repeat due to https://github.com/WICG/webcomponents/issues/678, https://github.com/whatwg/dom/issues/533
+  // Handled using Mutation Observer.
+  handleChildDisconnect(e: CustomEvent) {
+    const path = e.detail;
+    const { [path]: _, ...cleaned } = this.mbElements;
+    this.mbElements = cleaned;
+    this.mbElements = this.mbElements;
     this.input.emit();
   }
 
@@ -283,7 +316,6 @@ export default class MedblockForm extends LitElement {
     console.log('Handling suggestion', path, suggestion);
     const element = this.mbElements[path];
     const oldData = element.data;
-    console.log({ oldData, element });
     if (suggestion.op === 'replace') {
       element.data = suggestion.data;
     } else if (suggestion.op === 'add') {
@@ -319,15 +351,6 @@ export default class MedblockForm extends LitElement {
     this.observer = new MutationObserver((mutationList, _) => {
       let updated = false;
       mutationList.forEach(record => {
-        // if (record.addedNodes.length > 0) {
-        //   record.addedNodes.forEach((node: EhrElement) => {
-        //     if (node.isMbElement) {
-        //       console.log("adding", node.path)
-        //       this.mbElements[node.path] = node
-        //       updated = true
-        //     }
-        //   })
-        // }
         if (record.removedNodes.length > 0) {
           record.removedNodes.forEach((node: EhrElement) => {
             if (node.isMbElement) {
@@ -336,7 +359,7 @@ export default class MedblockForm extends LitElement {
               updated = true;
             } else {
               if (node.nodeType === node.ELEMENT_NODE) {
-                const allNodes = node.querySelectorAll('*'); //Very slow
+                const allNodes = node.querySelectorAll('*'); // DOM queries are slow. There's scope to optimize.
                 allNodes.forEach((node: EhrElement) => {
                   if (node.isMbElement) {
                     const { [node.path]: _, ...rest } = this.mbElements;
@@ -354,12 +377,17 @@ export default class MedblockForm extends LitElement {
         }
       });
     });
+
     this.observer.observe(this, {
       childList: true,
       subtree: true,
       attributes: false,
     });
+
     this.addEventListener('mb-connect', this.handleChildConnect);
+
+    // Only for mb-repeat. Otherwise using MutationObserver
+    this.addEventListener('mb-disconnect', this.handleChildDisconnect);
     this.addEventListener('mb-dependency', this.handleDependency);
     this.addEventListener('mb-path-change', this.handleChildPathChange);
     this.addEventListener('mb-suggestion', this.handleSuggestion);
@@ -372,6 +400,7 @@ export default class MedblockForm extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('mb-connect', this.handleChildConnect);
+    this.removeEventListener('mb-disconnect', this.handleChildDisconnect);
     this.removeEventListener('mb-dependency', this.handleDependency);
     this.removeEventListener('mb-path-change', this.handleChildPathChange);
     this.removeEventListener('mb-suggestion', this.handleSuggestion);

@@ -1,294 +1,159 @@
-<!doctype html>
-<html lang="en-GB">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medblocks UI Kitchen Sink</title>
+    <link
+      rel="stylesheet"
+      href="../node_modules/@shoelace-style/shoelace/dist/themes/light.css"
+    />
+    <style>
+      p {
+        font-weight: 800;
+      }
+    </style>
+    <script type="module" src="../dist/medblocks.js"></script>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <script>
+      let suggestionSet = false
+      document.addEventListener('DOMContentLoaded', function () {
+        let form = document.getElementById('form1')
+        form.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1' })
+        form.addEventListener('mb-submit', function (e) {
+          e.preventDefault()
+         console.log(e.detail)
+        })
+        let form2 = document.getElementById('form2')
+        form2.addEventListener('mb-input', ()=>{
+          if (!suggestionSet)
+          form2.addSuggestion({
+            "other_symptoms": [{data: "Body ache", label: "Body ache", id: 1, op:'add'},{data: "Cold", label: "Cold", id: 2, op:'add'}, {data: "Sore Throat", label: "Sore Throat", id: 2, op:'add'}],
+            "chief_complaints": [{data: "Fever", label: "Fever", id: 1}],
+            "duration": [{data: 'P2D', label: '2 days', id: 1}, {data: 'P1M', label: '1 month', id: 2}]
+        })
+        suggestionSet = true
+        })
+      })
+    </script>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="../node_modules/@shoelace-style/shoelace/dist/themes/base.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" />
-  <script type="module" src="../dist/medblocks.js"></script>
-  <script src="../node_modules/@shoelace-style/shoelace/dist/shoelace.js" type="module"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      document.body.classList.remove("is-hidden")
-    });
-  </script>
-</head>
-
-<body class="is-hidden">
-  <mb-form>
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column">
-            <h1 class="title is-4">Sidharth R</h1>
-            <h1 class="subtitle mb-2">Male, 23</h1>
-            <p>2771202</p>
-            <hr />
-            <div>
-              <sl-button type="default">Triage</sl-button>
-              <sl-button type="text">Primary Survey</sl-button>
-              <sl-button type="default">Secondary Survey</sl-button>
-              <sl-button type="default">Regular Assessment</sl-button>
-              <sl-button type="danger">
-                <sl-icon name="suit-heart-fill" slot="prefix"></sl-icon>
-                CPR
-              </sl-button>
-            </div>
-          </div>
-          <!-- <div class="column">
-                          
-                      </div> -->
+  <body>
+    <div style="max-width: 700px;">
+      <mb-form id="form1" style="display: flex; gap:15px; flex-direction: column" templateid="testing_template.v0">
+        <div style="display: flex; gap:15px; flex-direction: column">
+          <p>DV_TEXT</p>
+          <mb-input label="Diagnosis (mb-input)"></mb-input>
+          <mb-input textarea label="History of Presenting Illness (mb-input textarea)"></mb-input>
+          <mb-text-select label="Triage Status (mb-input-select)">
+            <mb-option value="red" label="Red"></mb-option>
+            <mb-option value="green" label="Green"></mb-option>
+            <mb-option value="blue" label="Blue"></mb-option>
+          </mb-text-select>
+          <mb-input-multiple label="Symptoms (mb-input-multiple)"></mb-input-multiple>
+          <mb-search terminology="SNOMED-CT" label="Chief Complaints (mb-search)" path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
+            <mb-filter
+              label="Conditions"
+              value="^181000271107 | (finding) | OR <272379006 | Event (event) |"
+              ></mb-filter>
+          </mb-search>
+          <mb-search-multiple terminology="SNOMED-CT" label="Chief Complaints (mb-search-multiple)" path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
+            <mb-filter
+              label="Conditions"
+              value="^181000271107 | (finding) | OR <272379006 | Event (event) |"
+            ></mb-filter>
+          </mb-search-multiple>
+          <p>DV_QUANTITY</p>
+          <mb-quantity label="Temperature (mb-quantity)" default="F">
+            <mb-unit unit="F" label="°F"></mb-unit>
+            <mb-unit unit="C" label="°C"></mb-unit>
+          </mb-quantity>
+          <mb-quantity label="Blood Pressure (mb-quantity with only one unit)" default="mm[Hg]">
+            <mb-unit unit="mm[Hg]" label="mmHg"></mb-unit>
+          </mb-quantity>
+          <mb-quantity hideunit label="Pulse (mb-quantity hideunit)" default="/min">
+            <mb-unit unit="/min" label="/min"></mb-unit>
+          </mb-quantity>
+          <p>DV_CODED_TEXT</p>
+            <mb-select label="Posture (mb-select)">
+              <mb-option value="Sitting" label="Sitting"></mb-option>
+              <mb-option value="Standing" label="Standing"></mb-option>
+              <mb-option value="Supine" label="Supine"></mb-option>
+            </mb-select>
+            <mb-select multiple label="Signs (mb-select-multiple)" terminology="SNOMED-CT">
+              <mb-option value="123445" label="Cough"></mb-option>
+              <mb-option value="232321" label="Fever"></mb-option>
+              <mb-option value="323123" label="Sore Throat"></mb-option>
+            </mb-select>
+            <mb-buttons label="Posture (mb-buttons)">
+              <mb-option value="Sitting" label="Sitting"></mb-option>
+              <mb-option value="Standing" label="Standing"></mb-option>
+              <mb-option value="Supine" label="Supine"></mb-option>
+            </mb-buttons>
+            <mb-buttons-multiple
+                label="Symptoms (mb-buttons-multiple)"
+                terminology="SNOMED CT"
+              >
+              <mb-option value="123445" label="Cough"></mb-option>
+              <mb-option value="232321" label="Fever"></mb-option>
+              <mb-option value="323123" label="Sore Throat"></mb-option>
+            </mb-buttons-multiple>
+          <p>DV_COUNT</p>
+          <mb-count label="Pain on a scale of 1-10 (mb-count)"></mb-count>
+          <p>DV_PROPORTION</p>
+            <mb-proportion label="Waist-Hip Ratio (mb-proportion)"></mb-proportion>
+            <mb-percent label="SpO2 (mb-percent)"></mb-percent>
+          <p>DV_DURATION</p>
+            <mb-duration year month label="Symptom present for (mb-duration year month)"></mb-duration>
+            <mb-duration month week day label="Medication Direction Duration (mb-duration all)"></mb-duration>
+            <mb-duration year month week day hour minute second label="Super accurate direction duration (mb-duration month week day)"></mb-duration>
+          <p>DV_DATE_TIME</p>
+            <mb-date label="Onset (mb-date)"></mb-date>
+            <mb-date time label="Exact Onset (mb-date time)"></mb-date>
+          <p>DV_DATE</p>
+            <mb-date label="Onset (mb-date)"></mb-date>
+          <p>DV_BOOLEAN</p>
+            <mb-checkbox label="No complaints"></mb-checkbox>
+          <p>DV_ORDINAL</p>
+            <mb-select label="Glasgow Coma Scale" terminology="local">
+              <mb-option value="a" label="Spontaneous" ordinal="4"></mb-option>
+              <mb-option value="b" label="To sound" ordinal="3"></mb-option>
+              <mb-option value="c" label="To pressure" ordinal="2"></mb-option>
+              <mb-option value="d" label="None" ordinal="1"></mb-option>
+            </mb-select>
+          <p>CONTEXT</p>
+          <mb-checkbox-any
+            id="checkbox"
+            path="input"
+            label="Has diabetis"
+            bind="Diabetis Mellitus"
+          >
+        </mb-checkbox-any>
+        <mb-context path="context" bind="ctx_bind"></mb-context>
         </div>
-        <hr />
-        <sl-alert open>Hello there</sl-alert>
-        <h1 class="title is-3 has-text-grey">Primary Survey</h1>
-        <div class="columns is-mobile is-align-items-center">
-          <div class="column is-2">
-            <svg version="1.1" id="svg2" sodipodi:docname="Human body silhouette.svg"
-              xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/"
-              xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-              xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-              xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"
-              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-              viewBox="0 0 970 2200" style="enable-background: new 0 0 970 2200" xml:space="preserve">
-              <sodipodi:namedview bordercolor="#666666" borderopacity="1.0" gridtolerance="10000" guidetolerance="10"
-                height="2200px" id="base" inkscape:current-layer="layer1" inkscape:cx="444.95671"
-                inkscape:cy="1188.8382" inkscape:document-units="px" inkscape:pageopacity="0.0" inkscape:pageshadow="2"
-                inkscape:window-height="1113" inkscape:window-width="748" inkscape:window-x="-4" inkscape:window-y="2"
-                inkscape:zoom="0.35" objecttolerance="10" pagecolor="#ffffff" width="970px" />
-              <g id="layer1" transform="translate(41.500029,630.92312)" inkscape:groupmode="layer"
-                inkscape:label="Layer 1">
-                <path id="Head" class="st0 selected" d="M497-302.9c0.5,0,0.9-0.5,0.8-1c-1.2-5.5-2.1-11.8-2.5-17.4c-1-15-1.1-28.4-0.2-31.3
-  c1-3.2,1.2-4.3,5.3-24.6l2.6-13.2c0.1-0.4,0.4-0.6,0.8-0.6l2.2-0.1c5.3-0.2,5.9-0.4,9.2-3.8c2.1-2.1,4.4-6.4,6.4-11.6
-  c3.2-8.6,7.9-28.1,7.9-33.1c0-4.7-3.7-15.6-6.4-18.9l-2.3-2.8c-0.2-0.2-0.2-0.5-0.1-0.8l1.5-4.3c2.1-6,3.4-16.2,4.5-34.9
-  c1.1-18.3,1.1-17,0.6-27s-2-18.7-3.9-22.4c-0.8-1.5-2-4.2-2.6-6.1s-2.6-5.4-4.4-7.9c-14.3-20-21.6-28-29.6-32.2
-  c-2.6-1.4-5.8-3.5-7-4.7s-4.1-2.8-6.5-3.4c-2.4-0.7-5.3-2.3-6.5-3.6c-3.5-3.9-7.2-5.4-13.3-5.4c-3.8,0-5.5-0.3-5-1
-  c0.4-0.7-0.4-0.8-2.6-0.4c-1.8,0.4-4.6,0.8-6.1,0.9c-1.6,0.1-3.5,0.5-4.3,0.8c-3.5,1.5-7.2,1.5-9.5-0.1c-1.8-1.2-2.5-1.3-2.8-0.4
-  c-0.5,1.7-3.5,1.5-9-0.5c-3.1-1.1-5-1.4-5.4-0.7c-0.4,0.6-2.8,1.1-5.3,1.2c-2.5,0.1-5.2,0.7-6,1.3c-0.7,0.6-1.8,0.9-2.3,0.5
-  c-0.5-0.3-2.4,0-4.1,0.8c-1.7,0.7-5.3,1.7-7.8,2.1c-3.9,0.6-4.6,1-4.2,2.5c0.4,1.4-0.2,2-2.5,2.6c-1.7,0.4-3.6,0.6-4.2,0.5
-  c-0.7-0.1-1.2,0.2-1.2,0.7s-1,1.2-2.2,1.5c-2.9,0.8-11.1,7.2-15.2,12c-8.4,9.8-16.7,20.8-19.5,25.9c-1.7,3.1-4.5,7.8-6.1,10.6
-  c-1.7,2.8-3,6.2-3,7.6c0,1.4-0.4,3.4-0.9,4.3c-0.5,0.9-1.2,3.8-1.5,6.4c-0.3,2.6-1,4.9-1.5,5.2c-1.2,0.8-1.2,4.1,0,4.6
-  c0.6,0.2,0.5,3.8-0.1,10c-0.8,6.8-0.8,10.3-0.1,11.8c0.6,1.2,1.5,7.8,2.1,14.8c0.6,6.9,1.4,13.4,1.9,14.3s1.1,3.5,1.5,5.7
-  c0.6,3.5,0.4,4.3-1.6,5.9c-3.6,3-4.6,4.7-6.1,10.6c-2,7.8-1.8,12.7,1.1,25.4c3.3,14.8,8.5,26.2,13.4,29.7c2,1.4,4.2,2.6,4.9,2.6
-  c1.7,0,2.1,1.1,3.7,10.5c3.1,18.4,6.3,29.8,12.1,43.7c2.6,6.3,2.7,7,2.3,18.9c-0.2,6.1-0.7,12.6-1.5,18.4c-0.1,0.5,0.3,0.9,0.8,0.9
-  C402.6-304.6,450-304.1,497-302.9z" />
-                <path id="Right_Hand_1_" class="st1" d="M251,74.4l-0.6-300.7c0-0.6-0.6-0.9-1.1-0.7c-1.3,0.5-2.4,1-3.5,1.4
-  c-5.2,2-11.8,5.1-14.7,6.8c-9.4,5.8-12.7,7.5-20.1,10.5c-13.6,5.5-23,12.9-29.9,23.4c-3.6,5.5-8.4,20.5-12.8,40.3
-  c-7.7,34.4-9.4,54.1-9,108.2c0.3,37.3,0.1,39.2-6.4,93.9c-1.3,10.8-3.3,28.5-4.4,39.3c-3,29.2-6.3,43.1-14.6,61.5
-  c-1.6,3.5-4.5,11.3-6.5,17.2c-2,6-4.5,13.3-5.6,16.2c-4.4,12.3-9.8,34-12.6,50.6c-1.7,9.7-4.1,22.6-5.3,28.5
-  c-2.6,12.1-5.3,28.4-10.5,62c-7.5,48.5-10.2,62.1-15.4,76.9c-1.8,5.1-3.9,13.1-4.7,17.9c-0.8,4.7-2.3,11.9-3.4,15.9
-  s-2.8,10.4-3.8,14.2c-5.3,20-6.7,25.8-6.7,28.3c0,2.9-1.7,7-6.2,14.7c-2.5,4.4-17.6,18.4-28,25.9c-2.3,1.7-5.1,4.2-6.2,5.7
-  c-1.1,1.5-2.6,2.6-3.2,2.6c-1.2,0-2,0.9-9.4,11.3c-2.3,3.3-8.8,10.7-14.5,16.5c-5.6,5.8-10.2,11-10.2,11.6c0,0.9-2.1,2-11.8,6.3
-  c-2.8,1.2-3.6,2.1-3.6,4.1c0,4.4,3.3,6.3,11.2,6.3c11.7,0.1,20-2.9,26.8-9.5s16.5-15.1,17.1-15.1c1,0-0.1,19-2.3,37.9
-  c-1.1,9.7-2.4,21-2.9,25.1s-0.6,17.3-0.3,29.3l0.6,21.7c0,0.2,0.1,0.4,0.3,0.6l2.9,2.7c3.3,3,7.4,3.7,10.9,1.8
-  c4-2.2,4.7-6.4,4.7-29.3c0-13.3,0.4-21.8,1-22.2c0.5-0.3,1-1.9,1-3.4c0-1.6,0.4-3.1,1-3.5s0.7,1.3,0.2,5.1
-  c-0.9,7.4-0.9,23.5,0.1,47.5c0.7,17.1,1,19.4,2.7,21.3c3.7,4.2,12,4.1,14.7-0.2c1.2-1.9,1.5-7,1.9-28.2c0.2-14.2,0.8-30.1,1.4-35.2
-  c0.6-5.1,1.3-12.1,1.6-15.5c0.3-3.4,0.9-6.1,1.4-6.1c1.2,0,1,6-0.3,14.9c-0.9,6.2-0.8,10.1,0.5,22.1c1.3,11.6,1.4,16.6,0.7,24.4
-  c-1.5,15.3-1.4,16.9,1.4,18.8c3.6,2.4,8.9,2.1,11.8-0.9c3-3.1,3.7-10,4.5-48.4c0.3-15.1,0.8-28.9,1.1-30.6c0.3-1.7,1.5-4.3,2.7-5.9
-  c3.2-4.1,4.8-2.2,6.7,8.3c0.8,4.7,2.4,11.6,3.4,15.3s2.8,12.8,4,20.4c2.3,15.3,3.9,18.6,8.6,18.6c1.5,0,4-1.1,5.4-2.4
-  c2.7-2.4,2.7-2.4,2.4-13.5c-0.1-6.1-1.1-15.6-2.1-21c-6.6-35.5-6.5-33.3-2.5-55.1c6.6-35.9,6.4-33.2,4.8-50.6
-  c-0.4-4.4-0.2-10.4,0.4-14.8c0.6-4.1,1.3-9.4,1.6-11.8c0.3-2.4,0.9-5.3,1.3-6.4c1.3-3.3,7.3-20.5,15.4-44.7
-  c12.8-37.9,19.1-54.1,32.3-83.1c10.1-22,22.6-54.4,35.9-92.9c3-8.7,9.1-24.2,12.3-31c2.2-4.7,11.2-31.6,12.7-37.9
-  c0.6-2.4,1.2-12.6,1.3-22.6c0.2-16.4,0.4-19.1,2.7-27.5c6.5-23.8,15-60,16.5-70c1.3-7.7,2.1-11.8,2.9-12.1
-  C250.8,75.1,251,74.7,251,74.4z" />
-                <path id="Thorax" class="st2" d="M597.2,96.9c1.8-9.7,3.9-22.7,4.8-28.8c0.9-6.1,2-11.1,2.5-11.1h0.1l-0.5-287.1
-  c0-0.3-0.2-0.6-0.5-0.7c-21.5-9.6-50.7-24.7-81.2-41.9c-8.9-5-16.9-12.1-20.3-18.1c-1.3-2.2-2.6-6.6-3.8-11.6
-  c-0.1-0.4-0.4-0.6-0.8-0.6c-47.4-1.2-94.9-1.7-142.2,1.1c-0.4,0-0.7,0.3-0.7,0.7c-0.9,6.5-1.9,11.8-3,14.4
-  c-2.1,5.3-8.1,11.3-17.4,17.5c-12.5,8.5-59,31.5-83.3,41.5c-0.3,0.1-0.5,0.4-0.5,0.7L251,75.2c0,0.1,0,0.3,0.1,0.4
-  c0.8,1.5,1.6,6.4,2.9,14.8c2.6,16.7,3.9,31,4.3,49.1c0,0.4,0.4,0.8,0.8,0.8l331.9-7.9c0.4,0,0.7-0.3,0.8-0.7
-  C592.9,121.4,594.8,109.9,597.2,96.9z" />
-                <path id="Abdomen__x26__Pelvis" class="st3" d="M621.5,387.1c0-1.6-0.4-3.5-1-4.2s-0.8-1.3-0.5-1.3s-0.1-2.1-0.9-4.7
-  c-0.8-2.6-1.6-6-1.7-7.6c-0.5-5-3.4-19.5-4.5-22.4c-0.6-1.5-1.8-3.2-2.8-3.7c-1.3-0.7-1.8-2.1-1.8-5.1c0-2.3-0.4-5.9-1-8.1
-  c-0.5-2.2-1.4-15.9-1.9-30.5c-1.2-34.3-2.5-44.9-11.4-90c-4.9-24.8-5.8-46.6-2.3-76.1c0.1-0.5-0.3-0.9-0.8-0.9L259,140.4
-  c-0.4,0-0.8,0.4-0.8,0.8c0.1,3.9,0.1,8,0.1,12.2c-0.1,36.1-1.3,49.5-7,75.7c-8,36.6-8.1,37.6-8.3,61.5c-0.3,35-2.1,51-7.7,67.2
-  c-0.1,0.2,0,0.5,0.1,0.7l178.1,264.6c0.2-1.3,0.3-2.1,0.4-2.3c0.3-0.9,1-1,3-0.2c1.6,0.6,5.1,0.8,8.6,0.4c4.8-0.5,7.2-1.5,12.5-5
-  c5.4-3.6,6.7-4.1,7.5-2.9c0.3,0.3,0.8,2.7,1.4,6.1c0.1,0.7,1,0.9,1.4,0.3l173.5-226.7c0.1-0.2,0.2-0.4,0.1-0.6
-  C621.6,390.3,621.4,388.2,621.5,387.1z" />
-                <path id="Right_Leg" class="st4" d="M677.6,1440.6c-1.2-1.5-3.1-4.7-4.1-7c-2.2-5.2-13.7-22.7-19.7-30.1c-2.4-3-4.4-5.8-4.4-6.3
-  s-0.6-1.6-1.3-2.5s-2.3-4.2-3.5-7.5c-3.8-10-11.8-25.3-16.5-31.5l-4.3-5.7c-0.1-0.1-0.2-0.3-0.2-0.4l-0.5-15
-  c-0.6-15.7-2.4-25.7-5.8-31c-0.9-1.4-1.4-2.8-1.2-3.1c0.3-0.3-0.1-2.3-0.9-4.5c-2.2-6.4-1.8-26.7,1.5-73.1c0.5-7.6,1.2-21.5,1.5-31
-  c0.8-29.2,2.4-59.8,3.8-74.7c3.8-38.5,4.5-77,1.9-100.3c-1.9-16.7-8.3-50-12.6-65.4c-7.1-25.2-8-30.2-9-52.1
-  c-1.9-38.7,0.4-75.3,5.9-93.4c1-3.2,2.5-9.2,3.3-13.2c2.2-10.5,9.8-86.3,12-118.6c1-15.1,2.9-36.2,4.3-46.7
-  c2.8-22,7.6-73.8,9.3-99.9c1-15.6,1-19.7-0.5-33.4c-0.9-8.6-2.2-19.5-2.9-24.1c-1.8-12-3.1-23.3-4.3-37.4
-  c-0.9-10.8-2.3-18.3-6.7-37.9c-0.2-0.7-0.3-1.5-0.5-2.3L447.5,620.8c-0.1,0.2-0.2,0.4-0.2,0.6c0.5,2.9,1,6.4,1.4,10.2
-  c1.3,10.5,4.3,26.1,7.8,40.6c7.2,30.6,17.8,82.9,20.1,99.8c1,7.3,2.3,21,2.9,30.5s1.5,21.2,2,26.1c0.5,4.9,0.9,15.1,0.9,22.7
-  c0,9.7,0.6,17.2,2,25c2.2,12.3,9.2,34,14.6,44.8c1.9,3.8,5.7,12.9,8.4,20.2l5,13.2c0,0.1,0,0.2,0.1,0.3l0.8,24.5
-  c3.4,100.1,3.9,105.9,12.4,133.6c10,32.5,11.2,37,15.1,56.7c2.8,14,10.4,56.9,13.1,74.3c5.3,34.4,5.6,56.3,1.1,71.3
-  c-3.2,10.5-2.8,16.2,2.1,27.2c2.1,4.8,3.7,10.1,4.1,14.1c0.4,3.5,2.2,10.6,4.1,15.7c2.6,7.1,3.6,11.6,4.1,18.7
-  c0.4,5.1,1.1,11.1,1.6,13.3c0.5,2.2,1.5,6.6,2.3,9.8c0.7,3.2,2.9,10.5,4.8,16.2c3.1,9.4,3.5,11.9,4.4,27
-  c1.3,22.6,4.3,41.7,7.7,48.7c1.4,3,3.4,8.3,4.3,11.8c0.9,3.5,2.7,7.9,3.8,9.8c3,4.8,8.9,10.4,12.9,12.3c7.2,3.3,21.6-0.8,22.7-6.5
-  l0.3-1.5c0.1-0.6,0.9-0.8,1.3-0.4l1.1,1c4.9,4.7,17.9,1.1,18.6-5.1c0.3-2.4,0.7-2.7,4-2.7c4.6,0,6.7-2.6,6.7-8.6
-  c0-4,0.1-4.2,2.3-3.6c3.6,0.9,6.3-2.5,6.4-8.2c0.2-7.2,1.1-10,3.7-11.3c1.4-0.7,3.5-3.5,5-6.6c2.3-4.8,2.6-6.5,2.6-15.7
-  C685.9,1456.4,683.5,1447.8,677.6,1440.6z" />
-                <path id="Left_Leg" class="st5"
-                  d="M235,358.9c-7.2,20.2-10.3,49.3-11.2,105.8c-0.3,17.8-0.7,32.8-0.9,33.8c0,0,0,0,0,0
-  c-1.5,4.9,6.7,87.6,12.5,127.5c0.8,5.4,2.3,16.5,3.4,24.6c1.1,8.1,3,20.5,4.3,27.5s2.3,14.3,2.3,16.1s1.1,9.8,2.4,17.7
-  s3.2,21.4,4.3,29.9c4,32.1,8,54.9,11.4,65.2c6.9,20.9,6.4,16.9,6.4,48.7c0,16,0.4,36.3,0.8,45.2c0.8,15.8,0.8,16.6-2.1,32
-  c-3.7,19.5-5.5,30.9-6.8,42.3c-4.2,36.7-4.4,40.1-4.3,62.5c0.1,20.9,0.4,25.5,3.6,48.2c1.9,13.8,3.9,29.7,4.5,35.4
-  c0.6,5.7,1.9,17.9,2.9,27c1,9.2,2.7,26.2,3.9,37.9c1.1,11.6,3.7,34,5.8,49.7c4.1,31.1,4.5,38.6,2.4,46.7c-6.1,23-6.4,24.9-5.7,31.4
-  c1.4,12.2,0.8,15.1-6,28.8c-4.2,8.5-6.6,14.6-7.2,18.7c-0.7,4.1-2.2,8.1-4.9,12.5c-6.1,10-8,12.7-15.2,21.6
-  c-3.7,4.6-8.5,11.9-10.6,16.2c-2.1,4.3-4.9,9-6.1,10.3c-1.2,1.4-2.9,3.6-3.7,4.9c-2.1,3.5-7.4,27.9-7.4,34.1
-  c0,5.5,3.2,14.5,6.1,16.9c1,0.8,1.6,2.8,1.6,5.1c0,5.4,1.8,8.8,5,9.5c1.9,0.4,3.1,1.5,4,3.7c1.6,3.8,4.9,6.4,8.2,6.4
-  c2,0,2.7,0.7,3.4,3.2c1.1,3.8,6.3,7.6,10.2,7.6c2.9,0,8.4-2.5,9.6-4.3c0.4-0.6,1.2-2.9,1.8-5c1.5-5.6,7.5-16.2,9.1-16.2
-  c1.1,0,0.9,0.9-0.7,4.2c-2.9,5.7-3.6,16.5-1.4,19.9c3.9,6.2,12.2,8,22.3,4.9c4.1-1.3,5.4-2.2,8.3-6.6c1.9-2.8,4-7.4,4.8-10.2
-  s2.3-6.8,3.4-8.9c1.1-2.2,3.1-8.5,4.5-14.2c1.4-5.6,2.9-11.6,3.5-13.4c0.5-1.7,0.9-9.5,0.8-17.2c-0.1-16.2,1.3-27,4.4-33.2
-  c1.2-2.4,3.4-8.2,4.8-12.8c2.3-7.3,2.7-10.7,3.4-27.5c0.9-22.5,2.2-29.9,9.6-54.6c2.5-8.3,2.2-15.1-1.4-29.6
-  c-2-8-2.4-12.1-2.4-22.7c0-15.8,2.3-42.2,4.9-56.9c1.1-6,2.3-13.5,2.7-16.7c0.4-3.2,1.7-10.1,2.7-15.2c1.1-5.1,2.6-13.3,3.5-18.2
-  c0.9-4.9,3.3-15.9,5.3-24.6c11.9-50.3,13.5-60,13.5-80.6c0-8.1-0.5-20.9-1-28.5c-5-68.3-5-71.1-1.1-85.4c1.5-5.6,4.6-14.5,6.8-19.9
-  c2.2-5.4,5.9-15.8,8.3-23.1c4.8-15.2,6.1-24.5,6.1-45.7c0-24,2-70.4,3.5-80.6c0.8-5.4,1.8-15.7,2.4-22.9c1.1-15.6,6.5-50,11-71.1
-  c1.8-8.4,4.4-24.1,5.8-34.9c1-7.8,1.9-14.7,2.5-18.3c0-0.2,0-0.4-0.1-0.5L235.2,358.2C235.1,358.5,235.1,358.7,235,358.9z" />
-                <path id="Right_Hand" class="st6" d="M882.1,582.3c-6-3.7-10.1-8.1-13-14.1c-1.1-2.2-4.1-6.3-6.5-9.1c-6.2-6.8-12.5-15.2-15.6-20.5
-  c-1.6-2.7-8-9.3-16.8-17.2c-7.8-7-16.9-15.6-20.1-19.2c-6.5-7.1-8.7-12-14.3-32.2c-1.7-6.2-4.7-15.7-6.5-21.1
-  c-5-14.7-14.8-46.2-16.9-54.7c-1.9-7.4-3.9-19.5-5.8-34.8c-1.9-14.7-4.9-35.3-8.7-59c-2.1-13-5.1-32.7-6.7-43.8
-  c-1.6-11.1-3.8-23.9-4.9-28.5c-3.3-13.8-15.1-49.7-21-63.9c-6.7-16.1-7.1-17.3-9.5-26.6c-3.4-13.2-6.3-34.5-11.7-85.3
-  c-3.1-28.5-4-51.2-4.2-102c-0.2-49.3-0.4-54.1-2.4-67.4c-5.1-34.2-11.3-55.1-19.8-66.9c-4.4-6.2-15.4-15.4-29.2-24.8
-  c-12.1-8.1-15-9.6-32.1-16.5c-3.4-1.4-7.1-3-11.2-4.8c-0.5-0.2-1.1,0.1-1.1,0.7l0.5,285.9c0,0.2,0.1,0.4,0.3,0.6
-  c0.2,0.2,0.4,0.7,0.4,1.1c0,5.2,3.5,32.3,5.8,45.4c2.7,15.2,8.6,40.8,14,60.4c2.3,8.4,2.6,11.2,2.8,27.5
-  c0.1,11.2,0.7,20.1,1.5,23.1c1.9,7.6,11.2,33.7,14.5,40.8c5.7,12.2,8.4,19.3,17.6,46.2c11.5,33.5,14,40.2,27.4,72.8
-  c5.9,14.3,13.1,32.4,16,40.2c2.9,7.8,8.5,21.7,12.5,31c14.6,34.3,21.4,50.9,21.4,52.3c0,0.8,1,3.3,2.2,5.6c2,3.9,2.1,5.1,2,23.2
-  c-0.2,18.7,1.2,32.8,4.6,45.6c0.5,2,1.1,5.9,1.2,8.5c0.1,2.7,0.5,4.6,0.8,4.4c0.3-0.2,1.2,1.9,1.9,4.8c1.7,6.7,1.7,26.3,0,42
-  c-1.7,16-1.2,27.6,1.5,31.2c3.9,5.4,11.2,4.5,12.7-1.6c0.9-3.8,2.2-16,2.5-24.2c0.1-2.7,0.9-7.6,1.8-10.9c0.9-3.3,1.6-9.8,1.7-14.5
-  c0.1-4.7,0.5-8.5,0.9-8.5c2.6,0,2.8,3.8,2.3,44.4c-0.5,39.5-0.5,41.9,1.2,43.9c2.6,3.2,9.7,4,12.7,1.4c2.2-1.9,2.3-2.5,2.6-15.6
-  c0.3-15.2,1.7-29.6,3.3-34.8c0.7-2.3,0.9-8,0.4-17.2c-0.7-15.7,0.7-17.5,2.3-3c2,17.8,2.5,28,2.2,49.1c-0.3,23.3-0.1,24.9,4.6,27.8
-  c3.3,2,9,0.9,12-2.4c2.2-2.4,2.3-3.2,2.3-15.2c0-7,0.5-17,1.2-22.2c1.6-12.6,1.3-31.7-0.6-39.3c-1.7-6.8-2-13.1-0.6-13.1
-  c0.5,0,1,1.5,1,3.3s1,6.1,2.3,9.6c3.2,8.7,3.8,12.9,5.4,36.6c1.3,19.1,2.1,22.2,6.9,24.5c3.2,1.6,3.8,1.6,7,0.3
-  c5.7-2.4,6.3-5.3,6.3-28.3c0-20.8-0.2-22.7-4.2-46c-4-23-4.4-26-4.4-32.3V571c0-0.7,0.9-1.1,1.4-0.6l7.5,7.5
-  c10.8,10.9,19.2,15.6,28.9,16.4c7.9,0.7,11.1-1.1,11.1-6C887.4,586,886.8,585.3,882.1,582.3z" />
-              </g>
-            </svg>
+      </mb-form>
+      <hr>
+        <mb-form style="display: flex; gap:15px; flex-direction: column" id="form2">
+          <p>SUGGESTION (Type to see)</p>
+          <mb-suggest>
+            <mb-input path="chief_complaints" label="Chief complaints"></mb-input>
+          </mb-suggest>
+          <mb-suggest>
+            <mb-duration day month label="Duration" path="duration"></mb-duration>
+          </mb-suggest>
+          <mb-suggest>
+            <mb-input-multiple label="Text" path="other_symptoms">
+            </mb-input-multiple>
+          </mb-suggest>
+          <div>
+            <mb-submit type="primary">
+              <sl-button>Save</sl-button>
+            </mb-submit>
           </div>
-          <div class="column is-10">
-            <div class="box">
-              <div class="field">
-                <mb-search label="Chief Complaints">
-                  <mb-filter label="Conditions" filter="<404684003"></mb-filter>
-                  <mb-filter label="Body structure" filter="<123037004"></mb-filter>
-                </mb-search>
-              </div>
-              <div class="field">
-                <mb-search label="Prescription">
-                  <mb-filter label="Generics" filter="^900000000000490469"></mb-filter>
-                  <mb-filter label="Trade name" filter="^900000000000490468"></mb-filter>
-                </mb-search>
-              </div>
-              <div class="field">
-                <mb-search label="Body site">
-                  <mb-filter label="Anotomical Site" filter="<442083009"></mb-filter>
-                </mb-search>
-                <sl-input label="Body site" />
-              </div>
-              <div class="field">
-                <sl-textarea label="History of Presenting Illness" />
-              </div>
-              <div class="field">
-                <mb-date label="Since"></mb-date>
-              </div>
-              <div class="field">
-                <mb-buttons label="Position" path="blood_pressure_template/blood_pressure:0/any_event:0/position">
-                  <mb-option code="at1000" display="Standing"></mb-option>
-                  <mb-option code="at1001" display="Sitting"></mb-option>
-                  <mb-option code="at1002" display="Reclining"></mb-option>
-                  <mb-option code="at1003" display="Lying"></mb-option>
-                  <mb-option code="at1014" display="Lying with tilt to left"></mb-option>
-                </mb-buttons>
-              </div>
-              <div class="field">
-                <mb-select path="blood_pressure_template/blood_pressure:0/any_event:0/position" label="Position">
-                  <mb-option code="at1000" display="Standing"></mb-option>
-                  <mb-option code="at1001" display="Sitting"></mb-option>
-                  <mb-option code="at1002" display="Reclining"></mb-option>
-                  <mb-option code="at1003" display="Lying"></mb-option>
-                  <mb-option code="at1014" display="Lying with tilt to left"></mb-option>
-                </mb-select>
-              </div>
-            </div>
-            <sl-button type="primary">
-              <sl-icon slot="prefix" name="plus-circle-fill" />Add another
-            </sl-button>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column">
-            <sl-tab-group>
-              <sl-tab slot="nav" panel="airway">Airway</sl-tab>
-              <sl-tab slot="nav" panel="breathing">Breathing</sl-tab>
-              <sl-tab slot="nav" panel="circulation">Circulation</sl-tab>
-              <sl-tab slot="nav" panel="disability">Disability</sl-tab>
-
-
-
-
-
-              <sl-tab-panel name="airway">
-
-                <div class="field">
-                  <p class="label">Airway status</p>
-                  <sl-button type="default">Patent</sl-button>
-                  <sl-button type="default">Obstructed</sl-button>
-                  <sl-button type="default">Difficult</sl-button>
-                </div>
-                <div class="field">
-                  <p class="label">Airway threatened</p>
-                  <sl-button type="default">Threatened</sl-button>
-                  <sl-button type="default">Not Threatened</sl-button>
-                  <sl-button type="default">Threatened</sl-button>
-                </div>
-                <div class="field">
-                  <p class="label">Neck and dentition</p>
-                  <sl-button>Difficult Dentition</sl-button>
-                  <sl-button>Abnormal Tongue</sl-button>
-                  <sl-button>High Arched Palate</sl-button>
-                  <sl-button>Short/ Thick neck</sl-button>
-                </div>
-                <div class="field">
-                  <p class="label">Other risk factors</p>
-                  <div>
-                    <div style="display: flex; gap: 0.3rem; flex-wrap: wrap;">
-                      <sl-button>Recent Intubation</sl-button>
-                      <sl-button>Tracheostomy scar</sl-button>
-                      <sl-button>Anaemia</sl-button>
-                      <sl-button>Hypoxemia</sl-button>
-                      <sl-button>Pregnancy</sl-button>
-                      <sl-button>Obesity</sl-button>
-                    </div>
-                  </div>
-                </div>
-                <div class="field">
-                  <p class="label">Malampatti Classification</p>
-                  <sl-select placeholder="Select one">
-                    <sl-menu-item value="option-1">Class 1</sl-menu-item>
-                    <sl-menu-item value="option-2">Class 2</sl-menu-item>
-                    <sl-menu-item value="option-3">Class 3</sl-menu-item>
-                    <sl-menu-item value="option-4">Class 4</sl-menu-item>
-                  </sl-select>
-                </div>
-                <div class="field">
-                  <p class="label">Remarks if any</p>
-                  <sl-textarea />
-                </div>
-                <div class="field">
-                  <sl-drawer label="Drawer" class="drawer-overview">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    <sl-button slot="footer" type="primary">Close</sl-button>
-                  </sl-drawer>
-
-                  <sl-button id="drawer">Open Drawer</sl-button>
-                </div>
-              </sl-tab-panel>
-              <sl-tab-panel name="custom">This is the custom tab panel.</sl-tab-panel>
-              <sl-tab-panel name="advanced">This is the advanced tab panel.</sl-tab-panel>
-              <sl-tab-panel name="disabled">This is a disabled tab panel.</sl-tab-panel>
-            </sl-tab-group>
-          </div>
-        </div>
-      </div>
-    </section>
-  </mb-form>
-  <script src="../node_modules/axios/dist/axios.min.js"></script>
-  <script>
-    let form = document.querySelector('mb-form')
-    form.hermes = axios.create({ baseURL: 'http://localhost:9200/v1' })
-  </script>
-</body>
-
+        </mb-form>
+    </div>
+    <div>
+    </div>
+  </body>
 </html>

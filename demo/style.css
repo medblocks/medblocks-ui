@@ -1,0 +1,14 @@
+p {
+    font-weight: 800;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+
+.mb-10 {
+  border-width: 2px;
+  border-style: solid;
+  padding: 5px;
+}

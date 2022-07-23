@@ -12,16 +12,14 @@ export default abstract class EhrElement extends LitElement {
   @property({ type: String, reflect: true }) path: string;
   /**Optional label for the element */
   @property({ type: String, reflect: true }) label?: string;
-  
+
   @property({ type: String, reflect: true }) repeatsuffix?: string;
   @property({ type: String, reflect: true }) repeatprefix?: string;
-
-
 
   /**Data of the element. Setting this will emit an input event automatically. */
   abstract data: any;
 
-  isMbElement: boolean = true
+  isMbElement: boolean = true;
   /**An internal representation of type to handle serializing */
   @property({ type: String, reflect: true })
   datatype?: string;
@@ -40,21 +38,33 @@ export default abstract class EhrElement extends LitElement {
   }>;
 
   @event('mb-path-change')
-  _pathChangeHandler: EventEmitter<{ oldPath: string, newPath: string }>
+  _pathChangeHandler: EventEmitter<{ oldPath: string; newPath: string }>;
 
   @event('mb-connect')
-  _mbConnect: EventEmitter<string>
+  _mbConnect: EventEmitter<string>;
+
+  // Does not work due to https://github.com/WICG/webcomponents/issues/678, https://github.com/whatwg/dom/issues/533
+  // Using MutationObserver in mb-form for now.
+  // @event('mb-disconnect')
+  // _mbDisconnect: EventEmitter<string>;
 
   @watch('path')
   handlePathChange(oldPath: string, newPath: string) {
-    this._pathChangeHandler.emit({ detail: { oldPath, newPath } })
+    this._pathChangeHandler.emit({ detail: { oldPath, newPath } });
   }
 
   connectedCallback() {
-    super.connectedCallback()
-    this._mbConnect.emit({ detail: this.path })
-    this._mbInput.emit()
+    super.connectedCallback();
+    this._mbConnect.emit({ detail: this.path });
+    this._mbInput.emit();
   }
+
+  // disconnectedCallback(): void {
+  //   console.log('disconnecting element', this.path);
+  //   this._mbConnect.emit({ detail: this.path });
+  //   this._mbInput.emit();
+  //   super.disconnectedCallback();
+  // }
 
   @watch('data')
   _handleDataChange() {
