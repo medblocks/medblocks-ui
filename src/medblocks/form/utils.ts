@@ -1,3 +1,6 @@
+import EhrElement from '../EhrElement';
+import Repeatable from '../repeat/Repeatable';
+
 export interface Data {
   [path: string]: any;
 }
@@ -86,3 +89,31 @@ export function unflatten(table: any) {
   return result[''];
 }
 
+/** Takes a list of mutation records from MutationObserver and calculates the paths of EhrElements and Repeatables that were removed. */
+export const getDeletedPaths = (records: MutationRecord[]) => {
+  let ehrElementsRemoved: string[] = [];
+  let repeatablesRemoved: string[] = [];
+  records.forEach(record => {
+    if (record.removedNodes.length > 0) {
+      record.removedNodes.forEach((node: EhrElement & Repeatable) => {
+        if (node.isMbElement) {
+          ehrElementsRemoved.push(node.path);
+        } else if (node.isRepeatable) {
+          repeatablesRemoved.push(node.path);
+        } else {
+          if (node.nodeType === node.ELEMENT_NODE) {
+            const allNodes = node.querySelectorAll('*'); // DOM queries are slow. There's scope to optimize.
+            allNodes.forEach((node: EhrElement & Repeatable) => {
+              if (node.isMbElement) {
+                ehrElementsRemoved.push(node.path);
+              } else if (node.isRepeatable) {
+                repeatablesRemoved.push(node.path);
+              }
+            });
+          }
+        }
+      });
+    }
+  });
+  return { ehrElementsRemoved, repeatablesRemoved };
+};

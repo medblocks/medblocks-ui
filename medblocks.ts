@@ -2,7 +2,6 @@
 // window.customElements.define('example-comp', ExampleComp);
 import { registerIcons } from './src/internal/icons';
 
-
 registerIcons();
 
 import './src/medblocks/form/form';
@@ -30,5 +29,6 @@ import './src/medblocks/proportion/proportion';
 import './src/medblocks/count/count';
 import './src/medblocks/multimedia/multimedia';
 import './src/medblocks/codedtext/search-multiple';
-import './src/medblocks/repeat/repeat';
+import './src/medblocks/repeat/repeatableSimple';
+import './src/medblocks/repeat/repeatableHeadless';
 import './src/medblocks/SuggestWrapper';

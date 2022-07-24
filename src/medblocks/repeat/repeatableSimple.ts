@@ -1,6 +1,5 @@
 import {
   customElement,
-  LitElement,
   property,
   queryAssignedNodes,
   state,
@@ -9,8 +8,13 @@ import { html } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
-@customElement('mb-repeatable')
-export default class MbRepeatable extends LitElement {
+import Repeatable from './Repeatable';
+/** Simple repeat component that copies the markup in the slot.
+ * DOES NOT work with interactive if the elements have interactivity via JS (since outerHTML is copied through a string).
+ * Use mb-repeatable-headless for more complex scenarios.
+ * */
+@customElement('mb-repeatable-simple')
+export default class MbRepeatable extends Repeatable {
   handleAdd() {
     this.count++;
   }
@@ -27,12 +31,20 @@ export default class MbRepeatable extends LitElement {
   slotNode: HTMLElement;
 
   reloadSlot() {
-    this.slotNode = this.assignedNodes[0];
+    // Only supports one nested element currently
+    const nodes = this.assignedNodes.filter(
+      node => node.nodeType === node.ELEMENT_NODE
+    );
+    if (nodes.length > 1) {
+      console.warn(
+        `mb-repeatable [path=${this.path}] only support one nested element. Got ${nodes.length} elements. Only taking the first.`
+      );
+    }
+    this.slotNode = nodes[0];
   }
 
   replacePath(html: string, i: number) {
-    const regex = new RegExp(`(${this.path}):(\\d+)`, 'g');
-    const replaced = html.replace(regex, `$1:${i}`);
+    const replaced = html.replace(this.regex, `$1:${i}`);
     return replaced;
   }
 
@@ -43,6 +55,7 @@ export default class MbRepeatable extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
+    this.count = 1;
     this.observer = new MutationObserver((mutationList, _) => {
       // let updated = false;
       mutationList.forEach(record => {
@@ -73,19 +86,13 @@ export default class MbRepeatable extends LitElement {
     });
   }
 
-  @property()
-  count: number = 0;
-
-  @property({ type: String, reflect: true })
-  path: string;
-
   @property({ type: String, reflect: true })
   css: string = '';
 
   render() {
     return html`
       <slot @slotchange=${this.reloadSlot}></slot>
-      ${[...Array(this.count)].map(
+      ${[...Array(this.count - 1)].map(
         (_, i) =>
           html`${unsafeHTML(this.replacePath(this.slotNode?.outerHTML, i + 1))}`
       )}
@@ -99,7 +106,9 @@ export default class MbRepeatable extends LitElement {
         >
       </slot>
       <slot name="delete">
-        <sl-button @click=${() => this.count > 0 && this.count--}
+        <sl-button
+          @click=${() => this.count > 1 && this.count--}
+          ?disabled=${this.count <= 1}
           >Delete</sl-button
         >
       </slot>

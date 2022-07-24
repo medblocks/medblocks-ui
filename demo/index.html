@@ -20,11 +20,14 @@
   <body>
     <div style="max-width: 700px;">
       <mb-form id="form1" style="display: flex; gap:15px; flex-direction: column" templateid="testing_template.v0">
-          <mb-repeatable path="aarthy.refraction.v0/refraction_assessment/any_event" css="style.css"><div class="mb-10">
-          <mb-input path="aarthy.refraction.v0/refraction_assessment/any_event:0/hello" label="Hello">
+        
+        <mb-repeatable-simple id="repeatable" path="aarthy.refraction.v0/refraction_assessment/any_event" css="style.css">
+          <div class="mb-10">
+          <mb-input path="aarthy.refraction.v0/refraction_assessment/any_event:0/hello" label="Path 1">
           </mb-input>
-          <mb-input path="aarthy.refraction.v0/refraction_assessment/any_event:0/there" label="There"></mb-input>
-          </div></mb-repeatable>
+          <mb-input path="aarthy.refraction.v0/refraction_assessment/any_event:0/there" label="Path 2"></mb-input>
+          </div>
+        </mb-repeatable-simple>
           <div>
             <mb-submit type="primary">
               <sl-button>Save</sl-button>

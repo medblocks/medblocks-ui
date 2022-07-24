@@ -9,12 +9,13 @@ import {
 import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 import MbContext from '../context/context';
-import { Data } from './utils';
+import { Data, getDeletedPaths } from './utils';
 import { AxiosInstance } from 'axios';
 import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
 import { MbPlugin } from './plugins/plugins';
 import MbSubmit from '../submit/submit';
 import SuggestWrapper, { Suggestion } from '../SuggestWrapper';
+import Repeatable from '../repeat/Repeatable';
 
 /**
  * Reactive form that responds to changes in custom elements nested inside.
@@ -56,6 +57,8 @@ export default class MedblockForm extends LitElement {
 
   /** The child elements are loaded  */
   @state() mbElements: { [path: string]: EhrElement } = {};
+
+  @state() repeatables: { [path: string]: Repeatable } = {};
 
   /** Runs validation on all the elements. Returns validation message. */
   validate(): boolean {
@@ -139,7 +142,7 @@ export default class MedblockForm extends LitElement {
 
   insertContext() {
     const nonNullPaths = this.nonEmptyPaths();
-    // TODO: Delete context for paths where there is
+    // Delete context for paths where there is
     Object.values(this.mbElements)
       .filter((element: MbContext) => !!element.autocontext)
       .forEach((element: MbContext) => {
@@ -187,13 +190,23 @@ export default class MedblockForm extends LitElement {
   }
 
   set data(data: Data) {
+    this.deferredData = {};
     const mbElementPaths = Object.keys(this.mbElements);
     const dataPaths = Object.keys(data);
-    // TODO Set calculate and set count of repeatable elements (mb-repeatable)
-    
-    
+    // Set calculate and set count of repeatable elements (mb-repeatable)
+    Object.values(this.repeatables).forEach(el => {
+      const regex = el.regex;
+      const matches = dataPaths
+        .map(path => regex.exec(path))
+        .map(match => match?.[2])
+        .filter(match => match)
+        .map(str => str && parseInt(str)) as number[];
+      console.log({ matches });
+      const count = Math.max(...matches) + 1;
+      el.count = count;
+    });
+
     // storing in a deferredData and seting after mb-connect below.
-    
 
     // Set data points
     mbElementPaths.forEach(path => {
@@ -257,10 +270,18 @@ export default class MedblockForm extends LitElement {
     this.mbElements[path] = this.getTarget(e) as EhrElement;
     // Check if data is present in deferred data
     if (this.deferredData[path] != null) {
+      console.log("deferred data present!!")
       const { [path]: data, ...excluded } = this.deferredData;
       this.mbElements[path].data = data;
       this.deferredData = excluded;
     }
+    this.input.emit();
+  }
+
+  handleRepeatableConnect(e: CustomEvent) {
+    const path = e.detail;
+    this.repeatables[path] = this.getTarget(e) as Repeatable;
+    // Check if data is present in deferred data
     this.input.emit();
   }
 
@@ -349,33 +370,19 @@ export default class MedblockForm extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
     this.observer = new MutationObserver((mutationList, _) => {
-      let updated = false;
-      mutationList.forEach(record => {
-        if (record.removedNodes.length > 0) {
-          record.removedNodes.forEach((node: EhrElement) => {
-            if (node.isMbElement) {
-              const { [node.path]: _, ...rest } = this.mbElements;
-              this.mbElements = rest;
-              updated = true;
-            } else {
-              if (node.nodeType === node.ELEMENT_NODE) {
-                const allNodes = node.querySelectorAll('*'); // DOM queries are slow. There's scope to optimize.
-                allNodes.forEach((node: EhrElement) => {
-                  if (node.isMbElement) {
-                    const { [node.path]: _, ...rest } = this.mbElements;
-                    this.mbElements = rest;
-                    updated = true;
-                  }
-                });
-              }
-            }
-          });
-        }
-
-        if (updated) {
-          this.input.emit();
-        }
+      const { ehrElementsRemoved, repeatablesRemoved } =
+        getDeletedPaths(mutationList);
+      ehrElementsRemoved.forEach(path => {
+        const { [path]: _, ...rest } = this.mbElements;
+        this.mbElements = rest;
       });
+      repeatablesRemoved.forEach(path => {
+        const { [path]: _, ...rest } = this.repeatables;
+        this.repeatables = rest;
+      });
+      if (repeatablesRemoved.length + ehrElementsRemoved.length > 0) {
+        this.input.emit();
+      }
     });
 
     this.observer.observe(this, {
@@ -385,7 +392,10 @@ export default class MedblockForm extends LitElement {
     });
 
     this.addEventListener('mb-connect', this.handleChildConnect);
-
+    this.addEventListener(
+      'mb-connect-repeatable',
+      this.handleRepeatableConnect
+    );
     // Only for mb-repeat. Otherwise using MutationObserver
     this.addEventListener('mb-disconnect', this.handleChildDisconnect);
     this.addEventListener('mb-dependency', this.handleDependency);
@@ -400,6 +410,10 @@ export default class MedblockForm extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('mb-connect', this.handleChildConnect);
+    this.removeEventListener(
+      'mb-connect-repeatable',
+      this.handleRepeatableConnect
+    );
     this.removeEventListener('mb-disconnect', this.handleChildDisconnect);
     this.removeEventListener('mb-dependency', this.handleDependency);
     this.removeEventListener('mb-path-change', this.handleChildPathChange);
