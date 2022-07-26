@@ -31,4 +31,6 @@ import './src/medblocks/multimedia/multimedia';
 import './src/medblocks/codedtext/search-multiple';
 import './src/medblocks/repeat/repeatableSimple';
 import './src/medblocks/repeat/repeatableHeadless';
-import './src/medblocks/SuggestWrapper';
+
+import './src/medblocks/suggestionWrapper';
+import './src/medblocks/hide';

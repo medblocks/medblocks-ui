@@ -40,7 +40,8 @@ export default class SuggestWrapper extends LitElement {
   @property({ type: Array }) suggestions: Suggestion[] = [];
 
   render() {
-    return html`<slot></slot>
+    return html`
+      <slot></slot>
       <div class="suggestions">
         ${this.suggestions.map(
           suggestion => html`
@@ -53,6 +54,7 @@ export default class SuggestWrapper extends LitElement {
             >
           `
         )}
-      </div> `;
+      </div>
+    `;
   }
 }

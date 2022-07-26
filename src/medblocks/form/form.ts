@@ -14,8 +14,9 @@ import { AxiosInstance } from 'axios';
 import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
 import { MbPlugin } from './plugins/plugins';
 import MbSubmit from '../submit/submit';
-import SuggestWrapper, { Suggestion } from '../SuggestWrapper';
+import SuggestWrapper, { Suggestion } from '../suggestionWrapper';
 import Repeatable from '../repeat/Repeatable';
+import MbHide from '../hide';
 
 /**
  * Reactive form that responds to changes in custom elements nested inside.
@@ -55,6 +56,10 @@ export default class MedblockForm extends LitElement {
   /** Hermes instance to communicate with for SNOMED CT search elements. */
   @property({ type: Object }) hermes: AxiosInstance;
 
+  /** Should data points that are set, but don't have a corresponding EhrElement be serialized? */
+  @property({ type: Boolean, reflect: true }) serializeDeferredData: boolean =
+    true;
+
   /** The child elements are loaded  */
   @state() mbElements: { [path: string]: EhrElement } = {};
 
@@ -78,7 +83,22 @@ export default class MedblockForm extends LitElement {
 
   /**Serialize EHRElement to the output format - eg: openEHR FLAT format, FHIR resource.*/
   serialize(mbElements = this.mbElements) {
-    return this.plugin.serialize(mbElements);
+    const toSerialize = this.serializeDeferredData
+      ? { ...mbElements, ...this.dataToContextElements(this.deferredData) }
+      : mbElements;
+    return this.plugin.serialize(toSerialize);
+  }
+
+  dataToContextElements(data: { [key: string]: any }): {
+    [key: string]: EhrElement;
+  } {
+    const result: { [key: string]: EhrElement } = {};
+    Object.keys(data).forEach(key => {
+      const context = new MbContext();
+      context.data = data[key];
+      result[key] = context;
+    });
+    return result;
   }
 
   /**Parses and sets the form data to current data */
@@ -270,7 +290,7 @@ export default class MedblockForm extends LitElement {
     this.mbElements[path] = this.getTarget(e) as EhrElement;
     // Check if data is present in deferred data
     if (this.deferredData[path] != null) {
-      console.log("deferred data present!!")
+      console.log('deferred data present!!');
       const { [path]: data, ...excluded } = this.deferredData;
       this.mbElements[path].data = data;
       this.deferredData = excluded;
@@ -329,6 +349,17 @@ export default class MedblockForm extends LitElement {
       const suggestions = data[key];
       suggest.suggestions = suggestions;
       suggest.path = key;
+    });
+
+    // Handle mb-hide elements
+    const hideElements = this.querySelectorAll('mb-hide');
+    console.log({ hideElements });
+    hideElements.forEach((el: MbHide) => {
+      if (data[el.path]) {
+        el.show = true;
+      } else {
+        el.show = false;
+      }
     });
   }
 

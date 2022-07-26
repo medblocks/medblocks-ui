@@ -17,7 +17,6 @@
     <script type="module" src="../dist/medblocks.js"></script>
     <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script>
-      let suggestionSet = false
       document.addEventListener('DOMContentLoaded', function () {
         let form = document.getElementById('form1')
         form.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1' })
@@ -26,14 +25,23 @@
          console.log(e.detail)
         })
         let form2 = document.getElementById('form2')
-        form2.addEventListener('mb-input', ()=>{
-          if (!suggestionSet)
+        form2.addEventListener('mb-input', (e)=>{
+          const data = e.target.data
+          if (data["chief_complaints"])
           form2.addSuggestion({
             "other_symptoms": [{data: "Body ache", label: "Body ache", id: 1, op:'add'},{data: "Cold", label: "Cold", id: 2, op:'add'}, {data: "Sore Throat", label: "Sore Throat", id: 2, op:'add'}],
             "chief_complaints": [{data: "Fever", label: "Fever", id: 1}],
-            "duration": [{data: 'P2D', label: '2 days', id: 1}, {data: 'P1M', label: '1 month', id: 2}]
+            "duration": [{data: 'P2D', label: '2 days', id: 1}, {data: 'P1M', label: '1 month', id: 2}],
+            "hidden_symptoms": true
+        }) 
+          else {
+
+          form2.addSuggestion({
+            "other_symptoms": [{data: "Body ache", label: "Body ache", id: 1, op:'add'},{data: "Cold", label: "Cold", id: 2, op:'add'}, {data: "Sore Throat", label: "Sore Throat", id: 2, op:'add'}],
+            "chief_complaints": [{data: "Fever", label: "Fever", id: 1}],
+            "duration": [{data: 'P2D', label: '2 days', id: 1}, {data: 'P1M', label: '1 month', id: 2}],
         })
-        suggestionSet = true
+        }
         })
       })
     </script>
@@ -151,6 +159,19 @@
               <sl-button>Save</sl-button>
             </mb-submit>
           </div>
+          <mb-hide path="hidden_symptoms">
+            <h2>Hidden by default</h2>
+            <mb-suggest>
+              <mb-input path="chief_complaints_hidden" label="Chief complaints"></mb-input>
+            </mb-suggest>
+            <mb-suggest>
+              <mb-duration day month label="Duration_hidden" path="duration"></mb-duration>
+            </mb-suggest>
+            <mb-suggest>
+              <mb-input-multiple label="Text" path="other_symptoms_hidden">
+              </mb-input-multiple>
+            </mb-suggest>
+          </mb-hide>
         </mb-form>
     </div>
     <div>
