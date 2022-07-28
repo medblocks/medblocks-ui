@@ -362,22 +362,21 @@ export default class MedblockForm extends LitElement {
     });
 
     // Handle composition level suggestions
-    const compositionLevelSuggest = this.querySelectorAll('mb-suggest[path]');
-    // console.log({ compositionLevelSuggest });
-    compositionLevelSuggest.forEach((el: SuggestWrapper) => {
+    const globalSuggests = this.querySelectorAll('mb-suggest[global]');
+    // console.log({ globalSuggests });
+    globalSuggests.forEach((el: SuggestWrapper) => {
       const suggestion = data[el.path];
       // console.log({ el, suggestion });
       if (suggestion) {
         el.suggestions = suggestion;
-        el.compositionLevel = true;
       }
     });
   }
 
   handleSuggestion(e: CustomEvent<SuggestEvent>) {
-    const { suggestion, path, compositionLevel } = e.detail;
+    const { suggestion, path, global } = e.detail;
 
-    if (compositionLevel) {
+    if (global) {
       this.import(suggestion.data);
 
       // If changing to internal data format instead of FLAT

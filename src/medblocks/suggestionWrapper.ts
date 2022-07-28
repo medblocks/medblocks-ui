@@ -12,7 +12,7 @@ export interface Suggestion {
 export interface SuggestEvent {
   suggestion: Suggestion;
   path: string;
-  compositionLevel: boolean;
+  global: boolean;
 }
 
 @customElement('mb-suggest')
@@ -39,7 +39,6 @@ export default class SuggestWrapper extends LitElement {
       margin-top: var(--sl-spacing-xx-small);
     }
 
-
     sl-tag {
       cursor: pointer;
     }
@@ -52,17 +51,17 @@ export default class SuggestWrapper extends LitElement {
       detail: {
         suggestion,
         path: this.path,
-        compositionLevel: this.compositionLevel,
+        global: this.global,
       },
     });
     this.suggestions = this.suggestions.filter(s => s.id !== suggestion.id);
   }
 
-  @property({ type: String ,reflect:true}) path: string;
+  @property({ type: String, reflect: true }) path: string;
 
   @property({ type: Array }) suggestions: Suggestion[] = [];
 
-  @property({ type: Boolean, reflect: true }) compositionLevel: boolean = false;
+  @property({ type: Boolean, reflect: true }) global: boolean = false;
 
   @property({ type: String, reflect: true }) label: string = '';
 
@@ -70,7 +69,9 @@ export default class SuggestWrapper extends LitElement {
     return html`
       <slot></slot>
       <div class="suggestions">
-        ${this.suggestions.length > 0 ? html`<span class="label">${this.label}</span>` : null}
+        ${this.suggestions.length > 0
+          ? html`<span class="label">${this.label}</span>`
+          : null}
         <div class="suggest-buttons">
           ${this.suggestions.map(
             suggestion => html`
