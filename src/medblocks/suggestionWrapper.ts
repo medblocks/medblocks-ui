@@ -9,6 +9,12 @@ export interface Suggestion {
   op: 'replace' | 'add' | 'remove';
 }
 
+export interface SuggestEvent {
+  suggestion: Suggestion;
+  path: string;
+  compositionLevel: boolean;
+}
+
 @customElement('mb-suggest')
 export default class SuggestWrapper extends LitElement {
   /** @ignore */
@@ -24,14 +30,17 @@ export default class SuggestWrapper extends LitElement {
       cursor: pointer;
     }
   `;
-  @event('mb-suggestion') _suggestionEvent: EventEmitter<{
-    suggestion: Suggestion;
-    path: string;
-  }>;
+  @event('mb-suggestion') _suggestionEvent: EventEmitter<SuggestEvent>;
 
   _handleSuggestion(suggestion: Suggestion) {
     console.log({ suggestion });
-    this._suggestionEvent.emit({ detail: { suggestion, path: this.path } });
+    this._suggestionEvent.emit({
+      detail: {
+        suggestion,
+        path: this.path,
+        compositionLevel: this.compositionLevel,
+      },
+    });
     this.suggestions = this.suggestions.filter(s => s.id !== suggestion.id);
   }
 
@@ -39,10 +48,15 @@ export default class SuggestWrapper extends LitElement {
 
   @property({ type: Array }) suggestions: Suggestion[] = [];
 
+  @property({ type: Boolean, reflect: true }) compositionLevel: boolean = false;
+
+  @property({ type: String, reflect: true }) label: string = '';
+
   render() {
     return html`
       <slot></slot>
       <div class="suggestions">
+        ${this.suggestions.length > 0 ? html`<span>${this.label}</span>` : null}
         ${this.suggestions.map(
           suggestion => html`
             <sl-button

@@ -14,7 +14,7 @@ import { AxiosInstance } from 'axios';
 import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
 import { MbPlugin } from './plugins/plugins';
 import MbSubmit from '../submit/submit';
-import SuggestWrapper, { Suggestion } from '../suggestionWrapper';
+import SuggestWrapper, { SuggestEvent, Suggestion } from '../suggestionWrapper';
 import Repeatable from '../repeat/Repeatable';
 import MbHide from '../hide';
 
@@ -221,7 +221,6 @@ export default class MedblockForm extends LitElement {
         .map(match => match?.[2])
         .filter(match => match)
         .map(str => str && parseInt(str)) as number[];
-      console.log({ matches });
       const count = Math.max(...matches) + 1;
       el.count = count;
     });
@@ -239,11 +238,11 @@ export default class MedblockForm extends LitElement {
       path => !mbElementPaths.includes(path)
     );
     if (inDataButNotElements.length > 0) {
-      console.warn(
-        `These paths are not present in the current form, but were set: ${inDataButNotElements.join(
-          ', '
-        )}.\nTry the "parse" method before setting the data on the form. Storing this for later use if the path becomes available later.`
-      );
+      // console.warn(
+      //   `These paths are not present in the current form, but were set: ${inDataButNotElements.join(
+      //     ', '
+      //   )}.\nTry the "parse" method before setting the data on the form. Storing this for later use if the path becomes available later.`
+      // );
       const object = Object.fromEntries(
         inDataButNotElements.map(key => [key, data[key]])
       );
@@ -361,27 +360,50 @@ export default class MedblockForm extends LitElement {
         el.show = false;
       }
     });
+
+    // Handle composition level suggestions
+    const compositionLevelSuggest = this.querySelectorAll('mb-suggest[path]');
+    console.log({ compositionLevelSuggest });
+    compositionLevelSuggest.forEach((el: SuggestWrapper) => {
+      const suggestion = data[el.path];
+      console.log({ el, suggestion });
+      if (suggestion) {
+        el.suggestions = suggestion;
+        el.compositionLevel = true;
+      }
+    });
   }
 
-  handleSuggestion(e: CustomEvent<{ suggestion: Suggestion; path: string }>) {
-    const { suggestion, path } = e.detail;
+  handleSuggestion(e: CustomEvent<SuggestEvent>) {
+    const { suggestion, path, compositionLevel } = e.detail;
+
+    if (compositionLevel) {
+      this.import(suggestion.data);
+
+      // If changing to internal data format instead of FLAT
+      // this.data = suggestion.data
+      return;
+    }
+
     console.log('Handling suggestion', path, suggestion);
     const element = this.mbElements[path];
-    const oldData = element.data;
-    if (suggestion.op === 'replace') {
-      element.data = suggestion.data;
-    } else if (suggestion.op === 'add') {
-      if (Array.isArray(element.data)) {
-        element.data = [...oldData, suggestion.data];
-      } else if (element.data == null) {
-        element.data = [suggestion.data];
+    if (element) {
+      const oldData = element.data;
+      if (suggestion.op === 'replace') {
+        element.data = suggestion.data;
+      } else if (suggestion.op === 'add') {
+        if (Array.isArray(element.data)) {
+          element.data = [...oldData, suggestion.data];
+        } else if (element.data == null) {
+          element.data = [suggestion.data];
+        } else {
+          // replace if it's not array
+          element.data = suggestion.data;
+        }
       } else {
-        // replace if it's not array
+        // default to replace
         element.data = suggestion.data;
       }
-    } else {
-      // default to replace
-      element.data = suggestion.data;
     }
   }
 
