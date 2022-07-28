@@ -23,7 +23,7 @@ export default class SuggestWrapper extends LitElement {
       display: block;
       flex-wrap: wrap;
       gap: var(--sl-spacing-xx-small);
-      margin-top: var(--sl-spacing-x-small);
+      margin-top: var(--sl-spacing-xx-small);
     }
 
     .label {
@@ -36,7 +36,7 @@ export default class SuggestWrapper extends LitElement {
       display: flex;
       flex-wrap: wrap;
       gap: var(--sl-spacing-xx-small);
-      margin-top: var(--sl-spacing-x-small);
+      margin-top: var(--sl-spacing-xx-small);
     }
 
 
@@ -58,7 +58,7 @@ export default class SuggestWrapper extends LitElement {
     this.suggestions = this.suggestions.filter(s => s.id !== suggestion.id);
   }
 
-  @property({ type: String }) path: string;
+  @property({ type: String ,reflect:true}) path: string;
 
   @property({ type: Array }) suggestions: Suggestion[] = [];
 
@@ -78,7 +78,6 @@ export default class SuggestWrapper extends LitElement {
                 @click=${() => this._handleSuggestion(suggestion)}
                 size="small"
                 pill
-                type=${this.compositionLevel ? 'neutral' : 'default'}
                 removable
                 >${suggestion.label}</sl-button
               >
