@@ -20,11 +20,25 @@ export default class SuggestWrapper extends LitElement {
   /** @ignore */
   static styles = css`
     .suggestions {
+      display: block;
+      flex-wrap: wrap;
+      gap: var(--sl-spacing-xx-small);
+      margin-top: var(--sl-spacing-x-small);
+    }
+
+    .label {
+      font-weight: var(--sl-font-weight-light);
+      font-size: var(--sl-input-help-text-font-size-medium);
+      color: rgb(var(--sl-input-help-text-color));
+    }
+
+    .suggest-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: var(--sl-spacing-xx-small);
       margin-top: var(--sl-spacing-x-small);
     }
+
 
     sl-tag {
       cursor: pointer;
@@ -33,7 +47,7 @@ export default class SuggestWrapper extends LitElement {
   @event('mb-suggestion') _suggestionEvent: EventEmitter<SuggestEvent>;
 
   _handleSuggestion(suggestion: Suggestion) {
-    console.log({ suggestion });
+    // console.log({ suggestion });
     this._suggestionEvent.emit({
       detail: {
         suggestion,
@@ -56,18 +70,21 @@ export default class SuggestWrapper extends LitElement {
     return html`
       <slot></slot>
       <div class="suggestions">
-        ${this.suggestions.length > 0 ? html`<span>${this.label}</span>` : null}
-        ${this.suggestions.map(
-          suggestion => html`
-            <sl-button
-              @click=${() => this._handleSuggestion(suggestion)}
-              size="small"
-              pill
-              removable
-              >${suggestion.label}</sl-button
-            >
-          `
-        )}
+        ${this.suggestions.length > 0 ? html`<span class="label">${this.label}</span>` : null}
+        <div class="suggest-buttons">
+          ${this.suggestions.map(
+            suggestion => html`
+              <sl-button
+                @click=${() => this._handleSuggestion(suggestion)}
+                size="small"
+                pill
+                type=${this.compositionLevel ? 'neutral' : 'default'}
+                removable
+                >${suggestion.label}</sl-button
+              >
+            `
+          )}
+        </div>
       </div>
     `;
   }

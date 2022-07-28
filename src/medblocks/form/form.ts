@@ -14,7 +14,7 @@ import { AxiosInstance } from 'axios';
 import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
 import { MbPlugin } from './plugins/plugins';
 import MbSubmit from '../submit/submit';
-import SuggestWrapper, { SuggestEvent, Suggestion } from '../suggestionWrapper';
+import SuggestWrapper, { SuggestEvent } from '../suggestionWrapper';
 import Repeatable from '../repeat/Repeatable';
 import MbHide from '../hide';
 
@@ -352,7 +352,7 @@ export default class MedblockForm extends LitElement {
 
     // Handle mb-hide elements
     const hideElements = this.querySelectorAll('mb-hide');
-    console.log({ hideElements });
+    // console.log({ hideElements });
     hideElements.forEach((el: MbHide) => {
       if (data[el.path]) {
         el.show = true;
@@ -363,10 +363,10 @@ export default class MedblockForm extends LitElement {
 
     // Handle composition level suggestions
     const compositionLevelSuggest = this.querySelectorAll('mb-suggest[path]');
-    console.log({ compositionLevelSuggest });
+    // console.log({ compositionLevelSuggest });
     compositionLevelSuggest.forEach((el: SuggestWrapper) => {
       const suggestion = data[el.path];
-      console.log({ el, suggestion });
+      // console.log({ el, suggestion });
       if (suggestion) {
         el.suggestions = suggestion;
         el.compositionLevel = true;
@@ -385,7 +385,7 @@ export default class MedblockForm extends LitElement {
       return;
     }
 
-    console.log('Handling suggestion', path, suggestion);
+    // console.log('Handling suggestion', path, suggestion);
     const element = this.mbElements[path];
     if (element) {
       const oldData = element.data;
