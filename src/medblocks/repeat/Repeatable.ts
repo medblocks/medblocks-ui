@@ -4,7 +4,7 @@ import { event, EventEmitter, watch } from '../../internal/decorators';
 export default class Repeatable extends LitElement {
   isRepeatable: boolean = true;
 
-  @property()
+  @property({type:Number,reflect:true})
   count: number = 0;
 
   @property({ type: String, reflect: true })
