@@ -50,7 +50,7 @@
     <mb-form id="form1" style="display: flex; gap:15px; flex-direction: column" templateid="testing_template.v0">
       <div style="display: flex; gap:15px; flex-direction: column">
         <p>DV_TEXT</p>
-        <mb-input label="Diagnosis (mb-input)"></mb-input>
+        <mb-input path="diagnosis" label="Diagnosis (mb-input)"></mb-input>
         <mb-input textarea label="History of Presenting Illness (mb-input textarea)"></mb-input>
         <mb-text-select label="Triage Status (mb-input-select)">
           <mb-option value="red" label="Red"></mb-option>
@@ -129,7 +129,7 @@
       </div>
     </mb-form>
     <hr>
-    <mb-form style="display: flex; gap:15px; flex-direction: column" id="form2">
+    <mb-form style="display: flex; gap:15px; flex-direction: column" id="form2" templateId="hello.v0">
       <p>SUGGESTION (Type to see)</p>
       <mb-suggest label="Common Symptoms">
         <mb-input path="chief_complaints" label="Chief complaints"></mb-input>

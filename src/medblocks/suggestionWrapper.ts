@@ -3,7 +3,6 @@ import '@shoelace-style/shoelace/dist/components/tag/tag';
 import { event, EventEmitter } from '../internal/decorators';
 
 export interface Suggestion {
-  id: string | number;
   data: any;
   label: string;
   op: 'replace' | 'add' | 'remove';
@@ -54,7 +53,6 @@ export default class SuggestWrapper extends LitElement {
         global: this.global,
       },
     });
-    this.suggestions = this.suggestions.filter(s => s.id !== suggestion.id);
   }
 
   @property({ type: String, reflect: true }) path: string;

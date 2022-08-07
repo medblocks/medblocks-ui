@@ -260,17 +260,15 @@ export default class MedblockForm extends LitElement {
     e.stopPropagation();
     // If loaded in iframe, send suggestions out.
     if (window.top && !this.nosuggest) {
-      window.top.postMessage(
-        {
-          type: 'mb-input',
-          data: {
-            composition: this.data,
-            templateId: this.templateId,
-            format: 'MB-FLAT',
-          },
+      const message = {
+        type: 'mb-input',
+        data: {
+          composition: this.data,
+          templateId: this.templateId,
+          format: 'MB-FLAT',
         },
-        this.suggestDomain
-      );
+      };
+      window.top.postMessage(message, this.suggestDomain);
     }
     this.input.emit();
   }
