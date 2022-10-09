@@ -17,6 +17,10 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       let form = document.getElementById('form1')
+      let input = document.getElementById('input1')
+      input.addEventListener('mb-input', (e) => {
+        console.log(e.target.data)
+      })
       form.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1'})
       form.addEventListener('mb-submit', function (e) {
         e.preventDefault()
@@ -25,6 +29,7 @@
       let form2 = document.getElementById('form2')
       form2.addEventListener('mb-input', (e) => {
         const data = e.target.data
+        console.log(data)
         if (data["chief_complaints"] === "fever")
           form2.addSuggestion({
             "other_symptoms": [{ data: "Body ache", label: "Body ache", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Sore Throat", id: 2, op: 'add' }],
@@ -50,7 +55,7 @@
     <mb-form id="form1" style="display: flex; gap:15px; flex-direction: column" templateid="testing_template.v0">
       <div style="display: flex; gap:15px; flex-direction: column">
         <p>DV_TEXT</p>
-        <mb-input path="diagnosis" label="Diagnosis (mb-input)"></mb-input>
+        <mb-input path="diagnosis" label="Diagnosis (mb-input)" id="input1"></mb-input>
         <mb-input textarea label="History of Presenting Illness (mb-input textarea)"></mb-input>
         <mb-text-select label="Triage Status (mb-input-select)">
           <mb-option value="red" label="Red"></mb-option>
@@ -159,9 +164,9 @@
           <mb-input-multiple label="Text" path="other_symptoms_hidden">
           </mb-input-multiple>
         </mb-suggest>
-        
+
       </mb-hide>
-      
+
     </mb-form>
   </div>
   <div>
