@@ -46,12 +46,10 @@ describe('mb-suggest', () => {
     expect(buttons[1].textContent).to.equal('Cold');
 
     buttons[0].click();
-    const event: any = await oneEvent(input, 'mb-input');
-    expect(event.target.data).to.equal('Body ache');
+    expect(input.data).to.equal('Body ache');
 
     buttons[1].click();
-    const event2: any = await oneEvent(input, 'mb-input');
-    expect(event2.target.data).to.equal('Cold');
+    expect(input.data).to.equal('Cold');
   });
 
   it('archetype level suggestion binding with add operation in simple mb-input', async () => {
@@ -78,8 +76,6 @@ describe('mb-suggest', () => {
     const input = querySelectorDeep('mb-input') as MbInput;
     const buttons = querySelectorAllDeep('sl-button');
 
-
-
     expect(suggest.suggestions).to.have.length(2);
     expect(suggest.suggestions).to.eql([
       { data: 'Body ache', label: 'Body ache', id: 1, op: 'add' },
@@ -91,15 +87,10 @@ describe('mb-suggest', () => {
     expect(buttons[1].textContent).to.equal('Cold');
 
     buttons[0].click();
-    const event: any = await oneEvent(input, 'mb-input');
-    console.log(event.target.data)
-    // expect(event.target.data).to.equal('Body ache');
+    expect(input.data).to.eql(['Body ache']);
 
-    buttons[1].click();
-    const event2: any = await oneEvent(input, 'mb-input');
-    console.log(event2.target.data)
-    // expect(event2.target.data).to.equal('Cold');
-
+      buttons[1].click();
+    expect(input.data).to.eql(['Body ache','Cold']);
   });
   it('archetype level suggestion binding with add operation', async () => {
     const form = await fixture<MbForm>(
@@ -135,14 +126,10 @@ describe('mb-suggest', () => {
     expect(buttons).to.have.length(2);
     expect(buttons[0].textContent).to.equal('Body ache');
     expect(buttons[1].textContent).to.equal('Cold');
-
     buttons[0].click();
-    const event: any = await oneEvent(input, 'mb-input');
-    expect(event.target.data).to.eql(['Body ache']);
-
+    expect(input.data).to.eql(['Body ache']);
     buttons[1].click();
-    const event2: any = await oneEvent(input, 'mb-input');
-    expect(event2.target.data).to.eql(['Body ache', 'Cold']);
+    expect(input.data).to.eql(['Body ache', 'Cold']);
   });
 
   it('global suggestion binding to the form', async () => {
@@ -201,7 +188,7 @@ describe('mb-suggest', () => {
       {
         data: {
           chief_complaints: ['Body ache'],
-          "symptoms_and_signs": ["Cold", "Fever"]
+          symptoms_and_signs: ['Cold', 'Fever'],
         },
         label: 'Change composition',
         id: 2,
@@ -213,16 +200,11 @@ describe('mb-suggest', () => {
     expect(buttons[1].textContent).to.equal('Cold');
 
     buttons[0].click();
-    const event: any = await oneEvent(input, 'mb-input');
-    expect(event.target.data).to.eql(['Body ache']);
-
+    expect(input.data).to.eql(['Body ache']);
     buttons[1].click();
-    const event2: any = await oneEvent(input, 'mb-input');
-    expect(event2.target.data).to.eql(['Body ache', 'Cold']);
-
+    expect(input.data).to.eql(['Body ache', 'Cold']);
     buttons[2].click();
-    const event3: any = await oneEvent(form, 'mb-input');
-    expect(event3.target.data).to.eql({
+    expect(form.data).to.eql({
       chief_complaints: ['Body ache'],
       symptoms_and_signs: ['Cold', 'Fever'],
     });

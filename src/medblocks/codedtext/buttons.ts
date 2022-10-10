@@ -70,6 +70,7 @@ export default class CodedTextButtons extends CodedTextElement {
     if(option.type){
       console.log(option.type)
     }
+    this._mbInput.emit();
   }
 
   render() {

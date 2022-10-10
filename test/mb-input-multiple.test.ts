@@ -20,23 +20,27 @@ describe('MbInputMultiple', async () => {
       html`<mb-input-multiple> </mb-input-multiple>`
     );
     let input = querySelectorDeep('input') as SlInput;
-    input.value = 'testUnit1';
-    input.dispatchEvent(new Event('input'));
-    mbinputmultiple.dispatchEvent(
-      new KeyboardEvent('keypress', {
-        key: 'Enter',
-      })
-    );
+    setTimeout(() => {
+      input.value = 'testUnit1';
+      input.dispatchEvent(new Event('input'));
+      mbinputmultiple.dispatchEvent(
+        new KeyboardEvent('keypress', {
+          key: 'Enter',
+        })
+      );
+    });
     await oneEvent(mbinputmultiple, 'mb-input');
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1']);
-    input.value = 'testUnit2';
-    input.dispatchEvent(new Event('input'));
-    mbinputmultiple.dispatchEvent(
-      new KeyboardEvent('keypress', {
-        key: 'Enter',
-      })
-    );
+    setTimeout(() => {
+      input.value = 'testUnit2';
+      input.dispatchEvent(new Event('input'));
+      mbinputmultiple.dispatchEvent(
+        new KeyboardEvent('keypress', {
+          key: 'Enter',
+        })
+      );
+    });
     await oneEvent(mbinputmultiple, 'mb-input');
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1', 'testUnit2']);
@@ -48,7 +52,6 @@ describe('MbInputMultiple', async () => {
     );
     let input = querySelectorDeep('input') as HTMLInputElement;
     mbinputmultiple.data = ['testUnit', 'testUnit1'];
-    await oneEvent(mbinputmultiple, 'mb-input');
     await elementUpdated(mbinputmultiple);
     let tag = querySelectorAllDeep('sl-tag') as SlTag[];
     expect(input.value).to.eql('');
@@ -70,26 +73,30 @@ describe('MbInputMultiple', async () => {
       `
     );
     let input = querySelectorDeep('input') as SlInput;
-    input.value = 'testUnit1';
-    input.dispatchEvent(new Event('input'));
     const mbinputmultiple = querySelectorDeep(
       'mb-input-multiple'
     ) as MbInputMultiple;
-    mbinputmultiple.dispatchEvent(
-      new KeyboardEvent('keypress', {
-        key: 'Enter',
-      })
-    );
+    setTimeout(() => {
+      input.value = 'testUnit1';
+      input.dispatchEvent(new Event('input'));
+      mbinputmultiple.dispatchEvent(
+        new KeyboardEvent('keypress', {
+          key: 'Enter',
+        })
+      );
+    });
     await oneEvent(mbinputmultiple, 'mb-input');
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1']);
-    input.value = 'testUnit2';
-    input.dispatchEvent(new Event('input'));
-    mbinputmultiple.dispatchEvent(
-      new KeyboardEvent('keypress', {
-        key: 'Enter',
-      })
-    );
+    setTimeout(() => {
+      input.value = 'testUnit2';
+      input.dispatchEvent(new Event('input'));
+      mbinputmultiple.dispatchEvent(
+        new KeyboardEvent('keypress', {
+          key: 'Enter',
+        })
+      );
+    });
     await oneEvent(mbinputmultiple, 'mb-input');
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1', 'testUnit2']);
@@ -115,26 +122,30 @@ describe('MbInputMultiple', async () => {
       `
     );
     let input = querySelectorDeep('input') as SlInput;
-    input.value = 'testUnit1';
-    input.dispatchEvent(new Event('input'));
     const mbinputmultiple = querySelectorDeep(
       'mb-input-multiple'
     ) as MbInputMultiple;
-    mbinputmultiple.dispatchEvent(
-      new KeyboardEvent('keypress', {
-        key: 'Enter',
-      })
-    );
+    setTimeout(() => {
+      input.value = 'testUnit1';
+      input.dispatchEvent(new Event('input'));
+      mbinputmultiple.dispatchEvent(
+        new KeyboardEvent('keypress', {
+          key: 'Enter',
+        })
+      );
+    });
     await oneEvent(mbinputmultiple, 'mb-input');
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1']);
-    input.value = 'testUnit2';
-    input.dispatchEvent(new Event('input'));
-    mbinputmultiple.dispatchEvent(
-      new KeyboardEvent('keypress', {
-        key: 'Enter',
-      })
-    );
+    setTimeout(() => {
+      input.value = 'testUnit2';
+      input.dispatchEvent(new Event('input'));
+      mbinputmultiple.dispatchEvent(
+        new KeyboardEvent('keypress', {
+          key: 'Enter',
+        })
+      );
+    });
     await oneEvent(mbinputmultiple, 'mb-input');
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1', 'testUnit2']);
@@ -165,18 +176,17 @@ describe('MbInputMultiple', async () => {
       'mbselect:1/multiple': 'testUnit2',
     });
     await elementUpdated(form);
-    const inputMultiple = querySelectorDeep('mb-input-multiple') as MbInputMultiple
-    expect(inputMultiple.data).to.eql(["testUnit1", "testUnit2"])
+    const inputMultiple = querySelectorDeep(
+      'mb-input-multiple'
+    ) as MbInputMultiple;
+    expect(inputMultiple.data).to.eql(['testUnit1', 'testUnit2']);
   });
 
   it('on multiple select without prefix and suffix , binds data correctly', async () => {
     const form = await fixture<MedblockForm>(
       html`
         <mb-form>
-          <mb-input-multiple
-            path="mbselect:0/multiple"
-            label="Hello there"
-          >
+          <mb-input-multiple path="mbselect:0/multiple" label="Hello there">
           </mb-input-multiple>
         </mb-form>
       `
@@ -186,7 +196,9 @@ describe('MbInputMultiple', async () => {
       'mbselect:0/multiple:1': 'testUnit2',
     });
     await elementUpdated(form);
-    const inputMultiple = querySelectorDeep('mb-input-multiple') as MbInputMultiple
-    expect(inputMultiple.data).to.eql(["testUnit1", "testUnit2"])
+    const inputMultiple = querySelectorDeep(
+      'mb-input-multiple'
+    ) as MbInputMultiple;
+    expect(inputMultiple.data).to.eql(['testUnit1', 'testUnit2']);
   });
 });

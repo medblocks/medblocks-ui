@@ -69,6 +69,7 @@ export default class CodedTextButtons extends CodedTextElement {
     }
     this.value = data;
     this.addValue();
+    this._mbInput.emit()
   }
 
   valueExists(code: string) {

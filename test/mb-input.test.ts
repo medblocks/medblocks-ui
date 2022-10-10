@@ -17,18 +17,23 @@ describe('MbInput', () => {
     mbinput = await fixture<MbInput>(
       html`<mb-input label="Hello there"></mb-input>`
     );
-    input = querySelectorDeep('input') as HTMLInputElement
+    input = querySelectorDeep('input') as HTMLInputElement;
   });
   it('emits data on input', async () => {
-    input.value = 'Test input';
-    input.dispatchEvent(new Event('input'));
+    setTimeout(() => {
+      input.value = 'Test input';
+      input.dispatchEvent(new Event('input'));
+    }, 0);
     const event: any = await oneEvent(mbinput, 'mb-input');
     expect(event.target.data).to.eq('Test input');
   });
 
   it('changes input on setting data', async () => {
-    mbinput.data = 'To be changed';
-    await oneEvent(mbinput, 'mb-input')
+    setTimeout(() => {
+      input.dispatchEvent(new Event('input'));
+      mbinput.data = 'To be changed';
+    }, 0);
+    await oneEvent(mbinput, 'mb-input');
     await elementUpdated(mbinput);
     expect(input.value).to.eq('To be changed');
   });

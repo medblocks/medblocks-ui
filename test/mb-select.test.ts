@@ -79,8 +79,10 @@ describe('MbSelect', () => {
       `
     );
     const select = querySelectorDeep('sl-select') as SlSelect;
-    select.value = ['testUnit', 'testUnit2'];
-    select.dispatchEvent(new CustomEvent('sl-change'));
+    setTimeout(() => {
+      select.value = ['testUnit', 'testUnit2'];
+      select.dispatchEvent(new CustomEvent('sl-change'));
+    });
     const event: any = await oneEvent(mbselect, 'mb-input');
 
     expect(event.target.data).to.eql([
@@ -124,7 +126,6 @@ describe('MbSelect', () => {
         terminology: 'SOME-TERMINOLOGY',
       },
     ];
-    await oneEvent(mbselect, 'mb-input');
     await elementUpdated(mbselect);
     expect(select.value).to.eql(['testUnit', 'testUnit2']);
   });
@@ -148,8 +149,10 @@ describe('MbSelect', () => {
       `
     );
     const select = querySelectorDeep('sl-select') as SlSelect;
-    select.value = ['testUnit', 'testUnit2'];
-    select.dispatchEvent(new CustomEvent('sl-change'));
+    setTimeout(() => {
+      select.value = ['testUnit', 'testUnit2'];
+      select.dispatchEvent(new CustomEvent('sl-change'));
+    });
     await oneEvent(form, 'mb-input');
     setTimeout(() => form.handleSubmit(), 0);
     let data = await oneEvent(form, 'mb-submit');
@@ -180,8 +183,10 @@ describe('MbSelect', () => {
       `
     );
     const select = querySelectorDeep('sl-select') as SlSelect;
-    select.value = ['testUnit', 'testUnit2'];
-    select.dispatchEvent(new CustomEvent('sl-change'));
+    setTimeout(() => {
+      select.value = ['testUnit', 'testUnit2'];
+      select.dispatchEvent(new CustomEvent('sl-change'));
+    });
     await oneEvent(form, 'mb-input');
     setTimeout(() => form.handleSubmit(), 0);
     let data = await oneEvent(form, 'mb-submit');

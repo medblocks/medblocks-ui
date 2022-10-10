@@ -20,8 +20,6 @@ describe('Form e2e', () => {
       `
     );
     form.data = { 'test/1': 'Hello there' };
-    const e: any = await oneEvent(form, 'mb-input');
-    expect(e.target.data).to.eql({ 'test/1': 'Hello there' });
     await elementUpdated(form);
     const input = querySelectorDeep('input') as HTMLInputElement;
     expect(input.value).to.eq('Hello there');
@@ -297,7 +295,7 @@ describe('Form e2e', () => {
       <mb-context path="ncd/territory"></mb-context>
       <mb-context path="ncd/composer"></mb-context>
       <mb-context path="ncd/context/_health_care_facility"></mb-context>
-     
+
       </mb-form>
       `);
     form.import({
