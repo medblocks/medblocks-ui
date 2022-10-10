@@ -34,7 +34,7 @@ export default class MbDuration extends EhrElement {
       .label {
         display: none;
       }
-      .duration{
+      .duration {
         display: none;
       }
     }
@@ -49,6 +49,7 @@ export default class MbDuration extends EhrElement {
   @property({ type: Boolean, reflect: true }) second: boolean = false;
   @property({ type: Boolean, reflect: true }) required: boolean = false;
   @property({ type: Boolean, reflect: true }) disabled: boolean;
+  @property({ type: Boolean, reflect: true }) hidelabel: boolean = false;
 
   @state() _state: { [period: string]: string | undefined } = {};
 
@@ -111,7 +112,6 @@ export default class MbDuration extends EhrElement {
     this._mbInput.emit();
   }
 
-
   formatDuration(value: string): string {
     return value.charAt(0).toUpperCase() + value.slice(1) + 's';
   }
@@ -146,7 +146,7 @@ export default class MbDuration extends EhrElement {
         id=${a}
         type="number"
         ?required=${this.required}
-        help-text=${this.formatDuration(a)}
+        help-text=${this.hidelabel ? '' : this.formatDuration(a)}
         .value=${this._state[a] || ''}
         @sl-input=${(e: CustomEvent) => this.handleInput(a, e)}
       ></sl-input>`
