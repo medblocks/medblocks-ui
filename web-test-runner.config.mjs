@@ -19,9 +19,13 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   // concurrency: 1,
 
   /** Browsers to run tests on */
-  browsers: [
-    chromeLauncher({ launchOptions: { args: ['--no-sandbox'] } })
-  ],
+  browsers:
+    [chromeLauncher({
+       launchOptions: {
+        args: ['--no-sandbox'],
+        executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
+      }
+    })],
 
   // See documentation for all available options
 });

@@ -1,5 +1,5 @@
 import { expect } from '@open-wc/testing';
-import { elementUpdated, fixture, oneEvent } from '@open-wc/testing-helpers';
+import { elementUpdated, fixture } from '@open-wc/testing-helpers';
 import { html } from 'lit-html';
 import {
   querySelectorAllDeep,
