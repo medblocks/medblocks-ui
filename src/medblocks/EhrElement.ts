@@ -66,8 +66,8 @@ export default abstract class EhrElement extends LitElement {
   //   super.disconnectedCallback();
   // }
 
-  @watch('data')
-  _handleDataChange() {
-    this._mbInput.emit();
-  }
+  // @watch('data')
+  // _handleDataChange() {
+  //   this._mbInput.emit();
+  // }
 }
