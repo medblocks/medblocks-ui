@@ -65,6 +65,8 @@ export default class MedblockForm extends LitElement {
 
   @state() repeatables: { [path: string]: Repeatable } = {};
 
+  @state() updates: Function[] = [];
+
   /** Runs validation on all the elements. Returns validation message. */
   validate(): boolean {
     if (this.novalidate) {
@@ -283,16 +285,18 @@ export default class MedblockForm extends LitElement {
   }
 
   handleChildConnect(e: CustomEvent) {
-    const path = e.detail;
-    this.mbElements[path] = this.getTarget(e) as EhrElement;
-    // Check if data is present in deferred data
-    if (this.deferredData[path] != null) {
-      console.log('deferred data present!!');
-      const { [path]: data, ...excluded } = this.deferredData;
-      this.mbElements[path].data = data;
-      this.deferredData = excluded;
-    }
-    this.input.emit();
+    const todo = () => {
+      const path = e.detail;
+      this.mbElements[path] = this.getTarget(e) as EhrElement;
+      // Check if data is present in deferred data
+      if (this.deferredData[path] != null) {
+        console.log('deferred data present!!');
+        const { [path]: data, ...excluded } = this.deferredData;
+        this.mbElements[path].data = data;
+        this.deferredData = excluded;
+      }
+    };
+    this.updates.push(todo);
   }
 
   handleRepeatableConnect(e: CustomEvent) {
@@ -307,21 +311,27 @@ export default class MedblockForm extends LitElement {
   handleChildDisconnect(e: CustomEvent) {
     const path = e.detail;
     const { [path]: _, ...cleaned } = this.mbElements;
+    console.log('disconnected', path, { cleaned });
     this.mbElements = cleaned;
     this.mbElements = this.mbElements;
     this.input.emit();
   }
 
   handleChildPathChange(e: CustomEvent<{ oldPath: string; newPath: string }>) {
-    const detail = e.detail;
-    const element = this.mbElements[detail.oldPath];
-    this.removeMbElement(detail.oldPath);
-    this.mbElements[detail.newPath] = element;
-    this.input.emit();
+    const todo = () => {
+      const detail = e.detail;
+      const element = this.mbElements[detail.oldPath];
+      console.log('element from old Path', detail.oldPath, { element });
+      this.removeMbElement(detail.oldPath);
+      this.mbElements[detail.newPath] = element;
+      console.log('element with new Path', detail.newPath, { element });
+    };
+    this.updates.push(todo);
   }
 
   removeMbElement(path: string) {
     const { [path]: _, ...rest } = this.mbElements;
+    console.log('removing old path', path, { rest });
     this.mbElements = rest;
   }
 
@@ -417,28 +427,39 @@ export default class MedblockForm extends LitElement {
 
   @state() observer: MutationObserver;
 
+  @state() intervalId : NodeJS.Timeout;
+
+  handleTodos() {
+    this.input.emit();
+    this.updates.forEach(todo => todo.bind(this));
+    this.updates = [];
+  }
+
   async connectedCallback() {
     super.connectedCallback();
     this.observer = new MutationObserver((mutationList, _) => {
-      const { ehrElementsRemoved, repeatablesRemoved } =
-        getDeletedPaths(mutationList);
-      ehrElementsRemoved.forEach(path => {
-        const { [path]: _, ...rest } = this.mbElements;
-        this.mbElements = rest;
-      });
-      repeatablesRemoved.forEach(path => {
-        const { [path]: _, ...rest } = this.repeatables;
-        this.repeatables = rest;
-      });
+      const deletedPaths = getDeletedPaths(mutationList);
+      console.log({ deletedPaths });
+      const { ehrElementsRemoved, repeatablesRemoved } = deletedPaths;
       if (repeatablesRemoved.length + ehrElementsRemoved.length > 0) {
-        this.input.emit();
+        const todo = () => {
+          ehrElementsRemoved.forEach(path => {
+            const { [path]: _, ...rest } = this.mbElements;
+            this.mbElements = rest;
+          });
+          repeatablesRemoved.forEach(path => {
+            const { [path]: _, ...rest } = this.repeatables;
+            this.repeatables = rest;
+          });
+        };
+        this.updates.unshift(todo);
       }
     });
 
     this.observer.observe(this, {
       childList: true,
       subtree: true,
-      attributes: false,
+      attributes: true,
     });
 
     this.addEventListener('mb-connect', this.handleChildConnect);
@@ -454,6 +475,7 @@ export default class MedblockForm extends LitElement {
     if (window.top && !this.nosuggest) {
       window.addEventListener('message', this.handleParentMessage);
     }
+    this.intervalId = setInterval(this.handleTodos.bind(this),0);
     this.load.emit();
   }
 
@@ -472,9 +494,11 @@ export default class MedblockForm extends LitElement {
       window.removeEventListener('message', this.handleParentMessage);
     }
     this.observer.disconnect();
+    clearInterval(this.intervalId);
   }
 
   render() {
+
     return html`<slot
       @slotchange=${this.handleSlotChange}
       @mb-input=${this.handleInput}

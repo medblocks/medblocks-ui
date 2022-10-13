@@ -50,11 +50,13 @@ export default abstract class EhrElement extends LitElement {
 
   @watch('path')
   handlePathChange(oldPath: string, newPath: string) {
+    console.log({oldPath, newPath})
     this._pathChangeHandler.emit({ detail: { oldPath, newPath } });
   }
 
   connectedCallback() {
     super.connectedCallback();
+    console.log("connectedCallback", this.path)
     this._mbConnect.emit({ detail: this.path });
     this._mbInput.emit();
   }
