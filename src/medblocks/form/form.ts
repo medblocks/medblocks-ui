@@ -318,9 +318,6 @@ export default class MedblockForm extends LitElement {
   // Does not work except for mb-repeat due to https://github.com/WICG/webcomponents/issues/678, https://github.com/whatwg/dom/issues/533
   // Handled using Mutation Observer.
   handleChildDisconnect(e: CustomEvent) {
-    const path = e.detail;
-    const { [path]: _, ...cleaned } = this.mbElements;
-    console.log('disconnected', path, { cleaned });
     this.mbElementSet.delete(e.detail.target);
     this.input.emit();
   }
