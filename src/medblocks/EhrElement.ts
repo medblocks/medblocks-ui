@@ -1,5 +1,6 @@
 import { LitElement, property } from 'lit-element';
 import { event, EventEmitter, watch } from '../internal/decorators';
+import MedblockForm from './form/form';
 
 /**This is an abstract base class to extend other elements from
  * @fires mb-input - Dispatched when the input changes
@@ -16,6 +17,7 @@ export default abstract class EhrElement extends LitElement {
   @property({ type: String, reflect: true }) repeatsuffix?: string;
   @property({ type: String, reflect: true }) repeatprefix?: string;
 
+  mbForm: MedblockForm;
   /**Data of the element. Setting this will emit an input event automatically. */
   abstract data: any;
 
@@ -45,28 +47,30 @@ export default abstract class EhrElement extends LitElement {
 
   // Does not work due to https://github.com/WICG/webcomponents/issues/678, https://github.com/whatwg/dom/issues/533
   // Using MutationObserver in mb-form for now.
-  // @event('mb-disconnect')
-  // _mbDisconnect: EventEmitter<string>;
+  @event('mb-disconnect')
+  _mbDisconnect: EventEmitter<string>;
 
   @watch('path')
   handlePathChange(oldPath: string, newPath: string) {
-    console.log({oldPath, newPath})
+    console.log({ oldPath, newPath });
     this._pathChangeHandler.emit({ detail: { oldPath, newPath } });
   }
 
   connectedCallback() {
     super.connectedCallback();
-    console.log("connectedCallback", this.path)
+    console.log('connectedCallback', this.path);
     this._mbConnect.emit({ detail: this.path });
     this._mbInput.emit();
   }
 
-  // disconnectedCallback(): void {
-  //   console.log('disconnecting element', this.path);
-  //   this._mbConnect.emit({ detail: this.path });
-  //   this._mbInput.emit();
-  //   super.disconnectedCallback();
-  // }
+  disconnectedCallback(): void {
+    if (this.mbForm) {
+      const { [this.path]: _, ...cleaned } = this.mbForm.mbElements;
+      this.mbForm.mbElements = cleaned;
+      this.mbForm.input.emit();
+    }
+    super.disconnectedCallback();
+  }
 
   // @watch('data')
   // _handleDataChange() {

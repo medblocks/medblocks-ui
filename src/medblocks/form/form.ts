@@ -9,7 +9,7 @@ import {
 import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 import MbContext from '../context/context';
-import { Data, getDeletedPaths } from './utils';
+import { Data } from './utils';
 import { AxiosInstance } from 'axios';
 import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
 import { MbPlugin } from './plugins/plugins';
@@ -285,18 +285,19 @@ export default class MedblockForm extends LitElement {
   }
 
   handleChildConnect(e: CustomEvent) {
-    const todo = () => {
-      const path = e.detail;
-      this.mbElements[path] = this.getTarget(e) as EhrElement;
-      // Check if data is present in deferred data
-      if (this.deferredData[path] != null) {
-        console.log('deferred data present!!');
-        const { [path]: data, ...excluded } = this.deferredData;
-        this.mbElements[path].data = data;
-        this.deferredData = excluded;
-      }
-    };
-    this.updates.push(todo);
+    const path = e.detail;
+    const element = this.getTarget(e) as EhrElement;
+    element.mbForm = this;
+    this.mbElements[path] = element;
+    // Check if data is present in deferred data
+    if (this.deferredData[path] != null) {
+      console.log('deferred data present!!');
+      const { [path]: data, ...excluded } = this.deferredData;
+      this.mbElements[path].data = data;
+      this.deferredData = excluded;
+    }
+    this.input.emit();
+    // this.updates.push(todo);
   }
 
   handleRepeatableConnect(e: CustomEvent) {
@@ -318,15 +319,14 @@ export default class MedblockForm extends LitElement {
   }
 
   handleChildPathChange(e: CustomEvent<{ oldPath: string; newPath: string }>) {
-    const todo = () => {
-      const detail = e.detail;
-      const element = this.mbElements[detail.oldPath];
-      console.log('element from old Path', detail.oldPath, { element });
-      this.removeMbElement(detail.oldPath);
-      this.mbElements[detail.newPath] = element;
-      console.log('element with new Path', detail.newPath, { element });
-    };
-    this.updates.push(todo);
+    const detail = e.detail;
+    const element = this.mbElements[detail.oldPath];
+    console.log('element from old Path', detail.oldPath, { element });
+    this.removeMbElement(detail.oldPath);
+    this.mbElements[detail.newPath] = element;
+    console.log('element with new Path', detail.newPath, { element });
+    this.input.emit();
+    // this.updates.push(todo);
   }
 
   removeMbElement(path: string) {
@@ -427,7 +427,7 @@ export default class MedblockForm extends LitElement {
 
   @state() observer: MutationObserver;
 
-  @state() intervalId : NodeJS.Timeout;
+  @state() intervalId: NodeJS.Timeout;
 
   handleTodos() {
     this.input.emit();
@@ -437,30 +437,30 @@ export default class MedblockForm extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    this.observer = new MutationObserver((mutationList, _) => {
-      const deletedPaths = getDeletedPaths(mutationList);
-      console.log({ deletedPaths });
-      const { ehrElementsRemoved, repeatablesRemoved } = deletedPaths;
-      if (repeatablesRemoved.length + ehrElementsRemoved.length > 0) {
-        const todo = () => {
-          ehrElementsRemoved.forEach(path => {
-            const { [path]: _, ...rest } = this.mbElements;
-            this.mbElements = rest;
-          });
-          repeatablesRemoved.forEach(path => {
-            const { [path]: _, ...rest } = this.repeatables;
-            this.repeatables = rest;
-          });
-        };
-        this.updates.unshift(todo);
-      }
-    });
+    // this.observer = new MutationObserver((mutationList, _) => {
+    //   const deletedPaths = getDeletedPaths(mutationList);
+    //   console.log({ deletedPaths });
+    //   const { ehrElementsRemoved, repeatablesRemoved } = deletedPaths;
+    //   if (repeatablesRemoved.length + ehrElementsRemoved.length > 0) {
+    //     const todo = () => {
+    //       ehrElementsRemoved.forEach(path => {
+    //         const { [path]: _, ...rest } = this.mbElements;
+    //         this.mbElements = rest;
+    //       });
+    //       repeatablesRemoved.forEach(path => {
+    //         const { [path]: _, ...rest } = this.repeatables;
+    //         this.repeatables = rest;
+    //       });
+    //     };
+    //     this.updates.unshift(todo);
+    //   }
+    // });
 
-    this.observer.observe(this, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-    });
+    // this.observer.observe(this, {
+    //   childList: true,
+    //   subtree: true,
+    //   attributes: true,
+    // });
 
     this.addEventListener('mb-connect', this.handleChildConnect);
     this.addEventListener(
@@ -475,7 +475,6 @@ export default class MedblockForm extends LitElement {
     if (window.top && !this.nosuggest) {
       window.addEventListener('message', this.handleParentMessage);
     }
-    this.intervalId = setInterval(this.handleTodos.bind(this),0);
     this.load.emit();
   }
 
@@ -493,12 +492,9 @@ export default class MedblockForm extends LitElement {
     if (window.top && !this.nosuggest) {
       window.removeEventListener('message', this.handleParentMessage);
     }
-    this.observer.disconnect();
-    clearInterval(this.intervalId);
   }
 
   render() {
-
     return html`<slot
       @slotchange=${this.handleSlotChange}
       @mb-input=${this.handleInput}
