@@ -65,8 +65,7 @@ export default abstract class EhrElement extends LitElement {
 
   disconnectedCallback(): void {
     if (this.mbForm) {
-      const { [this.path]: _, ...cleaned } = this.mbForm.mbElements;
-      this.mbForm.mbElements = cleaned;
+      this.mbForm.mbElementSet.delete(this);
       this.mbForm.input.emit();
     }
     super.disconnectedCallback();

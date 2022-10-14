@@ -61,7 +61,15 @@ export default class MedblockForm extends LitElement {
     true;
 
   /** The child elements are loaded  */
-  @state() mbElements: { [path: string]: EhrElement } = {};
+  @state() mbElementSet: Set<EhrElement> = new Set();
+
+  get mbElements(): { [path: string]: EhrElement } {
+    let result = {};
+    this.mbElementSet.forEach(el => {
+      result = { ...result, [el.path]: el };
+    });
+    return result;
+  }
 
   @state() repeatables: { [path: string]: Repeatable } = {};
 
@@ -288,7 +296,7 @@ export default class MedblockForm extends LitElement {
     const path = e.detail;
     const element = this.getTarget(e) as EhrElement;
     element.mbForm = this;
-    this.mbElements[path] = element;
+    this.mbElementSet.add(element);
     // Check if data is present in deferred data
     if (this.deferredData[path] != null) {
       console.log('deferred data present!!');
@@ -313,26 +321,13 @@ export default class MedblockForm extends LitElement {
     const path = e.detail;
     const { [path]: _, ...cleaned } = this.mbElements;
     console.log('disconnected', path, { cleaned });
-    this.mbElements = cleaned;
-    this.mbElements = this.mbElements;
+    this.mbElementSet.delete(e.detail.target);
     this.input.emit();
   }
 
-  handleChildPathChange(e: CustomEvent<{ oldPath: string; newPath: string }>) {
-    const detail = e.detail;
-    const element = this.mbElements[detail.oldPath];
-    console.log('element from old Path', detail.oldPath, { element });
-    this.removeMbElement(detail.oldPath);
-    this.mbElements[detail.newPath] = element;
-    console.log('element with new Path', detail.newPath, { element });
+  handleChildPathChange(_: CustomEvent<{ oldPath: string; newPath: string }>) {
     this.input.emit();
     // this.updates.push(todo);
-  }
-
-  removeMbElement(path: string) {
-    const { [path]: _, ...rest } = this.mbElements;
-    console.log('removing old path', path, { rest });
-    this.mbElements = rest;
   }
 
   handleDependency(e: CustomEvent<{ key: string; value: any }>) {
