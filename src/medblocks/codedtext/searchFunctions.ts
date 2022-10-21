@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios';
+
 export interface SearchOptions {
   searchString: string;
   axios: AxiosInstance;
@@ -9,20 +10,20 @@ export interface SearchResult {
   value: string;
   label?: string;
   star?: boolean;
-  text?:boolean;
+  text?: boolean;
 }
 
 export type SearchFunction = (
   options: SearchOptions
 ) => Promise<SearchResult[]>;
 
-export function joinSnomedConstraints(filters: string[]) {
+export type GetConstraints = (filters: string[]) => string;
+export const joinSnomedConstraints: GetConstraints = (filters: string[]) => {
   if (filters?.length > 0) {
     return filters.join(' OR ');
-  } else {
-    return;
   }
-}
+  return '';
+};
 
 export const hermesPlugin: SearchFunction = async options => {
   try {
@@ -43,14 +44,14 @@ export const hermesPlugin: SearchFunction = async options => {
       }) => ({
         value: term.conceptId,
         label: term.term,
-        star: term.preferredTerm === term.term
+        star: term.preferredTerm === term.term,
       })
     );
   } catch (e) {
     console.error(e);
     if (e.response?.status === 404) {
       return [];
-    }else{
+    } else {
       throw e;
     }
   }
