@@ -186,7 +186,9 @@ export const openEHRFlatPlugin: MbPlugin = {
   serialize(mbElements) {
     let data: { [path: string]: any } = {};
     Object.entries(mbElements).map(([path, node]) => {
-      data[path] = (node as any).data;
+      if(path){
+        data[path] = (node as any).data;
+      }
     });
     return JSON.parse(JSON.stringify(toFlat(data, mbElements)));
   },
