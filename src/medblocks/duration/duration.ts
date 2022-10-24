@@ -50,6 +50,7 @@ export default class MbDuration extends EhrElement {
   @property({ type: Boolean, reflect: true }) required: boolean = false;
   @property({ type: Boolean, reflect: true }) disabled: boolean;
   @property({ type: Boolean, reflect: true }) hidelabel: boolean = false;
+  @property({ type: String, reflect: true })min = '0'
 
   @state() _state: { [period: string]: string | undefined } = {};
 
@@ -145,6 +146,7 @@ export default class MbDuration extends EhrElement {
         .disabled=${this.disabled}
         id=${a}
         type="number"
+        .min=${this.min}
         ?required=${this.required}
         help-text=${this.hidelabel ? '' : this.formatDuration(a)}
         .value=${this._state[a] || ''}

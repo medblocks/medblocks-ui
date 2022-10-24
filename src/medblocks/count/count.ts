@@ -19,6 +19,8 @@ export default class MbCount extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
+  @property({ type: String, reflect: true }) min = '0';
+
   @event('mb-input')
   _mbInput: EventEmitter<number>;
 
@@ -39,6 +41,7 @@ export default class MbCount extends EhrElement {
       <sl-input
         .disabled=${this.disabled}
         type="number"
+        .min=${this.min}
         ?required=${this.required}
         label=${this.label}
         @sl-input=${this.handleInput}
