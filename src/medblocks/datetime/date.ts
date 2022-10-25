@@ -18,6 +18,8 @@ export default class MbDateTime extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) time: boolean = false;
 
+  @property({ type: Boolean, reflect: true }) dvdatetime: boolean = false;
+
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
@@ -29,6 +31,10 @@ export default class MbDateTime extends EhrElement {
     if (this.time)
       this.data = inputElement.value
         ? new Date(inputElement.value).toISOString()
+        : undefined;
+    else if (this.dvdatetime)
+      this.data = inputElement.value
+        ? inputElement.value + 'T00:00:00Z'
         : undefined;
     else this.data = inputElement.value ? inputElement.value : undefined;
     this._mbInput.emit();

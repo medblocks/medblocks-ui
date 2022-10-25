@@ -219,7 +219,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
         }
       </mb-text-select>`,
     },
-  
+
   ],
   DV_DURATION: n => [
     {
@@ -236,7 +236,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
     },
     {
       name: 'Date',
-      html: `<mb-date path="${n.path}" label="${n.name || ''}"></mb-date>`,
+      html: `<mb-date dvdatetime path="${n.path}" label="${n.name || ''}"></mb-date>`,
     },
   ],
   DV_DATE: n => [
