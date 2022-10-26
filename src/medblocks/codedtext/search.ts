@@ -85,7 +85,6 @@ export default class MbSearch extends CodedTextElement {
 
   @state() _debounceTimeout: number;
 
-
   get _maxHits() {
     return this.hits + this._moreHits;
   }
@@ -176,12 +175,21 @@ export default class MbSearch extends CodedTextElement {
               value=${r.value}
               .label=${r.label}
               .terminology=${this.terminology}
+              .source=${r}
             >
               ${r.star
-                ? html`<sl-icon slot="suffix" name="star" library="medblocks"></sl-icon>`
+                ? html`<sl-icon
+                    slot="suffix"
+                    name="star"
+                    library="medblocks"
+                  ></sl-icon>`
                 : null}
               ${r.text
-                ? html`<sl-icon slot="suffix" name="fonts" library="medblocks"></sl-icon>`
+                ? html`<sl-icon
+                    slot="suffix"
+                    name="fonts"
+                    library="medblocks"
+                  ></sl-icon>`
                 : null}
               ${r.label}
             </sl-menu-item>
@@ -189,9 +197,10 @@ export default class MbSearch extends CodedTextElement {
       );
       if (results?.length === 0) {
         return html`<sl-menu-item disabled>No results</sl-menu-item
-        ><sl-menu-item .value=${this.searchTerm} .text=${true}
-          ><sl-icon name="fonts" slot="suffix" library="medblocks"></sl-icon>${this.searchTerm}</sl-menu-item
-        >`;
+          ><sl-menu-item .value=${this.searchTerm} .text=${true}
+            ><sl-icon name="fonts" slot="suffix" library="medblocks"></sl-icon
+            >${this.searchTerm}</sl-menu-item
+          >`;
       }
       return this._maxHits === results.length
         ? [...results, this._viewMore]
@@ -199,14 +208,19 @@ export default class MbSearch extends CodedTextElement {
     } catch (e) {
       console.error(e);
       return html`
-      <sl-menu-item disabled>
-        <sl-icon name="exclamation-triangle" slot="prefix" library="medblocks"></sl-icon>
-        An unexpected error occured
-      </sl-menu-item>
-      <sl-menu-item .value=${this.searchTerm} .text=${true}
-        ><sl-icon name="fonts" slot="prefix" library="medblocks"></sl-icon>${this.searchTerm}</sl-menu-item
-      >
-    `;
+        <sl-menu-item disabled>
+          <sl-icon
+            name="exclamation-triangle"
+            slot="prefix"
+            library="medblocks"
+          ></sl-icon>
+          An unexpected error occured
+        </sl-menu-item>
+        <sl-menu-item .value=${this.searchTerm} .text=${true}
+          ><sl-icon name="fonts" slot="prefix" library="medblocks"></sl-icon
+          >${this.searchTerm}</sl-menu-item
+        >
+      `;
     }
   }
 
@@ -221,7 +235,7 @@ export default class MbSearch extends CodedTextElement {
 
   _handleSelect(e: CustomEvent) {
     const menuItem = e.detail.item;
-      if (menuItem.text) {
+    if (menuItem.text) {
       this.data = menuItem.value;
     } else {
       this.data = {
@@ -230,7 +244,7 @@ export default class MbSearch extends CodedTextElement {
         terminology: this.terminology,
       };
     }
-    this._mbInput.emit();
+    this._mbInput.emit({ detail: { item: menuItem } });
   }
 
   connectedCallback() {
@@ -265,7 +279,9 @@ export default class MbSearch extends CodedTextElement {
   }
 
   get _display() {
-    if(typeof this.data === "string") {return this.data}
+    if (typeof this.data === 'string') {
+      return this.data;
+    }
     return this._hasValue ? this.data?.value : undefined;
   }
 
