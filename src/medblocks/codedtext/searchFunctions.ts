@@ -17,12 +17,13 @@ export type SearchFunction = (
   options: SearchOptions
 ) => Promise<SearchResult[]>;
 
-export type GetConstraints = (filters: string[]) => string;
+export type GetConstraints = (filters: string[]) => string | undefined;
 export const joinSnomedConstraints: GetConstraints = (filters: string[]) => {
   if (filters?.length > 0) {
     return filters.join(' OR ');
+  }else{
+    return;
   }
-  return '';
 };
 
 export const hermesPlugin: SearchFunction = async options => {
