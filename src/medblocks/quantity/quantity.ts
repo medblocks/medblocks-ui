@@ -74,6 +74,8 @@ export default class MbQuantity extends QuantityElement {
 
   @property({ type: Number, reflect: true }) step: number;
 
+  @property({ type: String, reflect: true }) placeholder = '';
+
   /** Automatically disables the unit if only a single unit is present */
   @property({ type: Boolean, reflect: true }) enablesingleunit: boolean = false;
   @state()
@@ -147,6 +149,7 @@ export default class MbQuantity extends QuantityElement {
         type="number"
         @sl-input=${this.handleInput}
         .value=${this.data?.magnitude?.toString() || ''}
+        placeholder=${this.placeholder}
       ></sl-input>
       <sl-select
         .disabled=${this.disabled ||
