@@ -27,7 +27,8 @@ export default class MbQuantity extends QuantityElement {
 
     sl-input {
       width: 0;
-      flex: 4 1 auto;
+      flex: 3 1 auto;
+      min-width:75px
     }
 
     .margin-xs {
@@ -37,6 +38,7 @@ export default class MbQuantity extends QuantityElement {
     sl-select {
       flex: 1 1 auto;
       width: 0;
+      min-width: 100px;
     }
     .print-only {
       display: none;
