@@ -244,6 +244,7 @@ export default class MbSearch extends CodedTextElement {
         terminology: this.terminology,
       };
     }
+    this.searchTerm = '';
     this._mbInput.emit({ detail: { item: menuItem } });
   }
 
