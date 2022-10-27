@@ -130,6 +130,7 @@ export default class MedblockForm extends LitElement {
       await 0;
       const data = this.serialize();
       this.submit.emit({ detail: data, cancelable: true });
+      this.sendWebMessage();
     }
   }
 
@@ -263,28 +264,38 @@ export default class MedblockForm extends LitElement {
   @state()
   deferredData: Data = {};
 
-  /** The domain to use in postMessage when sending suggestions */
-  @property({ type: String, reflect: true }) suggestDomain: string = '*';
-
-  handleInput(e: CustomEvent) {
-    e.stopPropagation();
-    // If loaded in iframe, send suggestions out.
+  /** Sends message to the top iframe for suggestions and CDS
+   * @param {Object} data Payload to send
+   */
+  sendWebMessage(data: any = this.data) {
     if (window.top && !this.nosuggest) {
       const message = {
         type: 'mb-input',
         data: {
-          composition: this.data,
+          composition: data,
           templateId: this.templateId,
           format: 'MB-FLAT',
         },
       };
       window.top.postMessage(message, this.suggestDomain);
     }
+  }
+  /** The domain to use in postMessage when sending suggestions */
+  @property({ type: String, reflect: true }) suggestDomain: string = '*';
+
+  handleInput(e: CustomEvent) {
+    e.stopPropagation();
+    this.triggerInput();
+  }
+
+  triggerInput() {
     this.input.emit();
+    this.sendWebMessage();
+    // TOOD: recalculate mb-count-repeatable.count (currently only doing that when directly setting data on form)
   }
 
   handleSlotChange() {
-    this.input.emit();
+    this.triggerInput();
   }
 
   getTarget(e: CustomEvent) {
@@ -304,7 +315,7 @@ export default class MedblockForm extends LitElement {
       this.mbElements[path].data = data;
       this.deferredData = excluded;
     }
-    this.input.emit();
+    this.triggerInput();
     // this.updates.push(todo);
   }
 
@@ -312,18 +323,18 @@ export default class MedblockForm extends LitElement {
     const path = e.detail;
     this.repeatables[path] = this.getTarget(e) as Repeatable;
     // Check if data is present in deferred data
-    this.input.emit();
+    this.triggerInput();
   }
 
   // Does not work except for mb-repeat due to https://github.com/WICG/webcomponents/issues/678, https://github.com/whatwg/dom/issues/533
   // Handled using Mutation Observer.
   handleChildDisconnect(e: CustomEvent) {
     this.mbElementSet.delete(e.detail.target);
-    this.input.emit();
+    this.triggerInput();
   }
 
   handleChildPathChange(_: CustomEvent<{ oldPath: string; newPath: string }>) {
-    this.input.emit();
+    this.triggerInput();
     // this.updates.push(todo);
   }
 
@@ -422,7 +433,7 @@ export default class MedblockForm extends LitElement {
   @state() intervalId: NodeJS.Timeout;
 
   handleTodos() {
-    this.input.emit();
+    this.triggerInput();
     this.updates.forEach(todo => todo.bind(this));
     this.updates = [];
   }
@@ -484,6 +495,7 @@ export default class MedblockForm extends LitElement {
     if (window.top && !this.nosuggest) {
       window.removeEventListener('message', this.handleParentMessage);
     }
+    this.sendWebMessage({});
   }
 
   render() {
