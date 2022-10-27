@@ -202,3 +202,60 @@ describe('MbInputMultiple', async () => {
     expect(inputMultiple.data).to.eql(['testUnit1', 'testUnit2']);
   });
 });
+
+it('on multiple select with prefix and suffix , emits correct context', async () => {
+  const form = await fixture<MedblockForm>(
+    html`
+      <mb-form>
+        <mb-input-multiple
+          path="mbselect/multiple:0/path"
+          label="Hello there"
+          repeatprefix="mbselect/multiple"
+          repeatsuffix="path"
+        >
+        </mb-input-multiple>
+        <mb-context path="mbselect/multiple:0/language" />
+        <mb-context path="mbselect/multiple:1/language" />
+        <mb-context path="mbselect/multiple:2/language" />
+      </mb-form>
+    `
+  );
+  let input = querySelectorDeep('input') as SlInput;
+  const mbinputmultiple = querySelectorDeep(
+    'mb-input-multiple'
+  ) as MbInputMultiple;
+  setTimeout(() => {
+    input.value = 'testUnit1';
+    input.dispatchEvent(new Event('input'));
+    mbinputmultiple.dispatchEvent(
+      new KeyboardEvent('keypress', {
+        key: 'Enter',
+      })
+    );
+  });
+  await oneEvent(mbinputmultiple, 'mb-input');
+  await elementUpdated(mbinputmultiple);
+  expect(mbinputmultiple.data).to.eql(['testUnit1']);
+  setTimeout(() => {
+    input.value = 'testUnit2';
+    input.dispatchEvent(new Event('input'));
+    mbinputmultiple.dispatchEvent(
+      new KeyboardEvent('keypress', {
+        key: 'Enter',
+      })
+    );
+  });
+  await oneEvent(mbinputmultiple, 'mb-input');
+  await elementUpdated(mbinputmultiple);
+  expect(mbinputmultiple.data).to.eql(['testUnit1', 'testUnit2']);
+  setTimeout(() => form.handleSubmit(), 0);
+  let data = await oneEvent(form, 'mb-submit');
+  expect(data.detail).to.eql({
+    'mbselect/multiple:0/path': 'testUnit1',
+    'mbselect/multiple:1/path': 'testUnit2',
+    'mbselect/multiple:0/language|code': 'en',
+    'mbselect/multiple:0/language|terminology': 'ISO_639-1',
+    'mbselect/multiple:1/language|code': 'en',
+    'mbselect/multiple:1/language|terminology': 'ISO_639-1',
+  });
+});
