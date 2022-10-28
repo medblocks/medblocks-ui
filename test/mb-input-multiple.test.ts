@@ -14,6 +14,7 @@ import '../src/medblocks/text/input-multiple';
 import { SlInput, SlTag } from '@shoelace-style/shoelace';
 import MedblockForm from '../src/medblocks/form/form';
 import '../src/medblocks/form/form';
+import { toInsertContext } from '../src/medblocks/form/plugins/openEHRFlat';
 describe('MbInputMultiple', async () => {
   it('emits data on input', async () => {
     let mbinputmultiple = await fixture<MbInputMultiple>(
@@ -203,7 +204,7 @@ describe('MbInputMultiple', async () => {
   });
 });
 
-it('on multiple select with prefix and suffix , emits correct context', async () => {
+it.only('on multiple select with prefix and suffix , emits correct context', async () => {
   const form = await fixture<MedblockForm>(
     html`
       <mb-form>
@@ -248,6 +249,14 @@ it('on multiple select with prefix and suffix , emits correct context', async ()
   await oneEvent(mbinputmultiple, 'mb-input');
   await elementUpdated(mbinputmultiple);
   expect(mbinputmultiple.data).to.eql(['testUnit1', 'testUnit2']);
+
+  const shouldBeTrue = toInsertContext(
+    'mbselect/multiple:1/language',
+    form.nonEmptyPaths(),
+    form.mbElements
+  );
+
+  expect(shouldBeTrue).true;
   setTimeout(() => form.handleSubmit(), 0);
   let data = await oneEvent(form, 'mb-submit');
   expect(data.detail).to.eql({

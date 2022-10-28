@@ -13,6 +13,28 @@ export interface Ctx {
   _health_care_facility_id?: string;
 }
 
+function getIndexedPath({
+  i,
+  prefix,
+  suffix,
+  path,
+}: {
+  i: number;
+  prefix?: string;
+  suffix?: string;
+  path?: string;
+}) {
+  if (prefix && suffix) {
+    return `${prefix}:${i}/${suffix}`;
+  } else {
+    return `${path}:${i}`;
+  }
+}
+
+// function getIndexedPath(i: number, path: string) {
+//   return `${path}:${i}`
+// }
+
 function multipleSelectArray(
   value: string[],
   path: string,
@@ -24,16 +46,16 @@ function multipleSelectArray(
     if (typeof val === 'object') {
       Object.keys(val).forEach(item => {
         if (prefix && suffix) {
-          flat[`${prefix}:${i}/${suffix}|${item}`] = val[item];
+          flat[`${getIndexedPath({ i, prefix, suffix })}|${item}`] = val[item];
         } else {
-          flat[`${path}:${i}|${item}`] = val[item];
+          flat[`${getIndexedPath({ i, path })}|${item}`] = val[item];
         }
       });
     } else {
       if (prefix && suffix) {
-        flat[`${prefix}:${i}/${suffix}`] = val;
+        flat[getIndexedPath({ i, prefix, suffix })] = val;
       } else {
-        flat[`${path}:${i}`] = val;
+        flat[getIndexedPath({ i, path })] = val;
       }
     }
   });
@@ -123,7 +145,11 @@ export function unflattenComposition(flat: any, path?: string) {
   return unflatten(formatFlatComposition(newObject));
 }
 
-function toInsertContext(path: string, nonNullPaths: string[]): boolean {
+export function toInsertContext(
+  path: string,
+  nonNullPaths: string[],
+  mbElements: { [path: string]: any }
+): boolean {
   const segments = path.split('/');
   // Root context Eg: template/language
   if (segments.length <= 2) {
@@ -140,7 +166,34 @@ function toInsertContext(path: string, nonNullPaths: string[]): boolean {
     previousPath = segments.slice(0, -2).join('/');
   }
   // Eg: templates/vitals/body_temperature/time will only return if some templates/vitals/body_temperature/* is defined
-  if (nonNullPaths.some(p => p.startsWith(previousPath))) {
+  // For repeat elements, look at the data and infer where to insert context
+  // eg: path: hello/there/path:1/language
+  // repeatableElementPath.prefix: hello/there/path
+  const repeatableElementPaths = Object.keys(mbElements)
+    .filter(path => {
+      return mbElements[path]?.multiple;
+    })
+    .flatMap(path => {
+      const el = mbElements[path];
+      const data = el?.data as any[];
+      return data
+        ? data.map((_, i) =>
+            getIndexedPath({
+              prefix: el.repeatprefix,
+              suffix: el.repeatsuffix,
+              path: el.path,
+              i,
+            })
+          )
+        : [];
+    });
+
+  const nonNullIncludingRepeatable = [
+    ...nonNullPaths,
+    ...repeatableElementPaths,
+  ];
+
+  if (nonNullIncludingRepeatable.some(p => p.startsWith(previousPath))) {
     return true;
   }
 
@@ -186,7 +239,7 @@ export const openEHRFlatPlugin: MbPlugin = {
   serialize(mbElements) {
     let data: { [path: string]: any } = {};
     Object.entries(mbElements).map(([path, node]) => {
-      if(path){
+      if (path) {
         data[path] = (node as any).data;
       }
     });
@@ -194,7 +247,7 @@ export const openEHRFlatPlugin: MbPlugin = {
   },
 
   getContext(path, ctx = {}, nonNullPaths, mbElements) {
-    if (!toInsertContext(path, nonNullPaths)) {
+    if (!toInsertContext(path, nonNullPaths, mbElements)) {
       return;
     }
 
