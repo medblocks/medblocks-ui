@@ -259,6 +259,7 @@ export default class MedblockForm extends LitElement {
       );
       this.deferredData = { ...this.deferredData, ...object };
     }
+    this.sendWebMessage();
   }
 
   @state()
