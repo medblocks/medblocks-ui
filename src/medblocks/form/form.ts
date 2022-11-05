@@ -130,7 +130,7 @@ export default class MedblockForm extends LitElement {
       await 0;
       const data = this.serialize();
       this.submit.emit({ detail: data, cancelable: true });
-      this.sendWebMessage();
+      this.sendWebMessage(true);
     }
   }
 
@@ -268,7 +268,7 @@ export default class MedblockForm extends LitElement {
   /** Sends message to the top iframe for suggestions and CDS
    * @param {Object} data Payload to send
    */
-  sendWebMessage(data: any = this.data) {
+  sendWebMessage(postSubmit = false, data: any = this.data) {
     if (window.top && !this.nosuggest) {
       const message = {
         type: 'mb-input',
@@ -276,6 +276,7 @@ export default class MedblockForm extends LitElement {
           composition: data,
           templateId: this.templateId,
           format: 'MB-FLAT',
+          postSubmit,
         },
       };
       window.top.postMessage(message, this.suggestDomain);
@@ -496,7 +497,7 @@ export default class MedblockForm extends LitElement {
     if (window.top && !this.nosuggest) {
       window.removeEventListener('message', this.handleParentMessage);
     }
-    this.sendWebMessage({});
+    this.sendWebMessage(false, {});
   }
 
   render() {

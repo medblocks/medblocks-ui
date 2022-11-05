@@ -21,34 +21,35 @@
       input.addEventListener('mb-input', (e) => {
         console.log(e.target.data)
       })
-      form.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1'})
+      form.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1' })
       form.addEventListener('mb-submit', function (e) {
         e.preventDefault()
         console.log(e.detail)
       })
       let form2 = document.getElementById('form2')
-      form2.addEventListener('mb-input', (e) => {
-        const data = e.target.data
-        if (data["chief_complaints"] === "fever")
-          form2.addSuggestion({
-            "other_symptoms": [{ data: "Body ache", label: "Body ache", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Sore Throat", id: 2, op: 'add' }],
-            "chief_complaints": [{ data: "Body ache", label: "Body ache", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Sore Throat", id: 2, op: 'add' }],
-            "duration": [{ data: 'P2D', label: '2 days', id: 1 }, { data: 'P1M', label: '1 month', id: 2 }],
-            "hidden_symptoms": true,
-            "composition_suggestion": [{data: {"path1/symptom|magnitude": 123}, label: "Change composition", id: 2}]
-          })
-        else {
-          form2.addSuggestion({
-            "chief_complaints": [{ data: "Athul", label: "Athul", id: 1, op: 'add' }],
-            "other_symptoms": [{ data: "Cough", label: "Cough", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Pain abdomen", id: 2, op: 'add' }],
-            "duration": [{ data: 'P2D', label: '2 days', id: 1 }, { data: 'P1M', label: '1 month', id: 2 }],
-          })
-        }
-      })
-      form2.addEventListener('mb-submit', function (e) {
-        e.preventDefault()
-        console.log(e.detail)
-      })
+      form2.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1' })
+      // form2.addEventListener('mb-input', (e) => {
+      //   const data = e.target.data
+      //   if (data["chief_complaints"] === "fever")
+      //     form2.addSuggestion({
+      //       "other_symptoms": [{ data: "Body ache", label: "Body ache", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Sore Throat", id: 2, op: 'add' }],
+      //       "chief_complaints": [{ data: "Body ache", label: "Body ache", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Sore Throat", id: 2, op: 'add' }],
+      //       "duration": [{ data: 'P2D', label: '2 days', id: 1 }, { data: 'P1M', label: '1 month', id: 2 }],
+      //       "hidden_symptoms": true,
+      //       "composition_suggestion": [{data: {"path1/symptom|magnitude": 123}, label: "Change composition", id: 2}]
+      //     })
+      //   else {
+      //     form2.addSuggestion({
+      //       "chief_complaints": [{ data: "Athul", label: "Athul", id: 1, op: 'add' }],
+      //       "other_symptoms": [{ data: "Cough", label: "Cough", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Pain abdomen", id: 2, op: 'add' }],
+      //       "duration": [{ data: 'P2D', label: '2 days', id: 1 }, { data: 'P1M', label: '1 month', id: 2 }],
+      //     })
+      //   }
+      // })
+      // form2.addEventListener('mb-submit', function (e) {
+      //   e.preventDefault()
+      //   console.log(e.detail)
+      // })
     })
   </script>
 </head>
@@ -70,8 +71,8 @@
           repeatprefix="hello" repeatsuffix="there">
           <mb-filter label="Conditions" value="^181000271107 | (finding) | OR <272379006 | Event (event) |"></mb-filter>
         </mb-search>
-        <mb-search-multiple path="search/multiple" terminology="SNOMED-CT" label="Chief Complaints (mb-search-multiple)" path="hello:0/there"
-          repeatprefix="hello" repeatsuffix="there">
+        <mb-search-multiple path="search/multiple" terminology="SNOMED-CT" label="Chief Complaints (mb-search-multiple)"
+          path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
           <mb-filter label="Conditions" value="^181000271107 | (finding) | OR <272379006 | Event (event) |"></mb-filter>
         </mb-search-multiple>
         <p>DV_QUANTITY</p>
@@ -113,7 +114,8 @@
         <mb-percent path="percent" label="SpO2 (mb-percent)"></mb-percent>
         <p>DV_DURATION</p>
         <mb-duration path="duration/ym" year month label="Symptom present for (mb-duration year month)"></mb-duration>
-        <mb-duration path="duration/mwd" month week day label="Medication Direction Duration (mb-duration all)"></mb-duration>
+        <mb-duration path="duration/mwd" month week day label="Medication Direction Duration (mb-duration all)">
+        </mb-duration>
         <mb-duration path="duration/all" year month week day hour minute second
           label="Super accurate direction duration (mb-duration month week day)"></mb-duration>
         <p>DV_DATE_TIME</p>
@@ -140,10 +142,13 @@
       </mb-submit>
     </mb-form>
     <hr>
-    <mb-form style="display: flex; gap:15px; flex-direction: column" id="form2" templateId="hello.v0">
+    <mb-form templateId="clinikk.prescription_pad.v2">
       <p>SUGGESTION (Type to see)</p>
-      <mb-suggest label="Common Symptoms">
-        <mb-input path="chief_complaints" label="Chief complaints"></mb-input>
+      <mb-search-multiple path="clinikk.prescription_pad.v2/reason_for_encounter/presenting_problem"
+        label="Chief complaints"></mb-search-multiple>
+      <mb-suggest label="Suggested ROS">
+        <mb-input textarea label="HOPI" path="clinikk.prescription_pad.v2/story_history/any_event:0/story:0">
+        </mb-input>
       </mb-suggest>
       <mb-suggest>
         <mb-duration day month label="Duration" path="duration"></mb-duration>
