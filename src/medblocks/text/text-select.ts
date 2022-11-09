@@ -58,8 +58,10 @@ export default class MbTextSelect extends EhrElement {
 
   render() {
     if (this.variant === 'text') {
-      return html`${this._label()}
-        <p>${this.data || '-'}</p>`;
+      return html`<div>
+        ${this._label()}
+        <p>${this.data || '-'}</p>
+      </div> `;
     }
     return html`
       <sl-select

@@ -74,7 +74,7 @@ export default abstract class EhrElement extends LitElement {
   }
 
   _label() {
-    if (this.label) return html`<p>${this.label}</p>`;
+    if (this.label) return html`<p style="font-weight: 600;">${this.label}</p>`;
     return;
   }
 
