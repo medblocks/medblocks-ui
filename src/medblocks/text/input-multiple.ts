@@ -34,9 +34,9 @@ export default class MbInputMultiple extends EhrElement {
         display: none;
       }
       .print-only {
-        display:inline-block;
-        margin : 0px;
-        padding:2px;
+        display: inline-block;
+        margin: 0px;
+        padding: 2px;
       }
     }
   `;
@@ -88,8 +88,15 @@ export default class MbInputMultiple extends EhrElement {
   }
 
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <p>${this.data.join(', ') || '-'}</p>
+      </div>`;
+    }
     return html`
       <sl-input
+        .size=${this.variant === 'small' ? 'small' : 'medium'}
         ?required=${this.required}
         help-text=${this.hidehelp
           ? ''
@@ -108,7 +115,7 @@ export default class MbInputMultiple extends EhrElement {
           (s, i) =>
             html`<sl-tag
               type="neutral"
-              size="medium"
+              size=${this.variant === 'small' ? 'small' : 'medium'}
               @sl-clear=${() => this.handleClear(i)}
               clearable
               >${s}</sl-tag
@@ -116,7 +123,7 @@ export default class MbInputMultiple extends EhrElement {
         )}
       </div>
       <p class="print-only">
-        <span>${this.data.join(', ') || "-"}</span>
+        <span>${this.data.join(', ') || '-'}</span>
       </p>
     `;
   }

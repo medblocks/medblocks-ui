@@ -60,7 +60,7 @@ export default class MbInput extends EhrElement {
 
   handleInput(e: CustomEvent) {
     const inputElement = e.target as SlInput;
-    this.data = inputElement.value ?  inputElement.value :  undefined;
+    this.data = inputElement.value ? inputElement.value : undefined;
     this._mbInput.emit();
   }
 
@@ -75,9 +75,16 @@ export default class MbInput extends EhrElement {
   }
 
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <p>${this.data || '-'}</p>
+      </div>`;
+    }
     return this.textarea
       ? html`
           <sl-textarea
+            .size=${this.variant === 'small' ? 'small' : 'medium'}
             .disabled=${this.disabled}
             .maxlength=${this.maxlength}
             .minlength=${this.minlength}
@@ -91,6 +98,7 @@ export default class MbInput extends EhrElement {
         `
       : html`
           <sl-input
+            .size=${this.variant === 'small' ? 'small' : 'medium'}
             .disabled=${this.disabled}
             .min=${this.min}
             .max=${this.max}

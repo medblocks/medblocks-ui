@@ -38,7 +38,7 @@ export default class MbSelect extends CodedTextElement {
   get _optionElements(): NodeListOf<MbOption> {
     return this.querySelectorAll('mb-option');
   }
-  
+
   handleInput(e: CustomEvent) {
     const select = e.target as SlSelect;
     if (select.value && typeof select.value === 'object') {
@@ -80,19 +80,19 @@ export default class MbSelect extends CodedTextElement {
     observer.observe(this, { childList: true });
     this.handleChildChange();
   }
-  
+
   handleChildChange() {
     this._options = [
       ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),
     ];
   }
-  
+
   getValue(data: CodedText | CodedText[] | undefined): string | string[] {
     if (data == null) return '';
     else if (Array.isArray(data)) return data.map(item => item.code || '');
     else return data?.code || '';
   }
-  
+
   reportValidity() {
     const select = this.shadowRoot!.querySelector('sl-select') as SlSelect;
     return select.reportValidity();

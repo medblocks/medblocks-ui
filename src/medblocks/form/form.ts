@@ -6,8 +6,8 @@ import {
   LitElement,
   property,
 } from 'lit-element';
-import { event, EventEmitter } from '../../internal/decorators';
-import EhrElement from '../EhrElement';
+import { event, EventEmitter, watch } from '../../internal/decorators';
+import EhrElement, { Variant } from '../EhrElement';
 import MbContext from '../context/context';
 import { Data } from './utils';
 import { AxiosInstance } from 'axios';
@@ -45,6 +45,13 @@ export default class MedblockForm extends LitElement {
 
   /** Should sending suggestions be disabled? */
   @property({ type: Boolean, reflect: true }) nosuggest: boolean = false;
+
+  @property({ type: String, reflect: true }) variant: Variant = 'normal';
+
+  @watch('variant')
+  handleVariantChange(_: Variant, newVariant: Variant) {
+    this.mbElementSet.forEach(el => (el.variant = newVariant));
+  }
 
   @event('mb-input') input: EventEmitter<any>;
 
@@ -309,6 +316,7 @@ export default class MedblockForm extends LitElement {
     const path = e.detail;
     const element = this.getTarget(e) as EhrElement;
     element.mbForm = this;
+    element.variant = this.variant;
     this.mbElementSet.add(element);
     // Check if data is present in deferred data
     if (this.deferredData[path] != null) {
