@@ -15,11 +15,17 @@ export default class MbCheckBox extends EhrElement {
     this._mbInput.emit();
   }
   reportValidity() {
-  const checked = this.shadowRoot!.querySelector('sl-checkbox') as any;
-  return checked.reportValidity();
+    const checked = this.shadowRoot!.querySelector('sl-checkbox') as any;
+    return checked.reportValidity();
   }
 
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <p>${this.data ? 'Yes' : 'No'}</p>
+      </div>`;
+    }
     return html`<sl-checkbox
       ?required=${this.required}
       ?disabled=${this.disabled}

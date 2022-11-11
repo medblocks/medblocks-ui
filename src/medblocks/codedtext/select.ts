@@ -97,7 +97,20 @@ export default class MbSelect extends CodedTextElement {
     const select = this.shadowRoot!.querySelector('sl-select') as SlSelect;
     return select.reportValidity();
   }
+
+  getTextData(data: CodedText | CodedText[] | undefined): string {
+    if (data == null) return '';
+    else if (Array.isArray(data))
+      return data.map(item => item.value || '').join(', ') || '';
+    else return data?.value || '';
+  }
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <p>${this.getTextData(this.data) || '-'}</p>
+      </div>`;
+    }
     return html`
       <sl-select
         clearable

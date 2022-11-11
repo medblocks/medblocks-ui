@@ -15,6 +15,12 @@ export default class MbCheckBox extends EhrElement {
   }
 
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <p>${this.data || '-'}</p>
+      </div>`;
+    }
     return html`<sl-checkbox
       ?disabled=${this.disabled}
       ?checked=${this.data ? true : false}

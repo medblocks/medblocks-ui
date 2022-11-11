@@ -18,7 +18,7 @@ export default class CodedTextButtons extends CodedTextElement {
     .buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--sl-spacing-xx-small) ;
+      gap: var(--sl-spacing-xx-small);
     }
 
     .label {
@@ -63,17 +63,25 @@ export default class CodedTextButtons extends CodedTextElement {
     if (option.ordinal) {
       data = { ...data, ordinal: parseInt(option.ordinal as any) };
     }
-    this.data?.code === data.code ? this.data = undefined : this.data = data;
+    this.data?.code === data.code
+      ? (this.data = undefined)
+      : (this.data = data);
     if (this.data) {
       this.value = 'valid';
     }
-    if(option.type){
-      console.log(option.type)
+    if (option.type) {
+      console.log(option.type);
     }
     this._mbInput.emit();
   }
 
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <p>${this.data.value || '-'}</p>
+      </div>`;
+    }
     return html`
       <div style="position:relative;z-index:2" part="base">
         ${this.label
@@ -85,13 +93,17 @@ export default class CodedTextButtons extends CodedTextElement {
               html` <sl-button
                 ?disabled=${this.disabled}
                 @click=${() => this._handleInput(option)}
-                type=${this.data?.code === option.value ? 'primary': option.type ? option.type : 'default'}
+                type=${this.data?.code === option.value
+                  ? 'primary'
+                  : option.type
+                  ? option.type
+                  : 'default'}
                 >${option.label}
               </sl-button>`
           )}
         </div>
         <input
-          value=${this.data?.code || ""}
+          value=${this.data?.code || ''}
           style="transform:scale(0.025);position:absolute;top:40px;opacity:0.1"
           name="input"
           ?required=${this.required}

@@ -4,7 +4,7 @@ import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { ifDefined } from 'lit-html/directives/if-defined';
 
 export default abstract class MbProportion extends EhrElement {
-  abstract type : string; 
+  abstract type : string;
   abstract max : number |string;
   abstract min : number |string ;
   @property({ type: Object }) data:
@@ -51,7 +51,14 @@ export default abstract class MbProportion extends EhrElement {
     }
   }
 
+
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <p>${this.data?.numerator ? (this.type==="percent" ? this.data?.numerator + " %" : this.data?.numerator) : '-'}</p>
+      </div>`;
+    }
     return html`<sl-input
       .required=${this.required}
       .min=${this.min}

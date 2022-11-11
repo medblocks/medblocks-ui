@@ -291,6 +291,12 @@ export default class MbSearch extends CodedTextElement {
   }
 
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <p>${this.data.value || '-'}</p>
+      </div>`;
+    }
     return html`
       <mb-dropdown
         .focusKeys=${['Enter']}

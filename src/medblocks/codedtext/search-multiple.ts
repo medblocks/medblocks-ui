@@ -10,7 +10,7 @@ import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { until } from 'lit-html/directives/until.js';
 import { classMap } from 'lit-html/directives/class-map';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { CodedTextElement } from './CodedTextElement';
+import { CodedText, CodedTextElement } from './CodedTextElement';
 import MbFilter from './filter';
 import SlDropdown from './dropdown';
 import { AxiosInstance } from 'axios';
@@ -287,6 +287,12 @@ export default class MbSearchMultiple extends CodedTextElement {
   }
 
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <p>${this.data.map((item:CodedText) => item.value || '').join(', ') || ''}</p>
+      </div>`;
+    }
     return html`
       <mb-dropdown
         .focusKeys=${['Enter']}

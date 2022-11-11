@@ -69,7 +69,7 @@ export default class CodedTextButtons extends CodedTextElement {
     }
     this.value = data;
     this.addValue();
-    this._mbInput.emit()
+    this._mbInput.emit();
   }
 
   valueExists(code: string) {
@@ -88,6 +88,15 @@ export default class CodedTextButtons extends CodedTextElement {
   }
 
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <p>
+          ${this.data?.map((item: CodedText) => item.value || '').join(', ') ||
+          ''}
+        </p>
+      </div>`;
+    }
     return html`
       <div style="position:relative;z-index:2" part="base">
         ${this.label
