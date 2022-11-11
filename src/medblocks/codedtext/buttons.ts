@@ -91,6 +91,7 @@ export default class CodedTextButtons extends CodedTextElement {
           ${this._options.map(
             option =>
               html` <sl-button
+                .size=${this.variant === 'small' ? 'small' : 'medium'}
                 ?disabled=${this.disabled}
                 @click=${() => this._handleInput(option)}
                 type=${this.data?.code === option.value

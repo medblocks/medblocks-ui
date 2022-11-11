@@ -47,6 +47,7 @@ export default class MbCount extends EhrElement {
       <sl-input
         .disabled=${this.disabled}
         type="number"
+        .size=${this.variant === 'small' ? 'small' : 'medium'}
         .min=${this.min}
         ?required=${this.required}
         label=${this.label}

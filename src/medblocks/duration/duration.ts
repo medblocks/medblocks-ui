@@ -144,6 +144,7 @@ export default class MbDuration extends EhrElement {
     return toRender.map(
       a => html`<sl-input
         .disabled=${this.disabled}
+        .size=${this.variant === 'small' ? 'small' : 'medium'}
         id=${a}
         type="number"
         .min=${this.min}

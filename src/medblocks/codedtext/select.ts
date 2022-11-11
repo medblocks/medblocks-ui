@@ -113,6 +113,7 @@ export default class MbSelect extends CodedTextElement {
     }
     return html`
       <sl-select
+        .size=${this.variant === 'small' ? 'small' : 'medium'}
         clearable
         ?required=${this.required}
         ?multiple=${this.multiple}

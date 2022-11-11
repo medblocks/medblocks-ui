@@ -63,6 +63,7 @@ export default abstract class MbProportion extends EhrElement {
       .required=${this.required}
       .min=${this.min}
       .max=${this.max}
+      .size=${this.variant === 'small' ? 'small' : 'medium'}
       type="number"
       .step=${this.getStep()}
       label=${ifDefined(this.label)}

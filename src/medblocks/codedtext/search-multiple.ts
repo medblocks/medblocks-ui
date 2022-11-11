@@ -185,10 +185,18 @@ export default class MbSearchMultiple extends CodedTextElement {
               .terminology=${this.terminology}
             >
               ${r.star
-                ? html`<sl-icon slot="suffix" name="star" library="medblocks"></sl-icon>`
+                ? html`<sl-icon
+                    slot="suffix"
+                    name="star"
+                    library="medblocks"
+                  ></sl-icon>`
                 : null}
               ${r.text
-                ? html`<sl-icon slot="suffix" name="fonts" library="medblocks"></sl-icon>`
+                ? html`<sl-icon
+                    slot="suffix"
+                    name="fonts"
+                    library="medblocks"
+                  ></sl-icon>`
                 : null}
               ${r.label}
             </sl-menu-item>
@@ -197,7 +205,8 @@ export default class MbSearchMultiple extends CodedTextElement {
       if (results?.length === 0) {
         return html`<sl-menu-item disabled>No results</sl-menu-item
           ><sl-menu-item .value=${this.searchTerm} .text=${true}
-            ><sl-icon name="fonts" slot="suffix" library="medblocks"></sl-icon>${this.searchTerm}</sl-menu-item
+            ><sl-icon name="fonts" slot="suffix" library="medblocks"></sl-icon
+            >${this.searchTerm}</sl-menu-item
           >`;
       }
       return this._maxHits === results.length
@@ -207,11 +216,16 @@ export default class MbSearchMultiple extends CodedTextElement {
       console.error(e);
       return html`
         <sl-menu-item disabled>
-          <sl-icon name="exclamation-triangle" slot="prefix" library="medblocks"></sl-icon>
+          <sl-icon
+            name="exclamation-triangle"
+            slot="prefix"
+            library="medblocks"
+          ></sl-icon>
           An unexpected error occured
         </sl-menu-item>
         <sl-menu-item .value=${this.searchTerm} .text=${true}
-          ><sl-icon name="fonts" slot="prefix" library="medblocks"></sl-icon>${this.searchTerm}</sl-menu-item
+          ><sl-icon name="fonts" slot="prefix" library="medblocks"></sl-icon
+          >${this.searchTerm}</sl-menu-item
         >
       `;
     }
@@ -290,7 +304,10 @@ export default class MbSearchMultiple extends CodedTextElement {
     if (this.variant === 'text') {
       return html`<div>
         ${this._label()}
-        <p>${this.data.map((item:CodedText) => item.value || '').join(', ') || ''}</p>
+        <p>
+          ${this.data.map((item: CodedText) => item.value || '').join(', ') ||
+          ''}
+        </p>
       </div>`;
     }
     return html`
@@ -303,6 +320,7 @@ export default class MbSearchMultiple extends CodedTextElement {
       >
         <sl-input
           class=${classMap({ pointer: this._hasValue })}
+          .size=${this.variant === 'small' ? 'small' : 'medium'}
           slot="trigger"
           .label=${this.label || ''}
           @sl-input=${this._handleInput}

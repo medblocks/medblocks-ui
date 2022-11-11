@@ -151,6 +151,7 @@ export default class MbQuantity extends QuantityElement {
     return html`
       <sl-input
         class=${this.hideunit ? '' : 'margin-xs'}
+        .size=${this.variant === 'small' ? 'small' : 'medium'}
         .disabled=${this.disabled}
         .step=${this.step ?? 'any'}
         .required=${this.required}
@@ -168,6 +169,7 @@ export default class MbQuantity extends QuantityElement {
         style="${this.hideunit ? 'display: none' : ''}"
         placeholder="Select units"
         .value=${this.displayUnit}
+        .size=${this.variant === 'small' ? 'small' : 'medium'}
         @sl-change=${this.handleInput}
       >
         ${this.units.map(
