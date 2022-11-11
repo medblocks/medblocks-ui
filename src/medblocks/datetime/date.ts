@@ -60,7 +60,26 @@ export default class MbDateTime extends EhrElement {
     }
   }
 
+  getTextData(data:string){
+    const [date, time] = data.split('T');
+    if(time){
+      const [hours, minutes] = time.split(':');
+      return `${date} ${hours}:${minutes}`;
+    }else{
+      return date;
+    }
+
+  }
+
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <div style="display:flex;">
+          <p>${this.data ? this.getTextData(this.data): '-'}</p>
+        </div>
+      </div>`;
+    }
     return html`
       <sl-input
         .disabled=${this.disabled}

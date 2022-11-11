@@ -28,7 +28,7 @@ export default class MbQuantity extends QuantityElement {
     sl-input {
       width: 0;
       flex: 3 1 auto;
-      min-width:75px
+      min-width: 75px;
     }
 
     .margin-xs {
@@ -139,6 +139,15 @@ export default class MbQuantity extends QuantityElement {
   }
 
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <div style="display:flex;gap:0 8px">
+          <p>${this.data?.magnitude || '-'}</p>
+          <p>${this.data?.unit || '-'}</p>
+        </div>
+      </div>`;
+    }
     return html`
       <sl-input
         class=${this.hideunit ? '' : 'margin-xs'}

@@ -156,6 +156,15 @@ export default class MbDuration extends EhrElement {
   }
 
   render() {
+    if (this.variant === 'text') {
+      return html`<div>
+        ${this._label()}
+        <div style="display:flex">
+
+          <p>${this._state.day ? this._state.day  : '-'}</p>
+        </div>
+      </div>`;
+    }
     return html`
       ${this.label
         ? html`<label part="label" class="label">${this.label}</label>`
