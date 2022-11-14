@@ -101,7 +101,7 @@ export default class MbSelect extends CodedTextElement {
   getTextData(data: CodedText | CodedText[] | undefined): string {
     if (data == null) return '';
     else if (Array.isArray(data))
-      return data.map(item => item.value || '').join(', ') || '';
+      return data?.map(item => item.value || '').join(', ') || '';
     else return data?.value || '';
   }
   render() {

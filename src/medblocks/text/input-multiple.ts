@@ -91,7 +91,7 @@ export default class MbInputMultiple extends EhrElement {
     if (this.variant === 'text') {
       return html`<div>
         ${this._label()}
-        <p>${this.data.join(', ') || '-'}</p>
+        <p>${this.data?.join(', ') || '-'}</p>
       </div>`;
     }
     return html`

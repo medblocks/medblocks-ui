@@ -92,7 +92,7 @@ export default class CodedTextButtons extends CodedTextElement {
       return html`<div>
         ${this._label()}
         <p>
-          ${this.data?.map((item: CodedText) => item.value || '').join(', ') ||
+          ${this.data?.map((item: CodedText) => item?.value || '').join(', ') ||
           ''}
         </p>
       </div>`;

@@ -79,7 +79,7 @@ export default class CodedTextButtons extends CodedTextElement {
     if (this.variant === 'text') {
       return html`<div>
         ${this._label()}
-        <p>${this.data.value || '-'}</p>
+        <p>${this.data?.value || '-'}</p>
       </div>`;
     }
     return html`
