@@ -4,6 +4,16 @@ import { customElement } from 'lit-element';
 
 @customElement('mb-dropdown')
 export default class MbDropDown extends SlDropdown {
+  // disabling hide since search takes care of displaying the dropdown
+
+  handleDocumentKeyDown(): void {
+    return;
+  }
+
+  handleTriggerClick(): void {
+    return;
+  }
+
   handleTriggerKeyDown(event: KeyboardEvent) {
     const menu = this.getMenu();
     const menuItems = menu
@@ -52,12 +62,7 @@ export default class MbDropDown extends SlDropdown {
         return;
       }
     }
-
+    return;
     // Other keys bring focus to the menu and initiate type-to-select behavior
-    const ignoredKeys = ['Tab', 'Shift', 'Meta', 'Ctrl', 'Alt'];
-    if (this.open && menu && !ignoredKeys.includes(event.key)) {
-      menu.typeToSelect(event.key as any);
-      return;
-    }
   }
 }

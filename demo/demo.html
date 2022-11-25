@@ -67,9 +67,12 @@
           <mb-option value="blue" label="Blue"></mb-option>
         </mb-text-select>
         <mb-input-multiple path="input/multiple" label="Symptoms (mb-input-multiple)"></mb-input-multiple>
-        <mb-search path="search" terminology="SNOMED-CT" label="Chief Complaints (mb-search)" path="hello:0/there"
-          repeatprefix="hello" repeatsuffix="there">
+        Hello there
+        <mb-search filter-type="and" path="search" terminology="SNOMED-CT" label="Chief Complaints (mb-search)" path="hello:0/there"
+          repeatprefix="hello" repeatsuffix="there" >
+          <mb-filter disabled label="Conditions" value="^181000271107 | (finding) | OR <272379006 | Event (event) |"></mb-filter>
           <mb-filter label="Conditions" value="^181000271107 | (finding) | OR <272379006 | Event (event) |"></mb-filter>
+            <mb-filter disabled label="Conditions" value="^181000271107 | (finding) | OR <272379006 | Event (event) |"></mb-filter>
         </mb-search>
         <mb-search-multiple path="search/multiple" terminology="SNOMED-CT" label="Chief Complaints (mb-search-multiple)"
           path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
