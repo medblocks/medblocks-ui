@@ -19,6 +19,10 @@ import QuantityElement from './QuantityElement';
 export default class MbQuantity extends QuantityElement {
   /** @ignore */
   static styles = css`
+    .no-icon::part(icon) {
+      display: none;
+    }
+
     :host {
       display: flex;
       flex: 1;
@@ -106,6 +110,12 @@ export default class MbQuantity extends QuantityElement {
     observer.observe(this, { attributes: true, childList: true });
   }
 
+  _disabled() {
+    return (
+      this.disabled || (this.enablesingleunit ? false : this.units.length === 1)
+    );
+  }
+
   handleInput() {
     const magnitude = this.inputElement.value
       ? parseFloat(this.inputElement.value)
@@ -164,8 +174,8 @@ export default class MbQuantity extends QuantityElement {
         placeholder=${this.placeholder}
       ></sl-input>
       <sl-select
-        .disabled=${this.disabled ||
-        (this.enablesingleunit ? false : this.units.length === 1)}
+        .disabled=${this._disabled()}
+        class="${this._disabled() ? 'no-icon' : ''}"
         style="${this.hideunit ? 'display: none' : ''}"
         placeholder="Select units"
         .value=${this.displayUnit}
