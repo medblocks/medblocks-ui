@@ -320,7 +320,6 @@ export default class MedblockForm extends LitElement {
     this.mbElementSet.add(element);
     // Check if data is present in deferred data
     if (this.deferredData[path] != null) {
-      console.log('deferred data present!!');
       const { [path]: data, ...excluded } = this.deferredData;
       this.mbElements[path].data = data;
       this.deferredData = excluded;
