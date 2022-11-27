@@ -15,7 +15,7 @@ import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
 import { MbPlugin } from './plugins/plugins';
 import MbSubmit from '../submit/submit';
 import SuggestWrapper, { SuggestEvent } from '../suggestionWrapper';
-import Repeatable from '../repeat/Repeatable';
+import Repeatable, { getRepeatableRegex } from '../repeat/Repeatable';
 import MbHide from '../hide';
 
 /**
@@ -227,32 +227,44 @@ export default class MedblockForm extends LitElement {
     return newValue;
   }
 
+  getCount(path: string | RegExp, data: any): number {
+    let regex: RegExp;
+    if (typeof path === 'string') {
+      regex = getRepeatableRegex(path);
+    } else {
+      regex = path;
+    }
+    const matches = Object.keys(data)
+      .map(path => regex.exec(path))
+      .map(match => match?.[2])
+      .filter(match => match)
+      .map(str => str && parseInt(str)) as number[];
+    const count = Math.max(...matches) + 1;
+    return count;
+  }
+
   set data(data: Data) {
     this.deferredData = {};
     const mbElementPaths = Object.keys(this.mbElements);
-    const dataPaths = Object.keys(data);
+
     // Set calculate and set count of repeatable elements (mb-repeatable)
     Object.values(this.repeatables).forEach(el => {
       const regex = el.regex;
-      const matches = dataPaths
-        .map(path => regex.exec(path))
-        .map(match => match?.[2])
-        .filter(match => match)
-        .map(str => str && parseInt(str)) as number[];
-      const count = Math.max(...matches) + 1;
-      el.count = count;
+      el.count = this.getCount(regex, data);
     });
 
     // storing in a deferredData and seting after mb-connect below.
 
-    // Set data points
+    // Set data points - TODO: This does not scale well
+    // (becomes slow as form grows)
     mbElementPaths.forEach(path => {
       let element = this.mbElements[path] as EhrElement;
       const value = data[path];
       element.data = value;
     });
+
     // Warnings
-    const inDataButNotElements = dataPaths.filter(
+    const inDataButNotElements = Object.keys(data).filter(
       path => !mbElementPaths.includes(path)
     );
     if (inDataButNotElements.length > 0) {

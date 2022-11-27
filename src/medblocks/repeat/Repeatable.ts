@@ -1,10 +1,14 @@
 import { LitElement, property } from 'lit-element';
 import { event, EventEmitter, watch } from '../../internal/decorators';
 
+export function getRepeatableRegex(path: string) {
+  return new RegExp(`(${path}):(\\d+)`, 'g');
+}
+
 export default class Repeatable extends LitElement {
   isRepeatable: boolean = true;
 
-  @property({type:Number,reflect:true})
+  @property({ type: Number, reflect: true })
   count: number = 0;
 
   @property({ type: String, reflect: true })
@@ -17,7 +21,7 @@ export default class Repeatable extends LitElement {
   _mbConnectRepeatable: EventEmitter<string>;
 
   get regex(): RegExp {
-    return new RegExp(`(${this.path}):(\\d+)`, 'g');
+    return getRepeatableRegex(this.path);
   }
 
   connectedCallback() {
