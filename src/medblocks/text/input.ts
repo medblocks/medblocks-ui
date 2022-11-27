@@ -55,6 +55,8 @@ export default class MbInput extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
+  @property({ type: String, reflect: true }) rows = '3';
+
   @event('mb-input')
   _mbInput: EventEmitter<string>;
 
@@ -93,6 +95,7 @@ export default class MbInput extends EhrElement {
             placeholder=${this.placeholder}
             @sl-input=${this.handleInput}
             value=${this.data || ''}
+            rows=${this.rows}
           ></sl-textarea>
           <p class="print-only">${this.data || '-'}</p>
         `

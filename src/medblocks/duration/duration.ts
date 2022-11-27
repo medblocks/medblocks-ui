@@ -50,7 +50,8 @@ export default class MbDuration extends EhrElement {
   @property({ type: Boolean, reflect: true }) required: boolean = false;
   @property({ type: Boolean, reflect: true }) disabled: boolean;
   @property({ type: Boolean, reflect: true }) hidelabel: boolean = false;
-  @property({ type: String, reflect: true })min = '0'
+  @property({ type: String, reflect: true }) min = '0';
+  @property({ type: String, reflect: true }) placeholder = '';
 
   @state() _state: { [period: string]: string | undefined } = {};
 
@@ -149,6 +150,7 @@ export default class MbDuration extends EhrElement {
         type="number"
         .min=${this.min}
         ?required=${this.required}
+        placeholder=${this.placeholder}
         help-text=${this.hidelabel ? '' : this.formatDuration(a)}
         .value=${this._state[a] || ''}
         @sl-input=${(e: CustomEvent) => this.handleInput(a, e)}
@@ -161,8 +163,7 @@ export default class MbDuration extends EhrElement {
       return html`<div>
         ${this._label()}
         <div style="display:flex">
-
-          <p>${this._state.day ? this._state.day  : '-'}</p>
+          <p>${this._state.day ? this._state.day : '-'}</p>
         </div>
       </div>`;
     }
