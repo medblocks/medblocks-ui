@@ -446,6 +446,7 @@ export default class MedblockForm extends LitElement {
         element.data = suggestion.data;
       }
     }
+    this.triggerInput();
   }
 
   handleParentMessage = (e: MessageEvent) => {
