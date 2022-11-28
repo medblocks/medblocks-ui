@@ -46,11 +46,74 @@ describe('mb-repeatale-headless', () => {
     expect(form.data).to.eql({ 'chief_complaints:0': 'Body ache' });
   });
 
+  it.only('should get correct count', async () => {
+    const form = await fixture<MbForm>(
+      html`
+        <mb-form>
+          <mb-input
+            path="chief_complaints:0"
+            label="Chief complaints"
+          ></mb-input>
+          <mb-repeatable-headless
+            count="0"
+            path="chief_complaints"
+          ></mb-repeatable-headless>
+          <mb-submit id="submit">
+            <sl-button>Submit</sl-button>
+          </mb-submit>
+        </mb-form>
+      `
+    );
+
+    await elementUpdated(form);
+    const data = {
+      'clinikk.prescription_pad.v2/medication_order/order:0/medication_item': {
+        value: 'Paracetamol 500mg tablet',
+        code: '322236009',
+        terminology: 'Snomed CT',
+      },
+      'clinikk.prescription_pad.v2/medication_order/order:1/medication_item': {
+        value: 'Paracetamol 2 500mg tablet',
+        code: '322236009',
+        terminology: 'Snomed CT',
+      },
+    };
+    const count = form.getCount(
+      'clinikk.prescription_pad.v2/medication_order/order',
+      data
+    );
+    expect(count).to.eql(2);
+
+    const data2 = {};
+    const count2 = form.getCount(
+      'clinikk.prescription_pad.v2/medication_order/order',
+      data2
+    );
+    expect(count2).to.eql(0);
+
+    const data3 = {
+      'clinikk.prescription_pad.v2/medication_order/order:1/medication_item': {
+        value: 'Paracetamol 500mg tablet',
+        code: '322236009',
+        terminology: 'Snomed CT',
+      },
+      'clinikk.prescription_pad.v2/medication_order/order:54/medication_item': {
+        value: 'Paracetamol 2 500mg tablet',
+        code: '322236009',
+        terminology: 'Snomed CT',
+      },
+    };
+    const count3 = form.getCount(
+      'clinikk.prescription_pad.v2/medication_order/order',
+      data3
+    );
+    expect(count3).to.eql(55);
+  });
+
   it.skip('performance tests', async () => {
     const repeatableCount = 50;
     const inputCountPerRepeatable = 3;
-    
-    
+
     const repeatExtra = 5;
     const form = await fixture<MbForm>(
       html`
@@ -68,7 +131,6 @@ describe('mb-repeatale-headless', () => {
                 <mb-input path="unrelated5/composition/${i}:${j}"></mb-input>
                 <mb-input path="unrelated6/composition/${i}:${j}"></mb-input>
                 <mb-input path="unrelated7/composition/${i}:${j}"></mb-input> -->
-
               `
             );
           })}

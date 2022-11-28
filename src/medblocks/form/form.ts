@@ -234,11 +234,21 @@ export default class MedblockForm extends LitElement {
     } else {
       regex = path;
     }
-    const matches = Object.keys(data)
-      .map(path => regex.exec(path))
-      .map(match => match?.[2])
+    const keys = Object.keys(data);
+    const matches = keys
+      .map(path => {
+        const match = regex.exec(path);
+        regex.lastIndex = 0;
+        return match;
+      })
+      .map(match => {
+        return match?.[2];
+      })
       .filter(match => match)
       .map(str => str && parseInt(str)) as number[];
+    if (matches.length === 0) {
+      return 0;
+    }
     const count = Math.max(...matches) + 1;
     return count;
   }
