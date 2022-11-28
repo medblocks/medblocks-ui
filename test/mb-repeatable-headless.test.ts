@@ -46,7 +46,7 @@ describe('mb-repeatale-headless', () => {
     expect(form.data).to.eql({ 'chief_complaints:0': 'Body ache' });
   });
 
-  it.only('should get correct count', async () => {
+  it('should get correct count', async () => {
     const form = await fixture<MbForm>(
       html`
         <mb-form>
