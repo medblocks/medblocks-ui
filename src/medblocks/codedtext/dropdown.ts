@@ -6,13 +6,13 @@ import { customElement } from 'lit-element';
 export default class MbDropDown extends SlDropdown {
   // disabling hide since search takes care of displaying the dropdown
 
-  handleDocumentKeyDown(): void {
-    return;
-  }
+  // handleDocumentKeyDown(): void {
+  //   return;
+  // }
 
-  handleTriggerClick(): void {
-    return;
-  }
+  // handleTriggerClick(): void {
+  //   return;
+  // }
 
   handleTriggerKeyDown(event: KeyboardEvent) {
     const menu = this.getMenu();

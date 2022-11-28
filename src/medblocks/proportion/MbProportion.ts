@@ -1,12 +1,44 @@
-import {html, property } from 'lit-element';
+import { css, html, property } from 'lit-element';
 import EhrElement from '../EhrElement';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { ifDefined } from 'lit-html/directives/if-defined';
 
 export default abstract class MbProportion extends EhrElement {
-  abstract type : string;
-  abstract max : number |string;
-  abstract min : number |string ;
+  static styles = css`
+    sl-input::part(input) {
+      margin-right: -14px;
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+    }
+    .no-icon::part(icon) {
+      display: none;
+    }
+
+    sl-input {
+      width: 0;
+      flex: 3 1 auto;
+      min-width: 75px;
+    }
+
+    .margin-xs {
+      margin-right: var(--sl-spacing-x-small);
+    }
+
+    sl-select {
+      flex: 1 1 auto;
+      width: 0;
+      min-width: 100px;
+    }
+
+    :host {
+      display: flex;
+      flex: 1;
+      align-items: flex-end;
+    }
+  `;
+  abstract type: string;
+  abstract max: number | string;
+  abstract min: number | string;
   @property({ type: Object }) data:
     | {
         denominator: number;
@@ -19,6 +51,7 @@ export default abstract class MbProportion extends EhrElement {
 
   @property({ type: String, reflect: true }) step: string;
 
+  @property({ type: Boolean }) hideunit = false;
 
   _handleChange(e: CustomEvent) {
     const inputElement = e.target as SlInput;
@@ -41,36 +74,54 @@ export default abstract class MbProportion extends EhrElement {
 
   getStep() {
     if (this.step) {
-      return this.step
+      return this.step;
     } else {
       if (this.type === 'unitary') {
-        return "0.01"
+        return '0.01';
       } else {
-        return
+        return;
       }
     }
   }
-
 
   render() {
     if (this.variant === 'text') {
       return html`<div>
         ${this._label()}
-        <p>${this.data?.numerator ? (this.type==="percent" ? this.data?.numerator + " %" : this.data?.numerator) : '-'}</p>
+        <p>
+          ${this.data?.numerator
+            ? this.type === 'percent'
+              ? this.data?.numerator + ' %'
+              : this.data?.numerator
+            : '-'}
+        </p>
       </div>`;
     }
     return html`<sl-input
-      .required=${this.required}
-      .min=${this.min}
-      .max=${this.max}
-      .size=${this.variant === 'small' ? 'small' : 'medium'}
-      type="number"
-      .step=${this.getStep()}
-      label=${ifDefined(this.label)}
-      @sl-input=${this._handleChange}
-      .value=${this.data?.numerator?.toString() || ''}
-    >
-    <sl-icon name=${this.type === 'unitary' ? 'decimal': 'percent'} library="medblocks" slot="prefix"></sl-icon>
-    </sl-input>`;
+        .required=${this.required}
+        .min=${this.min}
+        .max=${this.max}
+        .size=${this.variant === 'small' ? 'small' : 'medium'}
+        type="number"
+        .step=${this.getStep()}
+        label=${ifDefined(this.label)}
+        @sl-input=${this._handleChange}
+        class=${this.hideunit ? '' : 'margin-xs'}
+        .value=${this.data?.numerator?.toString() || ''}
+      >
+      </sl-input>
+      <sl-select
+        style="${this.hideunit ? 'display: none' : ''}"
+        placeholder="Select units"
+        class="no-icon"
+        .hoist=${true}
+        value="unit"
+        .size=${this.variant === 'small' ? 'small' : 'medium'}
+        disabled
+      >
+        <sl-menu-item value="unit"
+          >${this.type === 'unitary' ? '/ 1' : '%'}</sl-menu-item
+        >
+      </sl-select> `;
   }
 }

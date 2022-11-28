@@ -1,4 +1,11 @@
-import { css, customElement, html, property, query, state } from 'lit-element';
+import {
+  css,
+
+  html,
+  property,
+  query,
+  state,
+} from 'lit-element';
 import MbUnit from './unit';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
@@ -9,14 +16,9 @@ import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import QuantityElement from './QuantityElement';
+import EhrElement from '../EhrElement';
 
-/**
- * @inheritdoc
- * Quantity element with an input and select for units.
- */
-@customElement('mb-quantity')
-export default class MbQuantity extends QuantityElement {
+export default abstract class QuantityLike extends EhrElement {
   /** @ignore */
   static styles = css`
     .no-icon::part(icon) {

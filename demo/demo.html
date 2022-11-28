@@ -68,20 +68,32 @@
         </mb-text-select>
         <mb-input-multiple path="input/multiple" label="Symptoms (mb-input-multiple)"></mb-input-multiple>
         Hello there
-        <mb-search filter-type="and" path="search" terminology="SNOMED-CT" label="Chief Complaints (mb-search)" path="hello:0/there"
-          repeatprefix="hello" repeatsuffix="there" >
-          <mb-filter label="Conditions 1" value="^181000271107 | (finding) | OR <272379006 | Event (event) |"></mb-filter>
-          <mb-filter label="Conditions 2" value="^181000271107 | (finding) | OR <272379006 | Event (event) |"></mb-filter>
-            <mb-filter label="Conditions 3" value="^181000271107 | (finding) | OR <272379006 | Event (event) |"></mb-filter>
+        <mb-search filter-type="and" path="search" terminology="SNOMED-CT" label="Chief Complaints (mb-search)"
+          path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
+
+            <sl-menu-item value="Something" label="Okayyy" text="true" slot="results">
+              Home
+            </sl-menu-item>
+            <sl-menu-item slot="results">
+              Messages
+              <sl-badge slot="suffix" variant="primary" pill>12</sl-badge>
+            </sl-menu-item>
+
+          <mb-filter label="Conditions 1" value="^181000271107 | (finding) | OR <272379006 | Event (event) |">
+          </mb-filter>
+          <mb-filter label="Conditions 2" value="^181000271107 | (finding) | OR <272379006 | Event (event) |">
+          </mb-filter>
+          <mb-filter label="Conditions 3" value="^181000271107 | (finding) | OR <272379006 | Event (event) |">
+          </mb-filter>
         </mb-search>
         <mb-search-multiple path="search/multiple" terminology="SNOMED-CT" label="Chief Complaints (mb-search-multiple)"
           path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
           <mb-filter label="Conditions" value="^181000271107 | (finding) | OR <272379006 | Event (event) |"></mb-filter>
         </mb-search-multiple>
         <p>DV_QUANTITY</p>
-        <mb-quantity path="quantity/1" label="Temperature (mb-quantity)" default="F">
-          <mb-unit unit="F" label="°F"></mb-unit>
-          <mb-unit unit="C" label="°C"></mb-unit>
+        <mb-quantity path="quantity/1" label="Temperature (mb-quantity)" default="F" hideicon>
+          <mb-unit unit="F" label="°F" min="0"></mb-unit>
+          <mb-unit unit="C" label="°C" min="0"></mb-unit>
         </mb-quantity>
         <mb-quantity path="quantity/2" label="Blood Pressure (mb-quantity with only one unit)" default="mm[Hg]">
           <mb-unit unit="mm[Hg]" label="mmHg"></mb-unit>
@@ -183,7 +195,7 @@
 
     </mb-form>
     <hr>
-    
+
   </div>
   <div>
   </div>

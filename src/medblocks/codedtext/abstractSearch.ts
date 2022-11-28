@@ -151,7 +151,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
     if (this.mock.length) {
       return this.mock.map(
-        r => html`<sl-menu-item value=${r} .label=${r}>${r}</sl-menu-item>`
+        r =>
+          html`<sl-menu-item value=${r} .label=${r}><p>${r}</p></sl-menu-item>`
       );
     }
 
@@ -239,16 +240,20 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   abstract _handleSelect(data: string | CodedText, menuItem: SlMenuItem): void;
 
   _handleSlSelect(e: CustomEvent) {
+    console.log(e.detail.item);
     const menuItem = e.detail.item;
     this.searchTerm = '';
     if (menuItem.text) {
-      return this._handleSelect(menuItem.value, menuItem)
+      return this._handleSelect(menuItem.value, menuItem);
     } else {
-      return this._handleSelect({
-        value: menuItem.label,
-        code: menuItem.value,
-        terminology: this.terminology,
-      }, menuItem)
+      return this._handleSelect(
+        {
+          value: menuItem.label,
+          code: menuItem.value,
+          terminology: this.terminology,
+        },
+        menuItem
+      );
     }
   }
 
@@ -260,11 +265,17 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     const observer = new MutationObserver(() => {
       this._handleChildChange();
     });
+
+    this.addEventListener('sl-select', this._handleSlSelect);
     observer.observe(this, {
       childList: true,
       subtree: true,
       attributes: true,
     });
+  }
+
+  disconnectedCallback(): void {
+    this.removeEventListener('sl-select', this._handleSlSelect);
   }
 
   _handleChildChange() {
@@ -324,11 +335,9 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
         ${this._hasValue || !this.searchTerm
           ? null
           : html`
-              <sl-menu
-                style="min-width: 300px"
-                @sl-select=${this._handleSlSelect}
-              >
+              <sl-menu style="min-width: 300px">
                 ${until(this.getResults())}
+                <slot name="results"></slot>
                 ${this._filters?.length > 0
                   ? html` <sl-menu-divider></sl-menu-divider>
                       <sl-menu-label>Filters</sl-menu-label>
@@ -356,7 +365,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   get _hasValue() {
     return (this?.data?.value && this?.data?.code) ||
-      typeof this.data === 'string'
+      (typeof this.data === 'string' && this.data !== '')
       ? true
       : false;
   }
