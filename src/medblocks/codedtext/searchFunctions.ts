@@ -3,37 +3,36 @@ import { AxiosInstance } from 'axios';
 export interface SearchOptions {
   searchString: string;
   axios: AxiosInstance;
-  constraint?: string;
+  constraints?: string[];
   maxHits?: number;
 }
 export interface SearchResult {
-  value: string;
-  label?: string;
+  code?: string;
+  value?: string;
   star?: boolean;
-  text?: boolean;
+  text: string;
+  terminology?: string;
 }
 
 export type SearchFunction = (
   options: SearchOptions
 ) => Promise<SearchResult[]>;
 
-export type GetConstraints = (filters: string[]) => string | undefined;
-export const joinSnomedConstraints: GetConstraints = (filters: string[]) => {
-  if (filters?.length > 0) {
+const joinSnomedConstraints = (filters?: string[]) => {
+  if (filters && filters?.length > 0) {
     return filters.join(' OR ');
-  } else {
-    return;
   }
+  return;
 };
 
 export const hermesPlugin: SearchFunction = async options => {
   try {
-    const { searchString, axios, constraint, maxHits } = options;
+    const { searchString, axios, constraints, maxHits } = options;
     const response = await axios.get('/snomed/search', {
       params: {
         s: searchString,
         maxHits: maxHits,
-        constraint: constraint,
+        constraint: joinSnomedConstraints(constraints),
       },
     });
     return response.data.map(
@@ -43,8 +42,9 @@ export const hermesPlugin: SearchFunction = async options => {
         term: string;
         preferredTerm: string;
       }) => ({
-        value: term.conceptId,
-        label: term.term,
+        code: term.conceptId,
+        value: term.term,
+        terminology: 'SNOMED-CT',
         // star: term.preferredTerm === term.term,
       })
     );

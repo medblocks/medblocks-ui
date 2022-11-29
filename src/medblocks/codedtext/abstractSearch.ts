@@ -3,7 +3,7 @@ import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { until } from 'lit-html/directives/until.js';
 import { classMap } from 'lit-html/directives/class-map';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { CodedText, CodedTextElement } from './CodedTextElement';
+import { CodedTextElement } from './CodedTextElement';
 import MbFilter from './filter';
 import SlDropdown from './dropdown';
 import { AxiosInstance } from 'axios';
@@ -18,7 +18,9 @@ import '@shoelace-style/shoelace/dist/components/tag/tag';
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
 import '@shoelace-style/shoelace/dist/components/menu-divider/menu-divider';
 import '@shoelace-style/shoelace/dist/components/menu-label/menu-label';
-import { hermesPlugin, joinSnomedConstraints } from './searchFunctions';
+import '@shoelace-style/shoelace/dist/components/skeleton/skeleton';
+
+import { hermesPlugin, SearchResult } from './searchFunctions';
 import SlMenuItem from '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
 
 export default abstract class MbSearchAbstract extends CodedTextElement {
@@ -80,10 +82,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   @property({ type: String, attribute: 'filter-type', reflect: true })
   filterType: 'or' | 'and' = 'or';
 
-  @property({ type: Object }) plugin = {
-    search: hermesPlugin,
-    getConstraints: joinSnomedConstraints,
-  };
+  @property({ type: Object }) plugin = hermesPlugin;
 
   @state() _moreHits: number = 0;
 
@@ -112,11 +111,11 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     this._mbInput.emit();
   }
 
-  get _constraint() {
+  get _selectedFilters() {
     const filters = this._filters
       ?.filter(filter => !filter.disabled)
       ?.map(filter => filter.value);
-    return this.plugin?.getConstraints(filters);
+    return filters;
   }
 
   get _viewMore() {
@@ -156,7 +155,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
       return {
         result: this.mock.map(
           r =>
-            html`<sl-menu-item value=${r} .label=${r}
+            html`<sl-menu-item .data=${{ code: r, value: r }}
               ><p>${r}</p></sl-menu-item
             >`
         ),
@@ -169,37 +168,17 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     }
     try {
       const axios = this.axios ? this.axios : this._parentAxios;
-      const result = await this.plugin.search({
+      const result = await this.plugin({
         maxHits: this._maxHits,
         searchString: this.searchTerm,
         axios,
-        constraint: this._constraint,
+        constraints: this._selectedFilters,
       });
       const results = result.map(
         r =>
           html`
-            <sl-menu-item
-              .text=${r?.text}
-              value=${r.value}
-              .label=${r.label}
-              .terminology=${this.terminology}
-              .source=${r}
-            >
-              ${r.star
-                ? html`<sl-icon
-                    slot="suffix"
-                    name="star"
-                    library="medblocks"
-                  ></sl-icon>`
-                : null}
-              ${r.text
-                ? html`<sl-icon
-                    slot="suffix"
-                    name="fonts"
-                    library="medblocks"
-                  ></sl-icon>`
-                : null}
-              ${r.label}
+            <sl-menu-item .data=${r} .terminology=${this.terminology}>
+              ${r.value || r.text}
             </sl-menu-item>
           `
       );
@@ -223,7 +202,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     }
 
     if (this._debouncing) {
-      return this._loadingResults;
+      return this._loadingResults();
     }
 
     const { result, error } = await this.getResults();
@@ -248,7 +227,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   _textFallback() {
     return html`<sl-menu-divider></sl-menu-divider>
-      <sl-menu-item .value=${this.searchTerm} .text=${true}
+      <sl-menu-item .data=${{ text: this.searchTerm }}
         ><span
           slot="suffix"
           style="font-size: small; color: var(--sl-color-neutral-100)"
@@ -257,7 +236,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
       >`;
   }
 
-  get _loadingResults(): TemplateResult {
+  _loadingResults(): TemplateResult {
     const skeletons = 5;
     return html`${[...Array(skeletons)].map(
       () => html` <sl-menu-item disabled class="loading">
@@ -266,23 +245,14 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     )}`;
   }
 
-  abstract _handleSelect(data: string | CodedText, menuItem: SlMenuItem): void;
+  abstract _handleSelect(data: SearchResult, menuItem: SlMenuItem): void;
 
   _handleSlSelect(e: CustomEvent) {
     console.log(e.detail.item);
     const menuItem = e.detail.item;
     this.searchTerm = '';
-    if (menuItem.text) {
-      return this._handleSelect(menuItem.value, menuItem);
-    } else {
-      return this._handleSelect(
-        {
-          value: menuItem.label,
-          code: menuItem.value,
-          terminology: this.terminology,
-        },
-        menuItem
-      );
+    if (menuItem.data) {
+      return this._handleSelect(menuItem.data, menuItem);
     }
   }
 

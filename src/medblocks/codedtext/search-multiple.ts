@@ -6,11 +6,21 @@ import '@shoelace-style/shoelace/dist/components/spinner/spinner';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/tag/tag';
 import MbSearchAbstract from './abstractSearch';
+import { SearchResult } from './searchFunctions';
 
 @customElement('mb-search-multiple')
 export default class MbSearchMultiple extends MbSearchAbstract {
   @state() value: any = {};
-  _handleSelect(data: string | CodedText): void {
+  _handleSelect(data: SearchResult): void {
+    if (data.text) {
+      this.value = data.text;
+    } else {
+      this.value = {
+        code: data.code,
+        value: data.value,
+        terminology: data.terminology,
+      };
+    }
     this.value = data;
     if (this.data == null) this.data = [];
     this.data = [...this.data, this.value];

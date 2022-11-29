@@ -1,11 +1,11 @@
 import { SlMenuItem } from '@shoelace-style/shoelace';
 import { customElement, html } from 'lit-element';
 import MbSearchAbstract from './abstractSearch';
-import { CodedText } from './CodedTextElement';
+import { SearchResult } from './searchFunctions';
 
 @customElement('mb-search')
 export default class MbSearch extends MbSearchAbstract {
-  _handleSelect(data: string | CodedText, menuItem: SlMenuItem): void {
+  _handleSelect(data: SearchResult, menuItem: SlMenuItem): void {
     this.data = data;
     this._mbInput.emit({ detail: { item: menuItem } });
   }
