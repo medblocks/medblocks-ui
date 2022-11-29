@@ -73,6 +73,10 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: String }) filtersLabel = 'Filters';
 
+  @property({ type: Boolean }) disablefallback = false;
+
+  @property({ type: Boolean, reflect: true }) disablesearch = false;
+
   @property({ type: String, attribute: 'filter-type', reflect: true })
   filterType: 'or' | 'and' = 'or';
 
@@ -144,20 +148,24 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   }
 
   /**Function to get results from an external source */
-  async getResults(): Promise<TemplateResult | TemplateResult[]> {
-    if (this._debouncing) {
-      return this._loadingResults;
-    }
-
+  async getResults(): Promise<{
+    result: TemplateResult[];
+    error?: string;
+  }> {
     if (this.mock.length) {
-      return this.mock.map(
-        r =>
-          html`<sl-menu-item value=${r} .label=${r}><p>${r}</p></sl-menu-item>`
-      );
+      return {
+        result: this.mock.map(
+          r =>
+            html`<sl-menu-item value=${r} .label=${r}
+              ><p>${r}</p></sl-menu-item
+            >`
+        ),
+      };
     }
-
     if (!this.searchTerm) {
-      return [];
+      return {
+        result: [],
+      };
     }
     try {
       const axios = this.axios ? this.axios : this._parentAxios;
@@ -195,37 +203,58 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
             </sl-menu-item>
           `
       );
-      if (results?.length === 0) {
-        return html`<sl-menu-label>No results</sl-menu-label>
-          <sl-menu-divider></sl-menu-divider>
-          <sl-menu-item .value=${this.searchTerm} .text=${true}
-            ><span
-              slot="suffix"
-              style="font-size: small; color: var(--sl-color-neutral-100)"
-              >${this.textFallbackLabel}</span
-            >${this.searchTerm}</sl-menu-item
-          >`;
-      }
-      return this._maxHits === results.length
-        ? [...results, this._viewMore]
-        : results;
+      return {
+        result:
+          this._maxHits === results.length
+            ? [...results, this._viewMore]
+            : results,
+      };
     } catch (e) {
-      console.error(e);
-      return html`
-        <sl-menu-item disabled>
-          <sl-icon
-            name="exclamation-triangle"
-            slot="prefix"
-            library="medblocks"
-          ></sl-icon>
-          An unexpected error occured
-        </sl-menu-item>
-        <sl-menu-item .value=${this.searchTerm} .text=${true}
-          ><sl-icon name="fonts" slot="prefix" library="medblocks"></sl-icon
-          >${this.searchTerm}</sl-menu-item
-        >
-      `;
+      return {
+        result: [],
+        error: 'An unexpected error occured',
+      };
     }
+  }
+
+  async _results() {
+    if (!this.searchTerm) {
+      return;
+    }
+
+    if (this._debouncing) {
+      return this._loadingResults;
+    }
+
+    const { result, error } = await this.getResults();
+
+    if (error) {
+      return html`<sl-menu-item disabled>
+        <sl-icon
+          name="exclamation-triangle"
+          slot="prefix"
+          library="medblocks"
+        ></sl-icon>
+        An unexpected error occured
+      </sl-menu-item>`;
+    }
+
+    if (this.searchTerm && result.length === 0) {
+      return html`<sl-menu-label>No results</sl-menu-label>`;
+    }
+
+    return result;
+  }
+
+  _textFallback() {
+    return html`<sl-menu-divider></sl-menu-divider>
+      <sl-menu-item .value=${this.searchTerm} .text=${true}
+        ><span
+          slot="suffix"
+          style="font-size: small; color: var(--sl-color-neutral-100)"
+          >${this.textFallbackLabel}</span
+        >${this.searchTerm}</sl-menu-item
+      >`;
   }
 
   get _loadingResults(): TemplateResult {
@@ -305,6 +334,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   _searchBar() {
     return html`
       <mb-dropdown
+        .hoist=${true}
         .open=${true}
         .focusKeys=${['Enter']}
         .typeToSelect=${false}
@@ -336,8 +366,9 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
           ? null
           : html`
               <sl-menu style="min-width: 300px">
-                ${until(this.getResults())}
+                ${this.disablesearch ? null : until(this._results())}
                 <slot name="results"></slot>
+                ${this.disablefallback ? null : this._textFallback()}
                 ${this._filters?.length > 0
                   ? html` <sl-menu-divider></sl-menu-divider>
                       <sl-menu-label>Filters</sl-menu-label>
