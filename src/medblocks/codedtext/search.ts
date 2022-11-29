@@ -6,7 +6,15 @@ import { SearchResult } from './searchFunctions';
 @customElement('mb-search')
 export default class MbSearch extends MbSearchAbstract {
   _handleSelect(data: SearchResult, menuItem: SlMenuItem): void {
-    this.data = data;
+    if (data.text) {
+      this.data = data.text;
+    } else {
+      this.data = {
+        code: data.code,
+        value: data.value,
+        terminology: data.terminology,
+      };
+    }
     this._mbInput.emit({ detail: { item: menuItem } });
   }
   render() {

@@ -21,8 +21,9 @@ export default class MbSearchMultiple extends MbSearchAbstract {
         terminology: data.terminology,
       };
     }
-    this.value = data;
-    if (this.data == null) this.data = [];
+    if (this.data == null) {
+      this.data = [];
+    }
     this.data = [...this.data, this.value];
     this.value = {};
     this.searchTerm = '';

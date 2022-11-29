@@ -1,4 +1,4 @@
-import { css, html, state, property, TemplateResult } from 'lit-element';
+import { css, html, state, property, TemplateResult, query } from 'lit-element';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { until } from 'lit-html/directives/until.js';
 import { classMap } from 'lit-html/directives/class-map';
@@ -7,7 +7,7 @@ import { CodedTextElement } from './CodedTextElement';
 import MbFilter from './filter';
 import SlDropdown from './dropdown';
 import { AxiosInstance } from 'axios';
-import { watch } from '../../internal/decorators';
+import { event, EventEmitter, watch } from '../../internal/decorators';
 
 import './dropdown';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
@@ -20,7 +20,7 @@ import '@shoelace-style/shoelace/dist/components/menu-divider/menu-divider';
 import '@shoelace-style/shoelace/dist/components/menu-label/menu-label';
 import '@shoelace-style/shoelace/dist/components/skeleton/skeleton';
 
-import { hermesPlugin, SearchResult } from './searchFunctions';
+import { hermesPlugin, SearchOptions, SearchResult } from './searchFunctions';
 import SlMenuItem from '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
 
 export default abstract class MbSearchAbstract extends CodedTextElement {
@@ -103,12 +103,29 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     }, this.debounceInterval);
   }
 
+  @event('mb-search') _mbSearch: EventEmitter<SearchOptions>;
+
+  @query('mb-dropdown')
+  dropdown: SlDropdown;
+
   _handleInput(e: CustomEvent) {
     const inputElement = e.target as SlInput;
     this.searchTerm = inputElement.value;
-    const dropdown = this.renderRoot.querySelector('mb-dropdown') as SlDropdown;
-    dropdown.show();
-    this._mbInput.emit();
+    this.dropdown.show();
+    this._emitSearchEvent();
+
+    // this._mbInput.emit();
+  }
+
+  _emitSearchEvent() {
+    const searchOptions: SearchOptions = {
+      maxHits: this._maxHits,
+      searchString: this.searchTerm,
+      axios: this.axios || this._parentAxios,
+      terminology: this.terminology,
+      constraints: this._selectedFilters,
+    };
+    this._mbSearch.emit({ detail: searchOptions });
   }
 
   get _selectedFilters() {
@@ -155,7 +172,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
       return {
         result: this.mock.map(
           r =>
-            html`<sl-menu-item .data=${{ code: r, value: r }}
+            html`<sl-menu-item .value=${{ code: r, value: r }}
               ><p>${r}</p></sl-menu-item
             >`
         ),
@@ -177,9 +194,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
       const results = result.map(
         r =>
           html`
-            <sl-menu-item .data=${r} .terminology=${this.terminology}>
-              ${r.value || r.text}
-            </sl-menu-item>
+            <sl-menu-item .value=${r}> ${r.value || r.text} </sl-menu-item>
           `
       );
       return {
@@ -227,7 +242,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   _textFallback() {
     return html`<sl-menu-divider></sl-menu-divider>
-      <sl-menu-item .data=${{ text: this.searchTerm }}
+      <sl-menu-item .value=${{ text: this.searchTerm }}
         ><span
           slot="suffix"
           style="font-size: small; color: var(--sl-color-neutral-100)"
@@ -251,8 +266,15 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     console.log(e.detail.item);
     const menuItem = e.detail.item;
     this.searchTerm = '';
-    if (menuItem.data) {
-      return this._handleSelect(menuItem.data, menuItem);
+    if (menuItem.value) {
+      return this._handleSelect(menuItem.value, menuItem);
+    }
+  }
+
+  _handleMouseDown(event: MouseEvent) {
+    const path = event.composedPath();
+    if (!path.includes(this)) {
+      this.dropdown.hide();
     }
   }
 
@@ -264,7 +286,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     const observer = new MutationObserver(() => {
       this._handleChildChange();
     });
-
+    this._handleMouseDown = this._handleMouseDown.bind(this);
+    document.addEventListener('mousedown', this._handleMouseDown);
     this.addEventListener('sl-select', this._handleSlSelect);
     observer.observe(this, {
       childList: true,
@@ -275,6 +298,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   disconnectedCallback(): void {
     this.removeEventListener('sl-select', this._handleSlSelect);
+    document.removeEventListener('mousedown', this._handleMouseDown);
   }
 
   _handleChildChange() {
@@ -299,11 +323,13 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     } else {
       tag.disabled = !tag.disabled;
     }
+    this._emitSearchEvent();
   }
 
   _searchBar() {
     return html`
       <mb-dropdown
+        .containingElement=${this}
         .hoist=${true}
         .open=${true}
         .focusKeys=${['Enter']}

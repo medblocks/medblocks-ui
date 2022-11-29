@@ -2,9 +2,10 @@ import { AxiosInstance } from 'axios';
 
 export interface SearchOptions {
   searchString: string;
-  axios: AxiosInstance;
+  axios?: AxiosInstance;
   constraints?: string[];
   maxHits?: number;
+  terminology?: string;
 }
 export interface SearchResult {
   code?: string;
@@ -28,6 +29,9 @@ const joinSnomedConstraints = (filters?: string[]) => {
 export const hermesPlugin: SearchFunction = async options => {
   try {
     const { searchString, axios, constraints, maxHits } = options;
+    if (!axios) {
+      return;
+    }
     const response = await axios.get('/snomed/search', {
       params: {
         s: searchString,

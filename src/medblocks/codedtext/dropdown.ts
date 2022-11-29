@@ -1,6 +1,6 @@
 import { SlMenuItem } from '@shoelace-style/shoelace';
 import SlDropdown from '@shoelace-style/shoelace/dist/components/dropdown/dropdown';
-import { customElement } from 'lit-element';
+import { customElement, property } from 'lit-element';
 
 @customElement('mb-dropdown')
 export default class MbDropDown extends SlDropdown {
@@ -10,9 +10,16 @@ export default class MbDropDown extends SlDropdown {
   //   return;
   // }
 
-  // handleTriggerClick(): void {
-  //   return;
-  // }
+  handleTriggerClick(): void {
+    console.log('trigger click triggered');
+    if (this.open) {
+      // this.hide();
+    } else {
+      this.show();
+    }
+  }
+
+  @property() searchElement: HTMLElement;
 
   handleTriggerKeyDown(event: KeyboardEvent) {
     const menu = this.getMenu();
@@ -33,7 +40,7 @@ export default class MbDropDown extends SlDropdown {
     // key again to hide the menu in case they don't want to make a selection.
     if (['Enter'].includes(event.key)) {
       event.preventDefault();
-      this.open ? this.hide() : this.show();
+      this.handleTriggerClick();
       return;
     }
 
