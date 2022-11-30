@@ -273,7 +273,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   _handleMouseDown(event: MouseEvent) {
     const path = event.composedPath();
-    if (!path.includes(this)) {
+    if (!path.includes(this) && this.dropdown) {
       this.dropdown.hide();
     }
   }
