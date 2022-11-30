@@ -66,6 +66,7 @@ export default abstract class EhrElement extends LitElement {
   }
 
   disconnectedCallback(): void {
+    console.log('Disconnecting element', this.path);
     if (this.mbForm) {
       this.mbForm.mbElementSet.delete(this);
       this.mbForm.input.emit();

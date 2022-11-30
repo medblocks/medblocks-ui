@@ -299,6 +299,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   disconnectedCallback(): void {
     this.removeEventListener('sl-select', this._handleSlSelect);
     document.removeEventListener('mousedown', this._handleMouseDown);
+    super.disconnectedCallback();
   }
 
   _handleChildChange() {
