@@ -21,7 +21,7 @@ export default class MbSearch extends MbSearchAbstract {
     if (this.variant === 'text') {
       return html`<div>
         ${this._label()}
-        <p>${this.data?.value || '-'}</p>
+        <p>${this.data?.value || this.data || '-'}</p>
       </div>`;
     } else {
       return this._searchBar();
