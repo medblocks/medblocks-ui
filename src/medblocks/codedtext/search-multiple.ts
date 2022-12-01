@@ -53,7 +53,9 @@ export default class MbSearchMultiple extends MbSearchAbstract {
         ${this._label()}
         <p>
           ${Array.isArray(this?.data)
-            ? this.data?.map((item: CodedText) => item?.value || '').join(', ')
+            ? this.data
+                ?.map((item: CodedText | string) => this.getDisplay(item))
+                .join(', ')
             : ''}
         </p>
       </div>`;

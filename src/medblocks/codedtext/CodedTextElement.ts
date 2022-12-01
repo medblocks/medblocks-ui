@@ -13,6 +13,16 @@ export interface CodedText {
  * An Abstract class to extend CodedText elements
  */
 export class CodedTextElement extends EhrElement {
+  getDisplay(value: CodedText | string | undefined) {
+    if (typeof value === 'string') {
+      return value;
+    }
+    if (value?.value) {
+      return value;
+    }
+    return '';
+  }
+
   /**Data of CodedText */
   @property({ type: Object }) data: CodedText | string | undefined | any;
   /**Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR) */
