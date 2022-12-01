@@ -18,7 +18,7 @@ export class CodedTextElement extends EhrElement {
       return value;
     }
     if (value?.value) {
-      return value;
+      return value.value;
     }
     return '';
   }
