@@ -1,4 +1,4 @@
-import { customElement, html, state } from 'lit-element';
+import { customElement, html, property, state } from 'lit-element';
 
 import { CodedText } from './CodedTextElement';
 
@@ -10,6 +10,8 @@ import { SearchResult } from './searchFunctions';
 
 @customElement('mb-search-multiple')
 export default class MbSearchMultiple extends MbSearchAbstract {
+  @property({ type: Boolean }) multiple: boolean = true;
+
   @state() value: any = {};
   _handleSelect(data: SearchResult): void {
     if (data.text) {
