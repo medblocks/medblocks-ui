@@ -55,6 +55,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: String }) searchTerm: string;
 
+  @property({ type: Boolean }) show: boolean;
+
   @property({ type: Array }) _filters: MbFilter[];
 
   @property({ type: Array }) _cancelledFilters: string[] = [];
@@ -327,6 +329,22 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     this._emitSearchEvent();
   }
 
+  _showResults() {
+    if (this._hasValue) {
+      return false;
+    }
+
+    if (this.searchTerm) {
+      return true;
+    }
+
+    if (this.show) {
+      return true;
+    }
+
+    return false;
+  }
+
   _searchBar() {
     return html`
       <mb-dropdown
@@ -359,9 +377,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
                 slot="prefix"
               ></sl-icon>`}
         </sl-input>
-        ${this._hasValue || !this.searchTerm
-          ? null
-          : html`
+        ${this._showResults()
+          ? html`
               <sl-menu style="min-width: 300px">
                 ${this.disablesearch ? null : until(this._results())}
                 <slot name="results"></slot>
@@ -385,7 +402,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
                       </div>`
                   : null}
               </sl-menu>
-            `}
+            `
+          : null}
       </mb-dropdown>
       <slot @slotchange=${this._handleChildChange}></slot>
     `;
