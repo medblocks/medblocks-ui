@@ -53,7 +53,7 @@ export default class MedblockForm extends LitElement {
     this.mbElementSet.forEach(el => (el.variant = newVariant));
   }
 
-  @event('mb-input') input: EventEmitter<any>;
+  @event('mb-input') _input: EventEmitter<any>;
 
   @event('mb-load') load: EventEmitter<any>;
 
@@ -320,7 +320,7 @@ export default class MedblockForm extends LitElement {
   }
 
   triggerInput() {
-    this.input.emit();
+    this._input.emit();
     this.sendWebMessage();
     // TOOD: recalculate mb-count-repeatable.count (currently only doing that when directly setting data on form)
   }
