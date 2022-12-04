@@ -81,6 +81,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: Boolean, reflect: true }) disablesearch = false;
 
+  @property({ type: Boolean, reflect: true }) fixfilters = false;
+
   @property({ type: String, attribute: 'filter-type', reflect: true })
   filterType: 'or' | 'and' = 'or';
 
@@ -383,7 +385,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
                 ${this.disablesearch ? null : until(this._results())}
                 <slot name="results"></slot>
                 ${this.disablefallback ? null : this._textFallback()}
-                ${this._filters?.length > 0
+                ${this._filters?.length > 0 && !this.fixfilters
                   ? html` <sl-menu-divider></sl-menu-divider>
                       <sl-menu-label>Filters</sl-menu-label>
                       <div class="tags">

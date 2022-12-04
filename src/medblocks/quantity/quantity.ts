@@ -41,7 +41,7 @@ export default class MbQuantity extends QuantityElement {
 
     sl-select {
       flex: 1 1 auto;
-      width: 0;
+      width: fit-content;
       min-width: 100px;
     }
     .print-only {
@@ -182,6 +182,7 @@ export default class MbQuantity extends QuantityElement {
         placeholder=${this.placeholder}
       ></sl-input>
       <sl-select
+        exportparts="menu"
         .disabled=${this._disabled()}
         class="${this._disabled() || this.hideicon ? 'no-icon' : ''}"
         style="${this.hideunit ? 'display: none' : ''}"

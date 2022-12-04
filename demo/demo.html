@@ -55,6 +55,12 @@
 </head>
 
 <body>
+  <sl-textarea rows="1">
+
+  </sl-textarea>
+  <sl-textarea size="small" rows="1">
+
+  </sl-textarea>
   <div style="max-width: 700px;">
     <mb-form id="form1" style="display: flex; gap:15px; flex-direction: column" templateid="testing_template.v0">
       <div style="display: flex; gap:15px; flex-direction: column">
@@ -68,16 +74,16 @@
         </mb-text-select>
         <mb-input-multiple path="input/multiple" label="Symptoms (mb-input-multiple)"></mb-input-multiple>
         Hello there
-        <mb-search show  filter-type="and" path="search" terminology="SNOMED-CT" label="Chief Complaints (mb-search)"
+        <mb-search show filter-type="and" path="search" terminology="SNOMED-CT" label="Chief Complaints (mb-search)"
           path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
 
-            <sl-menu-item value="Something" label="Okayyy" text="true" slot="results">
-              Home
-            </sl-menu-item>
-            <sl-menu-item slot="results">
-              Messages
-              <sl-badge slot="suffix" variant="primary" pill>12</sl-badge>
-            </sl-menu-item>
+          <sl-menu-item value="Something" label="Okayyy" text="true" slot="results">
+            Home
+          </sl-menu-item>
+          <sl-menu-item slot="results">
+            Messages
+            <sl-badge slot="suffix" variant="primary" pill>12</sl-badge>
+          </sl-menu-item>
 
           <mb-filter label="Conditions 1" value="^181000271107 | (finding) | OR <272379006 | Event (event) |">
           </mb-filter>
@@ -103,13 +109,13 @@
         </mb-quantity>
         <p>DV_CODED_TEXT</p>
         <mb-select path="select" label="Posture (mb-select)" style="width: 100px;">
-          
+
           <mb-option value="" label="Lorem ipsum "></mb-option>
           <mb-option value="Standing" label="Standing"></mb-option>
           <mb-option value="Supine" label="Supine"></mb-option>
         </mb-select>
         <mb-select path="select" label="Posture (mb-select)">
-          
+
           <mb-option value="" label="Lorem ipsum "></mb-option>
           <mb-option value="Standing" label="Standing"></mb-option>
           <mb-option value="Supine" label="Supine"></mb-option>

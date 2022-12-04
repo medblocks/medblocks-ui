@@ -68,6 +68,7 @@ export default class MbSearchMultiple extends MbSearchAbstract {
         ${this.data?.map(
           (s: any, i: any) =>
             html`<sl-tag
+              exportparts="base"
               style="margin: var(--sl-spacing-x-small) var(--sl-spacing-x-small) 0 0;"
               type=${typeof s === 'string' ? 'neutral' : 'primary'}
               size="medium"

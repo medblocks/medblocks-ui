@@ -50,7 +50,11 @@ export default class MedblockForm extends LitElement {
 
   @watch('variant')
   handleVariantChange(_: Variant, newVariant: Variant) {
-    this.mbElementSet.forEach(el => (el.variant = newVariant));
+    this.mbElementSet.forEach(el => {
+      if (!el.variant) {
+        el.variant = newVariant;
+      }
+    });
   }
 
   @event('mb-input') _input: EventEmitter<any>;
