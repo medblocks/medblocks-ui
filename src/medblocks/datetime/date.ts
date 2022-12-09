@@ -19,6 +19,10 @@ export default class MbDateTime extends EhrElement {
 
   @property({ type: String, reflect: true }) label: string = '';
 
+  @property({ type: String, reflect: true }) max: string = '';
+
+  @property({ type: String, reflect: true }) min: string = '';
+
   @property({ type: Boolean, reflect: true }) time: boolean = false;
 
   @property({ type: Boolean, reflect: true }) dvdatetime: boolean = false;
@@ -91,6 +95,8 @@ export default class MbDateTime extends EhrElement {
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         .disabled=${this.disabled}
         ?required=${this.required}
+        .max=${this.max}
+        .min=${this.min}
         type="${this.time ? 'datetime-local' : 'date'}"
         label=${this.label}
         @sl-input=${this.handleInput}
