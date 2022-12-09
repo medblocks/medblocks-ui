@@ -162,7 +162,7 @@ export default class MbQuantity extends QuantityElement {
         ${this._label()}
         <div style="display:flex;gap:0 8px">
           <p>${this.data?.magnitude || '-'}</p>
-          <p>${this.data?.unit || '-'}</p>
+          <p>${this.hideunit ? "" : (this.data?.unit || '-')}</p>
         </div>
       </div>`;
     }

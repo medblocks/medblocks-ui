@@ -65,7 +65,9 @@ export default class MbDateTime extends EhrElement {
 
   getTextData(data: string) {
     const [date, time] = data.split('T');
-    if (time) {
+    if (this.dvdatetime) {
+      return `${date}`;
+    } else if (time) {
       const [hours, minutes] = time.split(':');
       return `${date} ${hours}:${minutes}`;
     } else {
