@@ -259,7 +259,8 @@ export default class MedblockForm extends LitElement {
 
   set data(data: Data) {
     this.deferredData = {};
-    const mbElementPaths = Object.keys(this.mbElements);
+    const mbElements = this.mbElements;
+    const mbElementPaths = Object.keys(mbElements);
 
     // Set calculate and set count of repeatable elements (mb-repeatable)
     Object.values(this.repeatables).forEach(el => {
@@ -272,7 +273,7 @@ export default class MedblockForm extends LitElement {
     // Set data points - TODO: This does not scale well
     // (becomes slow as form grows)
     mbElementPaths.forEach(path => {
-      let element = this.mbElements[path] as EhrElement;
+      let element = mbElements[path] as EhrElement;
       const value = data[path];
       element.data = value;
     });
@@ -323,9 +324,16 @@ export default class MedblockForm extends LitElement {
     this.triggerInput();
   }
 
-  triggerInput() {
-    this._input.emit();
-    this.sendWebMessage();
+  triggerInputRequested = false;
+
+  // Batching trigger input for performance reasons - https://medium.com/ing-blog/litelement-a-deepdive-into-batched-updates-b9431509fc4f
+  async triggerInput() {
+    if (!this.triggerInputRequested) {
+      this.triggerInputRequested = true;
+      this.triggerInputRequested = await false;
+      this._input.emit();
+      this.sendWebMessage();
+    }
     // TOOD: recalculate mb-count-repeatable.count (currently only doing that when directly setting data on form)
   }
 
