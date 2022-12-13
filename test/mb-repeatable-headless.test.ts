@@ -111,10 +111,10 @@ describe('mb-repeatale-headless', () => {
   });
 
   it.skip('performance tests', async () => {
-    const repeatableCount = 50;
-    const inputCountPerRepeatable = 3;
-
-    const repeatExtra = 5;
+    const repeatableCount = 500;
+    const inputCountPerRepeatable = 10;
+    const repeatExtra = 10;
+    console.log({ repeatableCount, inputCountPerRepeatable, repeatExtra });
     console.log('starting testing');
     const start = performance.now();
     const form = await fixture<MbForm>(

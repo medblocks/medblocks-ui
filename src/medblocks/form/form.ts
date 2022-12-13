@@ -75,9 +75,10 @@ export default class MedblockForm extends LitElement {
   @state() mbElementSet: Set<EhrElement> = new Set();
 
   get mbElements(): { [path: string]: EhrElement } {
-    let result = {};
+    let result: { [path: string]: EhrElement } = {};
     this.mbElementSet.forEach(el => {
-      result = { ...result, [el.path]: el };
+      const path = el.path;
+      result[path] = el;
     });
     return result;
   }
