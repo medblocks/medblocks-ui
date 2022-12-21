@@ -111,10 +111,12 @@ describe('mb-repeatale-headless', () => {
   });
 
   it.skip('performance tests', async () => {
-    const repeatableCount = 50;
-    const inputCountPerRepeatable = 3;
-
-    const repeatExtra = 5;
+    const repeatableCount = 500;
+    const inputCountPerRepeatable = 10;
+    const repeatExtra = 10;
+    console.log({ repeatableCount, inputCountPerRepeatable, repeatExtra });
+    console.log('starting testing');
+    const start = performance.now();
     const form = await fixture<MbForm>(
       html`
         <mb-form>
@@ -147,8 +149,9 @@ describe('mb-repeatale-headless', () => {
         </mb-form>
       `
     );
-    await elementUpdated(form);
-    console.log({ megaForm: form });
+    const end = performance.now();
+    console.log('Time taken for render:', end - start, 'ms');
+    // await elementUpdated(form);
     // const repeatable = querySelectorDeep(
     //   'mb-repeatable-headless'
     // ) as MbRepeatable;
@@ -166,6 +169,7 @@ describe('mb-repeatale-headless', () => {
         }
       });
     });
+    console.log('starting set timeout');
     setTimeout(() => {
       // start timer
       console.log('Starting to set data');
@@ -176,6 +180,6 @@ describe('mb-repeatale-headless', () => {
       // end timer
     });
 
-    expect(form.data).to.eql({ 'chief_complaints:0': 'Body ache' });
+    // expect(form.data).to.eql({ 'chief_complaints:0': 'Body ache' });
   });
 });
