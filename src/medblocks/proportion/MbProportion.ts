@@ -5,11 +5,7 @@ import { ifDefined } from 'lit-html/directives/if-defined';
 
 export default abstract class MbProportion extends EhrElement {
   static styles = css`
-    sl-input::part(input) {
-      margin-right: -14px;
-      -webkit-appearance: none;
-      -moz-appearance: textfield;
-    }
+    
     .no-icon::part(icon) {
       display: none;
     }
