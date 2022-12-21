@@ -62,12 +62,6 @@ export default class MbQuantity extends QuantityElement {
         display: none;
       }
     }
-
-    sl-input::part(input) {
-      margin-right: -14px;
-      -webkit-appearance: none;
-      -moz-appearance: textfield;
-    }
   `;
 
   /**The default unit to choose. Must be the `value` of a child mb-option element */
