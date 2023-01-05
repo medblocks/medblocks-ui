@@ -52,8 +52,22 @@ describe('duration validation test',()=>{
             `
         )
         const duration = querySelectorDeep('mb-duration') as any;
-        duration.data = 'PT2H'
+        duration.data = 'P1Y'
         await elementUpdated(form)
         expect(form.validate()).to.be.true
+    })
+
+    it('data with 0 should be invalid',async ()=>{
+        const form = await fixture<MbForm>(
+            html`
+            <mb-form>
+                <mb-duration year required path="test/1"></mb-duration>
+            </mb-form>
+            `
+        )
+        const duration = querySelectorDeep('mb-duration') as any;
+        duration.data = 'P0Y'
+        await elementUpdated(form)
+        expect(form.validate()).to.be.false
     })
 })
