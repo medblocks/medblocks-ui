@@ -210,7 +210,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     } catch (e) {
       return {
         result: [],
-        error: 'An unexpected error occured',
+        error: 'An unexpected error occurred',
       };
     }
   }
@@ -233,7 +233,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
           slot="prefix"
           library="medblocks"
         ></sl-icon>
-        An unexpected error occured
+        An unexpected error occurred
       </sl-menu-item>`;
     }
 

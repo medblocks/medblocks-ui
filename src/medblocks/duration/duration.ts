@@ -50,7 +50,7 @@ export default class MbDuration extends EhrElement {
   @property({ type: Boolean, reflect: true }) required: boolean = false;
   @property({ type: Boolean, reflect: true }) disabled: boolean;
   @property({ type: Boolean, reflect: true }) hidelabel: boolean = false;
-  @property({ type: String, reflect: true }) min = '0';
+  @property({ type: String, reflect: true }) min = '1';
   @property({ type: String, reflect: true }) placeholder = '';
 
   @state() _state: { [period: string]: string | undefined } = {};
@@ -119,12 +119,8 @@ export default class MbDuration extends EhrElement {
   }
 
   reportValidity() {
-    if (this.data) {
-      return true;
-    } else {
-      const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
-      return input.reportValidity();
-    }
+    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    return input.reportValidity()
   }
 
   getInputs() {
