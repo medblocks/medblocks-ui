@@ -394,7 +394,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
                             html`<sl-tag
                               ?clearable=${this.filterType === 'or' &&
                               !f.disabled}
-                              size="medium"
+                              size=${this.variant === 'small' ? 'small' : 'medium'}
                               type=${f.disabled ? 'neutral' : 'primary'}
                               @click=${() =>
                                 this._handleFilterClick(f, this._filters)}

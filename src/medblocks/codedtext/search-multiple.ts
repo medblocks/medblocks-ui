@@ -71,7 +71,7 @@ export default class MbSearchMultiple extends MbSearchAbstract {
               exportparts="base"
               style="margin: var(--sl-spacing-x-small) var(--sl-spacing-x-small) 0 0;"
               type=${typeof s === 'string' ? 'neutral' : 'primary'}
-              size="medium"
+              size=${this.variant === 'small' ? "small":"medium"}
               @sl-clear=${() => this.handleClear(i)}
               clearable
               >${typeof s === 'string' ? s : s.value}</sl-tag
