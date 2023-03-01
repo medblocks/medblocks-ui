@@ -37,4 +37,22 @@ describe('MbCount', () => {
     await elementUpdated(mbcount);
     expect(input.value).to.eq('1');
   });
+  it('emits data on input equals 0', async () => {
+    setTimeout(() => {
+      input.value = '0';
+      input.dispatchEvent(new Event('input'));
+    }, 0);
+    const event: any = await oneEvent(mbcount, 'mb-input');
+    expect(event.target.data).to.eq(0);
+  });
+
+  it('changes input on setting data as 0', async () => {
+    setTimeout(() => {
+      input.dispatchEvent(new Event('input'));
+      mbcount.data = 0;
+    }, 0);
+    await oneEvent(mbcount, 'mb-input');
+    await elementUpdated(mbcount);
+    expect(input.value).to.eq('0');
+  });
 });
