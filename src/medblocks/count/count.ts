@@ -40,7 +40,7 @@ export default class MbCount extends EhrElement {
     if (this.variant === 'text') {
       return html`<div>
         ${this._label()}
-        <p>${this.data || '-'}</p>
+        <p>${this.data>=Number(this.min || 0) ? this.data : '-'}</p>
       </div>`;
     }
     return html`
@@ -52,7 +52,7 @@ export default class MbCount extends EhrElement {
         ?required=${this.required}
         label=${this.label}
         @sl-input=${this.handleInput}
-        value=${this.data || ''}
+        value=${this.data>=Number(this.min || 0) ? this.data : ''}
       ></sl-input>
     `;
   }
