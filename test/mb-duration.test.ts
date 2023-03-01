@@ -16,7 +16,7 @@ describe('MbDuration', () => {
     const mbDuration = await fixture<MbDuration>(
       html`<mb-duration year=${true}  label="Year"></mb-duration>`
     );
-    const year = querySelectorAllDeep('input') as SlInput[];
+    const year = querySelectorAllDeep('input') as unknown as SlInput[];
     setTimeout(() => {
       // year[0].value = '2';
       year[0].dispatchEvent(new Event('input'));
@@ -30,7 +30,7 @@ describe('MbDuration', () => {
     const mbDuration = await fixture<MbDuration>(
       html`<mb-duration year=${true} label="Year"></mb-duration>`
     );
-    const year = querySelectorAllDeep('input') as SlInput[];
+    const year = querySelectorAllDeep('input') as unknown as SlInput[];
     setTimeout(() => {
       year[0].value = '2';
       year[0].dispatchEvent(new Event('input'));
@@ -44,7 +44,7 @@ describe('MbDuration', () => {
     const mbDuration = await fixture<MbDuration>(
       html`<mb-duration year label="Year"></mb-duration>`
     );
-    const year = querySelectorAllDeep('input') as SlInput[];
+    const year = querySelectorAllDeep('input') as unknown as SlInput[];
     setTimeout(()=>{
       year[0].dispatchEvent(new Event('input'));
       mbDuration.data = 'P3Y4M';
@@ -57,7 +57,7 @@ describe('MbDuration', () => {
     const mbDuration = await fixture<MbDuration>(
       html`<mb-duration year month label="Year"></mb-duration>`
     );
-    const year = querySelectorAllDeep('input') as SlInput[];
+    const year = querySelectorAllDeep('input') as unknown as SlInput[];
     setTimeout(()=>{
       year[1].dispatchEvent(new Event('input'));
       mbDuration.data = 'P3Y4M';

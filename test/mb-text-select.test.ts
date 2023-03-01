@@ -19,7 +19,7 @@ describe('MbTextSelect', () => {
         <mb-option value="testUnit1" label="Test Unit1"></mb-option>
       </mb-text-select>`
     );
-    let select = querySelectorDeep('sl-select') as HTMLSelectElement;
+    let select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
     select.value = 'testUnit';
     select.dispatchEvent(new CustomEvent('sl-change'));
     const event: any = await oneEvent(mbtextselect, 'mb-input');
@@ -33,7 +33,7 @@ describe('MbTextSelect', () => {
         <mb-option value="testUnit1" label="Test Unit1"></mb-option>
       </mb-text-select>`
     );
-    let select = querySelectorDeep('sl-select') as HTMLSelectElement;
+    let select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
     mbtextselect.data = 'testUnit';
     await oneEvent(mbtextselect, 'mb-input');
     await elementUpdated(mbtextselect);

@@ -18,7 +18,7 @@ describe('MbQuantity', () => {
       </mb-quantity>`
     );
     const input = querySelectorDeep('sl-input') as SlInput;
-    const select = querySelectorDeep('sl-select') as HTMLSelectElement;
+    const select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
     input.value = '234';
     select.value = 'cm';
     input.dispatchEvent(new CustomEvent('sl-input', { bubbles: true }));
@@ -39,7 +39,7 @@ describe('MbQuantity', () => {
       </mb-quantity>`
     );
     const input = querySelectorDeep('input') as HTMLInputElement;
-    const select = querySelectorDeep('sl-select') as HTMLSelectElement;
+    const select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
     mbquantity.data = { magnitude: 334, unit: 'cm' };
     await oneEvent(mbquantity, 'mb-input');
     await elementUpdated(mbquantity);

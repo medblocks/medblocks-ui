@@ -20,7 +20,7 @@ describe('MbInputMultiple', async () => {
     let mbinputmultiple = await fixture<MbInputMultiple>(
       html`<mb-input-multiple> </mb-input-multiple>`
     );
-    let input = querySelectorDeep('input') as SlInput;
+    let input = querySelectorDeep('input') as unknown as SlInput;
     setTimeout(() => {
       input.value = 'testUnit1';
       input.dispatchEvent(new Event('input'));
@@ -73,7 +73,7 @@ describe('MbInputMultiple', async () => {
         </mb-form>
       `
     );
-    let input = querySelectorDeep('input') as SlInput;
+    let input = querySelectorDeep('input') as unknown as SlInput;
     const mbinputmultiple = querySelectorDeep(
       'mb-input-multiple'
     ) as MbInputMultiple;
@@ -122,7 +122,7 @@ describe('MbInputMultiple', async () => {
         </mb-form>
       `
     );
-    let input = querySelectorDeep('input') as SlInput;
+    let input = querySelectorDeep('input') as unknown as SlInput;
     const mbinputmultiple = querySelectorDeep(
       'mb-input-multiple'
     ) as MbInputMultiple;
@@ -221,7 +221,7 @@ it.only('on multiple select with prefix and suffix , emits correct context', asy
       </mb-form>
     `
   );
-  let input = querySelectorDeep('input') as SlInput;
+  let input = querySelectorDeep('input') as unknown as SlInput;
   const mbinputmultiple = querySelectorDeep(
     'mb-input-multiple'
   ) as MbInputMultiple;

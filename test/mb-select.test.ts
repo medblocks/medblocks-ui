@@ -20,7 +20,7 @@ describe('MbSelect', () => {
         <mb-option value="testUnit" label="Test Unit"></mb-option>
       </mb-select>`
     );
-    const select = querySelectorDeep('sl-select') as HTMLSelectElement;
+    const select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
     select.value = 'testUnit';
     select.dispatchEvent(new CustomEvent('sl-change'));
     const event: any = await oneEvent(mbselect, 'mb-input');
@@ -37,7 +37,7 @@ describe('MbSelect', () => {
         <mb-option value="testUnit" label="Test Unit"></mb-option>
       </mb-select>`
     );
-    const select = querySelectorDeep('sl-select') as HTMLSelectElement;
+    const select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
     select.value = 'testUnit';
     select.dispatchEvent(new CustomEvent('sl-change'));
     const event: any = await oneEvent(mbselect, 'mb-input');
@@ -53,7 +53,7 @@ describe('MbSelect', () => {
         <mb-option value="testUnit" label="Test Unit"></mb-option>
       </mb-select>`
     );
-    const select = querySelectorDeep('sl-select') as HTMLSelectElement;
+    const select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
     mbselect.data = {
       code: 'testUnit',
       value: 'Test Unit',
