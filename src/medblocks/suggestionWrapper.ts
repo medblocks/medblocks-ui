@@ -74,6 +74,7 @@ export default class SuggestWrapper extends LitElement {
           ${this.suggestions.map(
             suggestion => html`
               <sl-button
+                id=${suggestion.label}
                 @click=${() => this._handleSuggestion(suggestion)}
                 size="small"
                 pill

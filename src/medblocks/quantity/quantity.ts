@@ -174,7 +174,7 @@ export default class MbQuantity extends QuantityElement {
         @sl-input=${this.handleInput}
         .value=${this.data?.magnitude?.toString() || ''}
         placeholder=${this.placeholder}
-      ></sl-input> 
+      ></sl-input>
       <sl-select
         exportparts="menu"
         .disabled=${this._disabled()}
@@ -189,6 +189,7 @@ export default class MbQuantity extends QuantityElement {
         ${this.units.map(
           unit =>
             html`<sl-menu-item
+              id=${unit.unit}
               value=${unit.unit}
               max=${unit.max}
               min=${unit.min}
