@@ -22,6 +22,8 @@ export default class MbSelect extends CodedTextElement {
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
+  @property({ type: Boolean, reflect: true }) disabled: boolean;
+
   @state() _options: MbOption[] = [];
 
   getLabel(code: string) {
@@ -114,6 +116,7 @@ export default class MbSelect extends CodedTextElement {
     return html`
       <sl-select
         .size=${this.variant === 'small' ? 'small' : 'medium'}
+        .disabled=${this.disabled}
         clearable
         ?required=${this.required}
         ?multiple=${this.multiple}

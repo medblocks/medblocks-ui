@@ -17,6 +17,8 @@ export default class MbTextSelect extends EhrElement {
 
   @property({ type: String }) terminology: string;
 
+  @property({ type: Boolean, reflect: true }) disabled: boolean;
+
   @property({ type: Boolean, reflect: true }) multiple: boolean = false;
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
@@ -68,6 +70,7 @@ export default class MbTextSelect extends EhrElement {
         exportparts="menu"
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         clearable
+        .disabled=${this.disabled}
         ?required=${this.required}
         ?multiple=${this.multiple}
         placeholder=${this.placeholder ?? 'Please select'}

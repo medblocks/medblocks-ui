@@ -5,7 +5,7 @@ import { ifDefined } from 'lit-html/directives/if-defined';
 
 export default abstract class MbProportion extends EhrElement {
   static styles = css`
-    
+
     .no-icon::part(icon) {
       display: none;
     }
@@ -46,6 +46,8 @@ export default abstract class MbProportion extends EhrElement {
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
   @property({ type: String, reflect: true }) step: string;
+
+  @property({ type: Boolean, reflect: true }) disabled: boolean;
 
   @property({ type: Boolean }) hideunit = false;
 
@@ -98,6 +100,7 @@ export default abstract class MbProportion extends EhrElement {
         .min=${this.min}
         .max=${this.max}
         .size=${this.variant === 'small' ? 'small' : 'medium'}
+        .disabled=${this.disabled}
         type="number"
         .step=${this.getStep()}
         label=${ifDefined(this.label)}

@@ -50,6 +50,8 @@ export default class MbInputMultiple extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
+  @property({ type: Boolean, reflect: true }) disabled: boolean;
+
   @state() value: string = '';
 
   handleClear(tagIndex: number) {
@@ -97,6 +99,7 @@ export default class MbInputMultiple extends EhrElement {
     return html`
       <sl-input
         .size=${this.variant === 'small' ? 'small' : 'medium'}
+        .disabled=${this.disabled}
         ?required=${this.required}
         help-text=${this.hidehelp
           ? ''

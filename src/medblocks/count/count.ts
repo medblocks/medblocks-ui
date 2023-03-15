@@ -21,6 +21,8 @@ export default class MbCount extends EhrElement {
 
   @property({ type: String, reflect: true }) min = '0';
 
+  @property({ type: String, reflect: true }) max = '0';
+
   @event('mb-input')
   _mbInput: EventEmitter<number>;
 
@@ -49,6 +51,7 @@ export default class MbCount extends EhrElement {
         type="number"
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         .min=${this.min}
+        .max=${this.max}
         ?required=${this.required}
         label=${this.label}
         @sl-input=${this.handleInput}
