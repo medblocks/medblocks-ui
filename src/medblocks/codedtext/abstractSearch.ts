@@ -83,6 +83,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: Boolean, reflect: true }) fixfilters = false;
 
+  @property({ type: Boolean, reflect: true }) disabled: boolean;
+
   @property({ type: String, attribute: 'filter-type', reflect: true })
   filterType: 'or' | 'and' = 'or';
 
@@ -363,6 +365,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
           class=${classMap({ pointer: this._hasValue })}
           slot="trigger"
           .size=${this.variant === 'small' ? 'small' : 'medium'}
+          .disabled=${this.disabled}
           .label=${this.label || ''}
           @sl-input=${this._handleInput}
           value=${ifDefined(this._display ?? this.searchTerm ?? '')}
