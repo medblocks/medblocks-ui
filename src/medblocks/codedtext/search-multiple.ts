@@ -45,8 +45,10 @@ export default class MbSearchMultiple extends MbSearchAbstract {
   }
 
   handleClear(tagIndex: number) {
-    this.data = this.data.filter((_: any, i: any) => i !== tagIndex);
-    this._mbInput.emit();
+    if (!this.disabled) {
+      this.data = this.data.filter((_: any, i: any) => i !== tagIndex);
+      this._mbInput.emit();
+    }
   }
 
   render() {
@@ -71,9 +73,9 @@ export default class MbSearchMultiple extends MbSearchAbstract {
               exportparts="base"
               style="margin: var(--sl-spacing-x-small) var(--sl-spacing-x-small) 0 0;"
               type=${typeof s === 'string' ? 'neutral' : 'primary'}
-              size=${this.variant === 'small' ? "small":"medium"}
+              size=${this.variant === 'small' ? 'small' : 'medium'}
               @sl-clear=${() => this.handleClear(i)}
-              clearable=${!this.disabled}
+              clearable
               >${typeof s === 'string' ? s : s.value}</sl-tag
             >`
         )}

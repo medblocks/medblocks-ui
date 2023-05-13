@@ -55,8 +55,10 @@ export default class MbInputMultiple extends EhrElement {
   @state() value: string = '';
 
   handleClear(tagIndex: number) {
-    this.data = this.data.filter((_, i) => i !== tagIndex);
-    this._mbInput.emit();
+    if (!this.disabled) {
+      this.data = this.data.filter((_, i) => i !== tagIndex);
+      this._mbInput.emit();
+    }
   }
 
   handleInput(e: CustomEvent) {
@@ -120,7 +122,7 @@ export default class MbInputMultiple extends EhrElement {
               type="neutral"
               size=${this.variant === 'small' ? 'small' : 'medium'}
               @sl-clear=${() => this.handleClear(i)}
-              clearable=${!this.disabled}
+              clearable
               >${s}</sl-tag
             >`
         )}
