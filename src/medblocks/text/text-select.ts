@@ -69,7 +69,7 @@ export default class MbTextSelect extends EhrElement {
       <sl-select
         exportparts="menu"
         .size=${this.variant === 'small' ? 'small' : 'medium'}
-        clearable
+        clearable=${!this.disabled}
         .disabled=${this.disabled}
         ?required=${this.required}
         ?multiple=${this.multiple}

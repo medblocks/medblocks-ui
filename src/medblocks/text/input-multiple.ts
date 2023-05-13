@@ -120,7 +120,7 @@ export default class MbInputMultiple extends EhrElement {
               type="neutral"
               size=${this.variant === 'small' ? 'small' : 'medium'}
               @sl-clear=${() => this.handleClear(i)}
-              clearable
+              clearable=${!this.disabled}
               >${s}</sl-tag
             >`
         )}
