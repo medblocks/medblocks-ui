@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.169](https://github.com/medblocks/medblocks-ui/compare/v0.0.168...v0.0.169) (2023-05-13)
+
+
+### Bug Fixes
+
+* if disabled, tags are not clearable ([a9af5c2](https://github.com/medblocks/medblocks-ui/commit/a9af5c2b88d90a1846c37cd7861070bcd53c3e9a))
+
 ### [0.0.168](https://github.com/medblocks/medblocks-ui/compare/v0.0.167...v0.0.168) (2023-03-15)
 
 ### [0.0.167](https://github.com/medblocks/medblocks-ui/compare/v0.0.166...v0.0.167) (2023-03-15)
