@@ -108,7 +108,13 @@ export default class MedblockForm extends LitElement {
     const toSerialize = this.serializeDeferredData
       ? { ...mbElements, ...this.dataToContextElements(this.deferredData) }
       : mbElements;
-    return this.plugin.serialize(toSerialize);
+    const filteredObject: { [path: string]: EhrElement } = {};
+    Object.keys(toSerialize).forEach((key: string) => {
+      //remove paths with data as ""
+      if (this.hasValue(toSerialize[key].data))
+        filteredObject[key] = toSerialize[key];
+    });
+    return this.plugin.serialize(filteredObject);
   }
 
   dataToContextElements(data: { [key: string]: any }): {
@@ -146,7 +152,7 @@ export default class MedblockForm extends LitElement {
     }
   }
 
-  isNotEmpty(value: any) {
+  hasValue(value: any) {
     // array check
     if (Array.isArray(value)) {
       return value.length > 0;
@@ -171,7 +177,7 @@ export default class MedblockForm extends LitElement {
     // Context elements are also considered empty for this purpose
     return Object.keys(this.mbElements).filter(
       k =>
-        this.isNotEmpty(this.mbElements[k].data) &&
+        this.hasValue(this.mbElements[k].data) &&
         !this.isContextElement(this.mbElements[k])
     );
     // .filter(k => (this.mbElements[k] as MbContext)?.autocontext != null);

@@ -67,28 +67,31 @@ export function toFlat(
 ): Data {
   const flat: any = {};
   Object.keys(data).forEach(path => {
-    const value = data[path];
-    const ehrElement = mbElements[path];
-    if (typeof value === 'object') {
-      if (Array.isArray(value)) {
-        multipleSelectArray(
-          value,
-          path,
-          flat,
-          ehrElement?.repeatprefix,
-          ehrElement?.repeatsuffix
-        );
+    if (path !== '') {
+      // path is not empty
+      const value = data[path];
+      const ehrElement = mbElements[path];
+      if (typeof value === 'object') {
+        if (Array.isArray(value)) {
+          multipleSelectArray(
+            value,
+            path,
+            flat,
+            ehrElement?.repeatprefix,
+            ehrElement?.repeatsuffix
+          );
+        } else {
+          Object.keys(value).forEach(frag => {
+            if (frag !== '_root') {
+              flat[`${path}|${frag}`] = value[frag];
+            } else {
+              flat[path] = value[frag];
+            }
+          });
+        }
       } else {
-        Object.keys(value).forEach(frag => {
-          if (frag !== '_root') {
-            flat[`${path}|${frag}`] = value[frag];
-          } else {
-            flat[path] = value[frag];
-          }
-        });
+        if (value !== '') flat[path] = value; // value is not empty
       }
-    } else {
-      flat[path] = value;
     }
   });
   return flat;
