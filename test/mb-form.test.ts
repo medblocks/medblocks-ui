@@ -7,6 +7,7 @@ import EhrElement from '../src/medblocks/EhrElement';
 import '../src/medblocks/form/form';
 import MbForm from '../src/medblocks/form/form';
 import MedblockForm from '../src/medblocks/form/form';
+import { toFlat} from "../src/medblocks/form/plugins/openEHRFlat";
 
 class BaseEhrElement extends EhrElement {
   @property({ type: Object }) data: any;
@@ -120,10 +121,25 @@ describe('Form', () => {
   });
   it('should return correct null status', () => {
     const form = new MedblockForm();
-    expect(form.isNotEmpty(true)).eq(true);
-    expect(form.isNotEmpty([])).eq(false);
-    expect(form.isNotEmpty({})).eq(false);
-    expect(form.isNotEmpty(false)).eq(true);
-    expect(form.isNotEmpty('')).eq(false);
+    expect(form.hasValue(true)).eq(true);
+    expect(form.hasValue([])).eq(false);
+    expect(form.hasValue({})).eq(false);
+    expect(form.hasValue(false)).eq(true);
+    expect(form.hasValue('')).eq(false);
   });
+
+  // test for checking if paths with value as empty string are not added
+  it('should not add paths that has value as empty string to data', async () => {
+    const form = await fixture<MbForm>(html`
+      <mb-form>
+        <base-ehr path="test/path" label="Hello there" .data=${''}></base-ehr>
+        <base-ehr path="test/path1" label="Hello there" .data=${'hello'}></base-ehr>
+        <base-ehr path="" label="Hello there" .data=${'test value'}></base-ehr>
+      </mb-form>
+    `);
+    const flat = toFlat(form.data,{});
+    expect(Object.keys(form.data)).to.eql(["test/path","test/path1",""]);
+    expect(Object.keys(flat)).to.eql(["test/path1"]);
+  });
+
 });

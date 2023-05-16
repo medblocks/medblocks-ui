@@ -1235,4 +1235,17 @@ describe('Form e2e', () => {
       'aarthy.screening.v0/territory|terminology': 'ISO_3166-1',
     });
   });
+
+  it('should not export if data is empty string', async () => {
+    const form = await fixture<MbForm>(html`
+      <mb-form>
+        <mb-input path="input1" data=""></mb-input>
+        <mb-input path="input2" data="hello there"></mb-input>
+      </mb-form>
+    `);
+
+    setTimeout(() => form.handleSubmit());
+    let data = await oneEvent(form, 'mb-submit');
+    expect(data.detail).to.eql({ input2: 'hello there' });
+  });
 });
