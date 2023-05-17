@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.173](https://github.com/medblocks/medblocks-ui/compare/v0.0.172...v0.0.173) (2023-05-17)
+
+
+### Bug Fixes
+
+* data was binding to paths starting with same prefix ([b41a195](https://github.com/medblocks/medblocks-ui/commit/b41a1954d05097b7e7efdf6433643780c87a9756))
+
 ### [0.0.172](https://github.com/medblocks/medblocks-ui/compare/v0.0.171...v0.0.172) (2023-05-17)
 
 ### [0.0.170](https://github.com/medblocks/medblocks-ui/compare/v0.0.169...v0.0.170) (2023-05-13)
