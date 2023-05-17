@@ -19,9 +19,9 @@ export default class MbCount extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
-  @property({ type: String, reflect: true }) min = '0';
+  @property({ type: Number, reflect: true }) max: number | string | null;
 
-  @property({ type: String, reflect: true }) max = '0';
+  @property({ type: Number, reflect: true }) min: number | string | null = 0;
 
   @event('mb-input')
   _mbInput: EventEmitter<number>;

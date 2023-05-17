@@ -50,7 +50,7 @@ interface MinMax {
 interface ListItem {
   value: string;
   label: string;
-  validation?:{
+  validation?: {
     range: MinMax;
   };
   ordinal?: number;
@@ -75,7 +75,13 @@ const transformations: { [rmType: string]: TransformFunction } = {
                       ? n.inputs[1].list
                           .map(
                             unit =>
-                              `<mb-unit unit="${unit?.value}" label="${unit?.label || ''}" min="${unit?.validation?.range?.min || ''}" max="${unit?.validation?.range?.max || ''}"></mb-unit>`
+                              `<mb-unit unit="${unit?.value}" label="${
+                                unit?.label || ''
+                              }" min="${
+                                unit?.validation?.range?.min || ''
+                              }" max="${
+                                unit?.validation?.range?.max || ''
+                              }"></mb-unit>`
                           )
                           .join('\n')
                       : ''
@@ -87,7 +93,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
     {
       name: 'Select',
       html: `<mb-select path="${n.path}" label="${n.name || ''}" terminology="${
-        n.inputs[0].terminology || "local"
+        n.inputs[0].terminology || 'local'
       }">
               ${
                 n.inputs && n.inputs[0] && n.inputs[0].list
@@ -105,7 +111,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
       name: 'Buttons',
       html: `<mb-buttons path="${n.path}" label="${
         n.name || ''
-      }" terminology="${n.inputs[0].terminology || "local"}">
+      }" terminology="${n.inputs[0].terminology || 'local'}">
         ${
           n.inputs && n.inputs[0] && n.inputs[0].list
             ? n.inputs[0].list
@@ -121,16 +127,16 @@ const transformations: { [rmType: string]: TransformFunction } = {
     {
       name: 'Search',
       html: `<mb-search path="${n.path}" label="${n.name || ''}" terminology="${
-        n.inputs[0].terminology|| "local"
+        n.inputs[0].terminology || 'local'
       }">
           <mb-filter label="Conditions" value="404684003"></mb-filter>
         </mb-search>`,
     },
     {
       name: 'Search-Multiple',
-      html: `<mb-search-multiple path="${n.path}" label="${n.name || ''}" terminology="${
-        n.inputs[0].terminology|| "local"
-      }">
+      html: `<mb-search-multiple path="${n.path}" label="${
+        n.name || ''
+      }" terminology="${n.inputs[0].terminology || 'local'}">
           <mb-filter label="Conditions" value="404684003"></mb-filter>
         </mb-search>`,
     },
@@ -138,20 +144,18 @@ const transformations: { [rmType: string]: TransformFunction } = {
   DV_COUNT: n => [
     {
       name: 'Count',
-      html: `<mb-count path="${n.path}" label="${
-        n.name || ''
-      }"></mb-count>`,
+      html: `<mb-count path="${n.path}" label="${n.name || ''}"
+      min="${n.min}" max="${n.max}"></mb-count>`,
     },
   ],
-  DV_PROPORTION:
-
-
-  n => [
+  DV_PROPORTION: n => [
     ...(n.proportionTypes?.some((props: any) => props === 'percent')
       ? [
           {
             name: 'Percent',
-            html: `<mb-proportion path="${n.path}" label="${n.name || ''}" min="0" max="100" step="1" type="percent"></mb-proportion>`,
+            html: `<mb-proportion path="${n.path}" label="${
+              n.name || ''
+            }" min="0" max="100" step="1" type="percent"></mb-proportion>`,
           },
         ]
       : []),
@@ -159,7 +163,9 @@ const transformations: { [rmType: string]: TransformFunction } = {
       ? [
           {
             name: 'Unitary',
-            html: `<mb-proportion path="${n.path}" label="${n.name || ''}" min="0" max="1" step="0.01"></mb-proportion>`,
+            html: `<mb-proportion path="${n.path}" label="${
+              n.name || ''
+            }" min="0" max="1" step="0.01"></mb-proportion>`,
           },
         ]
       : []),
@@ -219,7 +225,6 @@ const transformations: { [rmType: string]: TransformFunction } = {
         }
       </mb-text-select>`,
     },
-
   ],
   DV_DURATION: n => [
     {
@@ -236,7 +241,9 @@ const transformations: { [rmType: string]: TransformFunction } = {
     },
     {
       name: 'Date',
-      html: `<mb-date dvdatetime path="${n.path}" label="${n.name || ''}"></mb-date>`,
+      html: `<mb-date dvdatetime path="${n.path}" label="${
+        n.name || ''
+      }"></mb-date>`,
     },
   ],
   DV_DATE: n => [
