@@ -1248,4 +1248,22 @@ describe('Form e2e', () => {
     let data = await oneEvent(form, 'mb-submit');
     expect(data.detail).to.eql({ input2: 'hello there' });
   });
+
+  // if prefix of path starts with same prefix of another path, then data should not be added to both
+  it('path starts with similar prefix, should not bind data for other elements', async () => {
+    const form = await fixture<MbForm>(html`
+      <mb-form>
+        <mb-search-multiple path="test/path:0/name" repeatprefix="test/path" repeatsuffix="name" label="Hello there"></base-ehr>
+        <mb-search-multiple path="test/path1:0/name" repeatprefix="test/path1" repeatsuffix="name" label="Hello there"></base-ehr>
+      </mb-form>
+    `);
+    form.import({ 'test/path1:0/name': 'test value1' });
+    await elementUpdated(form);
+
+    expect(form.data).to.eql({
+      'test/path:0/name': [],
+      'test/path1:0/name': ['test value1'],
+    });
+    expect(form.export()).to.eql({ 'test/path1:0/name': 'test value1' });
+  });
 });

@@ -221,7 +221,8 @@ export const openEHRFlatPlugin: MbPlugin = {
       if (prefix && suffix) {
         elementsWithBasePath = Object.keys(parsedData).filter(
           path =>
-            path.startsWith(prefix as string) && path.endsWith(suffix as string)
+            path.split(':')[0] === (prefix as string) &&
+            path.endsWith(suffix as string)
         );
       } else {
         elementsWithBasePath = Object.keys(parsedData).filter(path =>
