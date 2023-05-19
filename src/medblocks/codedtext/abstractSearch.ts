@@ -81,6 +81,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: Boolean, reflect: true }) disablesearch = false;
 
+  @property({ type: Boolean, reflect: true }) required = false;
+
   @property({ type: Boolean, reflect: true }) fixfilters = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
@@ -333,6 +335,13 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     this._emitSearchEvent();
   }
 
+  reportValidity() {
+    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    if (typeof this.data !== 'string' && this.data?.length)
+      return true;
+    return input.reportValidity();
+  }
+
   _showResults() {
     if (this._hasValue) {
       return false;
@@ -364,6 +373,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
         <sl-input
           class=${classMap({ pointer: this._hasValue })}
           slot="trigger"
+          ?required=${this.required}
           .size=${this.variant === 'small' ? 'small' : 'medium'}
           .disabled=${this.disabled}
           .label=${this.label || ''}
@@ -397,7 +407,9 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
                             html`<sl-tag
                               ?clearable=${this.filterType === 'or' &&
                               !f.disabled}
-                              size=${this.variant === 'small' ? 'small' : 'medium'}
+                              size=${this.variant === 'small'
+                                ? 'small'
+                                : 'medium'}
                               type=${f.disabled ? 'neutral' : 'primary'}
                               @click=${() =>
                                 this._handleFilterClick(f, this._filters)}
