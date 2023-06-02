@@ -402,7 +402,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
                         ${this._filters.map(
                           f =>
                             html`<sl-tag
-                              ?clearable=${this.filterType === 'or' &&
+                              ?removable=${this.filterType === 'or' &&
                               !f.disabled}
                               size=${this.variant === 'small'
                                 ? 'small'

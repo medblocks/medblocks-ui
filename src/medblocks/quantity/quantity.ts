@@ -189,7 +189,6 @@ export default class MbQuantity extends QuantityElement {
         ${this.units.map(
           unit =>
             html`<sl-menu-item
-              id=${unit.unit}
               value=${unit.unit}
               max=${unit.max}
               min=${unit.min}

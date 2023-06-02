@@ -85,7 +85,7 @@ export default class MbTextSelect extends EhrElement {
       >
         ${this._options.map(
           option =>
-            html`<sl-menu-item .value=${option.value} id=${option.value}
+            html`<sl-menu-item .value=${option.value}
               >${option.label}
             </sl-menu-item>`
         )}
