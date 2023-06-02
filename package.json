@@ -34,7 +34,7 @@
     "test:watch": "tsc && concurrently -k -r \"tsc --watch \" \"wtr --watch\""
   },
   "dependencies": {
-    "@shoelace-style/shoelace": "2.0.0-beta.50",
+    "@shoelace-style/shoelace": "^2.0.0-beta.71",
     "axios": "^0.26.1",
     "chai": "^4.0.0-canary.2",
     "lit-element": "^2.5.0",

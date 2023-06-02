@@ -18,14 +18,14 @@ export default class CodedTextButtons extends CodedTextElement {
     .buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--sl-spacing-xx-small);
+      gap: var(--sl-spacing-2x-small);
     }
 
     .label {
       font-size: var(--sl-input-label-font-size-medium);
       display: inline-block;
       color: var(--sl-input-label-color);
-      margin-bottom: var(--sl-spacing-xxx-small);
+      margin-bottom: var(--sl-spacing-3x-small);
     }
   `;
 
@@ -95,7 +95,7 @@ export default class CodedTextButtons extends CodedTextElement {
                 .size=${this.variant === 'small' ? 'small' : 'medium'}
                 ?disabled=${this.disabled}
                 @click=${() => this._handleInput(option)}
-                type=${this.data?.code === option.value
+                variant=${this.data?.code === option.value
                   ? 'primary'
                   : option.type
                   ? option.type

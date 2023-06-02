@@ -21,8 +21,8 @@ export default class SuggestWrapper extends LitElement {
     .suggestions {
       display: block;
       flex-wrap: wrap;
-      gap: var(--sl-spacing-xx-small);
-      margin-top: var(--sl-spacing-xx-small);
+      gap: var(--sl-spacing-2x-small);
+      margin-top: var(--sl-spacing-2x-small);
     }
 
     .label {
@@ -34,8 +34,8 @@ export default class SuggestWrapper extends LitElement {
     .suggest-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--sl-spacing-xx-small);
-      margin-top: var(--sl-spacing-xx-small);
+      gap: var(--sl-spacing-2x-small);
+      margin-top: var(--sl-spacing-2x-small);
     }
 
     sl-tag {

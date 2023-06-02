@@ -16,7 +16,7 @@ import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/tag/tag';
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
-import '@shoelace-style/shoelace/dist/components/menu-divider/menu-divider';
+import '@shoelace-style/shoelace/dist/components/divider/divider';
 import '@shoelace-style/shoelace/dist/components/menu-label/menu-label';
 import '@shoelace-style/shoelace/dist/components/skeleton/skeleton';
 
@@ -36,16 +36,16 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     }
 
     .tags {
-      padding: var(--sl-spacing-xx-small) var(--sl-spacing-x-small);
+      padding: var(--sl-spacing-2x-small) var(--sl-spacing-x-small);
     }
 
     .more {
       display: flex;
       justify-content: space-between;
-      padding: var(--sl-spacing-xxx-small) var(--sl-spacing-small);
+      padding: var(--sl-spacing-3x-small) var(--sl-spacing-small);
     }
     .tags sl-tag {
-      padding: var(--sl-spacing-xx-small);
+      padding: var(--sl-spacing-2x-small);
     }
 
     sl-tag::part(base) {
@@ -146,7 +146,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   get _viewMore() {
     return html` <div class="more">
       <sl-button
-        type="text"
+        variant="text"
         @click=${() => {
           this._moreHits += 10;
         }}
@@ -154,7 +154,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
       >
       ${this._maxHits > this.hits
         ? html`<sl-button
-            type="text"
+            variant="text"
             @click=${() => {
               this._moreHits -= 10;
             }}
@@ -249,11 +249,11 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   }
 
   _textFallback() {
-    return html`<sl-menu-divider></sl-menu-divider>
+    return html`<sl-divider></sl-divider>
       <sl-menu-item .value=${{ text: this.searchTerm }}
         ><span
           slot="suffix"
-          style="font-size: small; color: var(--sl-color-neutral-100)"
+          style="font-size: small;"
           >${this.textFallbackLabel}</span
         >${this.searchTerm}</sl-menu-item
       >`;
@@ -271,7 +271,6 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   abstract _handleSelect(data: SearchResult, menuItem: SlMenuItem): void;
 
   _handleSlSelect(e: CustomEvent) {
-    console.log(e.detail.item);
     const menuItem = e.detail.item;
     this.searchTerm = '';
     if (menuItem.value) {
@@ -325,7 +324,6 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   _handleFilterClick(tag: MbFilter, tags: MbFilter[]) {
     if (this.filterType === 'and') {
       tags.forEach(t => {
-        console.log(t);
         t.disabled = true;
       });
       tag.disabled = false;
@@ -337,8 +335,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   reportValidity() {
     const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
-    if (typeof this.data !== 'string' && this.data?.length)
-      return true;
+    if (typeof this.data !== 'string' && this.data?.length) return true;
     return input.reportValidity();
   }
 
@@ -399,7 +396,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
                 <slot name="results"></slot>
                 ${this.disablefallback ? null : this._textFallback()}
                 ${this._filters?.length > 0 && !this.fixfilters
-                  ? html` <sl-menu-divider></sl-menu-divider>
+                  ? html` <sl-divider></sl-divider>
                       <sl-menu-label>Filters</sl-menu-label>
                       <div class="tags">
                         ${this._filters.map(
@@ -410,7 +407,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
                               size=${this.variant === 'small'
                                 ? 'small'
                                 : 'medium'}
-                              type=${f.disabled ? 'neutral' : 'primary'}
+                              variant=${f.disabled ? 'neutral' : 'primary'}
                               @click=${() =>
                                 this._handleFilterClick(f, this._filters)}
                               >${f.label}</sl-tag
