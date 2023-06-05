@@ -12,7 +12,7 @@ export default class MbDateTime extends EhrElement {
       width: unset;
     }
     .placeholder::part(input) {
-      color: rgb(var(--sl-input-placeholder-color));
+      color: var(--sl-input-placeholder-color);
     }
   `;
   @property({ type: String }) data: string | undefined;
@@ -30,6 +30,9 @@ export default class MbDateTime extends EhrElement {
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
+
+  @property({ type: Boolean, reflect: true }) id: string = 'date';
+
 
   @event('mb-input') _mbInput: EventEmitter<any>;
 
@@ -90,6 +93,7 @@ export default class MbDateTime extends EhrElement {
     }
     return html`
       <sl-input
+        id=${this.id}
         part="sl-input"
         class=${this.data ? '' : 'placeholder'}
         .size=${this.variant === 'small' ? 'small' : 'medium'}

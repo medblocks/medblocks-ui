@@ -28,7 +28,7 @@ export default class SuggestWrapper extends LitElement {
     .label {
       font-weight: var(--sl-font-weight-light);
       font-size: var(--sl-input-help-text-font-size-medium);
-      color: rgb(var(--sl-input-help-text-color));
+      color: var(--sl-input-help-text-color);
     }
 
     .suggest-buttons {

@@ -52,6 +52,8 @@ export default class MbDuration extends EhrElement {
   @property({ type: Boolean, reflect: true }) hidelabel: boolean = false;
   @property({ type: String, reflect: true }) min = '1';
   @property({ type: String, reflect: true }) placeholder = '';
+  @property({ type: String, reflect: true }) id = 'duration';
+
 
   @state() _state: { [period: string]: string | undefined } = {};
 
@@ -142,7 +144,7 @@ export default class MbDuration extends EhrElement {
       a => html`<sl-input
         .disabled=${this.disabled}
         .size=${this.variant === 'small' ? 'small' : 'medium'}
-        id=${a}
+        id=${`${this.id}-${this.formatDuration(a)}`}
         type="number"
         .min=${this.min}
         ?required=${this.required}

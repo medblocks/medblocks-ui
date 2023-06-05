@@ -8,6 +8,7 @@ export default class MbCheckBox extends EhrElement {
   @property({ type: Boolean }) data: boolean | undefined = undefined;
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
   @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: String, reflect: true }) id: string = 'checkbox';
 
   _handleChange(e: CustomEvent) {
     const checkbox = e.target as SlCheckbox;
@@ -27,6 +28,7 @@ export default class MbCheckBox extends EhrElement {
       </div>`;
     }
     return html`<sl-checkbox
+      id=${this.id}
       ?required=${this.required}
       ?disabled=${this.disabled}
       ?checked=${this.data}

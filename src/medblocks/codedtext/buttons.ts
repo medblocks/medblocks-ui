@@ -13,6 +13,7 @@ import { property } from 'lit-element';
 export default class CodedTextButtons extends CodedTextElement {
   @property({ type: Boolean, reflect: true }) required: boolean = false;
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+  @property({ type: String, reflect: true }) id: string ='buttons';
   /** @ignore */
   static styles = css`
     .buttons {
@@ -91,7 +92,7 @@ export default class CodedTextButtons extends CodedTextElement {
           ${this._options.map(
             option =>
               html` <sl-button
-                id=${option.value}
+                id=${`${this.id}-${option.label}`}
                 .size=${this.variant === 'small' ? 'small' : 'medium'}
                 ?disabled=${this.disabled}
                 @click=${() => this._handleInput(option)}

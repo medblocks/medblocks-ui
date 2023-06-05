@@ -1,11 +1,4 @@
-import {
-  css,
-
-  html,
-  property,
-  query,
-  state,
-} from 'lit-element';
+import { css, html, property, query, state } from 'lit-element';
 import MbUnit from './unit';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
@@ -90,6 +83,8 @@ export default abstract class QuantityLike extends EhrElement {
 
   @property({ type: String, reflect: true }) placeholder = '';
 
+  @property({ type: String, reflect: true }) id = '';
+
   @property({ type: Boolean }) hideicon = false;
 
   /** Automatically disables the unit if only a single unit is present */
@@ -170,6 +165,7 @@ export default abstract class QuantityLike extends EhrElement {
     }
     return html`
       <sl-input
+        id=${`${this.id}-magnitude`}
         class=${this.hideunit ? '' : 'margin-xs'}
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         .disabled=${this.disabled}
@@ -184,6 +180,7 @@ export default abstract class QuantityLike extends EhrElement {
         placeholder=${this.placeholder}
       ></sl-input>
       <sl-select
+        id=${`${this.id}-unit`}
         .disabled=${this._disabled()}
         class="${this._disabled() || this.hideicon ? 'no-icon' : ''}"
         style="${this.hideunit ? 'display: none' : ''}"
@@ -197,6 +194,7 @@ export default abstract class QuantityLike extends EhrElement {
           unit =>
             html`<sl-menu-item
               value=${unit.unit}
+              id=${`${this.id}-unit-${unit.unit}`}
               max=${unit.max}
               min=${unit.min}
               >${unit.label}</sl-menu-item

@@ -82,6 +82,8 @@ export default class MbQuantity extends QuantityElement {
 
   @property({ type: String, reflect: true }) placeholder = '';
 
+  @property({ type: String, reflect: true }) id : string = 'quantity';
+
   @property({ type: Boolean }) hideicon = false;
 
   /** Automatically disables the unit if only a single unit is present */
@@ -162,6 +164,7 @@ export default class MbQuantity extends QuantityElement {
     }
     return html`
       <sl-input
+        id=${`${this.id}-magnitude`}
         class=${this.hideunit ? '' : 'margin-xs'}
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         .disabled=${this.disabled}
@@ -176,6 +179,7 @@ export default class MbQuantity extends QuantityElement {
         placeholder=${this.placeholder}
       ></sl-input>
       <sl-select
+        id=${`${this.id}-unit`}
         exportparts="menu"
         .disabled=${this._disabled()}
         class="${this._disabled() || this.hideicon ? 'no-icon' : ''}"
@@ -190,6 +194,7 @@ export default class MbQuantity extends QuantityElement {
           unit =>
             html`<sl-menu-item
               value=${unit.unit}
+              id=${`${this.id}-unit-${unit.unit}`}
               max=${unit.max}
               min=${unit.min}
               >${unit.label}</sl-menu-item

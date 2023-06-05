@@ -39,6 +39,8 @@ export default class MbInput extends EhrElement {
 
   @property({ type: String }) label: string = '';
 
+  @property({ type: String }) id: string = 'input';
+
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
   @property({ type: String, reflect: true }) type: string;
@@ -89,6 +91,7 @@ export default class MbInput extends EhrElement {
     return this.textarea
       ? html`
           <sl-textarea
+            id=${this.id}
             .size=${this.variant === 'small' ? 'small' : 'medium'}
             .disabled=${this.disabled}
             .maxlength=${this.maxlength}
@@ -105,6 +108,7 @@ export default class MbInput extends EhrElement {
         `
       : html`
           <sl-input
+            id=${this.id}
             .size=${this.variant === 'small' ? 'small' : 'medium'}
             .disabled=${this.disabled}
             .min=${this.min}

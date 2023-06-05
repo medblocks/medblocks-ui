@@ -16,7 +16,9 @@ export default class MbSelect extends CodedTextElement {
   @property({ type: String }) terminology: string;
   @property({ type: Object }) data: CodedText | CodedText[] | undefined;
 
-  @property({ type: String, reflect: true }) placeholder: string;
+  @property({ type: String, reflect: true }) placeholder: string = 'Please select';
+
+  @property({ type: String, reflect: true }) id: string = 'select';
 
   @property({ type: Boolean, reflect: true }) multiple: boolean = false;
 
@@ -115,6 +117,7 @@ export default class MbSelect extends CodedTextElement {
     }
     return html`
       <sl-select
+        id=${this.id}
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         .disabled=${this.disabled}
         clearable
@@ -132,7 +135,7 @@ export default class MbSelect extends CodedTextElement {
       >
         ${this._options.map(
           option =>
-            html`<sl-menu-item .value=${option.value}>
+            html`<sl-menu-item .value=${option.value} id=${`${this.id}-${option.value}`}>
               ${option.label}
             </sl-menu-item>`
         )}

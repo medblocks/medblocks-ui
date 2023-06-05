@@ -48,6 +48,8 @@ export default class MbInputMultiple extends EhrElement {
 
   @property({ type: String, reflect: true }) placeholder: string = '';
 
+  @property({ type: String, reflect: true }) id: string = 'input_multiple';
+
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
@@ -100,6 +102,7 @@ export default class MbInputMultiple extends EhrElement {
     }
     return html`
       <sl-input
+        id=${this.id}
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         .disabled=${this.disabled}
         ?required=${this.required}
@@ -119,6 +122,7 @@ export default class MbInputMultiple extends EhrElement {
         ${this.data.map(
           (s, i) =>
             html`<sl-tag
+              id=${`${this.id}_tag${i}`}
               variant="neutral"
               size=${this.variant === 'small' ? 'small' : 'medium'}
               @sl-remove=${() => this.handleClear(i)}

@@ -5,7 +5,6 @@ import { ifDefined } from 'lit-html/directives/if-defined';
 
 export default abstract class MbProportion extends EhrElement {
   static styles = css`
-
     .no-icon::part(icon) {
       display: none;
     }
@@ -48,6 +47,10 @@ export default abstract class MbProportion extends EhrElement {
   @property({ type: String, reflect: true }) step: string;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
+
+  @property({ type: String, reflect: true }) placeholder = '';
+
+  @property({ type: String, reflect: true }) id = 'proportion';
 
   @property({ type: Boolean }) hideunit = false;
 
@@ -96,6 +99,7 @@ export default abstract class MbProportion extends EhrElement {
       </div>`;
     }
     return html`<sl-input
+        id=${`${this.id}-magnitude`}
         .required=${this.required}
         .min=${this.min}
         .max=${this.max}
@@ -107,9 +111,11 @@ export default abstract class MbProportion extends EhrElement {
         @sl-input=${this._handleChange}
         class=${this.hideunit ? '' : 'margin-xs'}
         .value=${this.data?.numerator?.toString() || ''}
+        placeholder=${this.placeholder}
       >
       </sl-input>
       <sl-select
+        id=${`${this.id}-unit`}
         style="${this.hideunit ? 'display: none' : ''}"
         placeholder="Select units"
         class="no-icon"

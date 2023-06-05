@@ -73,6 +73,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: String, reflect: true }) placeholder = 'Type to search';
 
+  @property({ type: String, reflect: true }) id = 'search';
+
   @property({ type: String }) textFallbackLabel = 'Add custom';
 
   @property({ type: String }) filtersLabel = 'Filters';
@@ -251,9 +253,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   _textFallback() {
     return html`<sl-divider></sl-divider>
       <sl-menu-item .value=${{ text: this.searchTerm }}
-        ><span
-          slot="suffix"
-          style="font-size: small;"
+        ><span slot="suffix" style="font-size: small;"
           >${this.textFallbackLabel}</span
         >${this.searchTerm}</sl-menu-item
       >`;
@@ -368,6 +368,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
         }}
       >
         <sl-input
+          id=${this.id}
           class=${classMap({ pointer: this._hasValue })}
           slot="trigger"
           ?required=${this.required}

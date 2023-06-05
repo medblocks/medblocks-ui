@@ -25,6 +25,8 @@ export default class MbTextSelect extends EhrElement {
 
   @property({ type: String, reflect: true }) placeholder: string;
 
+  @property({ type: String, reflect: true }) id: string = 'text_select';
+
   @state() _options: MbOption[] = [];
 
   get _optionElements(): NodeListOf<MbOption> {
@@ -67,6 +69,7 @@ export default class MbTextSelect extends EhrElement {
     }
     return html`
       <sl-select
+        id=${this.id}
         exportparts="menu"
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         clearable
@@ -85,7 +88,7 @@ export default class MbTextSelect extends EhrElement {
       >
         ${this._options.map(
           option =>
-            html`<sl-menu-item .value=${option.value}
+            html`<sl-menu-item .value=${option.value} id=${`${this.id}-${option.label}`}
               >${option.label}
             </sl-menu-item>`
         )}

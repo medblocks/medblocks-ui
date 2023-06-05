@@ -15,6 +15,10 @@ export default class MbCount extends EhrElement {
 
   @property({ type: String }) label: string = '';
 
+  @property({ type: String }) placeholder: string = '';
+
+  @property({ type: String }) id: string = 'count';
+
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
@@ -42,11 +46,12 @@ export default class MbCount extends EhrElement {
     if (this.variant === 'text') {
       return html`<div>
         ${this._label()}
-        <p>${this.data>=Number(this.min || 0) ? this.data : '-'}</p>
+        <p>${this.data >= Number(this.min || 0) ? this.data : '-'}</p>
       </div>`;
     }
     return html`
       <sl-input
+        id=${this.id}
         .disabled=${this.disabled}
         type="number"
         .size=${this.variant === 'small' ? 'small' : 'medium'}
@@ -55,7 +60,8 @@ export default class MbCount extends EhrElement {
         ?required=${this.required}
         label=${this.label}
         @sl-input=${this.handleInput}
-        value=${this.data>=Number(this.min || 0) ? this.data : ''}
+        value=${this.data >= Number(this.min || 0) ? this.data : ''}
+        placeholder=${this.placeholder}
       ></sl-input>
     `;
   }
