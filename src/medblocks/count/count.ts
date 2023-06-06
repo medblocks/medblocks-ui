@@ -15,9 +15,9 @@ export default class MbCount extends EhrElement {
 
   @property({ type: String }) label: string = '';
 
-  @property({ type: String }) placeholder: string = '';
+  @property({ type: String , reflect: true }) placeholder: string = '';
 
-  @property({ type: String }) id: string = 'count';
+  @property({ type: String , reflect: true }) id: string = 'count';
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 

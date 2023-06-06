@@ -39,7 +39,7 @@ export default class MbInput extends EhrElement {
 
   @property({ type: String }) label: string = '';
 
-  @property({ type: String }) id: string = 'input';
+  @property({ type: String, reflect: true }) id: string = 'input';
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
@@ -60,7 +60,6 @@ export default class MbInput extends EhrElement {
   @property({ type: String }) rows = '3';
 
   @property({ type: String, reflect: true }) resize = 'auto';
-
 
   @event('mb-input')
   _mbInput: EventEmitter<string>;
