@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.179](https://github.com/medblocks/medblocks-ui/compare/v0.0.178...v0.0.179) (2023-06-16)
+
+
+### Bug Fixes
+
+* shoelace installing latest version bug ([9a2b8ef](https://github.com/medblocks/medblocks-ui/commit/9a2b8efb99618a0fb49986e58d7cf3b11ec1a140))
+
 ### [0.0.178](https://github.com/medblocks/medblocks-ui/compare/v0.0.177...v0.0.178) (2023-06-06)
 
 ### [0.0.177](https://github.com/medblocks/medblocks-ui/compare/v0.0.176...v0.0.177) (2023-06-05)
