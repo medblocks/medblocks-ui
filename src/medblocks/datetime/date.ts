@@ -31,7 +31,7 @@ export default class MbDateTime extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
-  @property({ type: Boolean, reflect: true }) id: string = 'date';
+  @property({ type: String, reflect: true }) id: string = 'date';
 
 
   @event('mb-input') _mbInput: EventEmitter<any>;
