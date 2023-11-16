@@ -803,7 +803,7 @@ describe('Form e2e', () => {
       </mb-form>
     `);
     setTimeout(() => form.handleSubmit());
-    let data = await oneEvent(form, 'mb-submit');
+    let data = await oneEvent(form, 'mb-submit', false);
     // console.log("opdvisit data",data.detail)
     expect(data.detail).to.eql({
       'opdvisit.v0/context/start_time':
@@ -1079,18 +1079,18 @@ describe('Form e2e', () => {
     const oneEyed = querySelectorDeep('mb-checkbox', form) as MbCheckBox;
     // const ctx = querySelectorDeep('#oneeye_ctx', form) as MbContext;
     oneEyed.data = false;
-    var event = new CustomEvent('mb-input', {
+    const event = new CustomEvent('mb-input', {
       bubbles: true,
       cancelable: true,
     });
     oneEyed.dispatchEvent(event);
-    await oneEvent(form, 'mb-input');
+    await oneEvent(form, 'mb-input', true);
     const nonNull = form.nonEmptyPaths();
     expect(nonNull).contain(
       'aarthy.screening.v0/medical_history/any_event:0/one_eyed:0/presence'
     );
     setTimeout(() => form.handleSubmit());
-    let data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit', true);
     expect(Object.keys(data.detail)).contain(
       'aarthy.screening.v0/medical_history/any_event:0/one_eyed:0/presence'
     );
@@ -1200,14 +1200,14 @@ describe('Form e2e', () => {
     // const ctx = querySelectorDeep('#oneeye_ctx', form) as MbContext;
     const slInput = querySelectorDeep('sl-input', pulse) as SlInput;
     slInput.value = '';
-    var event = new CustomEvent('sl-input', {
+    const event = new CustomEvent('sl-input', {
       bubbles: true,
       cancelable: true,
     });
     slInput.dispatchEvent(event);
-    await oneEvent(form, 'mb-input');
+    await oneEvent(form, 'mb-input', true);
     setTimeout(() => form.handleSubmit());
-    let data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit', true);
     expect(data.detail).to.eql({
       'aarthy.screening.v0/category|code': '433',
       'aarthy.screening.v0/category|value': 'event',
@@ -1245,7 +1245,7 @@ describe('Form e2e', () => {
     `);
 
     setTimeout(() => form.handleSubmit());
-    let data = await oneEvent(form, 'mb-submit');
+    let data = await oneEvent(form, 'mb-submit', true);
     expect(data.detail).to.eql({ input2: 'hello there' });
   });
 

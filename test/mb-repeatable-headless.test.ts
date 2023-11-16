@@ -41,7 +41,7 @@ describe('mb-repeatale-headless', () => {
         'chief_complaints:2': 'Fever',
       })
     );
-    const event: any = await oneEvent(repeatable, 'mb-count');
+    const event: any = await oneEvent(repeatable, 'mb-count', true);
     expect(event.target.count).to.equal(3);
     expect(form.data).to.eql({ 'chief_complaints:0': 'Body ache' });
   });
