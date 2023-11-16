@@ -82,7 +82,7 @@ export default class MbQuantity extends QuantityElement {
 
   @property({ type: String, reflect: true }) placeholder = '';
 
-  @property({ type: String, reflect: true }) id : string = 'quantity';
+  @property({ type: String, reflect: true }) id: string = 'quantity';
 
   @property({ type: Boolean }) hideicon = false;
 
@@ -136,9 +136,8 @@ export default class MbQuantity extends QuantityElement {
     let Unit = this.units.filter(
       unit => unit.unit === this.selectElement.value
     )[0];
-
-    this.max = Unit ? Unit.max : null;
-    this.min = Unit ? Unit.min : null;
+    this.max = Unit?.max ? Unit.max : null;
+    this.min = Unit?.min ? Unit.min : null;
     this._mbInput.emit();
   }
 
@@ -158,7 +157,7 @@ export default class MbQuantity extends QuantityElement {
         ${this._label()}
         <div style="display:flex;gap:0 8px">
           <p>${this.data?.magnitude || '-'}</p>
-          <p>${this.hideunit ? "" : (this.data?.unit || '-')}</p>
+          <p>${this.hideunit ? '' : this.data?.unit || '-'}</p>
         </div>
       </div>`;
     }

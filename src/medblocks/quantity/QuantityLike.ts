@@ -138,8 +138,8 @@ export default abstract class QuantityLike extends EhrElement {
       unit => unit.unit === this.selectElement.value
     )[0];
 
-    this.max = Unit ? Unit.max : null;
-    this.min = Unit ? Unit.min : null;
+    this.max = Unit?.max ? Unit.max : null;
+    this.min = Unit?.min ? Unit.min : null;
     this._mbInput.emit();
   }
 
