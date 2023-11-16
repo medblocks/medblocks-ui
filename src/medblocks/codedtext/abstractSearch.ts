@@ -392,7 +392,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
         </sl-input>
         ${this._showResults()
           ? html`
-              <sl-menu style="min-width: 300px;display:flex;">
+              <sl-menu style="min-width:300px; width:fit-content;">
                 ${this.disablesearch ? null : until(this._results())}
                 <slot name="results"></slot>
                 ${this.disablefallback ? null : this._textFallback()}
