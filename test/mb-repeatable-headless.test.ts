@@ -1,6 +1,5 @@
 import { expect } from '@open-wc/testing';
 import { elementUpdated, fixture, oneEvent } from '@open-wc/testing-helpers';
-import { html } from 'lit-html';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
 import MbForm from '../src/medblocks/form/form';
 import '../src/medblocks/form/form';
@@ -11,7 +10,7 @@ import '../src/medblocks/repeat/repeatableHeadless';
 describe('mb-repeatale-headless', () => {
   it('getting the count of repeatable path', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-input
             path="chief_complaints:0"
@@ -48,7 +47,7 @@ describe('mb-repeatale-headless', () => {
 
   it('should get correct count', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-input
             path="chief_complaints:0"
@@ -118,11 +117,11 @@ describe('mb-repeatale-headless', () => {
     console.log('starting testing');
     const start = performance.now();
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           ${[...Array(repeatableCount)].map((_, i) => {
             return [...Array(inputCountPerRepeatable)].map(
-              (_, j) => html`
+              (_, j) => `
                 <mb-input
                   path="long_repeatable/path/inside/composition${i}:${j}"
                 ></mb-input>
@@ -137,7 +136,7 @@ describe('mb-repeatale-headless', () => {
             );
           })}
           ${[...Array(repeatableCount)].map(
-            (_, i) => html`<mb-repeatable-headless
+            (_, i) => `<mb-repeatable-headless
               count="0"
               path="long_repeatable/path/inside/composition${i}"
             ></mb-repeatable-headless>`

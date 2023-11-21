@@ -31,7 +31,8 @@
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "test": "tsc && wtr",
-    "test:watch": "tsc && concurrently -k -r \"tsc --watch \" \"wtr --watch\""
+    "test:watch": "tsc && concurrently -k -r \"tsc --watch \" \"wtr --watch\"",
+    "validate-quantity": "tsc && wtr ./dist/test/validation-test/search-validation.test.js"
   },
   "dependencies": {
     "@shoelace-style/shoelace": "2.0.0-beta.71",

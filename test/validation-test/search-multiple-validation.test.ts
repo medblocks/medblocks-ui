@@ -1,7 +1,6 @@
 import '../../medblocks'
 import { expect } from '@open-wc/testing'
 import { elementUpdated, fixture } from '@open-wc/testing-helpers'
-import { html } from 'lit-html'
 import { querySelectorDeep } from 'query-selector-shadow-dom'
 import MbForm from '../../src/medblocks/form/form'
 
@@ -10,7 +9,7 @@ import MbForm from '../../src/medblocks/form/form'
 describe('search validation test',()=>{
     it('with empty',async ()=>{
         const form = await fixture<MbForm>(
-            html`
+            `
             <mb-form>
                 <mb-search-multiple path="test/1"></mb-search-multiple>
             </mb-form>
@@ -21,7 +20,7 @@ describe('search validation test',()=>{
     })
     it('with data',async ()=>{
         const form = await fixture<MbForm>(
-            html`
+            `
             <mb-form>
                 <mb-search-multiple path="test/1"></mb-search-multiple>
             </mb-form>
@@ -34,7 +33,7 @@ describe('search validation test',()=>{
     })
     it('required but empty',async ()=>{
         const form = await fixture<MbForm>(
-            html`
+            `
             <mb-form>
                 <mb-search-multiple required path="test/1"></mb-search-multiple>
             </mb-form>
@@ -45,7 +44,7 @@ describe('search validation test',()=>{
     })
     it('required with data',async ()=>{
         const form = await fixture<MbForm>(
-            html`
+            `
             <mb-form>
                 <mb-search-multiple required path="test/1"></mb-search-multiple>
             </mb-form>

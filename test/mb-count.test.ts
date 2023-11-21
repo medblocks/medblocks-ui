@@ -1,5 +1,4 @@
 import {
-  html,
   fixture,
   expect,
   oneEvent,
@@ -15,7 +14,7 @@ describe('MbCount', () => {
 
   beforeEach(async () => {
     mbcount = await fixture<MbCount>(
-      html`<mb-count label="Hello there"></mb-count>`
+      `<mb-count label="Hello there"></mb-count>`
     );
     input = querySelectorDeep('input') as HTMLInputElement;
   });

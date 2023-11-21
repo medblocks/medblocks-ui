@@ -1,5 +1,4 @@
 import {
-  html,
   fixture,
   expect,
   oneEvent,
@@ -13,7 +12,7 @@ import '../src/medblocks/codedtext/option';
 describe('MbButtons', () => {
   it('emits data on input', async () => {
     const mbbuttons = await fixture<MbButtons>(
-      html`<mb-buttons label="Hello there">
+      `<mb-buttons label="Hello there">
         <mb-option value="option1" label="Option 1"></mb-option>
         <mb-option value="option2" label="Option 2"></mb-option>
       </mb-buttons>`
@@ -47,7 +46,7 @@ describe('MbButtons', () => {
 
   it('emits data with correct terminology', async () => {
     const mbbuttons = await fixture<MbButtons>(
-      html`<mb-buttons label="Hello there" terminology="SOME-TERMINOLOGY">
+      `<mb-buttons label="Hello there" terminology="SOME-TERMINOLOGY">
         <mb-option value="option1" label="Option 1"></mb-option>
         <mb-option value="option2" label="Option 2"></mb-option>
       </mb-buttons>`
@@ -75,7 +74,7 @@ describe('MbButtons', () => {
   });
   it('changes input on setting data', async () => {
     const mbbuttons = await fixture<MbButtons>(
-      html`<mb-buttons label="Hello there" terminology="SOME-TERMINOLOGY">
+      `<mb-buttons label="Hello there" terminology="SOME-TERMINOLOGY">
         <mb-option value="option1" label="Option 1"></mb-option>
         <mb-option value="option2" label="Option 2"></mb-option>
         <mb-option value="option3" label="Option 3"></mb-option>

@@ -1,7 +1,6 @@
 import '../../medblocks'
 import { expect } from '@open-wc/testing'
 import { elementUpdated, fixture } from '@open-wc/testing-helpers'
-import { html } from 'lit-html'
 import { querySelectorDeep } from 'query-selector-shadow-dom'
 import MbForm from '../../src/medblocks/form/form'
 
@@ -10,7 +9,7 @@ import MbForm from '../../src/medblocks/form/form'
 describe('input validation test',()=>{
     it('empty',async ()=>{
         const form = await fixture<MbForm>(
-            html`
+            `
             <mb-form>
                 <mb-input path="test/1"></mb-input>
             </mb-form>
@@ -21,7 +20,7 @@ describe('input validation test',()=>{
     })
     it('data',async ()=>{
         const form = await fixture<MbForm>(
-            html`
+            `
             <mb-form>
                 <mb-input path="test/1"></mb-input>
             </mb-form>
@@ -34,7 +33,7 @@ describe('input validation test',()=>{
     })
     it('required but empty',async ()=>{
         const form = await fixture<MbForm>(
-            html`
+            `
             <mb-form>
                 <mb-input required path="test/1"></mb-input>
             </mb-form>
@@ -45,7 +44,7 @@ describe('input validation test',()=>{
     })
     it('required with data',async ()=>{
         const form = await fixture<MbForm>(
-            html`
+            `
             <mb-form>
                 <mb-input required path="test/1"></mb-input>
             </mb-form>

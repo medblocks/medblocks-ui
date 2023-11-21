@@ -1,15 +1,17 @@
 import '../../medblocks';
 import { expect } from '@open-wc/testing';
 import { elementUpdated, fixture } from '@open-wc/testing-helpers';
-import { html } from 'lit-html';
+// import { html } from 'lit-html';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import MbForm from '../../src/medblocks/form/form';
 import { SlInput } from '@shoelace-style/shoelace';
+import MbForm from '../../src/medblocks/form/form';
+// import { TemplateResult } from 'lit-html';
+
 
 describe('quantity validation test', () => {
   it('empty', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-quantity path="test/1">
             <mb-unit unit="cm" label="cm" min="0" max="1000"></mb-unit>
@@ -22,7 +24,7 @@ describe('quantity validation test', () => {
   });
   it('data', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-quantity path="test/1">
             <mb-unit unit="cm" label="cm" min="0" max="1000"></mb-unit>
@@ -37,7 +39,7 @@ describe('quantity validation test', () => {
   });
   it('required but empty', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-quantity required path="test/1">
             <mb-unit unit="cm" label="cm" min="0" max="1000"></mb-unit>
@@ -50,7 +52,7 @@ describe('quantity validation test', () => {
   });
   it('required with data', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-quantity required path="test/1">
             <mb-unit unit="cm" label="cm" min="0" max="1000"></mb-unit>
@@ -65,7 +67,7 @@ describe('quantity validation test', () => {
   });
   it('data with less than min', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-quantity path="test/1" default="cm">
             <mb-unit unit="cm" label="cm" min="20" max="1000"></mb-unit>
@@ -85,7 +87,7 @@ describe('quantity validation test', () => {
   });
   it('data with greater than max', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-quantity path="test/1">
             <mb-unit unit="cm" label="cm" min="20" max="1000"></mb-unit>
@@ -105,7 +107,7 @@ describe('quantity validation test', () => {
   });
   it('data between min and max', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-quantity path="test/1">
             <mb-unit unit="cm" label="cm" min="20" max="1000"></mb-unit>
@@ -125,7 +127,7 @@ describe('quantity validation test', () => {
   });
   it('data with no min and max', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-quantity path="test/1">
             <mb-unit unit="cm" label="cm"></mb-unit>

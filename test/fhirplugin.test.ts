@@ -1,13 +1,12 @@
 import { expect, oneEvent } from '@open-wc/testing';
 import { fixture } from '@open-wc/testing-helpers';
-import { html } from 'lit-html';
 import MbForm from '../src/medblocks/form/fhirForm';
 import '../medblocks';
 
 describe('FHIR Plugin', () => {
   it('deserialized properly', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-fhir-form>
           <mb-input
             class="is-hidden"
@@ -155,7 +154,7 @@ describe('FHIR Plugin', () => {
     });
   });
   it('checking bind in context', async () => {
-    const form = await fixture<MbForm>(html`
+    const form = await fixture<MbForm>(`
       <mb-fhir-form
       .ctx=${{'resourceType':'Patient','identifier[0].system': 'aadhar' }}
       >
@@ -217,12 +216,12 @@ describe('FHIR Plugin', () => {
         </div>
       </mb-fhir-form>
     `);
-    
+
     setTimeout(() => form.handleSubmit());
     let data = await oneEvent(form, 'mb-submit');
     // console.log(data.detail)
     expect(data.detail).to.eql({
-      "resourceType":"Patient", 
+      "resourceType":"Patient",
       "identifier": [
        {
           "system": "aadhar",
@@ -241,7 +240,7 @@ describe('FHIR Plugin', () => {
       ] })
   });
   it('checking bind in context2', async () => {
-    const form = await fixture<MbForm>(html`
+    const form = await fixture<MbForm>(`
       <mb-fhir-form
       .ctx=${{'resourceType':'Patient','identifier[0].system': 'aadhar' }}
       >
@@ -303,12 +302,12 @@ describe('FHIR Plugin', () => {
         </div>
       </mb-fhir-form>
     `);
-    
+
     setTimeout(() => form.handleSubmit());
     let data = await oneEvent(form, 'mb-submit');
     // console.log(data.detail)
     expect(data.detail).to.eql({
-      "resourceType":"Patient", 
+      "resourceType":"Patient",
       "identifier": [
        {
           "system": "aadhar",

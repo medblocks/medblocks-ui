@@ -1,6 +1,5 @@
 import { expect } from '@open-wc/testing';
 import { elementUpdated, fixture } from '@open-wc/testing-helpers';
-import { html } from 'lit-html';
 import {
   querySelectorAllDeep,
   querySelectorDeep,
@@ -13,7 +12,7 @@ import MbInput from '../src/medblocks/text/input';
 describe('mb-suggest', () => {
   it('archetype level suggestion binding with replace operation', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-suggest label="Common Symptoms">
             <mb-input
@@ -54,7 +53,7 @@ describe('mb-suggest', () => {
 
   it('archetype level suggestion binding with add operation in simple mb-input', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-suggest label="Common Symptoms">
             <mb-input
@@ -94,7 +93,7 @@ describe('mb-suggest', () => {
   });
   it('archetype level suggestion binding with add operation', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-suggest label="Common Symptoms">
             <mb-input
@@ -134,7 +133,7 @@ describe('mb-suggest', () => {
 
   it('global suggestion binding to the form', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-suggest label="Common Symptoms">
             <mb-input

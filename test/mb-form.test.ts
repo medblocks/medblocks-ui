@@ -1,5 +1,5 @@
+/* eslint-disable max-classes-per-file */
 import { elementUpdated, fixture } from '@open-wc/testing-helpers';
-import { html } from 'lit-html';
 import { expect } from '@open-wc/testing';
 import { LitElement, property } from 'lit-element';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
@@ -15,18 +15,20 @@ class BaseEhrElement extends EhrElement {
 
 class TestComponent extends LitElement {
   @property({ type: Array }) paths: string[];
+
   render() {
-    return html`<mb-form>
-      ${this.paths.map(path => html`<base-ehr path=${path}></base-ehr>`)}
+    return `<mb-form>
+      ${this.paths.map(path => `<base-ehr path=${path}></base-ehr>`)}
     </mb-form>`;
   }
 }
 class RepeateableTest extends LitElement {
   @property({ type: Number }) i: number = 2;
+
   render() {
-    return html`<mb-form>
+    return `<mb-form>
       ${[...Array(this.i)].map(
-        (_, i) => html` <base-ehr path=${`path/${i}`}> </base-ehr>`
+        (_, i) => ` <base-ehr path=${`path/${i}`}> </base-ehr>`
       )}
     </mb-form>`;
   }
@@ -34,10 +36,11 @@ class RepeateableTest extends LitElement {
 
 class RepeateableTest2 extends LitElement {
   @property({ type: Number }) i: number = 2;
+
   render() {
-    return html`<mb-form>
+    return `<mb-form>
       ${[...Array(this.i)].map(
-        (_, i) => html` <div>
+        (_, i) => ` <div>
           <base-ehr path=${`path/${i}`}> </base-ehr>
         </div>`
       )}
@@ -51,7 +54,7 @@ customElements.define('reactive-path', TestComponent);
 
 describe('Form', () => {
   it('should load child elements', async () => {
-    const form = await fixture<MbForm>(html`
+    const form = await fixture<MbForm>(`
       <mb-form>
         <base-ehr path="test/path" label="Hello there"></base-ehr>
       </mb-form>
@@ -60,9 +63,9 @@ describe('Form', () => {
   });
 
   it('should react to change in path', async () => {
-    let paths = ['hello/there', 'another/path'];
+    const paths = ['hello/there', 'another/path'];
     const component = await fixture<TestComponent>(
-      html`<reactive-path .paths=${paths}></reactive-path>`
+      `<reactive-path .paths=${paths}></reactive-path>`
     );
     const form = querySelectorDeep('mb-form') as MbForm;
     expect(Object.keys(form.mbElements)).to.eql([
@@ -84,9 +87,9 @@ describe('Form', () => {
   });
 
   it('should react to deletion in path', async () => {
-    let paths = ['hello/there', 'another/path'];
+    const paths = ['hello/there', 'another/path'];
     const component = await fixture<TestComponent>(
-      html`<reactive-path .paths=${paths}></reactive-path>`
+      `<reactive-path .paths=${paths}></reactive-path>`
     );
     const form = querySelectorDeep('mb-form') as MbForm;
     expect(Object.keys(form.mbElements)).to.eql([
@@ -100,7 +103,7 @@ describe('Form', () => {
 
   it('should remove children elements properly', async () => {
     const component = await fixture<RepeateableTest>(
-      html`<repeat-element></repeat-element>`
+      `<repeat-element></repeat-element>`
     );
     const form = querySelectorDeep('mb-form') as MbForm;
     expect(Object.keys(form.data).length).to.eql(2);
@@ -111,7 +114,7 @@ describe('Form', () => {
 
   it('should remove children elements properly in nested div', async () => {
     const component = await fixture<RepeateableTest2>(
-      html`<repeat-element2></repeat-element2>`
+      `<repeat-element2></repeat-element2>`
     );
     const form = querySelectorDeep('mb-form') as MbForm;
     expect(Object.keys(form.data).length).to.eql(2);
@@ -130,7 +133,7 @@ describe('Form', () => {
 
   // test for checking if paths with value as empty string are not added
   it('should not add paths that has value as empty string to data', async () => {
-    const form = await fixture<MbForm>(html`
+    const form = await fixture<MbForm>(`
       <mb-form>
         <base-ehr path="test/path" label="Hello there" .data=${''}></base-ehr>
         <base-ehr path="test/path1" label="Hello there" .data=${'hello'}></base-ehr>

@@ -1,6 +1,5 @@
 import { expect } from '@open-wc/testing';
 import { elementUpdated, fixture, oneEvent } from '@open-wc/testing-helpers';
-import { html } from 'lit-html';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
 import MbForm from '../src/medblocks/form/form';
 import '../medblocks';
@@ -13,7 +12,7 @@ import { SlInput } from '@shoelace-style/shoelace';
 describe('Form e2e', () => {
   it('should set the data property properly', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-input path="test/1"></mb-input>
         </mb-form>
@@ -27,7 +26,7 @@ describe('Form e2e', () => {
 
   it('should get data property from form', async () => {
     const form = await fixture<MbForm>(
-      html`
+      `
         <mb-form>
           <mb-input path="test/1" .data=${'Hello test!'}></mb-input>
         </mb-form>
@@ -41,7 +40,7 @@ describe('Form e2e', () => {
   it('should deserialize from openEHR composition', async () => {});
 
   it('should bind to the parsed FHIR data', async () => {
-    const form = await fixture<MbForm>(html`
+    const form = await fixture<MbForm>(`
       <mb-fhir-form>
         <mb-input
           class="is-hidden"
@@ -171,7 +170,7 @@ describe('Form e2e', () => {
 
   it('should serialize from FHIR resource', () => {});
   it('NCD template data loading', async () => {
-    const form = await fixture<MbForm>(html`
+    const form = await fixture<MbForm>(`
       <mb-form>
       <mb-context path="ncd/context/start_time"></mb-context>
       <mb-context path="ncd/context/setting"></mb-context>
@@ -434,7 +433,7 @@ describe('Form e2e', () => {
   });
 
   it('DRX template context issue', async () => {
-    const form = await fixture<MbForm>(html`
+    const form = await fixture<MbForm>(`
       <mb-form .ctx=${{ _health_care_facility_id: '12345' }}>
         <mb-context path="opdvisit.v0/category"></mb-context>
         <mb-context path="opdvisit.v0/context/start_time"></mb-context>
@@ -826,7 +825,7 @@ describe('Form e2e', () => {
     });
   });
   it('should render contexts properly (aarthy.screening.v0)', async () => {
-    const form = await fixture<MbForm>(html` <mb-form
+    const form = await fixture<MbForm>(` <mb-form
       .ctx=${{
         composer: {
           name: 'Sidharth Ramesh',
@@ -1101,7 +1100,7 @@ describe('Form e2e', () => {
     ).to.eql('One eyed');
   });
   it('should not populate context on bind back and edit to null', async () => {
-    const form = await fixture<MbForm>(html` <mb-form
+    const form = await fixture<MbForm>(` <mb-form
       .ctx=${{
         composer: {
           name: 'Sidharth Ramesh',
@@ -1237,7 +1236,7 @@ describe('Form e2e', () => {
   });
 
   it('should not export if data is empty string', async () => {
-    const form = await fixture<MbForm>(html`
+    const form = await fixture<MbForm>(`
       <mb-form>
         <mb-input path="input1" data=""></mb-input>
         <mb-input path="input2" data="hello there"></mb-input>
@@ -1251,7 +1250,7 @@ describe('Form e2e', () => {
 
   // if prefix of path starts with same prefix of another path, then data should not be added to both
   it('path starts with similar prefix, should not bind data for other elements', async () => {
-    const form = await fixture<MbForm>(html`
+    const form = await fixture<MbForm>(`
       <mb-form>
         <mb-search-multiple path="test/path:0/name" repeatprefix="test/path" repeatsuffix="name" label="Hello there"></base-ehr>
         <mb-search-multiple path="test/path1:0/name" repeatprefix="test/path1" repeatsuffix="name" label="Hello there"></base-ehr>
