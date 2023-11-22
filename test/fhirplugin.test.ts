@@ -1,11 +1,10 @@
-import { expect, oneEvent } from '@open-wc/testing';
-import { fixture } from '@open-wc/testing-helpers';
+import { expect, oneEvent,fixture, html } from '@open-wc/testing';
 import MbForm from '../src/medblocks/form/fhirForm';
 import '../medblocks';
 
 describe('FHIR Plugin', () => {
   it('deserialized properly', async () => {
-    const form = await fixture<MbForm>(
+    const form = await fixture<MbForm>(html
       `
         <mb-fhir-form>
           <mb-input
@@ -154,7 +153,7 @@ describe('FHIR Plugin', () => {
     });
   });
   it('checking bind in context', async () => {
-    const form = await fixture<MbForm>(`
+    const form = await fixture<MbForm>(html`
       <mb-fhir-form
       .ctx=${{'resourceType':'Patient','identifier[0].system': 'aadhar' }}
       >
@@ -240,7 +239,7 @@ describe('FHIR Plugin', () => {
       ] })
   });
   it('checking bind in context2', async () => {
-    const form = await fixture<MbForm>(`
+    const form = await fixture<MbForm>(html`
       <mb-fhir-form
       .ctx=${{'resourceType':'Patient','identifier[0].system': 'aadhar' }}
       >

@@ -1,13 +1,13 @@
 /* eslint-disable max-classes-per-file */
-import { elementUpdated, fixture } from '@open-wc/testing-helpers';
-import { expect } from '@open-wc/testing';
+import { elementUpdated } from '@open-wc/testing-helpers';
+import { expect, html, fixture } from '@open-wc/testing';
 import { LitElement, property } from 'lit-element';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
 import EhrElement from '../src/medblocks/EhrElement';
 import '../src/medblocks/form/form';
 import MbForm from '../src/medblocks/form/form';
 import MedblockForm from '../src/medblocks/form/form';
-import { toFlat} from "../src/medblocks/form/plugins/openEHRFlat";
+import { toFlat } from '../src/medblocks/form/plugins/openEHRFlat';
 
 class BaseEhrElement extends EhrElement {
   @property({ type: Object }) data: any;
@@ -17,8 +17,8 @@ class TestComponent extends LitElement {
   @property({ type: Array }) paths: string[];
 
   render() {
-    return `<mb-form>
-      ${this.paths.map(path => `<base-ehr path=${path}></base-ehr>`)}
+    return html`<mb-form>
+      ${this.paths.map(path => html`<base-ehr path=${path}></base-ehr>`)}
     </mb-form>`;
   }
 }
@@ -26,9 +26,9 @@ class RepeateableTest extends LitElement {
   @property({ type: Number }) i: number = 2;
 
   render() {
-    return `<mb-form>
+    return html`<mb-form>
       ${[...Array(this.i)].map(
-        (_, i) => ` <base-ehr path=${`path/${i}`}> </base-ehr>`
+        (_, i) => html`<base-ehr path=${`path/${i}`}> </base-ehr>`
       )}
     </mb-form>`;
   }
@@ -38,9 +38,9 @@ class RepeateableTest2 extends LitElement {
   @property({ type: Number }) i: number = 2;
 
   render() {
-    return `<mb-form>
+    return html`<mb-form>
       ${[...Array(this.i)].map(
-        (_, i) => ` <div>
+        (_, i) => html`<div>
           <base-ehr path=${`path/${i}`}> </base-ehr>
         </div>`
       )}
@@ -54,7 +54,7 @@ customElements.define('reactive-path', TestComponent);
 
 describe('Form', () => {
   it('should load child elements', async () => {
-    const form = await fixture<MbForm>(`
+    const form = await fixture<MbForm>(html`
       <mb-form>
         <base-ehr path="test/path" label="Hello there"></base-ehr>
       </mb-form>
@@ -65,7 +65,7 @@ describe('Form', () => {
   it('should react to change in path', async () => {
     const paths = ['hello/there', 'another/path'];
     const component = await fixture<TestComponent>(
-      `<reactive-path .paths=${paths}></reactive-path>`
+      html`<reactive-path .paths=${paths}></reactive-path>`
     );
     const form = querySelectorDeep('mb-form') as MbForm;
     expect(Object.keys(form.mbElements)).to.eql([
@@ -89,7 +89,7 @@ describe('Form', () => {
   it('should react to deletion in path', async () => {
     const paths = ['hello/there', 'another/path'];
     const component = await fixture<TestComponent>(
-      `<reactive-path .paths=${paths}></reactive-path>`
+      html`<reactive-path .paths=${paths}></reactive-path>`
     );
     const form = querySelectorDeep('mb-form') as MbForm;
     expect(Object.keys(form.mbElements)).to.eql([
@@ -103,7 +103,7 @@ describe('Form', () => {
 
   it('should remove children elements properly', async () => {
     const component = await fixture<RepeateableTest>(
-      `<repeat-element></repeat-element>`
+      html`<repeat-element></repeat-element>`
     );
     const form = querySelectorDeep('mb-form') as MbForm;
     expect(Object.keys(form.data).length).to.eql(2);
@@ -114,7 +114,7 @@ describe('Form', () => {
 
   it('should remove children elements properly in nested div', async () => {
     const component = await fixture<RepeateableTest2>(
-      `<repeat-element2></repeat-element2>`
+      html`<repeat-element2></repeat-element2>`
     );
     const form = querySelectorDeep('mb-form') as MbForm;
     expect(Object.keys(form.data).length).to.eql(2);
@@ -133,16 +133,19 @@ describe('Form', () => {
 
   // test for checking if paths with value as empty string are not added
   it('should not add paths that has value as empty string to data', async () => {
-    const form = await fixture<MbForm>(`
-      <mb-form>
+    const form = await fixture<MbForm>(
+      html`<mb-form>
         <base-ehr path="test/path" label="Hello there" .data=${''}></base-ehr>
-        <base-ehr path="test/path1" label="Hello there" .data=${'hello'}></base-ehr>
+        <base-ehr
+          path="test/path1"
+          label="Hello there"
+          .data=${'hello'}
+        ></base-ehr>
         <base-ehr path="" label="Hello there" .data=${'test value'}></base-ehr>
-      </mb-form>
-    `);
-    const flat = toFlat(form.data,{});
-    expect(Object.keys(form.data)).to.eql(["test/path","test/path1",""]);
-    expect(Object.keys(flat)).to.eql(["test/path1"]);
+      </mb-form>`
+    );
+    const flat = toFlat(form.data, {});
+    expect(Object.keys(form.data)).to.eql(['test/path', 'test/path1', '']);
+    expect(Object.keys(flat)).to.eql(['test/path1']);
   });
-
 });

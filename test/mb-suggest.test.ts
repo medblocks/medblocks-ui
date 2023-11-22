@@ -1,5 +1,5 @@
-import { expect } from '@open-wc/testing';
-import { elementUpdated, fixture } from '@open-wc/testing-helpers';
+import { expect, fixture, html } from '@open-wc/testing';
+import { elementUpdated } from '@open-wc/testing-helpers';
 import {
   querySelectorAllDeep,
   querySelectorDeep,
@@ -11,18 +11,13 @@ import MbInput from '../src/medblocks/text/input';
 
 describe('mb-suggest', () => {
   it('archetype level suggestion binding with replace operation', async () => {
-    const form = await fixture<MbForm>(
-      `
-        <mb-form>
-          <mb-suggest label="Common Symptoms">
-            <mb-input
-              path="chief_complaints"
-              label="Chief complaints"
-            ></mb-input>
-          </mb-suggest>
-        </mb-form>
-      `
-    );
+    const form = await fixture<MbForm>(html`
+      <mb-form>
+        <mb-suggest label="Common Symptoms">
+          <mb-input path="chief_complaints" label="Chief complaints"></mb-input>
+        </mb-suggest>
+      </mb-form>
+    `);
     form.addSuggestion({
       chief_complaints: [
         { data: 'Body ache', label: 'Body ache', id: 1, op: 'replace' },
@@ -52,18 +47,13 @@ describe('mb-suggest', () => {
   });
 
   it('archetype level suggestion binding with add operation in simple mb-input', async () => {
-    const form = await fixture<MbForm>(
-      `
-        <mb-form>
-          <mb-suggest label="Common Symptoms">
-            <mb-input
-              path="chief_complaints"
-              label="Chief complaints"
-            ></mb-input>
-          </mb-suggest>
-        </mb-form>
-      `
-    );
+    const form = await fixture<MbForm>(html`
+      <mb-form>
+        <mb-suggest label="Common Symptoms">
+          <mb-input path="chief_complaints" label="Chief complaints"></mb-input>
+        </mb-suggest>
+      </mb-form>
+    `);
     form.addSuggestion({
       chief_complaints: [
         { data: 'Body ache', label: 'Body ache', id: 1, op: 'add' },
@@ -88,23 +78,21 @@ describe('mb-suggest', () => {
     buttons[0].click();
     expect(input.data).to.eql(['Body ache']);
 
-      buttons[1].click();
-    expect(input.data).to.eql(['Body ache','Cold']);
+    buttons[1].click();
+    expect(input.data).to.eql(['Body ache', 'Cold']);
   });
   it('archetype level suggestion binding with add operation', async () => {
-    const form = await fixture<MbForm>(
-      `
-        <mb-form>
-          <mb-suggest label="Common Symptoms">
-            <mb-input
-              multiple
-              path="chief_complaints"
-              label="Chief complaints"
-            ></mb-input>
-          </mb-suggest>
-        </mb-form>
-      `
-    );
+    const form = await fixture<MbForm>(html`
+      <mb-form>
+        <mb-suggest label="Common Symptoms">
+          <mb-input
+            multiple
+            path="chief_complaints"
+            label="Chief complaints"
+          ></mb-input>
+        </mb-suggest>
+      </mb-form>
+    `);
     form.addSuggestion({
       chief_complaints: [
         { data: 'Body ache', label: 'Body ache', id: 1, op: 'add' },
@@ -132,29 +120,27 @@ describe('mb-suggest', () => {
   });
 
   it('global suggestion binding to the form', async () => {
-    const form = await fixture<MbForm>(
-      `
-        <mb-form>
-          <mb-suggest label="Common Symptoms">
-            <mb-input
-              multiple
-              path="chief_complaints"
-              label="Chief complaints"
-            ></mb-input>
-          </mb-suggest>
+    const form = await fixture<MbForm>(html`
+      <mb-form>
+        <mb-suggest label="Common Symptoms">
           <mb-input
             multiple
-            path="symptoms_and_signs"
-            label="Symptoms and signs"
+            path="chief_complaints"
+            label="Chief complaints"
           ></mb-input>
-          <mb-suggest
-            global
-            label="Composition Suggestions"
-            path="composition_suggestion"
-          ></mb-suggest>
-        </mb-form>
-      `
-    );
+        </mb-suggest>
+        <mb-input
+          multiple
+          path="symptoms_and_signs"
+          label="Symptoms and signs"
+        ></mb-input>
+        <mb-suggest
+          global
+          label="Composition Suggestions"
+          path="composition_suggestion"
+        ></mb-suggest>
+      </mb-form>
+    `);
     form.addSuggestion({
       chief_complaints: [
         { data: 'Body ache', label: 'Body ache', id: 1, op: 'add' },
