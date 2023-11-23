@@ -36,8 +36,7 @@ export default class MbCount extends EhrElement {
   }
 
   reportValidity() {
-    let input;
-    input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
     return input.reportValidity();
   }
 
