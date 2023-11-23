@@ -9,18 +9,17 @@ import {
   querySelectorAllDeep,
   querySelectorDeep,
 } from 'query-selector-shadow-dom';
-import MbInputMultiple from '../src/medblocks/text/input-multiple';
-import '../src/medblocks/text/input-multiple';
 import { SlInput, SlTag } from '@shoelace-style/shoelace';
+import MbInputMultiple from '../src/medblocks/text/input-multiple';
 import MedblockForm from '../src/medblocks/form/form';
-import '../src/medblocks/form/form';
 import { toInsertContext } from '../src/medblocks/form/plugins/openEHRFlat';
+
 describe('MbInputMultiple', async () => {
   it('emits data on input', async () => {
-    let mbinputmultiple = await fixture<MbInputMultiple>(
+    const mbinputmultiple = await fixture<MbInputMultiple>(
       html`<mb-input-multiple> </mb-input-multiple>`
     );
-    let input = querySelectorDeep('input') as unknown as SlInput;
+    const input = querySelectorDeep('input') as unknown as SlInput;
     setTimeout(() => {
       input.value = 'testUnit1';
       input.dispatchEvent(new Event('input'));
@@ -48,13 +47,13 @@ describe('MbInputMultiple', async () => {
   });
 
   it('changes input on setting data', async () => {
-    let mbinputmultiple = await fixture<MbInputMultiple>(
+    const mbinputmultiple = await fixture<MbInputMultiple>(
       html`<mb-input-multiple> </mb-input-multiple>`
     );
-    let input = querySelectorDeep('input') as HTMLInputElement;
+    const input = querySelectorDeep('input') as HTMLInputElement;
     mbinputmultiple.data = ['testUnit', 'testUnit1'];
     await elementUpdated(mbinputmultiple);
-    let tag = querySelectorAllDeep('sl-tag') as SlTag[];
+    const tag = querySelectorAllDeep('sl-tag') as SlTag[];
     expect(input.value).to.eql('');
     expect(tag[0].innerText).to.eql('testUnit');
   });
@@ -73,7 +72,7 @@ describe('MbInputMultiple', async () => {
         </mb-form>
       `
     );
-    let input = querySelectorDeep('input') as unknown as SlInput;
+    const input = querySelectorDeep('input') as unknown as SlInput;
     const mbinputmultiple = querySelectorDeep(
       'mb-input-multiple'
     ) as MbInputMultiple;
@@ -102,7 +101,7 @@ describe('MbInputMultiple', async () => {
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1', 'testUnit2']);
     setTimeout(() => form.handleSubmit(), 0);
-    let data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit');
     expect(data.detail).to.eql({
       'mbselect:0/multiple': 'testUnit1',
       'mbselect:1/multiple': 'testUnit2',
@@ -122,7 +121,7 @@ describe('MbInputMultiple', async () => {
         </mb-form>
       `
     );
-    let input = querySelectorDeep('input') as unknown as SlInput;
+    const input = querySelectorDeep('input') as unknown as SlInput;
     const mbinputmultiple = querySelectorDeep(
       'mb-input-multiple'
     ) as MbInputMultiple;
@@ -151,7 +150,7 @@ describe('MbInputMultiple', async () => {
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1', 'testUnit2']);
     setTimeout(() => form.handleSubmit(), 0);
-    let data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit');
     expect(data.detail).to.eql({
       'mbselect:0/multiple:0': 'testUnit1',
       'mbselect:0/multiple:1': 'testUnit2',
@@ -221,7 +220,7 @@ it.only('on multiple select with prefix and suffix , emits correct context', asy
       </mb-form>
     `
   );
-  let input = querySelectorDeep('input') as unknown as SlInput;
+  const input = querySelectorDeep('input') as unknown as SlInput;
   const mbinputmultiple = querySelectorDeep(
     'mb-input-multiple'
   ) as MbInputMultiple;
@@ -258,7 +257,7 @@ it.only('on multiple select with prefix and suffix , emits correct context', asy
 
   expect(shouldBeTrue).true;
   setTimeout(() => form.handleSubmit(), 0);
-  let data = await oneEvent(form, 'mb-submit');
+  const data = await oneEvent(form, 'mb-submit');
   expect(data.detail).to.eql({
     'mbselect/multiple:0/path': 'testUnit1',
     'mbselect/multiple:1/path': 'testUnit2',

@@ -1,6 +1,5 @@
 import { MbPlugin } from './plugins';
-import { unflatten } from '../utils';
-import { Data } from '../utils';
+import { unflatten , Data } from '../utils';
 import MbContext from '../../context/context';
 import EhrElement from '../../EhrElement';
 
@@ -26,9 +25,9 @@ function getIndexedPath({
 }) {
   if (prefix && suffix) {
     return `${prefix}:${i}/${suffix}`;
-  } else {
+  } 
     return `${path}:${i}`;
-  }
+  
 }
 
 // function getIndexedPath(i: number, path: string) {
@@ -51,13 +50,11 @@ function multipleSelectArray(
           flat[`${getIndexedPath({ i, path })}|${item}`] = val[item];
         }
       });
-    } else {
-      if (prefix && suffix) {
+    } else if (prefix && suffix) {
         flat[getIndexedPath({ i, prefix, suffix })] = val;
       } else {
         flat[getIndexedPath({ i, path })] = val;
       }
-    }
   });
 }
 
@@ -98,7 +95,7 @@ export function toFlat(
 }
 
 export function fromFlat(flat: Data): Data {
-  let data: Data = {};
+  const data: Data = {};
   Object.keys(flat).map(path => {
     const value = flat[path];
     const [subpath, frag] = path.split('|');
@@ -108,13 +105,11 @@ export function fromFlat(flat: Data): Data {
         data[subpath] = { _root: data[subpath] };
       }
       data[subpath] = { ...data[subpath], [frag]: value };
-    } else {
-      if (data[subpath]) {
+    } else if (data[subpath]) {
         data[subpath] = { ...data[subpath], _root: value };
       } else {
         data[subpath] = value;
       }
-    }
   });
   return data;
 }
@@ -127,7 +122,7 @@ function formatPath(path: string) {
 }
 
 export function formatFlatComposition(flat: any) {
-  let newComposition: any = {};
+  const newComposition: any = {};
   Object.entries(flat).forEach(([path, value]) => {
     const formattedPath = formatPath(path);
     newComposition[formattedPath] = value;
@@ -139,7 +134,7 @@ export function unflattenComposition(flat: any, path?: string) {
   if (!path) {
     return unflatten(formatFlatComposition(flat));
   }
-  let newObject: any = {};
+  const newObject: any = {};
   const paths = Object.keys(flat).filter(p => p.includes(path));
   paths.forEach(p => {
     const newPath = p.replace(path, '');
@@ -173,9 +168,7 @@ export function toInsertContext(
   // eg: path: hello/there/path:1/language
   // repeatableElementPath.prefix: hello/there/path
   const repeatableElementPaths = Object.keys(mbElements)
-    .filter(path => {
-      return mbElements[path]?.multiple;
-    })
+    .filter(path => mbElements[path]?.multiple)
     .flatMap(path => {
       const el = mbElements[path];
       const data = el?.data as any[];
@@ -215,8 +208,8 @@ export const openEHRFlatPlugin: MbPlugin = {
     let dataWithMultiple: { [path: string]: any[] } = {};
 
     mbElementsWithMultiple.forEach(basePath => {
-      let prefix = mbElements[basePath].repeatprefix;
-      let suffix = mbElements[basePath].repeatsuffix;
+      const prefix = mbElements[basePath].repeatprefix;
+      const suffix = mbElements[basePath].repeatsuffix;
       let elementsWithBasePath;
       if (prefix && suffix) {
         elementsWithBasePath = Object.keys(parsedData).filter(
@@ -241,7 +234,7 @@ export const openEHRFlatPlugin: MbPlugin = {
   },
 
   serialize(mbElements) {
-    let data: { [path: string]: any } = {};
+    const data: { [path: string]: any } = {};
     Object.entries(mbElements).map(([path, node]) => {
       if (path) {
         data[path] = (node as any).data;
@@ -255,9 +248,9 @@ export const openEHRFlatPlugin: MbPlugin = {
       return;
     }
 
-    let parts = path.split('/');
+    const parts = path.split('/');
     const contextId = parts[parts.length - 1];
-    let context = mbElements[path] as MbContext;
+    const context = mbElements[path] as MbContext;
     if (context.bind) {
       return context.bind;
     }
@@ -302,11 +295,11 @@ export const openEHRFlatPlugin: MbPlugin = {
           return {
             name: ctx.composer_name,
           };
-        } else {
+        } 
           return {
             name: 'Medblocks UI',
           };
-        }
+        
       case '_health_care_facility':
         return {
           name: ctx._health_care_facility || 'Medblocks Hospital',
@@ -315,7 +308,7 @@ export const openEHRFlatPlugin: MbPlugin = {
           id_namespace: 'FHIR',
         };
       default:
-        return;
+        
     }
   },
 };

@@ -12,9 +12,13 @@ import { property } from 'lit-element';
 @customElement('mb-buttons-multiple')
 export default class CodedTextButtons extends CodedTextElement {
   @property({ type: Boolean, reflect: true }) required: boolean = false;
+
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
   @property({ type: Boolean, reflect: true }) multiple: boolean = true;
+
   @property({ type: String, reflect: true }) id: string='buttons-multiple';
+
   /** @ignore */
   static styles = css`
     .buttons {
@@ -47,6 +51,7 @@ export default class CodedTextButtons extends CodedTextElement {
     observer.observe(this, { childList: true });
     this._handleChildChange();
   }
+
   _handleChildChange() {
     this._options = [
       ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),

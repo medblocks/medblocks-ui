@@ -5,10 +5,9 @@ import {
   oneEvent,
   elementUpdated,
 } from '@open-wc/testing';
-import MbDuration from '../src/medblocks/duration/duration';
-import '../src/medblocks/duration/duration';
 import { querySelectorAllDeep } from 'query-selector-shadow-dom';
 import { SlInput } from '@shoelace-style/shoelace';
+import MbDuration from '../src/medblocks/duration/duration';
 
 describe('MbDuration', () => {
 

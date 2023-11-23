@@ -15,18 +15,18 @@
   <script type="module" src="../dist/medblocks.js"></script>
   <script src="../node_modules/axios/dist/axios.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      let form = document.getElementById('form1')
-      let input = document.getElementById('input1')
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('form1')
+      const input = document.getElementById('input1')
       input.addEventListener('mb-input', (e) => {
         console.log(e.target.data)
       })
       form.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1' })
-      form.addEventListener('mb-submit', function (e) {
+      form.addEventListener('mb-submit', (e) => {
         e.preventDefault()
         console.log(e.detail)
       })
-      let form2 = document.getElementById('form2')
+      const form2 = document.getElementById('form2')
       form2.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1' })
       // form2.addEventListener('mb-input', (e) => {
       //   const data = e.target.data

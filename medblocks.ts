@@ -2,8 +2,6 @@
 // window.customElements.define('example-comp', ExampleComp);
 import { registerIcons } from './src/internal/icons';
 
-registerIcons();
-
 import './src/medblocks/form/form';
 import './src/medblocks/form/fhirForm';
 
@@ -34,3 +32,5 @@ import './src/medblocks/repeat/repeatableHeadless';
 
 import './src/medblocks/suggestionWrapper';
 import './src/medblocks/hide';
+
+registerIcons();

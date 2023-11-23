@@ -39,9 +39,9 @@ export function registerIcons() {
     resolver: (name: keyof typeof icons) => {
       if (icons[name]) {
         return `data:image/svg+xml,${encodeURIComponent(icons[name])}`;
-      } else {
+      } 
         return '';
-      }
+      
     },
   };
 

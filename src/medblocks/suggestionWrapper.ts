@@ -42,6 +42,7 @@ export default class SuggestWrapper extends LitElement {
       cursor: pointer;
     }
   `;
+
   @event('mb-suggestion') _suggestionEvent: EventEmitter<SuggestEvent>;
 
   _handleSuggestion(suggestion: Suggestion) {

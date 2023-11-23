@@ -12,8 +12,11 @@ import { property } from 'lit-element';
 @customElement('mb-buttons')
 export default class CodedTextButtons extends CodedTextElement {
   @property({ type: Boolean, reflect: true }) required: boolean = false;
+
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
   @property({ type: String, reflect: true }) id: string ='buttons';
+
   /** @ignore */
   static styles = css`
     .buttons {
@@ -44,6 +47,7 @@ export default class CodedTextButtons extends CodedTextElement {
     observer.observe(this, { childList: true });
     this._handleChildChange();
   }
+
   _handleChildChange() {
     this._options = [
       ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),
@@ -106,7 +110,7 @@ export default class CodedTextButtons extends CodedTextElement {
           )}
         </div>
         <input
-          value=${this.data?.code || ''}
+          .value=${this.data?.code || ''}
           style="transform:scale(0.025);position:absolute;top:40px;opacity:0.1"
           name="input"
           ?required=${this.required}

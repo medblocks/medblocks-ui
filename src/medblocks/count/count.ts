@@ -1,7 +1,6 @@
 import { customElement, html, property } from 'lit-element';
-import { event, EventEmitter } from '../../internal/decorators';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
-import '@shoelace-style/shoelace/dist/components/input/input';
+import { event, EventEmitter } from '../../internal/decorators';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import EhrElement from '../EhrElement';
 
@@ -37,8 +36,7 @@ export default class MbCount extends EhrElement {
   }
 
   reportValidity() {
-    let input;
-    input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
     return input.reportValidity();
   }
 

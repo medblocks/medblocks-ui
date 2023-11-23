@@ -80,15 +80,17 @@
     "rules": {
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [
-        "error"
+        "warn"
       ],
       "import/no-unresolved": "off",
       "import/extensions": [
-        "error",
-        "always",
+        "off",
         {
           "ignorePackages": true
         }
+      ],
+      "import/order": [
+        "warn"
       ]
     }
   },

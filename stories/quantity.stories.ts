@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import { snippet } from './utils';
+
 export default {
   title: 'Data Entry/Quantity/mb-quantity',
   component: 'mb-quantity',

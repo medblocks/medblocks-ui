@@ -4,9 +4,8 @@ import {
   oneEvent,
   elementUpdated,
 } from '@open-wc/testing';
-import MbCount from '../src/medblocks/count/count';
-import '../src/medblocks/count/count';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
+import MbCount from '../src/medblocks/count/count';
 
 describe('MbCount', () => {
   let mbcount: MbCount;

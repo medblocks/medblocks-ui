@@ -20,7 +20,7 @@ const serialize = (mbElement: EhrElement) => {
       };
     }
     return;
-  } else if (mbElement.datatype === 'code') {
+  } if (mbElement.datatype === 'code') {
     const code = mbElement as CodedTextElement;
     if (code.data?.code) {
       return code.data?.code;
@@ -43,10 +43,10 @@ const deserialize = (mbElement: EhrElement, data: any) => {
       };
     }
     return;
-  } else if (mbElement.datatype === 'code') {
+  } if (mbElement.datatype === 'code') {
     const el = mbElement as CodedTextElement;
     const code = data;
-    const terminology = el.terminology;
+    const {terminology} = el;
     if (terminology || code) {
       return {
         terminology,
@@ -77,7 +77,7 @@ function toInsertContext(path:String,nonNullPaths:string[]):boolean{
     return true
   }                                                               // identifier[0].system
   const segments = path.split('.');                               // [identifier[0],system]    
-  let previousPath = segments.slice(0,-1).join('.');              // identifier[0]
+  const previousPath = segments.slice(0,-1).join('.');              // identifier[0]
   if(nonNullPaths.some(p=>p.startsWith(previousPath))){           
     return true;                                                  // if(identifier[0].value)
   }
@@ -86,7 +86,7 @@ function toInsertContext(path:String,nonNullPaths:string[]):boolean{
 
 export const FHIRPlugin: MbPlugin = {
   serialize(mbElements) {
-    let transformed: { [path: string]: any } = {};
+    const transformed: { [path: string]: any } = {};
     Object.keys(mbElements).forEach(path => {
       const value = mbElements[path];
       if (!isEmpty(value.data)) {
@@ -100,7 +100,7 @@ export const FHIRPlugin: MbPlugin = {
 
   parse(mbElements, data) {
     const flat = flatten(data);
-    let newObj: any = {};
+    const newObj: any = {};
     Object.keys(mbElements).forEach(path => {
       const value = flat[path];
       if (value) {
@@ -108,7 +108,7 @@ export const FHIRPlugin: MbPlugin = {
       } else {
         // For paths that contain objects, so eg: contact[0].relationship[0] will want to include contact[0].relationship[0].coding[0].code
         const includesPath = Object.keys(flat).filter(p => p.startsWith(path));
-        let simplifiedObject: any = {};
+        const simplifiedObject: any = {};
         includesPath.forEach(p => {
           let simplifiedPath = p.replace(path, '');
           if (simplifiedPath.startsWith('.')) {
@@ -127,12 +127,12 @@ export const FHIRPlugin: MbPlugin = {
      if(!toInsertContext(path,nonNullPaths)){
        return
      }
-     let context = mbElements[path] as MbContext
+     const context = mbElements[path] as MbContext
      if(context.bind){
        return context.bind
      } 
-     let parts = path.split('.');                                            //  [identifier[0],system]
-     let partsLength = parts.length                                          //  2
+     const parts = path.split('.');                                            //  [identifier[0],system]
+     const partsLength = parts.length                                          //  2
      const contextId = parts.slice(partsLength-2,partsLength).join('.')      //  identifier[0].system
      if(ctx[contextId]!==null){            
        return ctx[contextId]                                                 // if(ctx[identifier[0].system])

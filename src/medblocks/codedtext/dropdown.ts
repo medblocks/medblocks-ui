@@ -66,10 +66,10 @@ export default class MbDropDown extends SlDropdown {
       if (event.key === 'ArrowUp' && lastMenuItem) {
         menu?.setCurrentItem(lastMenuItem);
         lastMenuItem.focus();
-        return;
+        
       }
     }
-    return;
+    
     // Other keys bring focus to the menu and initiate type-to-select behavior
   }
 }

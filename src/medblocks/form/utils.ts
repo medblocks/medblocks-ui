@@ -4,21 +4,21 @@ import Repeatable from '../repeat/Repeatable';
 export interface Data {
   [path: string]: any;
 }
-export let flatten = (function (isArray, wrapped) {
+export const flatten = (function (isArray, wrapped) {
   return function (table: any) {
     return reduce('', {}, table);
   };
 
   function reduce(path: string, accumulator: any, table: any) {
     if (isArray(table)) {
-      var length = table.length;
+      const {length} = table;
 
       if (length) {
-        var index = 0;
+        let index = 0;
 
         while (index < length) {
-          var property = path + '[' + index + ']',
-            item = table[index++];
+          var property = `${path  }[${  index  }]`;
+            var item = table[index++];
           if (wrapped(item) !== item) accumulator[property] = item;
           else reduce(property, accumulator, item);
         }
@@ -28,16 +28,16 @@ export let flatten = (function (isArray, wrapped) {
 
       if (path) {
         for (var property in table) {
-          var item = table[property],
-            property = path + '.' + property,
-            empty = false;
+          var item = table[property];
+            var property = `${path  }.${  property}`;
+            var empty = false;
           if (wrapped(item) !== item) accumulator[property] = item;
           else reduce(property, accumulator, item);
         }
       } else {
         for (var property in table) {
-          var item = table[property],
-            empty = false;
+          var item = table[property];
+            var empty = false;
           if (wrapped(item) !== item) accumulator[property] = item;
           else reduce(property, accumulator, item);
         }
@@ -51,28 +51,28 @@ export let flatten = (function (isArray, wrapped) {
 })(Array.isArray, Object);
 
 export function unflatten(table: any) {
-  var result: any = {};
+  const result: any = {};
 
-  for (var path in table) {
-    var cursor = result,
-      length = path.length,
-      property = '',
-      index = 0;
+  for (const path in table) {
+    var cursor = result;
+      const {length} = path;
+      var property = '';
+      var index = 0;
 
     while (index < length) {
-      var char = path.charAt(index);
+      const char = path.charAt(index);
 
       if (char === '[') {
-        var start = index + 1,
-          end = path.indexOf(']', start),
-          cursor = (cursor[property] = cursor[property] || []),
-          property = path.slice(start, end),
-          index = end + 1;
+        var start = index + 1;
+          var end = path.indexOf(']', start);
+          var cursor = (cursor[property] = cursor[property] || []);
+          var property = path.slice(start, end);
+          var index = end + 1;
       } else {
-        var cursor = (cursor[property] = cursor[property] || {}),
-          start = char === '.' ? index + 1 : index,
-          bracket = path.indexOf('[', start),
-          dot = path.indexOf('.', start);
+        var cursor = (cursor[property] = cursor[property] || {});
+          var start = char === '.' ? index + 1 : index;
+          const bracket = path.indexOf('[', start);
+          const dot = path.indexOf('.', start);
 
         if (bracket < 0 && dot < 0) var end = (index = length);
         else if (bracket < 0) var end = (index = dot);
@@ -91,8 +91,8 @@ export function unflatten(table: any) {
 
 /** Takes a list of mutation records from MutationObserver and calculates the paths of EhrElements and Repeatables that were removed. */
 export const getDeletedPaths = (records: MutationRecord[]) => {
-  let ehrElementsRemoved: string[] = [];
-  let repeatablesRemoved: string[] = [];
+  const ehrElementsRemoved: string[] = [];
+  const repeatablesRemoved: string[] = [];
   records.forEach(record => {
     if (record.removedNodes.length > 0) {
       record.removedNodes.forEach((node: EhrElement & Repeatable) => {
@@ -100,8 +100,7 @@ export const getDeletedPaths = (records: MutationRecord[]) => {
           ehrElementsRemoved.push(node.path);
         } else if (node.isRepeatable) {
           repeatablesRemoved.push(node.path);
-        } else {
-          if (node.nodeType === node.ELEMENT_NODE) {
+        } else if (node.nodeType === node.ELEMENT_NODE) {
             const allNodes = node.querySelectorAll('*'); // DOM queries are slow. There's scope to optimize.
             allNodes.forEach((node: EhrElement & Repeatable) => {
               if (node.isMbElement) {
@@ -111,7 +110,6 @@ export const getDeletedPaths = (records: MutationRecord[]) => {
               }
             });
           }
-        }
       });
     }
   });

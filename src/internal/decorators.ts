@@ -43,18 +43,17 @@ export function event(eventName?: string) {
 // EventEmitter to use with the @event decorator
 export class EventEmitter<T> {
   constructor(private target: HTMLElement, private eventName: string) {}
+
   emit(eventOptions?: CustomEventInit) {
     const event = new CustomEvent<T>(
       this.eventName,
-      Object.assign(
-        {
-          bubbles: true,
+      ({
+        bubbles: true,
           cancelable: true,
           composed: true,
-          detail: {}
-        },
-        eventOptions
-      )
+          detail: {},
+        ...eventOptions
+      })
     );
     this.target.dispatchEvent(event);
     return event;

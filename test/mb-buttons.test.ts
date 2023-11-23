@@ -6,7 +6,6 @@ import {
 } from '@open-wc/testing';
 import { querySelectorAllDeep } from 'query-selector-shadow-dom';
 import MbButtons from '../src/medblocks/codedtext/buttons';
-import '../src/medblocks/codedtext/buttons';
 import '../src/medblocks/codedtext/option';
 
 describe('MbButtons', () => {

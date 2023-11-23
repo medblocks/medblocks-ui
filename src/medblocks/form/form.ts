@@ -6,11 +6,11 @@ import {
   LitElement,
   property,
 } from 'lit-element';
+import { AxiosInstance } from 'axios';
 import { event, EventEmitter, watch } from '../../internal/decorators';
 import EhrElement, { Variant } from '../EhrElement';
 import MbContext from '../context/context';
 import { Data } from './utils';
-import { AxiosInstance } from 'axios';
 import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
 import { MbPlugin } from './plugins/plugins';
 import MbSubmit from '../submit/submit';
@@ -32,13 +32,14 @@ export default class MedblockForm extends LitElement {
       display: block;
     }
   `;
-  /**Context object that is set before submitting form. Automatic inferences are made where possible. */
+
+  /** Context object that is set before submitting form. Automatic inferences are made where possible. */
   @property({ type: Object }) ctx: any;
 
-  /**Context will not be automatically inferd. What you pass in will be directly reflected. */
+  /** Context will not be automatically inferd. What you pass in will be directly reflected. */
   @property({ type: Boolean, reflect: true }) overwritectx: boolean = false;
 
-  /**Skip validation of form */
+  /** Skip validation of form */
   @property({ type: Boolean, reflect: true }) novalidate: boolean = false;
 
   @property({ type: String, reflect: true }) templateId: string = '';
@@ -61,7 +62,7 @@ export default class MedblockForm extends LitElement {
 
   @event('mb-load') load: EventEmitter<any>;
 
-  /** Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in.*/
+  /** Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in. */
   @property({ type: Object }) plugin: MbPlugin = openEHRFlatPlugin;
 
   /** Hermes instance to communicate with for SNOMED CT search elements. */
@@ -75,9 +76,9 @@ export default class MedblockForm extends LitElement {
   @state() mbElementSet: Set<EhrElement> = new Set();
 
   get mbElements(): { [path: string]: EhrElement } {
-    let result: { [path: string]: EhrElement } = {};
+    const result: { [path: string]: EhrElement } = {};
     this.mbElementSet.forEach(el => {
-      const path = el.path;
+      const {path} = el;
       result[path] = el;
     });
     return result;
@@ -92,25 +93,23 @@ export default class MedblockForm extends LitElement {
     if (this.novalidate) {
       return true;
     }
-    const report = Object.values(this.mbElements).map((el: EhrElement) => {
-      return el.reportValidity();
-    });
+    const report = Object.values(this.mbElements).map((el: EhrElement) => el.reportValidity());
     return report.every(a => a === true);
   }
 
-  /**Parse output format to internal representation. */
+  /** Parse output format to internal representation. */
   parse(data: any) {
     return this.plugin.parse(this.mbElements, data);
   }
 
-  /**Serialize EHRElement to the output format - eg: openEHR FLAT format, FHIR resource.*/
+  /** Serialize EHRElement to the output format - eg: openEHR FLAT format, FHIR resource. */
   serialize(mbElements = this.mbElements) {
     const toSerialize = this.serializeDeferredData
       ? { ...mbElements, ...this.dataToContextElements(this.deferredData) }
       : mbElements;
     const filteredObject: { [path: string]: EhrElement } = {};
     Object.keys(toSerialize).forEach((key: string) => {
-      //remove paths with data as ""
+      // remove paths with data as ""
       if (this.hasValue(toSerialize[key].data))
         filteredObject[key] = toSerialize[key];
     });
@@ -129,7 +128,7 @@ export default class MedblockForm extends LitElement {
     return result;
   }
 
-  /**Parses and sets the form data to current data */
+  /** Parses and sets the form data to current data */
   import(data: any) {
     this.data = this.parse(data);
   }
@@ -172,6 +171,7 @@ export default class MedblockForm extends LitElement {
   isContextElement(element: EhrElement) {
     return (element as any)?.autocontext != null;
   }
+
   nonEmptyPaths() {
     // undefined, null, [], {} are considered empty
     // Context elements are also considered empty for this purpose
@@ -195,7 +195,7 @@ export default class MedblockForm extends LitElement {
     Object.values(this.mbElements)
       .filter((element: MbContext) => !!element.autocontext)
       .forEach((element: MbContext) => {
-        const path = element.path;
+        const {path} = element;
         const valueToInsert = this.plugin.getContext(
           path,
           this.ctx,
@@ -231,7 +231,7 @@ export default class MedblockForm extends LitElement {
   }
 
   get data(): Data {
-    let newValue: { [path: string]: any } = {};
+    const newValue: { [path: string]: any } = {};
     Object.entries(this.mbElements).map(([path, node]) => {
       newValue[path] = (node as any).data;
     });
@@ -252,9 +252,7 @@ export default class MedblockForm extends LitElement {
         regex.lastIndex = 0;
         return match;
       })
-      .map(match => {
-        return match?.[2];
-      })
+      .map(match => match?.[2])
       .filter(match => match)
       .map(str => str && parseInt(str)) as number[];
     if (matches.length === 0) {
@@ -266,12 +264,12 @@ export default class MedblockForm extends LitElement {
 
   set data(data: Data) {
     this.deferredData = {};
-    const mbElements = this.mbElements;
+    const {mbElements} = this;
     const mbElementPaths = Object.keys(mbElements);
 
     // Set calculate and set count of repeatable elements (mb-repeatable)
     Object.values(this.repeatables).forEach(el => {
-      const regex = el.regex;
+      const {regex} = el;
       el.count = this.getCount(regex, data);
     });
 
@@ -280,7 +278,7 @@ export default class MedblockForm extends LitElement {
     // Set data points - TODO: This does not scale well
     // (becomes slow as form grows)
     mbElementPaths.forEach(path => {
-      let element = mbElements[path] as EhrElement;
+      const element = mbElements[path] as EhrElement;
       const value = data[path];
       element.data = value;
     });
@@ -323,6 +321,7 @@ export default class MedblockForm extends LitElement {
       window.top.postMessage(message, this.suggestDomain);
     }
   }
+
   /** The domain to use in postMessage when sending suggestions */
   @property({ type: String, reflect: true }) suggestDomain: string = '*';
 
@@ -398,12 +397,10 @@ export default class MedblockForm extends LitElement {
 
   addSuggestion(data: any) {
     const suggestElements = Object.keys(data)
-      .map(key => {
-        return {
+      .map(key => ({
           key,
           suggest: this.mbElements[key]?.parentElement as SuggestWrapper,
-        };
-      })
+        }))
       .filter(({ suggest }) => suggest?.nodeName === 'MB-SUGGEST');
     suggestElements.forEach(({ key, suggest }) => {
       const suggestions = data[key];
