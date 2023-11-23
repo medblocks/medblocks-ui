@@ -300,8 +300,8 @@ const transformations: { [rmType: string]: TransformFunction } = {
 };
 
 export default (leaf: ProcessedTree) => {
-  if (leaf['inContext']) {
-    return transformations['context'](leaf);
+  if (leaf.inContext) {
+    return transformations.context(leaf);
   }
   const fn = transformations[leaf.rmType];
   if (fn) {

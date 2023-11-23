@@ -4,8 +4,8 @@ import {
     expect,
     oneEvent,
 } from '@open-wc/testing';
-import MbSubmit from '../src/medblocks/submit/submit';
 import { querySelectorDeep } from 'query-selector-shadow-dom'
+import MbSubmit from '../src/medblocks/submit/submit';
 
 import '../medblocks'
 

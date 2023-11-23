@@ -2,10 +2,8 @@ import { expect } from '@open-wc/testing';
 import { elementUpdated, fixture, oneEvent } from '@open-wc/testing-helpers';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
 import MbForm from '../src/medblocks/form/form';
-import '../src/medblocks/form/form';
 import '../src/medblocks/text/input';
 import MbRepeatable from '../src/medblocks/repeat/repeatableHeadless';
-import '../src/medblocks/repeat/repeatableHeadless';
 
 describe('mb-repeatale-headless', () => {
   it('getting the count of repeatable path', async () => {
@@ -119,8 +117,7 @@ describe('mb-repeatale-headless', () => {
     const form = await fixture<MbForm>(
       `
         <mb-form>
-          ${[...Array(repeatableCount)].map((_, i) => {
-            return [...Array(inputCountPerRepeatable)].map(
+          ${[...Array(repeatableCount)].map((_, i) => [...Array(inputCountPerRepeatable)].map(
               (_, j) => `
                 <mb-input
                   path="long_repeatable/path/inside/composition${i}:${j}"
@@ -133,8 +130,7 @@ describe('mb-repeatale-headless', () => {
                 <mb-input path="unrelated6/composition/${i}:${j}"></mb-input>
                 <mb-input path="unrelated7/composition/${i}:${j}"></mb-input> -->
               `
-            );
-          })}
+            ))}
           ${[...Array(repeatableCount)].map(
             (_, i) => `<mb-repeatable-headless
               count="0"
@@ -158,16 +154,14 @@ describe('mb-repeatale-headless', () => {
     // expect(event.target.count).to.equal(0);
     const dataToSet: Record<string, string> = {};
     const dataToEqual: Record<string, string> = {};
-    [...Array(repeatableCount + repeatExtra)].forEach((_, i) => {
-      return [...Array(inputCountPerRepeatable)].forEach((_, j) => {
+    [...Array(repeatableCount + repeatExtra)].forEach((_, i) => [...Array(inputCountPerRepeatable)].forEach((_, j) => {
         const key = `long_repeatable/path/inside/composition${i}:${j}`;
         const value = `Some random data ${i}, ${j}`;
         dataToSet[key] = value;
         if (i <= repeatExtra - 1) {
           dataToEqual[key] = value;
         }
-      });
-    });
+      }));
     console.log('starting set timeout');
     setTimeout(() => {
       // start timer

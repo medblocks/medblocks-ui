@@ -40,6 +40,7 @@ export default class MbInputMultiple extends EhrElement {
       }
     }
   `;
+
   @property({ type: Array }) data: string[] = [];
 
   @property({ type: Boolean }) multiple: boolean = true;

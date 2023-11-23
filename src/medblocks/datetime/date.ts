@@ -1,6 +1,6 @@
 import { css, customElement, html, property } from 'lit-element';
-import { event, EventEmitter } from '../../internal/decorators';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
+import { event, EventEmitter } from '../../internal/decorators';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import EhrElement from '../EhrElement';
 
@@ -15,6 +15,7 @@ export default class MbDateTime extends EhrElement {
       color: var(--sl-input-placeholder-color);
     }
   `;
+
   @property({ type: String }) data: string | undefined;
 
   @property({ type: String, reflect: true }) label: string = '';
@@ -44,7 +45,7 @@ export default class MbDateTime extends EhrElement {
         : undefined;
     else if (this.dvdatetime)
       this.data = inputElement.value
-        ? inputElement.value + 'T00:00:00Z'
+        ? `${inputElement.value  }T00:00:00Z`
         : undefined;
     else this.data = inputElement.value ? inputElement.value : undefined;
     this._mbInput.emit();
@@ -63,23 +64,23 @@ export default class MbDateTime extends EhrElement {
         const time = timeString.slice(0, 5); //   "11:57"
         const dateTime_ = `${date}T${time}`;
         return dateTime_; //   "2022-07-09T11:57"
-      } else return '';
-    } else {
+      } return '';
+    } 
       if (data) return new Date(data).toISOString().split('T')[0];
-      else return '';
-    }
+      return '';
+    
   }
 
   getTextData(data: string) {
     const [date, time] = data.split('T');
     if (this.dvdatetime) {
       return `${date}`;
-    } else if (time) {
+    } if (time) {
       const [hours, minutes] = time.split(':');
       return `${date} ${hours}:${minutes}`;
-    } else {
+    } 
       return date;
-    }
+    
   }
 
   render() {

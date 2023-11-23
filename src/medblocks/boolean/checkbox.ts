@@ -6,15 +6,19 @@ import EhrElement from '../EhrElement';
 @customElement('mb-checkbox')
 export default class MbCheckBox extends EhrElement {
   @property({ type: Boolean }) data: boolean | undefined = undefined;
+
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
   @property({ type: Boolean, reflect: true }) required: boolean = false;
+
   @property({ type: String, reflect: true }) id: string = 'checkbox';
 
   _handleChange(e: CustomEvent) {
     const checkbox = e.target as SlCheckbox;
-    this.data = checkbox.checked ? true : false;
+    this.data = !!checkbox.checked;
     this._mbInput.emit();
   }
+
   reportValidity() {
     const checked = this.shadowRoot!.querySelector('sl-checkbox') as any;
     return checked.reportValidity();

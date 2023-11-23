@@ -1,12 +1,11 @@
 import { customElement, property, state } from 'lit-element';
 import { html } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
+import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import { CodedTextElement, CodedText } from './CodedTextElement';
 import MbOption from './option';
-import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 
 import '@shoelace-style/shoelace/dist/components/menu/menu';
-import '@shoelace-style/shoelace/dist/components/select/select';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
@@ -14,6 +13,7 @@ import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
 @customElement('mb-select')
 export default class MbSelect extends CodedTextElement {
   @property({ type: String }) terminology: string;
+
   @property({ type: Object }) data: CodedText | CodedText[] | undefined;
 
   @property({ type: String, reflect: true }) placeholder: string = 'Please select';
@@ -46,7 +46,7 @@ export default class MbSelect extends CodedTextElement {
   handleInput(e: CustomEvent) {
     const select = e.target as SlSelect;
     if (select.value && typeof select.value === 'object') {
-      let data: CodedText[] = select.value.map((item: string) => {
+      const data: CodedText[] = select.value.map((item: string) => {
         let codedtext: CodedText = {
           code: item,
           value: this.getLabel(item),
@@ -76,6 +76,7 @@ export default class MbSelect extends CodedTextElement {
       this._mbInput.emit();
     }
   }
+
   connectedCallback() {
     super.connectedCallback();
     const observer = new MutationObserver(() => {
@@ -93,8 +94,8 @@ export default class MbSelect extends CodedTextElement {
 
   getValue(data: CodedText | CodedText[] | undefined): string | string[] {
     if (data == null) return '';
-    else if (Array.isArray(data)) return data.map(item => item.code || '');
-    else return data?.code || '';
+    if (Array.isArray(data)) return data.map(item => item.code || '');
+    return data?.code || '';
   }
 
   reportValidity() {
@@ -104,10 +105,11 @@ export default class MbSelect extends CodedTextElement {
 
   getTextData(data: CodedText | CodedText[] | undefined): string {
     if (data == null) return '';
-    else if (Array.isArray(data))
+    if (Array.isArray(data))
       return data?.map(item => item.value || '').join(', ') || '';
-    else return data?.value || '';
+    return data?.value || '';
   }
+
   render() {
     if (this.variant === 'text') {
       return html`<div>

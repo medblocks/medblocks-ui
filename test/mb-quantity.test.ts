@@ -6,9 +6,8 @@ import {
   elementUpdated,
 } from '@open-wc/testing';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import MbQuantity from '../src/medblocks/quantity/quantity';
-import '../src/medblocks/quantity/quantity';
 import { SlInput } from '@shoelace-style/shoelace';
+import MbQuantity from '../src/medblocks/quantity/quantity';
 
 describe('MbQuantity', () => {
   it('emits data on input', async () => {

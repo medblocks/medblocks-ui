@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" />
   <script type="module" src="../dist/medblocks.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", () => {
       document.body.classList.remove("is-hidden")
     });
   </script>
@@ -66,14 +66,14 @@
   </section>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
-    let form = document.getElementById('form')
-    let fhirServer = axios.create({
-      baseURL: "https://medblocks4covid.aidbox.app/",
-      auth: {
-        username: 'basic',
-        password: 'secret'
-      }
-    })
+    const form = document.getElementById('form')
+    const fhirServer = axios.create({
+  baseURL: "https://medblocks4covid.aidbox.app/",
+  auth: {
+    username: 'basic',
+    password: 'secret'
+  }
+})
     form.addEventListener('mb-load', async () => {
       const r = await fhirServer.get('/Patient/c8b0f871-98ed-4a5b-a977-cfa5bf0417f7')
       const imported = form.import(r.data)

@@ -2,9 +2,7 @@ import { css, html, property, query, state } from 'lit-element';
 import MbUnit from './unit';
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
-import '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/menu/menu';
-import '@shoelace-style/shoelace/dist/components/select/select';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
@@ -65,7 +63,7 @@ export default abstract class QuantityLike extends EhrElement {
     }
   `;
 
-  /**The default unit to choose. Must be the `value` of a child mb-option element */
+  /** The default unit to choose. Must be the `value` of a child mb-option element */
   @property({ type: String, reflect: true }) default: string;
 
   /** Required form validation */
@@ -74,6 +72,7 @@ export default abstract class QuantityLike extends EhrElement {
   @property({ type: Number, reflect: true }) max: number | string | null;
 
   @property({ type: Number, reflect: true }) min: number | string | null = 0;
+
   /** Hides the units. Make sure to set a default unit, or set it programatically. */
   @property({ type: Boolean, reflect: true }) hideunit: boolean = false;
 
@@ -89,6 +88,7 @@ export default abstract class QuantityLike extends EhrElement {
 
   /** Automatically disables the unit if only a single unit is present */
   @property({ type: Boolean, reflect: true }) enablesingleunit: boolean = false;
+
   @state()
   units: MbUnit[] = [];
 
@@ -134,8 +134,8 @@ export default abstract class QuantityLike extends EhrElement {
         magnitude,
       };
     }
-    let Unit = this.units.filter(
-      unit => unit.unit === this.selectElement.value
+    const Unit = this.units.filter(
+      un => un.unit === this.selectElement.value
     )[0];
 
     this.max = Unit?.max ? Unit.max : null;

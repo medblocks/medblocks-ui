@@ -1,7 +1,6 @@
 import { customElement, html, property } from 'lit-element';
-import { event, EventEmitter } from '../../internal/decorators';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
-import '@shoelace-style/shoelace/dist/components/input/input';
+import { event, EventEmitter } from '../../internal/decorators';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import EhrElement from '../EhrElement';
 

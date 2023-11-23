@@ -16,11 +16,17 @@ export default class MbMultimedia extends EhrElement {
         size: number | undefined;
       }
     | undefined = undefined;
+
   @property({ type: String }) src: String;
+
   @property({ type: String }) label: string = '';
+
   @property({ type: String }) parentAxiosKey: string = 'storage-api';
+
   @property({ type: Boolean, reflect: true }) required: boolean = false;
+
   @property({ type: Boolean, reflect: true }) loading: boolean = false;
+
   @property({ type: Object }) axios: AxiosInstance;
 
   @property({ type: Object }) plugin = {

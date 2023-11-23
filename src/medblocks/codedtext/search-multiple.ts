@@ -13,6 +13,7 @@ export default class MbSearchMultiple extends MbSearchAbstract {
   @property({ type: Boolean }) multiple: boolean = true;
 
   @state() value: any = {};
+
   _handleSelect(data: SearchResult): void {
     if (data.text) {
       this.value = data.text;
@@ -33,7 +34,7 @@ export default class MbSearchMultiple extends MbSearchAbstract {
   }
 
   get _hasValue() {
-    return this?.value?.value && this?.value?.code ? true : false;
+    return !!(this?.value?.value && this?.value?.code);
   }
 
   get _display() {

@@ -23,10 +23,13 @@ export class CodedTextElement extends EhrElement {
     return '';
   }
 
-  /**Data of CodedText */
+  /** Data of CodedText */
   @property({ type: Object }) data: CodedText | string | undefined | any;
-  /**Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR) */
+
+  /** Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR) */
   @property({ type: String }) terminology: string = 'local';
+
   @property({ type: String }) value: string = '';
+
   @event('mb-input') _mbInput: EventEmitter<CodedText>;
 }

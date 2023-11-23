@@ -84,10 +84,17 @@
       ],
       "import/no-unresolved": "off",
       "import/extensions": [
-        "error",
-        "always",
+        "off",
         {
           "ignorePackages": true
+        }
+      ],
+      "import/order": [
+        "warn"
+      ],
+      "import/no-unused-modules": [
+        1, {
+          "unusedExports": true
         }
       ]
     }

@@ -63,8 +63,7 @@ export default class MbRepeatable extends Repeatable {
           record.removedNodes.forEach((node: EhrElement) => {
             if (node.isMbElement) {
               this._mbDisconnect.emit({ detail: node.path });
-            } else {
-              if (node.nodeType === node.ELEMENT_NODE) {
+            } else if (node.nodeType === node.ELEMENT_NODE) {
                 const allNodes = node.querySelectorAll('*'); // DOM queries are slow. There's scope to optimize.
                 allNodes.forEach((node: EhrElement) => {
                   if (node.isMbElement) {
@@ -72,7 +71,6 @@ export default class MbRepeatable extends Repeatable {
                   }
                 });
               }
-            }
           });
         }
       });
