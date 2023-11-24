@@ -109,7 +109,7 @@ describe('mb-repeatale-headless', () => {
     expect(count3).to.eql(55);
   });
 
-  it.skip('performance tests', async () => {
+  it('performance tests', async () => {
     const repeatableCount = 500;
     const inputCountPerRepeatable = 10;
     const repeatExtra = 10;
@@ -119,8 +119,8 @@ describe('mb-repeatale-headless', () => {
     const form = await fixture<MbForm>(
       `
         <mb-form>
-          ${[...Array(repeatableCount)].map((_, i) => {
-            return [...Array(inputCountPerRepeatable)].map(
+          ${[...Array(repeatableCount)].map((_, i) =>
+            [...Array(inputCountPerRepeatable)].map(
               (_, j) => `
                 <mb-input
                   path="long_repeatable/path/inside/composition${i}:${j}"
@@ -133,8 +133,8 @@ describe('mb-repeatale-headless', () => {
                 <mb-input path="unrelated6/composition/${i}:${j}"></mb-input>
                 <mb-input path="unrelated7/composition/${i}:${j}"></mb-input> -->
               `
-            );
-          })}
+            )
+          )}
           ${[...Array(repeatableCount)].map(
             (_, i) => `<mb-repeatable-headless
               count="0"
@@ -158,16 +158,16 @@ describe('mb-repeatale-headless', () => {
     // expect(event.target.count).to.equal(0);
     const dataToSet: Record<string, string> = {};
     const dataToEqual: Record<string, string> = {};
-    [...Array(repeatableCount + repeatExtra)].forEach((_, i) => {
-      return [...Array(inputCountPerRepeatable)].forEach((_, j) => {
+    [...Array(repeatableCount + repeatExtra)].forEach((_, i) =>
+      [...Array(inputCountPerRepeatable)].forEach((_, j) => {
         const key = `long_repeatable/path/inside/composition${i}:${j}`;
         const value = `Some random data ${i}, ${j}`;
         dataToSet[key] = value;
         if (i <= repeatExtra - 1) {
           dataToEqual[key] = value;
         }
-      });
-    });
+      })
+    );
     console.log('starting set timeout');
     setTimeout(() => {
       // start timer

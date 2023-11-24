@@ -29,7 +29,7 @@
     "postrelease": "git push --follow-tags origin master",
     "docs": "wca analyze src --format md --outDir ./documentation/",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
-    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "format": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "test": "tsc && wtr",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch \" \"wtr --watch\"",
     "validate-quantity": "tsc && wtr ./dist/test/validation-test/search-validation.test.js"
@@ -80,15 +80,17 @@
     "rules": {
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [
-        "error"
+        "warn"
       ],
       "import/no-unresolved": "off",
       "import/extensions": [
-        "error",
-        "always",
+        "off",
         {
           "ignorePackages": true
         }
+      ],
+      "import/no-duplicates": [
+        "off"
       ]
     }
   },
