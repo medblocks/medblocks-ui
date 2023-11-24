@@ -1,10 +1,10 @@
 import { customElement, html, property } from 'lit-element';
-import EhrElement from '../EhrElement';
 // import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import { AxiosInstance } from 'axios';
 import { supabaseStoragePlugin } from './mediaFunction';
+import EhrElement from '../EhrElement';
 
 @customElement('mb-multimedia')
 export default class MbMultimedia extends EhrElement {
@@ -16,11 +16,17 @@ export default class MbMultimedia extends EhrElement {
         size: number | undefined;
       }
     | undefined = undefined;
-  @property({ type: String }) src: String;
+
+  @property({ type: String }) src: string;
+
   @property({ type: String }) label: string = '';
+
   @property({ type: String }) parentAxiosKey: string = 'storage-api';
+
   @property({ type: Boolean, reflect: true }) required: boolean = false;
+
   @property({ type: Boolean, reflect: true }) loading: boolean = false;
+
   @property({ type: Object }) axios: AxiosInstance;
 
   @property({ type: Object }) plugin = {
@@ -40,9 +46,9 @@ export default class MbMultimedia extends EhrElement {
     const file = element.files?.[0];
 
     if (file) {
-      this.loading= true
+      this.loading = true;
       const output = await this.plugin.storageAPI.upload({ axios, file });
-      
+
       if (e.target?.value === '') {
         this.data = undefined;
       } else {
@@ -52,15 +58,15 @@ export default class MbMultimedia extends EhrElement {
           alternatetext: file?.name,
           size: file?.size,
         };
-        this.handleInput()
+        this.handleInput();
       }
-      this.loading = false
+      this.loading = false;
     }
 
     this._mbInput.emit();
   }
 
-  async handleInput(){
+  async handleInput() {
     const axios = this.axios ? this.axios : this._parentAxios;
     const downloadedFile = await this.plugin.storageAPI.download({
       axios,
@@ -84,11 +90,12 @@ export default class MbMultimedia extends EhrElement {
       ${this.loading
         ? html` <p>
             <img
+              alt=""
               width="200"
               src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"
             />
           </p>`
-        : html` <p><img width="200" src=${this.src || ''} /></p> `}
+        : html` <p><img alt="" width="200" src=${this.src || ''} /></p> `}
     `;
   }
 }

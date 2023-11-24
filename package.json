@@ -79,6 +79,10 @@
     ],
     "rules": {
       "no-unused-vars": "off",
+      "no-param-reassign": "off",
+      "no-undef": "off",
+      "no-plusplus": "off",
+      "consistent-return":"warn",
       "@typescript-eslint/no-unused-vars": [
         "warn"
       ],
@@ -91,9 +95,9 @@
       ],
       "import/no-duplicates": [
         "off"
-      ],
-      "import/order": ["warn"]
+      ]
     }
+
   },
   "prettier": {
     "singleQuote": true,

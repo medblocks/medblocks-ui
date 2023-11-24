@@ -1,13 +1,14 @@
-<!doctype html>
-<html lang="en-GB">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+  <title>Medblocks UI Kitchen Sink</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="../node_modules/@shoelace-style/shoelace/dist/themes/base.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" />
   <script type="module" src="../dist/medblocks.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", () => {
       document.body.classList.remove("is-hidden")
     });
   </script>
@@ -66,8 +67,8 @@
   </section>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
-    let form = document.getElementById('form')
-    let fhirServer = axios.create({
+    const form = document.getElementById('form')
+    const fhirServer = axios.create({
       baseURL: "https://medblocks4covid.aidbox.app/",
       auth: {
         username: 'basic',

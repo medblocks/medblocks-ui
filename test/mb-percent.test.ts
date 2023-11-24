@@ -5,9 +5,9 @@ import {
   oneEvent,
   elementUpdated,
 } from '@open-wc/testing';
+import { querySelectorDeep } from 'query-selector-shadow-dom';
 import MbPercent from '../src/medblocks/proportion/percent';
 import '../src/medblocks/proportion/percent';
-import { querySelectorDeep } from 'query-selector-shadow-dom';
 import MbForm from '../src/medblocks/form/form';
 import '../medblocks';
 

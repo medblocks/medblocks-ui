@@ -1,12 +1,7 @@
-import {
-  fixture,
-  expect,
-  oneEvent,
-  elementUpdated,
-} from '@open-wc/testing';
+import { fixture, expect, oneEvent, elementUpdated } from '@open-wc/testing';
+import { querySelectorDeep } from 'query-selector-shadow-dom';
 import MbCount from '../src/medblocks/count/count';
 import '../src/medblocks/count/count';
-import { querySelectorDeep } from 'query-selector-shadow-dom';
 
 describe('MbCount', () => {
   let mbcount: MbCount;

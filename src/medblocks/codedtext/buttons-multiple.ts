@@ -1,10 +1,10 @@
 import { css, customElement, html, state } from 'lit-element';
-import { CodedText, CodedTextElement } from './CodedTextElement';
-import MbOption from './option';
 import '@shoelace-style/shoelace/dist/components/button/button';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
 // import { SlSelect } from '@shoelace-style/shoelace';
 import { property } from 'lit-element';
+import { CodedText, CodedTextElement } from './CodedTextElement';
+import MbOption from './option';
 /**
  * An array of buttons to choose from. Expects nested mb-options to actually render buttons.
  * @inheritdoc
@@ -12,9 +12,13 @@ import { property } from 'lit-element';
 @customElement('mb-buttons-multiple')
 export default class CodedTextButtons extends CodedTextElement {
   @property({ type: Boolean, reflect: true }) required: boolean = false;
+
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
   @property({ type: Boolean, reflect: true }) multiple: boolean = true;
-  @property({ type: String, reflect: true }) id: string='buttons-multiple';
+
+  @property({ type: String, reflect: true }) id: string = 'buttons-multiple';
+
   /** @ignore */
   static styles = css`
     .buttons {
@@ -47,6 +51,7 @@ export default class CodedTextButtons extends CodedTextElement {
     observer.observe(this, { childList: true });
     this._handleChildChange();
   }
+
   _handleChildChange() {
     this._options = [
       ...(this.querySelectorAll('mb-option') as NodeListOf<MbOption>),
@@ -66,7 +71,7 @@ export default class CodedTextButtons extends CodedTextElement {
     };
 
     if (option.ordinal) {
-      data = { ...data, ordinal: parseInt(option.ordinal as any) };
+      data = { ...data, ordinal: parseInt(option.ordinal as any, 10) };
     }
     this.value = data;
     this.addValue();
@@ -86,6 +91,14 @@ export default class CodedTextButtons extends CodedTextElement {
     }
     this.value = {};
     this._mbInput.emit();
+  }
+
+  getVariant(option: MbOption) {
+    if (this.valueExists(option.value)) {
+      return 'primary';
+    }
+    if (option.type) return option.type;
+    return 'default';
   }
 
   render() {
@@ -111,11 +124,7 @@ export default class CodedTextButtons extends CodedTextElement {
                 .size=${this.variant === 'small' ? 'small' : 'medium'}
                 ?disabled=${this.disabled}
                 @click=${() => this._handleInput(option)}
-                variant=${this.valueExists(option.value)
-                  ? 'primary'
-                  : option.type
-                  ? option.type
-                  : 'default'}
+                variant=${this.getVariant(option)}
                 >${this.valueExists(option.value)
                   ? html`<sl-icon
                       library="medblocks"

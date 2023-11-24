@@ -1,9 +1,4 @@
-import {
-  fixture,
-  expect,
-  oneEvent,
-  elementUpdated,
-} from '@open-wc/testing';
+import { fixture, expect, oneEvent, elementUpdated } from '@open-wc/testing';
 import { querySelectorAllDeep } from 'query-selector-shadow-dom';
 import MbButtons from '../src/medblocks/codedtext/buttons';
 import '../src/medblocks/codedtext/buttons';
@@ -54,7 +49,7 @@ describe('MbButtons', () => {
     const buttons = querySelectorAllDeep('button');
     expect(buttons).to.have.length(2);
     setTimeout(() => {
-    buttons[0].click();
+      buttons[0].click();
     }, 0);
     const event1: any = await oneEvent(mbbuttons, 'mb-input');
     expect(event1.target.data).to.eql({
@@ -63,7 +58,7 @@ describe('MbButtons', () => {
       terminology: 'SOME-TERMINOLOGY',
     });
     setTimeout(() => {
-    buttons[1].click();
+      buttons[1].click();
     }, 0);
     const event2: any = await oneEvent(mbbuttons, 'mb-input');
     expect(event2.target.data).to.eql({

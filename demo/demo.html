@@ -1,217 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Medblocks UI Kitchen Sink</title>
-  <link rel="stylesheet" href="../node_modules/@shoelace-style/shoelace/dist/themes/light.css" />
-  <style>
-    p {
-      font-weight: 800;
-    }
-  </style>
-  <script type="module" src="../dist/medblocks.js"></script>
-  <script src="../node_modules/axios/dist/axios.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      let form = document.getElementById('form1')
-      let input = document.getElementById('input1')
-      input.addEventListener('mb-input', (e) => {
-        console.log(e.target.data)
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medblocks UI Kitchen Sink</title>
+    <link
+      rel="stylesheet"
+      href="../node_modules/@shoelace-style/shoelace/dist/themes/light.css"
+    />
+    <style>
+      p {
+        font-weight: 800;
+      }
+    </style>
+    <script type="module" src="../dist/medblocks.js"></script>
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('form1')
+        const input = document.getElementById('input1')
+        input.addEventListener('mb-input', e => {
+          console.log(e.target.data)
+        })
+        form.hermes = axios.create({
+          baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1'
+        })
+        form.addEventListener('mb-submit', e => {
+          e.preventDefault()
+          console.log(e.detail)
+        })
+        const form2 = document.getElementById('form2')
+        form2.hermes = axios.create({
+          baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1'
+        })
+        // form2.addEventListener('mb-input', (e) => {
+        //   const data = e.target.data
+        //   if (data["chief_complaints"] === "fever")
+        //     form2.addSuggestion({
+        //       "other_symptoms": [{ data: "Body ache", label: "Body ache", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Sore Throat", id: 2, op: 'add' }],
+        //       "chief_complaints": [{ data: "Body ache", label: "Body ache", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Sore Throat", id: 2, op: 'add' }],
+        //       "duration": [{ data: 'P2D', label: '2 days', id: 1 }, { data: 'P1M', label: '1 month', id: 2 }],
+        //       "hidden_symptoms": true,
+        //       "composition_suggestion": [{data: {"path1/symptom|magnitude": 123}, label: "Change composition", id: 2}]
+        //     })
+        //   else {
+        //     form2.addSuggestion({
+        //       "chief_complaints": [{ data: "Athul", label: "Athul", id: 1, op: 'add' }],
+        //       "other_symptoms": [{ data: "Cough", label: "Cough", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Pain abdomen", id: 2, op: 'add' }],
+        //       "duration": [{ data: 'P2D', label: '2 days', id: 1 }, { data: 'P1M', label: '1 month', id: 2 }],
+        //     })
+        //   }
+        // })
+        // form2.addEventListener('mb-submit', function (e) {
+        //   e.preventDefault()
+        //   console.log(e.detail)
+        // })
       })
-      form.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1' })
-      form.addEventListener('mb-submit', function (e) {
-        e.preventDefault()
-        console.log(e.detail)
-      })
-      let form2 = document.getElementById('form2')
-      form2.hermes = axios.create({ baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1' })
-      // form2.addEventListener('mb-input', (e) => {
-      //   const data = e.target.data
-      //   if (data["chief_complaints"] === "fever")
-      //     form2.addSuggestion({
-      //       "other_symptoms": [{ data: "Body ache", label: "Body ache", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Sore Throat", id: 2, op: 'add' }],
-      //       "chief_complaints": [{ data: "Body ache", label: "Body ache", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Sore Throat", id: 2, op: 'add' }],
-      //       "duration": [{ data: 'P2D', label: '2 days', id: 1 }, { data: 'P1M', label: '1 month', id: 2 }],
-      //       "hidden_symptoms": true,
-      //       "composition_suggestion": [{data: {"path1/symptom|magnitude": 123}, label: "Change composition", id: 2}]
-      //     })
-      //   else {
-      //     form2.addSuggestion({
-      //       "chief_complaints": [{ data: "Athul", label: "Athul", id: 1, op: 'add' }],
-      //       "other_symptoms": [{ data: "Cough", label: "Cough", id: 1, op: 'add' }, { data: "Cold", label: "Cold", id: 2, op: 'add' }, { data: "Sore Throat", label: "Pain abdomen", id: 2, op: 'add' }],
-      //       "duration": [{ data: 'P2D', label: '2 days', id: 1 }, { data: 'P1M', label: '1 month', id: 2 }],
-      //     })
-      //   }
-      // })
-      // form2.addEventListener('mb-submit', function (e) {
-      //   e.preventDefault()
-      //   console.log(e.detail)
-      // })
-    })
-  </script>
-</head>
+    </script>
+  </head>
 
-<body>
-  <sl-textarea rows="1">
+  <body>
+    <sl-textarea rows="1"> </sl-textarea>
+    <sl-textarea size="small" rows="1"> </sl-textarea>
+    <div style="max-width: 700px">
+      <mb-form
+        id="form1"
+        style="display: flex; gap: 15px; flex-direction: column"
+        templateid="testing_template.v0"
+      >
+        <div style="display: flex; gap: 15px; flex-direction: column">
+          <p>DV_TEXT</p>
+          <mb-input
+            path="input"
+            label="Diagnosis (mb-input)"
+            id="input1"
+          ></mb-input>
+          <mb-input
+            textarea
+            path="input/textarea"
+            label="History of Presenting Illness (mb-input textarea)"
+          ></mb-input>
+          <mb-text-select
+            path="select/text"
+            label="Triage Status (mb-input-select)"
+          >
+            <mb-option value="red" label="Red"></mb-option>
+            <mb-option value="green" label="Green"></mb-option>
+            <mb-option value="blue" label="Blue"></mb-option>
+          </mb-text-select>
+          <mb-input-multiple
+            path="input/multiple"
+            label="Symptoms (mb-input-multiple)"
+          ></mb-input-multiple>
+          Hello there
+          <mb-search
+            show
+            filter-type="and"
+            path="search"
+            terminology="SNOMED-CT"
+            label="Chief Complaints (mb-search)"
+            path="hello:0/there"
+            repeatprefix="hello"
+            repeatsuffix="there"
+          >
+            <sl-menu-item
+              value="Something"
+              label="Okayyy"
+              text="true"
+              slot="results"
+            >
+              Home
+            </sl-menu-item>
+            <sl-menu-item slot="results">
+              Messages
+              <sl-badge slot="suffix" variant="primary" pill>12</sl-badge>
+            </sl-menu-item>
 
-  </sl-textarea>
-  <sl-textarea size="small" rows="1">
-
-  </sl-textarea>
-  <div style="max-width: 700px;">
-    <mb-form id="form1" style="display: flex; gap:15px; flex-direction: column" templateid="testing_template.v0">
-      <div style="display: flex; gap:15px; flex-direction: column">
-        <p>DV_TEXT</p>
-        <mb-input path="input" label="Diagnosis (mb-input)" id="input1"></mb-input>
-        <mb-input textarea path="input/textarea" label="History of Presenting Illness (mb-input textarea)"></mb-input>
-        <mb-text-select path="select/text" label="Triage Status (mb-input-select)">
-          <mb-option value="red" label="Red"></mb-option>
-          <mb-option value="green" label="Green"></mb-option>
-          <mb-option value="blue" label="Blue"></mb-option>
-        </mb-text-select>
-        <mb-input-multiple path="input/multiple" label="Symptoms (mb-input-multiple)"></mb-input-multiple>
-        Hello there
-        <mb-search show filter-type="and" path="search" terminology="SNOMED-CT" label="Chief Complaints (mb-search)"
-          path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
-
-          <sl-menu-item value="Something" label="Okayyy" text="true" slot="results">
-            Home
-          </sl-menu-item>
-          <sl-menu-item slot="results">
-            Messages
-            <sl-badge slot="suffix" variant="primary" pill>12</sl-badge>
-          </sl-menu-item>
-
-          <mb-filter label="Conditions 1" value="^181000271107 | (finding) | OR <272379006 | Event (event) |">
-          </mb-filter>
-          <mb-filter label="Conditions 2" value="^181000271107 | (finding) | OR <272379006 | Event (event) |">
-          </mb-filter>
-          <mb-filter label="Conditions 3" value="^181000271107 | (finding) | OR <272379006 | Event (event) |">
-          </mb-filter>
-        </mb-search>
-        <mb-search-multiple path="search/multiple" terminology="SNOMED-CT" label="Chief Complaints (mb-search-multiple)"
-          path="hello:0/there" repeatprefix="hello" repeatsuffix="there">
-          <mb-filter label="Conditions" value="^181000271107 | (finding) | OR <272379006 | Event (event) |"></mb-filter>
-        </mb-search-multiple>
-        <p>DV_QUANTITY</p>
-        <mb-quantity path="quantity/1" label="Temperature (mb-quantity)" default="F" hideicon>
-          <mb-unit unit="F" label="°F" min="0"></mb-unit>
-          <mb-unit unit="C" label="°C" min="0"></mb-unit>
-        </mb-quantity>
-        <mb-quantity path="quantity/2" label="Blood Pressure (mb-quantity with only one unit)" default="mm[Hg]">
-          <mb-unit unit="mm[Hg]" label="mmHg"></mb-unit>
-        </mb-quantity>
-        <mb-quantity hideunit path="quantity/3" label="Pulse (mb-quantity hideunit)" default="/min">
-          <mb-unit unit="/min" label="/min"></mb-unit>
-        </mb-quantity>
-        <p>DV_CODED_TEXT</p>
-        <mb-select path="select" label="Posture (mb-select)" style="width: 100px;">
-
-          <mb-option value="" label="Lorem ipsum "></mb-option>
-          <mb-option value="Standing" label="Standing"></mb-option>
-          <mb-option value="Supine" label="Supine"></mb-option>
-        </mb-select>
-        <mb-select path="select" label="Posture (mb-select)">
-
-          <mb-option value="" label="Lorem ipsum "></mb-option>
-          <mb-option value="Standing" label="Standing"></mb-option>
-          <mb-option value="Supine" label="Supine"></mb-option>
-        </mb-select>
-        <mb-select multiple path="select/multiple" label="Signs (mb-select-multiple)" terminology="SNOMED-CT">
-          <mb-option value="123445" label="Cough"></mb-option>
-          <mb-option value="232321" label="Fever"></mb-option>
-          <mb-option value="323123" label="Sore Throat"></mb-option>
-        </mb-select>
-        <mb-buttons path="buttons" label="Posture (mb-buttons)">
-          <mb-option value="Sitting" label="Sitting"></mb-option>
-          <mb-option value="Standing" label="Standing"></mb-option>
-          <mb-option value="Supine" label="Supine"></mb-option>
-        </mb-buttons>
-        <mb-buttons-multiple path="buttons/multiple" label="Symptoms (mb-buttons-multiple)" terminology="SNOMED CT">
-          <mb-option value="123445" label="Cough"></mb-option>
-          <mb-option value="232321" label="Fever"></mb-option>
-          <mb-option value="323123" label="Sore Throat"></mb-option>
-        </mb-buttons-multiple>
-        <p>DV_COUNT</p>
-        <mb-count path="count" label="Pain on a scale of 1-10 (mb-count)"></mb-count>
-        <p>DV_PROPORTION</p>
-        <mb-proportion path="proportion" label="Waist-Hip Ratio (mb-proportion)"></mb-proportion>
-        <mb-percent path="percent" label="SpO2 (mb-percent)"></mb-percent>
-        <p>DV_DURATION</p>
-        <mb-duration path="duration/ym" year month label="Symptom present for (mb-duration year month)"></mb-duration>
-        <mb-duration path="duration/mwd" month week day label="Medication Direction Duration (mb-duration all)">
-        </mb-duration>
-        <mb-duration path="duration/all" year month week day hour minute second
-          label="Super accurate direction duration (mb-duration month week day)"></mb-duration>
-        <p>DV_DATE_TIME</p>
-        <mb-date path="date1" label="Onset (mb-date)"></mb-date>
-        <mb-date time path="date/time" label="Exact Onset (mb-date time)"></mb-date>
-        <p>DV_DATE</p>
-        <mb-date path="date2" label="Onset (mb-date)"></mb-date>
-        <p>DV_BOOLEAN</p>
-        <mb-checkbox path="checkbox" label="No complaints"></mb-checkbox>
-        <p>DV_ORDINAL</p>
-        <mb-select path="select/ordinal" label="Glasgow Coma Scale" terminology="local">
-          <mb-option value="a" label="Spontaneous" ordinal="4"></mb-option>
-          <mb-option value="b" label="To sound" ordinal="3"></mb-option>
-          <mb-option value="c" label="To pressure" ordinal="2"></mb-option>
-          <mb-option value="d" label="None" ordinal="1"></mb-option>
-        </mb-select>
-        <p>CONTEXT</p>
-        <mb-checkbox-any path="checkbox/any" id="checkbox" path="input" label="Has diabetis" bind="Diabetis Mellitus">
-        </mb-checkbox-any>
-        <mb-context path="context" bind="ctx_bind"></mb-context>
-      </div>
-      <mb-submit type="primary">
-        <sl-button>Save</sl-button>
-      </mb-submit>
-    </mb-form>
-    <hr>
-    <mb-form templateId="clinikk.prescription_pad.v2">
-      <p>SUGGESTION (Type to see)</p>
-      <mb-search-multiple path="clinikk.prescription_pad.v2/reason_for_encounter/presenting_problem"
-        label="Chief complaints"></mb-search-multiple>
-      <mb-suggest label="Suggested ROS">
-        <mb-input textarea label="HOPI" path="clinikk.prescription_pad.v2/story_history/any_event:0/story:0">
-        </mb-input>
-      </mb-suggest>
-      <mb-suggest>
-        <mb-duration day month label="Duration" path="duration"></mb-duration>
-      </mb-suggest>
-      <mb-suggest>
-        <mb-input-multiple label="Text" path="other_symptoms">
-        </mb-input-multiple>
-      </mb-suggest>
-      <div>
+            <mb-filter
+              label="Conditions 1"
+              value="^181000271107 | (finding) | OR <272379006 | Event (event) |"
+            >
+            </mb-filter>
+            <mb-filter
+              label="Conditions 2"
+              value="^181000271107 | (finding) | OR <272379006 | Event (event) |"
+            >
+            </mb-filter>
+            <mb-filter
+              label="Conditions 3"
+              value="^181000271107 | (finding) | OR <272379006 | Event (event) |"
+            >
+            </mb-filter>
+          </mb-search>
+          <mb-search-multiple
+            path="search/multiple"
+            terminology="SNOMED-CT"
+            label="Chief Complaints (mb-search-multiple)"
+            path="hello:0/there"
+            repeatprefix="hello"
+            repeatsuffix="there"
+          >
+            <mb-filter
+              label="Conditions"
+              value="^181000271107 | (finding) | OR <272379006 | Event (event) |"
+            ></mb-filter>
+          </mb-search-multiple>
+          <p>DV_QUANTITY</p>
+          <mb-quantity
+            path="quantity/1"
+            label="Temperature (mb-quantity)"
+            default="F"
+            hideicon
+          >
+            <mb-unit unit="F" label="°F" min="0"></mb-unit>
+            <mb-unit unit="C" label="°C" min="0"></mb-unit>
+          </mb-quantity>
+          <mb-quantity
+            path="quantity/2"
+            label="Blood Pressure (mb-quantity with only one unit)"
+            default="mm[Hg]"
+          >
+            <mb-unit unit="mm[Hg]" label="mmHg"></mb-unit>
+          </mb-quantity>
+          <mb-quantity
+            hideunit
+            path="quantity/3"
+            label="Pulse (mb-quantity hideunit)"
+            default="/min"
+          >
+            <mb-unit unit="/min" label="/min"></mb-unit>
+          </mb-quantity>
+          <p>DV_CODED_TEXT</p>
+          <mb-select
+            path="select"
+            label="Posture (mb-select)"
+            style="width: 100px"
+          >
+            <mb-option value="" label="Lorem ipsum "></mb-option>
+            <mb-option value="Standing" label="Standing"></mb-option>
+            <mb-option value="Supine" label="Supine"></mb-option>
+          </mb-select>
+          <mb-select path="select" label="Posture (mb-select)">
+            <mb-option value="" label="Lorem ipsum "></mb-option>
+            <mb-option value="Standing" label="Standing"></mb-option>
+            <mb-option value="Supine" label="Supine"></mb-option>
+          </mb-select>
+          <mb-select
+            multiple
+            path="select/multiple"
+            label="Signs (mb-select-multiple)"
+            terminology="SNOMED-CT"
+          >
+            <mb-option value="123445" label="Cough"></mb-option>
+            <mb-option value="232321" label="Fever"></mb-option>
+            <mb-option value="323123" label="Sore Throat"></mb-option>
+          </mb-select>
+          <mb-buttons path="buttons" label="Posture (mb-buttons)">
+            <mb-option value="Sitting" label="Sitting"></mb-option>
+            <mb-option value="Standing" label="Standing"></mb-option>
+            <mb-option value="Supine" label="Supine"></mb-option>
+          </mb-buttons>
+          <mb-buttons-multiple
+            path="buttons/multiple"
+            label="Symptoms (mb-buttons-multiple)"
+            terminology="SNOMED CT"
+          >
+            <mb-option value="123445" label="Cough"></mb-option>
+            <mb-option value="232321" label="Fever"></mb-option>
+            <mb-option value="323123" label="Sore Throat"></mb-option>
+          </mb-buttons-multiple>
+          <p>DV_COUNT</p>
+          <mb-count
+            path="count"
+            label="Pain on a scale of 1-10 (mb-count)"
+          ></mb-count>
+          <p>DV_PROPORTION</p>
+          <mb-proportion
+            path="proportion"
+            label="Waist-Hip Ratio (mb-proportion)"
+          ></mb-proportion>
+          <mb-percent path="percent" label="SpO2 (mb-percent)"></mb-percent>
+          <p>DV_DURATION</p>
+          <mb-duration
+            path="duration/ym"
+            year
+            month
+            label="Symptom present for (mb-duration year month)"
+          ></mb-duration>
+          <mb-duration
+            path="duration/mwd"
+            month
+            week
+            day
+            label="Medication Direction Duration (mb-duration all)"
+          >
+          </mb-duration>
+          <mb-duration
+            path="duration/all"
+            year
+            month
+            week
+            day
+            hour
+            minute
+            second
+            label="Super accurate direction duration (mb-duration month week day)"
+          ></mb-duration>
+          <p>DV_DATE_TIME</p>
+          <mb-date path="date1" label="Onset (mb-date)"></mb-date>
+          <mb-date
+            time
+            path="date/time"
+            label="Exact Onset (mb-date time)"
+          ></mb-date>
+          <p>DV_DATE</p>
+          <mb-date path="date2" label="Onset (mb-date)"></mb-date>
+          <p>DV_BOOLEAN</p>
+          <mb-checkbox path="checkbox" label="No complaints"></mb-checkbox>
+          <p>DV_ORDINAL</p>
+          <mb-select
+            path="select/ordinal"
+            label="Glasgow Coma Scale"
+            terminology="local"
+          >
+            <mb-option value="a" label="Spontaneous" ordinal="4"></mb-option>
+            <mb-option value="b" label="To sound" ordinal="3"></mb-option>
+            <mb-option value="c" label="To pressure" ordinal="2"></mb-option>
+            <mb-option value="d" label="None" ordinal="1"></mb-option>
+          </mb-select>
+          <p>CONTEXT</p>
+          <mb-checkbox-any
+            path="checkbox/any"
+            id="checkbox"
+            path="input"
+            label="Has diabetis"
+            bind="Diabetis Mellitus"
+          >
+          </mb-checkbox-any>
+          <mb-context path="context" bind="ctx_bind"></mb-context>
+        </div>
         <mb-submit type="primary">
           <sl-button>Save</sl-button>
         </mb-submit>
-      </div>
-      <mb-suggest label="Suggested Symptoms" path="composition_suggestion"></mb-suggest>
-      <mb-hide path="hidden_symptoms">
-        <h2>Hidden by default</h2>
-        <mb-suggest>
-          <mb-input path="chief_complaints_hidden" label="Chief complaints"></mb-input>
+      </mb-form>
+      <hr />
+      <mb-form templateId="clinikk.prescription_pad.v2">
+        <p>SUGGESTION (Type to see)</p>
+        <mb-search-multiple
+          path="clinikk.prescription_pad.v2/reason_for_encounter/presenting_problem"
+          label="Chief complaints"
+        ></mb-search-multiple>
+        <mb-suggest label="Suggested ROS">
+          <mb-input
+            textarea
+            label="HOPI"
+            path="clinikk.prescription_pad.v2/story_history/any_event:0/story:0"
+          >
+          </mb-input>
         </mb-suggest>
         <mb-suggest>
-          <mb-duration day month label="Duration_hidden" path="duration"></mb-duration>
+          <mb-duration day month label="Duration" path="duration"></mb-duration>
         </mb-suggest>
         <mb-suggest>
-          <mb-input-multiple label="Text" path="other_symptoms_hidden">
+          <mb-input-multiple label="Text" path="other_symptoms">
           </mb-input-multiple>
         </mb-suggest>
-
-      </mb-hide>
-
-    </mb-form>
-    <hr>
-
-  </div>
-  <div>
-  </div>
-</body>
-
+        <div>
+          <mb-submit type="primary">
+            <sl-button>Save</sl-button>
+          </mb-submit>
+        </div>
+        <mb-suggest
+          label="Suggested Symptoms"
+          path="composition_suggestion"
+        ></mb-suggest>
+        <mb-hide path="hidden_symptoms">
+          <h2>Hidden by default</h2>
+          <mb-suggest>
+            <mb-input
+              path="chief_complaints_hidden"
+              label="Chief complaints"
+            ></mb-input>
+          </mb-suggest>
+          <mb-suggest>
+            <mb-duration
+              day
+              month
+              label="Duration_hidden"
+              path="duration"
+            ></mb-duration>
+          </mb-suggest>
+          <mb-suggest>
+            <mb-input-multiple label="Text" path="other_symptoms_hidden">
+            </mb-input-multiple>
+          </mb-suggest>
+        </mb-hide>
+      </mb-form>
+      <hr />
+    </div>
+    <div></div>
+  </body>
 </html>

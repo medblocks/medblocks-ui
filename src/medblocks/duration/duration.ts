@@ -41,19 +41,30 @@ export default class MbDuration extends EhrElement {
   `;
 
   @property({ type: Boolean, reflect: true }) year: boolean = false;
-  @property({ type: Boolean, reflect: true }) month: boolean = false;
-  @property({ type: Boolean, reflect: true }) week: boolean = false;
-  @property({ type: Boolean, reflect: true }) day: boolean = false;
-  @property({ type: Boolean, reflect: true }) hour: boolean = false;
-  @property({ type: Boolean, reflect: true }) minute: boolean = false;
-  @property({ type: Boolean, reflect: true }) second: boolean = false;
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
-  @property({ type: Boolean, reflect: true }) disabled: boolean;
-  @property({ type: Boolean, reflect: true }) hidelabel: boolean = false;
-  @property({ type: String, reflect: true }) min = '1';
-  @property({ type: String, reflect: true }) placeholder = '';
-  @property({ type: String, reflect: true }) id = 'duration';
 
+  @property({ type: Boolean, reflect: true }) month: boolean = false;
+
+  @property({ type: Boolean, reflect: true }) week: boolean = false;
+
+  @property({ type: Boolean, reflect: true }) day: boolean = false;
+
+  @property({ type: Boolean, reflect: true }) hour: boolean = false;
+
+  @property({ type: Boolean, reflect: true }) minute: boolean = false;
+
+  @property({ type: Boolean, reflect: true }) second: boolean = false;
+
+  @property({ type: Boolean, reflect: true }) required: boolean = false;
+
+  @property({ type: Boolean, reflect: true }) disabled: boolean;
+
+  @property({ type: Boolean, reflect: true }) hidelabel: boolean = false;
+
+  @property({ type: String, reflect: true }) min = '1';
+
+  @property({ type: String, reflect: true }) placeholder = '';
+
+  @property({ type: String, reflect: true }) id = 'duration';
 
   @state() _state: { [period: string]: string | undefined } = {};
 
@@ -95,7 +106,7 @@ export default class MbDuration extends EhrElement {
     const periodPart = p ? `P${p}` : '';
     if (!periodPart && !timePart) return undefined;
     if (!periodPart && timePart) return `P${timePart}`;
-    else return `${periodPart}${timePart}`;
+    return `${periodPart}${timePart}`;
   }
 
   get data(): string | undefined {
@@ -117,12 +128,12 @@ export default class MbDuration extends EhrElement {
   }
 
   formatDuration(value: string): string {
-    return value.charAt(0).toUpperCase() + value.slice(1) + 's';
+    return `${value.charAt(0).toUpperCase() + value.slice(1)}s`;
   }
 
   reportValidity() {
     const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
-    return input.reportValidity()
+    return input.reportValidity();
   }
 
   getInputs() {

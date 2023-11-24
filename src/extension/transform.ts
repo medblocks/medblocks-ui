@@ -1,3 +1,20 @@
+type Operations = '>=' | '<=' | '>' | '<' | '=';
+interface MinMax {
+  minOp: Operations;
+  min: number;
+  maxOp: Operations;
+  max: number;
+}
+
+interface ListItem {
+  value: string;
+  label: string;
+  validation?: {
+    range: MinMax;
+  };
+  ordinal?: number;
+}
+
 export interface Tree {
   id: string;
   name: string;
@@ -39,22 +56,6 @@ export interface Tree {
   status?: 'present' | 'optionalAbsent' | 'mandatoryAbsent' | 'allPresent';
 }
 
-type Operations = '>=' | '<=' | '>' | '<' | '=';
-interface MinMax {
-  minOp: Operations;
-  min: number;
-  maxOp: Operations;
-  max: number;
-}
-
-interface ListItem {
-  value: string;
-  label: string;
-  validation?: {
-    range: MinMax;
-  };
-  ordinal?: number;
-}
 export interface ProcessedTree extends Tree {
   path: string;
 }
@@ -300,8 +301,8 @@ const transformations: { [rmType: string]: TransformFunction } = {
 };
 
 export default (leaf: ProcessedTree) => {
-  if (leaf['inContext']) {
-    return transformations['context'](leaf);
+  if (leaf.inContext) {
+    return transformations.context(leaf);
   }
   const fn = transformations[leaf.rmType];
   if (fn) {

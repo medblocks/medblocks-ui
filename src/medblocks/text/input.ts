@@ -1,11 +1,11 @@
 import { customElement, html, property, css } from 'lit-element';
-import { event, EventEmitter } from '../../internal/decorators';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
+import SlTextarea from '@shoelace-style/shoelace/dist/components/textarea/textarea';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/textarea/textarea';
+import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
-import SlTextarea from '@shoelace-style/shoelace/dist/components/textarea/textarea';
 
 /**
  * An input element to capture text
@@ -33,6 +33,7 @@ export default class MbInput extends EhrElement {
       }
     }
   `;
+
   @property({ type: String }) data: string | undefined;
 
   @property({ type: Boolean, reflect: true }) textarea: boolean = false;

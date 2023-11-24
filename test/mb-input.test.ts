@@ -5,9 +5,9 @@ import {
   oneEvent,
   elementUpdated,
 } from '@open-wc/testing';
+import { querySelectorDeep } from 'query-selector-shadow-dom';
 import MbInput from '../src/medblocks/text/input';
 import '../src/medblocks/text/input';
-import { querySelectorDeep } from 'query-selector-shadow-dom';
 
 describe('MbInput', () => {
   let mbinput: MbInput;

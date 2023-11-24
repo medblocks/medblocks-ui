@@ -6,12 +6,13 @@ export default {
   component: 'mb-date',
 };
 
-
-
 const Template = ({ label = '', data = '', time = false }) => html`
   <mb-date
     ?time=${time}
-    @mb-date=${(e: any) => (data = e.target.data)}
+    @mb-date=${(e: any) => {
+      data = e.target.data;
+      return undefined;
+    }}
     .data=${data}
     .label=${label}
   >

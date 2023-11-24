@@ -1,7 +1,7 @@
 import { css, html, property } from 'lit-element';
-import EhrElement from '../EhrElement';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { ifDefined } from 'lit-html/directives/if-defined';
+import EhrElement from '../EhrElement';
 
 export default abstract class MbProportion extends EhrElement {
   static styles = css`
@@ -31,9 +31,13 @@ export default abstract class MbProportion extends EhrElement {
       align-items: flex-end;
     }
   `;
+
   abstract type: string;
+
   abstract max: number | string;
+
   abstract min: number | string;
+
   @property({ type: Object }) data:
     | {
         denominator: number;
@@ -76,26 +80,28 @@ export default abstract class MbProportion extends EhrElement {
   getStep() {
     if (this.step) {
       return this.step;
-    } else {
-      if (this.type === 'unitary') {
-        return '0.01';
-      } else {
-        return;
-      }
     }
+    if (this.type === 'unitary') {
+      return '0.01';
+    }
+    return '';
+  }
+
+  getText() {
+    if (this.data?.numerator) {
+      if (this.type === 'percent') {
+        return `${this.data?.numerator} %`;
+      }
+      return this.data?.numerator;
+    }
+    return '-';
   }
 
   render() {
     if (this.variant === 'text') {
       return html`<div>
         ${this._label()}
-        <p>
-          ${this.data?.numerator
-            ? this.type === 'percent'
-              ? this.data?.numerator + ' %'
-              : this.data?.numerator
-            : '-'}
-        </p>
+        <p>${this.getText()}</p>
       </div>`;
     }
     return html`<sl-input

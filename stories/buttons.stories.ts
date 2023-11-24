@@ -11,7 +11,10 @@ export default {
 
 const Template = ({ label = '', data = undefined }) => html`
   <mb-buttons
-    @mb-buttons=${(e: any) => (data = e.target.data)}
+    @mb-buttons=${(e: any) => {
+      data = e.target.data;
+      return undefined;
+    }}
     .data=${data}
     .label=${label}
   >

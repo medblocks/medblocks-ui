@@ -6,10 +6,12 @@ export default {
   component: 'mb-input',
 };
 
-
 const Template = ({ label = '', textarea = false, data = '' }) => html`
   <mb-input
-    @mb-input=${(e: any) => (data = e.target.data)}
+    @mb-input=${(e: any) => {
+      data = e.target.data;
+      return undefined;
+    }}
     .data=${data}
     .label=${label}
     ?textarea=${textarea}

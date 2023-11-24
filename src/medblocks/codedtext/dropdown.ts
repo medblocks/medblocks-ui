@@ -11,6 +11,7 @@ export default class MbDropDown extends SlDropdown {
   // }
 
   handleTriggerClick(): void {
+    // eslint-disable-next-line no-console
     console.log('trigger click triggered');
     if (this.open) {
       // this.hide();
@@ -57,7 +58,6 @@ export default class MbDropDown extends SlDropdown {
 
       // Focus on a menu item
       if (event.key === 'ArrowDown' && firstMenuItem) {
-        const menu = this.getMenu();
         menu?.setCurrentItem(firstMenuItem);
         firstMenuItem.focus();
         return;
@@ -66,10 +66,8 @@ export default class MbDropDown extends SlDropdown {
       if (event.key === 'ArrowUp' && lastMenuItem) {
         menu?.setCurrentItem(lastMenuItem);
         lastMenuItem.focus();
-        return;
       }
     }
-    return;
     // Other keys bring focus to the menu and initiate type-to-select behavior
   }
 }

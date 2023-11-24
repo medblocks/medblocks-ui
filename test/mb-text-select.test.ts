@@ -9,10 +9,10 @@ import {
   querySelectorDeep,
   querySelectorAllDeep,
 } from 'query-selector-shadow-dom';
+import { SlMenuItem, SlSelect } from '@shoelace-style/shoelace';
 import MbTextSelect from '../src/medblocks/text/text-select';
 import '../src/medblocks/text/text-select';
 import '../src/medblocks/codedtext/option';
-import { SlMenuItem, SlSelect } from '@shoelace-style/shoelace';
 
 describe('MbTextSelect', () => {
   it('emits data on input', async () => {

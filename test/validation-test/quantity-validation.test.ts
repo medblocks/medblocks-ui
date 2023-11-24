@@ -7,7 +7,6 @@ import { SlInput } from '@shoelace-style/shoelace';
 import MbForm from '../../src/medblocks/form/form';
 // import { TemplateResult } from 'lit-html';
 
-
 describe('quantity validation test', () => {
   it('empty', async () => {
     const form = await fixture<MbForm>(

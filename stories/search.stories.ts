@@ -6,10 +6,12 @@ export default {
   component: 'mb-search',
 };
 
-
 const Template = ({ label = '', data = undefined }) => html`
   <mb-search
-    @mb-search=${(e: any) => (data = e.target.data)}
+    @mb-search=${(e: any) => {
+      data = e.target.data;
+      return undefined;
+    }}
     .data=${data}
     .label=${label}
   >

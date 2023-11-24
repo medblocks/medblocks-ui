@@ -1,8 +1,8 @@
 import { customElement, html, property } from 'lit-element';
-import { event, EventEmitter } from '../../internal/decorators';
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
+import { event, EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 
 /**
@@ -15,9 +15,9 @@ export default class MbCount extends EhrElement {
 
   @property({ type: String }) label: string = '';
 
-  @property({ type: String , reflect: true }) placeholder: string = '';
+  @property({ type: String, reflect: true }) placeholder: string = '';
 
-  @property({ type: String , reflect: true }) id: string = 'count';
+  @property({ type: String, reflect: true }) id: string = 'count';
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
@@ -37,8 +37,7 @@ export default class MbCount extends EhrElement {
   }
 
   reportValidity() {
-    let input;
-    input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
     return input.reportValidity();
   }
 

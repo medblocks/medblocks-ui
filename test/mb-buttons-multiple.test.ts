@@ -1,9 +1,4 @@
-import {
-  fixture,
-  expect,
-  oneEvent,
-  elementUpdated,
-} from '@open-wc/testing';
+import { fixture, expect, oneEvent, elementUpdated } from '@open-wc/testing';
 import { querySelectorAllDeep } from 'query-selector-shadow-dom';
 import MbButtonsMultiple from '../src/medblocks/codedtext/buttons-multiple';
 import '../src/medblocks/codedtext/buttons-multiple';

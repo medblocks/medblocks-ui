@@ -40,6 +40,7 @@ export default class MbInputMultiple extends EhrElement {
       }
     }
   `;
+
   @property({ type: Array }) data: string[] = [];
 
   @property({ type: Boolean }) multiple: boolean = true;
@@ -83,6 +84,15 @@ export default class MbInputMultiple extends EhrElement {
         this.addValue();
       }
     });
+  }
+
+  disconnectedCallback(): void {
+    this.removeEventListener('keypress', event => {
+      if (event.key === 'Enter') {
+        this.addValue();
+      }
+    });
+    super.disconnectedCallback();
   }
 
   reportValidity() {

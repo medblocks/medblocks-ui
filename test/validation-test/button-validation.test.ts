@@ -43,7 +43,7 @@ describe('button validation test', () => {
       `
     );
     const button = querySelectorDeep('mb-buttons') as any;
-    button.data = {code: 'male', value: 'Male', terminology: 'local'};
+    button.data = { code: 'male', value: 'Male', terminology: 'local' };
     await elementUpdated(form);
     expect(form.validate()).to.be.true;
   });
@@ -87,7 +87,7 @@ describe('button validation test', () => {
       `
     );
     const button = querySelectorDeep('mb-buttons') as any;
-    button.data = {code: 'male', value: 'Male', terminology: 'local'};
+    button.data = { code: 'male', value: 'Male', terminology: 'local' };
     await elementUpdated(form);
     expect(form.validate()).to.be.true;
   });

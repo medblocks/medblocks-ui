@@ -6,9 +6,9 @@ import {
   elementUpdated,
 } from '@open-wc/testing';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
+import { SlInput } from '@shoelace-style/shoelace';
 import MbQuantity from '../src/medblocks/quantity/quantity';
 import '../src/medblocks/quantity/quantity';
-import { SlInput } from '@shoelace-style/shoelace';
 
 describe('MbQuantity', () => {
   it('emits data on input', async () => {
@@ -18,7 +18,9 @@ describe('MbQuantity', () => {
       </mb-quantity>`
     );
     const input = querySelectorDeep('sl-input') as SlInput;
-    const select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
+    const select = querySelectorDeep(
+      'sl-select'
+    ) as unknown as HTMLSelectElement;
     input.value = '234';
     select.value = 'cm';
     input.dispatchEvent(new CustomEvent('sl-input', { bubbles: true }));
@@ -39,7 +41,9 @@ describe('MbQuantity', () => {
       </mb-quantity>`
     );
     const input = querySelectorDeep('input') as HTMLInputElement;
-    const select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
+    const select = querySelectorDeep(
+      'sl-select'
+    ) as unknown as HTMLSelectElement;
     mbquantity.data = { magnitude: 334, unit: 'cm' };
     await oneEvent(mbquantity, 'mb-input');
     await elementUpdated(mbquantity);

@@ -121,7 +121,7 @@ describe('mb-repeatale-headless', () => {
         <mb-form>
           ${[...Array(repeatableCount)].map((_, i) =>
             [...Array(inputCountPerRepeatable)].map(
-              (_, j) => `
+              (__, j) => `
                 <mb-input
                   path="long_repeatable/path/inside/composition${i}:${j}"
                 ></mb-input>
@@ -159,7 +159,7 @@ describe('mb-repeatale-headless', () => {
     const dataToSet: Record<string, string> = {};
     const dataToEqual: Record<string, string> = {};
     [...Array(repeatableCount + repeatExtra)].forEach((_, i) =>
-      [...Array(inputCountPerRepeatable)].forEach((_, j) => {
+      [...Array(inputCountPerRepeatable)].forEach((__, j) => {
         const key = `long_repeatable/path/inside/composition${i}:${j}`;
         const value = `Some random data ${i}, ${j}`;
         dataToSet[key] = value;
@@ -172,10 +172,10 @@ describe('mb-repeatale-headless', () => {
     setTimeout(() => {
       // start timer
       console.log('Starting to set data');
-      const start = performance.now();
+      const startTime = performance.now();
       form.import(dataToSet);
-      const end = performance.now();
-      console.log('Time taken for import:', end - start, 'ms');
+      const endTime = performance.now();
+      console.log('Time taken for import:', endTime - startTime, 'ms');
       // end timer
     });
 

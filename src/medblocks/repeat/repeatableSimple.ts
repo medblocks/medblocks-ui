@@ -36,15 +36,16 @@ export default class MbRepeatable extends Repeatable {
       node => node.nodeType === node.ELEMENT_NODE
     );
     if (nodes.length > 1) {
+      // eslint-disable-next-line no-console
       console.warn(
         `mb-repeatable [path=${this.path}] only support one nested element. Got ${nodes.length} elements. Only taking the first.`
       );
     }
-    this.slotNode = nodes[0];
+    [this.slotNode] = nodes;
   }
 
-  replacePath(html: string, i: number) {
-    const replaced = html.replace(this.regex, `$1:${i}`);
+  replacePath(htmlPath: string, i: number) {
+    const replaced = htmlPath.replace(this.regex, `$1:${i}`);
     return replaced;
   }
 
@@ -63,15 +64,13 @@ export default class MbRepeatable extends Repeatable {
           record.removedNodes.forEach((node: EhrElement) => {
             if (node.isMbElement) {
               this._mbDisconnect.emit({ detail: node.path });
-            } else {
-              if (node.nodeType === node.ELEMENT_NODE) {
-                const allNodes = node.querySelectorAll('*'); // DOM queries are slow. There's scope to optimize.
-                allNodes.forEach((node: EhrElement) => {
-                  if (node.isMbElement) {
-                    this._mbDisconnect.emit({ detail: node.path });
-                  }
-                });
-              }
+            } else if (node.nodeType === node.ELEMENT_NODE) {
+              const allNodes = node.querySelectorAll('*'); // DOM queries are slow. There's scope to optimize.
+              allNodes.forEach((nod: EhrElement) => {
+                if (nod.isMbElement) {
+                  this._mbDisconnect.emit({ detail: nod.path });
+                }
+              });
             }
           });
         }

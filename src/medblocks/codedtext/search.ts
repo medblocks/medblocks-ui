@@ -17,14 +17,14 @@ export default class MbSearch extends MbSearchAbstract {
     }
     this._mbInput.emit({ detail: { item: menuItem } });
   }
+
   render() {
     if (this.variant === 'text') {
       return html`<div>
         ${this._label()}
         <p>${this.getDisplay(this.data) || '-'}</p>
       </div>`;
-    } else {
-      return this._searchBar();
     }
+    return this._searchBar();
   }
 }

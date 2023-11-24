@@ -1,13 +1,13 @@
 import { expect, html, fixture } from '@open-wc/testing';
 import { elementUpdated, oneEvent } from '@open-wc/testing-helpers';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
+import { SlInput } from '@shoelace-style/shoelace';
 import MbForm from '../src/medblocks/form/form';
 import '../medblocks';
 import MbPercent from '../src/medblocks/proportion/percent';
 import MbCount from '../src/medblocks/count/count';
 import MbCheckBox from '../src/medblocks/boolean/checkbox';
 import MbInput from '../src/medblocks/text/input';
-import { SlInput } from '@shoelace-style/shoelace';
 
 describe('Form e2e', () => {
   it('should set the data property properly', async () => {
@@ -444,7 +444,7 @@ describe('Form e2e', () => {
           hits="{5}"
           terminology="Snomed CT"
         >
-          <mb-filter value="<404684003" label="Clinical Findings" />
+          <mb-filter value="404684003" label="Clinical Findings" />
         </mb-search>
         <mb-context
           path="opdvisit.v0/reason_for_encounter/subject"
@@ -701,7 +701,7 @@ describe('Form e2e', () => {
           hits="{5}"
           terminology="Snomed CT"
         >
-          <mb-filter value="<404684003" label="Clinical Findings" />
+          <mb-filter value="404684003" label="Clinical Findings" />
         </mb-search>
         <mb-input
           path="opdvisit.v0/problem_diagnosis/clinical_description"

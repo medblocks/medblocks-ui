@@ -6,12 +6,12 @@ import {
   elementUpdated,
 } from '@open-wc/testing';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
+import { SlSelect } from '@shoelace-style/shoelace';
 import MbSelect from '../src/medblocks/codedtext/select';
 import '../src/medblocks/codedtext/select';
 import '../src/medblocks/codedtext/option';
 import MedblockForm from '../src/medblocks/form/form';
 import '../src/medblocks/form/form';
-import { SlSelect } from '@shoelace-style/shoelace';
 
 describe('MbSelect', () => {
   it('emits data on input', async () => {
@@ -20,7 +20,9 @@ describe('MbSelect', () => {
         <mb-option value="testUnit" label="Test Unit"></mb-option>
       </mb-select>`
     );
-    const select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
+    const select = querySelectorDeep(
+      'sl-select'
+    ) as unknown as HTMLSelectElement;
     select.value = 'testUnit';
     select.dispatchEvent(new CustomEvent('sl-change'));
     const event: any = await oneEvent(mbselect, 'mb-input');
@@ -37,7 +39,9 @@ describe('MbSelect', () => {
         <mb-option value="testUnit" label="Test Unit"></mb-option>
       </mb-select>`
     );
-    const select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
+    const select = querySelectorDeep(
+      'sl-select'
+    ) as unknown as HTMLSelectElement;
     select.value = 'testUnit';
     select.dispatchEvent(new CustomEvent('sl-change'));
     const event: any = await oneEvent(mbselect, 'mb-input');
@@ -53,7 +57,9 @@ describe('MbSelect', () => {
         <mb-option value="testUnit" label="Test Unit"></mb-option>
       </mb-select>`
     );
-    const select = querySelectorDeep('sl-select') as unknown as HTMLSelectElement;
+    const select = querySelectorDeep(
+      'sl-select'
+    ) as unknown as HTMLSelectElement;
     mbselect.data = {
       code: 'testUnit',
       value: 'Test Unit',
@@ -155,7 +161,7 @@ describe('MbSelect', () => {
     });
     await oneEvent(form, 'mb-input');
     setTimeout(() => form.handleSubmit(), 0);
-    let data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit');
     expect(data.detail).to.eql({
       'mbselect:0/multiple|code': 'testUnit',
       'mbselect:0/multiple|value': 'Test Unit',
@@ -189,7 +195,7 @@ describe('MbSelect', () => {
     });
     await oneEvent(form, 'mb-input');
     setTimeout(() => form.handleSubmit(), 0);
-    let data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit');
     expect(data.detail).to.eql({
       'mbselect:0/multiple:0|code': 'testUnit',
       'mbselect:0/multiple:0|value': 'Test Unit',

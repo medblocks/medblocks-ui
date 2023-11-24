@@ -3,13 +3,7 @@ import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { until } from 'lit-html/directives/until.js';
 import { classMap } from 'lit-html/directives/class-map';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { CodedTextElement } from './CodedTextElement';
-import MbFilter from './filter';
-import SlDropdown from './dropdown';
 import { AxiosInstance } from 'axios';
-import { event, EventEmitter, watch } from '../../internal/decorators';
-
-import './dropdown';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
 import '@shoelace-style/shoelace/dist/components/menu/menu';
 import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
@@ -20,8 +14,14 @@ import '@shoelace-style/shoelace/dist/components/divider/divider';
 import '@shoelace-style/shoelace/dist/components/menu-label/menu-label';
 import '@shoelace-style/shoelace/dist/components/skeleton/skeleton';
 
-import { hermesPlugin, SearchOptions, SearchResult } from './searchFunctions';
 import SlMenuItem from '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
+import { hermesPlugin, SearchOptions, SearchResult } from './searchFunctions';
+import { CodedTextElement } from './CodedTextElement';
+import MbFilter from './filter';
+import SlDropdown from './dropdown';
+import { event, EventEmitter, watch } from '../../internal/decorators';
+
+import './dropdown';
 
 export default abstract class MbSearchAbstract extends CodedTextElement {
   /** @ignore */
@@ -173,7 +173,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     return dependencyEvent.detail.value;
   }
 
-  /**Function to get results from an external source */
+  /** Function to get results from an external source */
   async getResults(): Promise<{
     result: TemplateResult[];
     error?: string;
@@ -259,6 +259,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
       >`;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   _loadingResults(): TemplateResult {
     const skeletons = 5;
     return html`${[...Array(skeletons)].map(
@@ -270,6 +271,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   abstract _handleSelect(data: SearchResult, menuItem: SlMenuItem): void;
 
+  // eslint-disable-next-line consistent-return
   _handleSlSelect(e: CustomEvent) {
     const menuItem = e.detail.item;
     this.searchTerm = '';
@@ -278,8 +280,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     }
   }
 
-  _handleMouseDown(event: MouseEvent) {
-    const path = event.composedPath();
+  _handleMouseDown(ev: MouseEvent) {
+    const path = ev.composedPath();
     if (!path.includes(this) && this.dropdown) {
       this.dropdown.hide();
     }
@@ -425,10 +427,10 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   }
 
   get _hasValue() {
-    return (this?.data?.value && this?.data?.code) ||
+    return !!(
+      (this?.data?.value && this?.data?.code) ||
       (typeof this.data === 'string' && this.data !== '')
-      ? true
-      : false;
+    );
   }
 
   get _display() {

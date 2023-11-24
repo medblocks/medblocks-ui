@@ -1,79 +1,73 @@
-import { expect, oneEvent,fixture, html } from '@open-wc/testing';
+import { expect, oneEvent, fixture, html } from '@open-wc/testing';
 import MbForm from '../src/medblocks/form/fhirForm';
 import '../medblocks';
 
 describe('FHIR Plugin', () => {
   it('deserialized properly', async () => {
-    const form = await fixture<MbForm>(html
-      `
-        <mb-fhir-form>
+    const form = await fixture<MbForm>(html`
+      <mb-fhir-form>
+        <mb-input
+          class="is-hidden"
+          path="resourceType"
+          data="Patient"
+        ></mb-input>
+        <div class="field">
+          <mb-input label="Name" path="name[0].given[0]"></mb-input>
+        </div>
+        <div class="field">
+          <mb-date label="Date of birth" path="birthDate"></mb-date>
+        </div>
+        <div class="field">
+          <mb-buttons datatype="code" label="Gender" path="gender">
+            <mb-option value="male" label="Male"></mb-option>
+            <mb-option value="female" label="Female"></mb-option>
+            <mb-option value="other" label="Other"></mb-option>
+          </mb-buttons>
+        </div>
+        <div class="field">
+          <mb-input label="Phone number" path="telecom[0].value"></mb-input>
+        </div>
+        <div class="field">
           <mb-input
-            class="is-hidden"
-            path="resourceType"
-            data="Patient"
+            path="identifier[0].value"
+            label="Aadhar card number"
           ></mb-input>
+          <mb-input
+            path="identifier[0].system"
+            class="is-hidden"
+            data="aadhar"
+          ></mb-input>
+        </div>
+        <div class="field">
+          <mb-input label="Address" textarea path="address[0].text"></mb-input>
+        </div>
+        <label for="" class="label">Attendant information</label>
+        <div class="box">
           <div class="field">
-            <mb-input label="Name" path="name[0].given[0]"></mb-input>
+            <mb-input label="Name" path="contact[0].name.given[0]"></mb-input>
           </div>
           <div class="field">
-            <mb-date label="Date of birth" path="birthDate"></mb-date>
-          </div>
-          <div class="field">
-            <mb-buttons datatype="code" label="Gender" path="gender">
-              <mb-option value="male" label="Male"></mb-option>
-              <mb-option value="female" label="Female"></mb-option>
-              <mb-option value="other" label="Other"></mb-option>
-            </mb-buttons>
-          </div>
-          <div class="field">
-            <mb-input label="Phone number" path="telecom[0].value"></mb-input>
-          </div>
-          <div class="field">
-            <mb-input
-              path="identifier[0].value"
-              label="Aadhar card number"
-            ></mb-input>
-            <mb-input
-              path="identifier[0].system"
-              class="is-hidden"
-              data="aadhar"
-            ></mb-input>
+            <mb-select
+              label="Relationship"
+              path="contact[0].relationship[0]"
+              datatype="CodableConcept"
+            >
+              <mb-option value="mother" label="Mother"></mb-option>
+              <mb-option value="father" label="Father"></mb-option>
+            </mb-select>
           </div>
           <div class="field">
             <mb-input
-              label="Address"
-              textarea
-              path="address[0].text"
+              label="Contact number"
+              path="contact[0].telecom[0].value"
             ></mb-input>
           </div>
-          <label for="" class="label">Attendant information</label>
-          <div class="box">
-            <div class="field">
-              <mb-input label="Name" path="contact[0].name.given[0]"></mb-input>
-            </div>
-            <div class="field">
-              <mb-select
-                label="Relationship"
-                path="contact[0].relationship[0]"
-                datatype="CodableConcept"
-              >
-                <mb-option value="mother" label="Mother"></mb-option>
-                <mb-option value="father" label="Father"></mb-option>
-              </mb-select>
-            </div>
-            <div class="field">
-              <mb-input
-                label="Contact number"
-                path="contact[0].telecom[0].value"
-              ></mb-input>
-            </div>
-          </div>
-          <div class="field">
-            <mb-submit type="primary">Save</mb-submit>
-          </div>
-        </mb-fhir-form>
-      `
-    );
+        </div>
+        <div class="field">
+          <mb-submit type="primary">Save</mb-submit>
+        </div>
+      </mb-fhir-form>
+    `);
     const data = {
       address: [
         {
@@ -155,9 +149,9 @@ describe('FHIR Plugin', () => {
   it('checking bind in context', async () => {
     const form = await fixture<MbForm>(html`
       <mb-fhir-form
-      .ctx=${{'resourceType':'Patient','identifier[0].system': 'aadhar' }}
+        .ctx=${{ resourceType: 'Patient', 'identifier[0].system': 'aadhar' }}
       >
-        <mb-context path="resourceType" ></mb-context>
+        <mb-context path="resourceType"></mb-context>
         <div class="field">
           <mb-input label="Name" path="name[0].given[0]"></mb-input>
         </div>
@@ -172,10 +166,18 @@ describe('FHIR Plugin', () => {
           </mb-buttons>
         </div>
         <div class="field">
-          <mb-input label="Phone number" path="telecom[0].value" data="1234567890"></mb-input>
-          <mb-context path="telecom[0].system" .bind=${"phone"}></mb-context>
-          <mb-input label="Email" path="telecom[1].value" data="1234567890"></mb-input>
-          <mb-context path="telecom[1].system" .bind=${"email"}></mb-context>
+          <mb-input
+            label="Phone number"
+            path="telecom[0].value"
+            data="1234567890"
+          ></mb-input>
+          <mb-context path="telecom[0].system" .bind=${'phone'}></mb-context>
+          <mb-input
+            label="Email"
+            path="telecom[1].value"
+            data="1234567890"
+          ></mb-input>
+          <mb-context path="telecom[1].system" .bind=${'email'}></mb-context>
         </div>
         <div class="field">
           <mb-input
@@ -183,7 +185,7 @@ describe('FHIR Plugin', () => {
             label="Aadhar card number"
             data="12345"
           ></mb-input>
-          <mb-context path="identifier[0].system" ></mb-context>
+          <mb-context path="identifier[0].system"></mb-context>
         </div>
         <div class="field">
           <mb-input label="Address" textarea path="address[0].text"></mb-input>
@@ -217,33 +219,34 @@ describe('FHIR Plugin', () => {
     `);
 
     setTimeout(() => form.handleSubmit());
-    let data = await oneEvent(form, 'mb-submit');
-    // console.log(data.detail)
+    const data = await oneEvent(form, 'mb-submit');
+    console.log('data',data, data.detail);
     expect(data.detail).to.eql({
-      "resourceType":"Patient",
-      "identifier": [
-       {
-          "system": "aadhar",
-          "value": "12345"
-         }
-        ],
-      "telecom":[
+      resourceType: 'Patient',
+      identifier: [
         {
-          "system":"phone",
-          "value":"1234567890"
+          system: 'aadhar',
+          value: '12345',
+        },
+      ],
+      telecom: [
+        {
+          system: 'phone',
+          value: '1234567890',
         },
         {
-          "system":"email",
-          "value":"1234567890"
-        }
-      ] })
+          system: 'email',
+          value: '1234567890',
+        },
+      ],
+    });
   });
   it('checking bind in context2', async () => {
     const form = await fixture<MbForm>(html`
       <mb-fhir-form
-      .ctx=${{'resourceType':'Patient','identifier[0].system': 'aadhar' }}
+        .ctx=${{ resourceType: 'Patient', 'identifier[0].system': 'aadhar' }}
       >
-        <mb-context path="resourceType" ></mb-context>
+        <mb-context path="resourceType"></mb-context>
         <div class="field">
           <mb-input label="Name" path="name[0].given[0]"></mb-input>
         </div>
@@ -258,10 +261,14 @@ describe('FHIR Plugin', () => {
           </mb-buttons>
         </div>
         <div class="field">
-          <mb-input label="Phone number" path="telecom[0].value" ></mb-input>
-          <mb-context path="telecom[0].system" .bind=${"phone"}></mb-context>
-          <mb-input label="Email" path="telecom[1].value" data="1234567890"></mb-input>
-          <mb-context path="telecom[1].system" .bind=${"email"}></mb-context>
+          <mb-input label="Phone number" path="telecom[0].value"></mb-input>
+          <mb-context path="telecom[0].system" .bind=${'phone'}></mb-context>
+          <mb-input
+            label="Email"
+            path="telecom[1].value"
+            data="1234567890"
+          ></mb-input>
+          <mb-context path="telecom[1].system" .bind=${'email'}></mb-context>
         </div>
         <div class="field">
           <mb-input
@@ -269,7 +276,7 @@ describe('FHIR Plugin', () => {
             label="Aadhar card number"
             data="12345"
           ></mb-input>
-          <mb-context path="identifier[0].system" ></mb-context>
+          <mb-context path="identifier[0].system"></mb-context>
         </div>
         <div class="field">
           <mb-input label="Address" textarea path="address[0].text"></mb-input>
@@ -303,22 +310,23 @@ describe('FHIR Plugin', () => {
     `);
 
     setTimeout(() => form.handleSubmit());
-    let data = await oneEvent(form, 'mb-submit');
-    // console.log(data.detail)
+    const data = await oneEvent(form, 'mb-submit');
+    console.log(data.detail);
     expect(data.detail).to.eql({
-      "resourceType":"Patient",
-      "identifier": [
-       {
-          "system": "aadhar",
-          "value": "12345"
-         }
-        ],
-      "telecom":[
+      resourceType: 'Patient',
+      identifier: [
+        {
+          system: 'aadhar',
+          value: '12345',
+        },
+      ],
+      telecom: [
         undefined,
         {
-          "system":"email",
-          "value":"1234567890"
-        }
-      ] })
+          system: 'email',
+          value: '1234567890',
+        },
+      ],
+    });
   });
 });

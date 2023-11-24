@@ -10,6 +10,7 @@ export default class MbContext extends EhrElement {
       display: none;
     }
   `;
+
   @property({ type: Object })
   data: any;
 

@@ -1,14 +1,17 @@
 import { html } from 'lit-html';
 import { snippet } from './utils';
+
 export default {
   title: 'Data Entry/Quantity/mb-quantity',
   component: 'mb-quantity',
 };
 
-
 const Template = ({ data = undefined, hideunit = false, label = '' }) => html`
   <mb-quantity
-    @mb-quantity=${(e: any) => (data = e.target.data)}
+    @mb-quantity=${(e: any) => {
+      data = e.target.data;
+      return undefined;
+    }}
     .data=${data}
     .label=${label}
     ?hideunit=${hideunit}

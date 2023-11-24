@@ -23,7 +23,7 @@ const joinSnomedConstraints = (filters?: string[]) => {
   if (filters && filters?.length > 0) {
     return filters.join(' OR ');
   }
-  return;
+  return undefined;
 };
 
 export const hermesPlugin: SearchFunction = async options => {
@@ -35,7 +35,7 @@ export const hermesPlugin: SearchFunction = async options => {
     const response = await axios.get('/snomed/search', {
       params: {
         s: searchString,
-        maxHits: maxHits,
+        maxHits,
         constraint: joinSnomedConstraints(constraints),
       },
     });
@@ -53,11 +53,11 @@ export const hermesPlugin: SearchFunction = async options => {
       })
     );
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
     if (e.response?.status === 404) {
       return [];
-    } else {
-      throw e;
     }
+    throw e;
   }
 };

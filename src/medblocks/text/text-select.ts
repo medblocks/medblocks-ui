@@ -1,8 +1,8 @@
 import { customElement, property, state } from 'lit-element';
+import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import { html } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import MbOption from '../codedtext/option';
-import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 
 import '@shoelace-style/shoelace/dist/components/menu/menu';
 import '@shoelace-style/shoelace/dist/components/select/select';
@@ -40,6 +40,7 @@ export default class MbTextSelect extends EhrElement {
       this._mbInput.emit();
     }
   }
+
   connectedCallback() {
     super.connectedCallback();
     const observer = new MutationObserver(() => {
@@ -88,7 +89,9 @@ export default class MbTextSelect extends EhrElement {
       >
         ${this._options.map(
           option =>
-            html`<sl-menu-item .value=${option.value} id=${`${this.id}-${option.label}`}
+            html`<sl-menu-item
+              .value=${option.value}
+              id=${`${this.id}-${option.label}`}
               >${option.label}
             </sl-menu-item>`
         )}
