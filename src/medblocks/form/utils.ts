@@ -4,43 +4,40 @@ import Repeatable from '../repeat/Repeatable';
 export interface Data {
   [path: string]: any;
 }
-export let flatten = (function (isArray, wrapped) {
-  return function (table: any) {
-    return reduce('', {}, table);
-  };
 
+export const flatten = (function (isArray, wrapped) {
   function reduce(path: string, accumulator: any, table: any) {
     if (isArray(table)) {
-      var length = table.length;
+      const { length } = table;
 
       if (length) {
-        var index = 0;
+        let index = 0;
 
         while (index < length) {
-          var property = path + '[' + index + ']',
-            item = table[index++];
+          const property = `${path}[${index}]`;
+          const item = table[index++];
           if (wrapped(item) !== item) accumulator[property] = item;
           else reduce(property, accumulator, item);
         }
       } else accumulator[path] = table;
     } else {
-      var empty = true;
+      let empty = true;
 
       if (path) {
-        for (var property in table) {
-          var item = table[property],
-            property = path + '.' + property,
-            empty = false;
-          if (wrapped(item) !== item) accumulator[property] = item;
-          else reduce(property, accumulator, item);
-        }
+        Object.keys(table).forEach(property => {
+          const item = table[property];
+          const newPath = `${path}.${property}`;
+          empty = false;
+          if (wrapped(item) !== item) accumulator[newPath] = item;
+          else reduce(newPath, accumulator, item);
+        });
       } else {
-        for (var property in table) {
-          var item = table[property],
-            empty = false;
+        Object.keys(table).forEach(property => {
+          const item = table[property];
+          empty = false;
           if (wrapped(item) !== item) accumulator[property] = item;
           else reduce(property, accumulator, item);
-        }
+        });
       }
 
       if (empty) accumulator[path] = table;
@@ -48,51 +45,65 @@ export let flatten = (function (isArray, wrapped) {
 
     return accumulator;
   }
+  return function (table: any) {
+    return reduce('', {}, table);
+  };
 })(Array.isArray, Object);
 
 export function unflatten(table: any) {
-  var result: any = {};
+  const result: any = {};
 
-  for (var path in table) {
-    var cursor = result,
-      length = path.length,
-      property = '',
-      index = 0;
+  Object.keys(table).forEach(path => {
+    const { length } = path;
+    let cursor = result;
+    let property = '';
+    let index = 0;
 
     while (index < length) {
-      var char = path.charAt(index);
+      const char = path.charAt(index);
 
       if (char === '[') {
-        var start = index + 1,
-          end = path.indexOf(']', start),
-          cursor = (cursor[property] = cursor[property] || []),
-          property = path.slice(start, end),
-          index = end + 1;
+        cursor[property] = cursor[property] || [];
+        cursor = cursor[property];
+        const start = index + 1;
+        const end = path.indexOf(']', start);
+        property = path.slice(start, end);
+        index = end + 1;
       } else {
-        var cursor = (cursor[property] = cursor[property] || {}),
-          start = char === '.' ? index + 1 : index,
-          bracket = path.indexOf('[', start),
-          dot = path.indexOf('.', start);
+        cursor[property] = cursor[property] || {};
+        cursor = cursor[property];
+        const start = char === '.' ? index + 1 : index;
+        const bracket = path.indexOf('[', start);
+        const dot = path.indexOf('.', start);
 
-        if (bracket < 0 && dot < 0) var end = (index = length);
-        else if (bracket < 0) var end = (index = dot);
-        else if (dot < 0) var end = (index = bracket);
-        else var end = (index = bracket < dot ? bracket : dot);
-
-        var property = path.slice(start, end);
+        let end;
+        if (bracket < 0 && dot < 0) {
+          end = length;
+          index = length;
+        } else if (bracket < 0) {
+          end = dot;
+          index = dot;
+        } else if (dot < 0) {
+          end = bracket;
+          index = bracket;
+        } else {
+          end = bracket < dot ? bracket : dot;
+          index = bracket < dot ? bracket : dot;
+        }
+        property = path.slice(start, end);
       }
     }
 
     cursor[property] = table[path];
-  }
+  });
 
   return result[''];
 }
 
 /** Takes a list of mutation records from MutationObserver and calculates the paths of EhrElements and Repeatables that were removed. */
 export const getDeletedPaths = (records: MutationRecord[]) => {
-  let ehrElementsRemoved: string[] = [];
-  let repeatablesRemoved: string[] = [];
+  const ehrElementsRemoved: string[] = [];
+  const repeatablesRemoved: string[] = [];
   records.forEach(record => {
     if (record.removedNodes.length > 0) {
       record.removedNodes.forEach((node: EhrElement & Repeatable) => {
@@ -100,17 +111,15 @@ export const getDeletedPaths = (records: MutationRecord[]) => {
           ehrElementsRemoved.push(node.path);
         } else if (node.isRepeatable) {
           repeatablesRemoved.push(node.path);
-        } else {
-          if (node.nodeType === node.ELEMENT_NODE) {
-            const allNodes = node.querySelectorAll('*'); // DOM queries are slow. There's scope to optimize.
-            allNodes.forEach((node: EhrElement & Repeatable) => {
-              if (node.isMbElement) {
-                ehrElementsRemoved.push(node.path);
-              } else if (node.isRepeatable) {
-                repeatablesRemoved.push(node.path);
-              }
-            });
-          }
+        } else if (node.nodeType === node.ELEMENT_NODE) {
+          const allNodes = node.querySelectorAll('*'); // DOM queries are slow. There's scope to optimize.
+          allNodes.forEach((nod: EhrElement & Repeatable) => {
+            if (nod.isMbElement) {
+              ehrElementsRemoved.push(nod.path);
+            } else if (nod.isRepeatable) {
+              repeatablesRemoved.push(nod.path);
+            }
+          });
         }
       });
     }

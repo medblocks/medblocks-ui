@@ -82,7 +82,9 @@
       "no-param-reassign": "off",
       "no-undef": "off",
       "no-plusplus": "off",
-      "consistent-return":"warn",
+      "consistent-return": "warn",
+      "class-methods-use-this": "warn",
+      "func-names": "warn",
       "@typescript-eslint/no-unused-vars": [
         "warn"
       ],
