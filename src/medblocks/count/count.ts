@@ -65,3 +65,9 @@ export default class MbCount extends EhrElement {
     `;
   }
 }
+
+export interface MbCountInputEvent extends CustomEvent{
+  target: MbCount;
+}
+
+let x: MbCountInputEvent;
