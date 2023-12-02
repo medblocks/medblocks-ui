@@ -72,7 +72,7 @@ export default class MbMultimedia extends EhrElement {
       axios,
       key: this.data?._root.split('///')[1],
     });
-    this.src = URL.createObjectURL(downloadedFile);
+    this.src = downloadedFile;
   }
 
   render() {

@@ -29,7 +29,7 @@ export interface StoragePlugin {
   download(options: {
     axios: AxiosInstance;
     key: URI | undefined;
-  }): Promise<File>;
+  }): Promise<URI>;
 }
 
 export const supabaseStoragePlugin: StoragePlugin = {
@@ -51,6 +51,6 @@ export const supabaseStoragePlugin: StoragePlugin = {
       responseType: 'blob',
     });
     const file = new File([response.data], 'patientData');
-    return file;
+    return URL.createObjectURL(file);
   },
 };
