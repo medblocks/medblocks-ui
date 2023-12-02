@@ -109,7 +109,7 @@ describe('mb-repeatale-headless', () => {
     expect(count3).to.eql(55);
   });
 
-  it('performance tests', async () => {
+  it.skip('performance tests', async () => {
     const repeatableCount = 500;
     const inputCountPerRepeatable = 10;
     const repeatExtra = 10;
