@@ -85,3 +85,7 @@ export default class MbSearchMultiple extends MbSearchAbstract {
     `;
   }
 }
+
+export interface MbSearchMultipleInputEvent extends CustomEvent {
+  target: MbSearchMultiple;
+}

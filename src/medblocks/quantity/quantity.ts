@@ -206,3 +206,7 @@ export default class MbQuantity extends QuantityElement {
     `;
   }
 }
+
+export interface MbQuantityInputEvent extends CustomEvent {
+  target: MbQuantity;
+}

@@ -42,3 +42,7 @@ export default class MbCheckBox extends EhrElement {
     >`;
   }
 }
+
+export interface MbCheckboxInputEvent extends CustomEvent {
+  target: MbCheckBox;
+}

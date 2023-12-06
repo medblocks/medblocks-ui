@@ -147,3 +147,7 @@ export default class MbInputMultiple extends EhrElement {
     `;
   }
 }
+
+export interface MbInputMultipleInputEvent extends CustomEvent {
+  target: MbInputMultiple;
+}

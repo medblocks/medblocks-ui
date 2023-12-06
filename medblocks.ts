@@ -34,8 +34,3 @@ import './src/medblocks/suggestionWrapper';
 import './src/medblocks/hide';
 
 registerIcons();
-
-
-import 'medblocks-ui';
-
-import 'medblocks-ui/ts';

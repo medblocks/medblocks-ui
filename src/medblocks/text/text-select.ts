@@ -100,3 +100,7 @@ export default class MbTextSelect extends EhrElement {
     `;
   }
 }
+
+export interface MbTextSelectInputEvent extends CustomEvent {
+  target: MbTextSelect;
+}

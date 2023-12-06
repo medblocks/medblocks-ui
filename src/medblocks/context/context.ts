@@ -32,3 +32,7 @@ export default class MbContext extends EhrElement {
     }, 50);
   }
 }
+
+export interface MbContextInputEvent extends CustomEvent {
+  target: MbContext;
+}

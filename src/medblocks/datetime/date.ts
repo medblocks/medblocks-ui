@@ -108,3 +108,7 @@ export default class MbDateTime extends EhrElement {
     `;
   }
 }
+
+export interface MbDateInputEvent extends CustomEvent {
+  target: MbDateTime;
+}

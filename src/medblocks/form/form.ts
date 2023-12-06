@@ -556,3 +556,7 @@ export default class MedblockForm extends LitElement {
     ></slot>`;
   }
 }
+
+export interface MbFormInputEvent extends CustomEvent {
+  target: MedblockForm;
+}

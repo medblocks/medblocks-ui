@@ -126,3 +126,7 @@ export default class MbInput extends EhrElement {
         `;
   }
 }
+
+export interface MbInputInputEvent extends CustomEvent {
+  target: MbInput;
+}

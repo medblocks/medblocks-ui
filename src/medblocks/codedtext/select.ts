@@ -151,3 +151,7 @@ export default class MbSelect extends CodedTextElement {
     `;
   }
 }
+
+export interface MbSelectInputEvent extends CustomEvent {
+  target: MbSelect;
+}

@@ -13,6 +13,8 @@ import MbOption from './option';
 export default class CodedTextButtons extends CodedTextElement {
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
+  @property({ type: Object }) data: CodedText | undefined;
+
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
   @property({ type: String, reflect: true }) id: string = 'buttons';
@@ -125,4 +127,8 @@ export default class CodedTextButtons extends CodedTextElement {
       </div>
     `;
   }
+}
+
+export interface MbButtonsInputEvent extends CustomEvent {
+  target: CodedTextButtons;
 }

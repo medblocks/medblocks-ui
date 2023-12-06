@@ -22,13 +22,3 @@ const count = (composition: Data, path: string, initialCount = 1): number => {
   return initialCount;
 };
 export { count, transform, Tree, ProcessedTree, TransformFunction };
-
-
-export interface IMbEvent<T>{
-  data: T;
-};
-import {MbCountInputEvent} from 'medblocks-ui';
-
-const x = (e: MbCountInputEvent) => {
-  e.target.data
-}

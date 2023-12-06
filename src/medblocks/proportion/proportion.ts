@@ -13,3 +13,7 @@ export default class MbPercent extends MbProportion {
 
   @property({ type: String, reflect: true }) max = '1';
 }
+
+export interface MbProportionInputEvent extends CustomEvent {
+  target: MbPercent;
+}

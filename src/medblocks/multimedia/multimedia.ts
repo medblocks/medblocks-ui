@@ -99,3 +99,7 @@ export default class MbMultimedia extends EhrElement {
     `;
   }
 }
+
+export interface MbMultimediaInputEvent extends CustomEvent {
+  target: MbMultimedia;
+}

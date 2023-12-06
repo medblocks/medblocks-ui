@@ -185,3 +185,7 @@ export default class MbDuration extends EhrElement {
     `;
   }
 }
+
+export interface MbDurationInputEvent extends CustomEvent {
+  target: MbDuration;
+}

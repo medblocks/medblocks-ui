@@ -28,3 +28,7 @@ export default class MbSearch extends MbSearchAbstract {
     return this._searchBar();
   }
 }
+
+export interface MbSearchInputEvent extends CustomEvent {
+  target: MbSearch;
+}
