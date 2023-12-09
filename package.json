@@ -45,6 +45,7 @@
     "lit-html": "^1.4.1"
   },
   "devDependencies": {
+    "@lit/react": "^1.0.2",
     "@open-wc/eslint-config": "^4.3.0",
     "@open-wc/testing": "^2.5.33",
     "@open-wc/testing-helpers": "^3.0.0",
@@ -66,6 +67,7 @@
     "lint-staged": "^10.5.4",
     "prettier": "^2.8.8",
     "query-selector-shadow-dom": "^1.0.1",
+    "react": "^18.2.0",
     "standard-version": "^9.5.0",
     "tslib": "^2.6.2",
     "typescript": "^4.9.5",
@@ -102,7 +104,6 @@
         "off"
       ]
     }
-
   },
   "prettier": {
     "singleQuote": true,
