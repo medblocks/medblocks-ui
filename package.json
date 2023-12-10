@@ -28,7 +28,6 @@
     "prepublish": "npm run build",
     "release": "npm run test && standard-version -a && git push --follow-tags origin master",
     "bundle": "esbuild medblocks.ts --bundle --outfile=dist/bundle.js",
-    "generate-types": "tsc --project ./tstypes.tsconfig.json",
     "postrelease": "git push --follow-tags origin master",
     "docs": "wca analyze src --format md --outDir ./documentation/",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
@@ -38,14 +37,15 @@
     "validate-quantity": "tsc && wtr ./dist/test/validation-test/search-validation.test.js"
   },
   "dependencies": {
+    "@lit/react": "^1.0.2",
     "@shoelace-style/shoelace": "2.0.0-beta.71",
     "axios": "^0.26.1",
     "chai": "^4.3.10",
     "lit-element": "^2.5.1",
-    "lit-html": "^1.4.1"
+    "lit-html": "^1.4.1",
+    "react": "^18.2.0"
   },
   "devDependencies": {
-    "@lit/react": "^1.0.2",
     "@open-wc/eslint-config": "^4.3.0",
     "@open-wc/testing": "^2.5.33",
     "@open-wc/testing-helpers": "^3.0.0",
@@ -53,6 +53,7 @@
     "@types/jest": "^29.5.8",
     "@types/node": "^20.9.1",
     "@types/query-selector-shadow-dom": "^1.0.4",
+    "@types/react": "^18.2.43",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "@web/dev-server": "^0.1.38",
@@ -67,7 +68,6 @@
     "lint-staged": "^10.5.4",
     "prettier": "^2.8.8",
     "query-selector-shadow-dom": "^1.0.1",
-    "react": "^18.2.0",
     "standard-version": "^9.5.0",
     "tslib": "^2.6.2",
     "typescript": "^4.9.5",
