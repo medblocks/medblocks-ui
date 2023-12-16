@@ -3,7 +3,7 @@
 # Medblocks UI
 
 > [![Medblocks UI Web components demo](https://i.ytimg.com/vi/GRBIUEA_fc8/maxresdefault.jpg)](https://www.youtube.com/watch?v=GRBIUEA_fc8)
-Click the image to watch the video
+> Click the image to watch the video
 
 ## Getting Started
 
