@@ -29,7 +29,7 @@ import MbInputMultipleTag from '../medblocks/text/input-multiple';
 import MbTextSelectTag from '../medblocks/text/text-select';
 
 export const MbBoolean = createComponent({
-  tagName: 'mb-boolean',
+  tagName: 'mb-checkbox',
   elementClass: MbBooleanTag,
   react: React,
   events: {
