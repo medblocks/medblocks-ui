@@ -2,12 +2,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-
+import { MbBoolean } from '../../src/react';
 
 export const TestRoot = () => (
-  <p>
-    Hello World
-  </p>
+  <div>
+    <MbBoolean />
+  </div>
 );
 
 const htmlRoot = document.getElementById('root');
