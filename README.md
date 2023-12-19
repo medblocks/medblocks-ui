@@ -7,6 +7,8 @@
 
 ### Medblocks UI is now at v1 🎉 - with Typescript and React support out of the box
 
+![Medblocks UI React component](https://cms.medblocks.com/assets/8d282bf8-dbfc-4f84-959e-0a625c498150.png)
+
 1. What does this mean ?
 
    We have heard all your requests and bug reports, developed a stable and tested release of Medblocks UI that is production grade. We have used this version internally over the past few months and ironed out the bugs we encountered.
@@ -19,8 +21,6 @@
    - React is the most popular frontend library and it has lacked web component suppport since its inception, which meant that some intelligent hacks were required to make it work with React. But with V1 React components are output by default with Typescript typing for all the elements. Which means that you can add Medblocks UI to your existing project with ease.
 
 To get started with React take a look at our documentation for React [here.](https://medblocks.com/docs/medblocks-ui/react)
-
-![Medblocks UI React component](https://cms.medblocks.com/assets/8d282bf8-dbfc-4f84-959e-0a625c498150.png)
 
 ---
 
