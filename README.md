@@ -5,11 +5,30 @@
 > [![Medblocks UI Web components demo](https://i.ytimg.com/vi/GRBIUEA_fc8/maxresdefault.jpg)](https://www.youtube.com/watch?v=GRBIUEA_fc8)
 > Click the image to watch the video
 
+### Medblocks UI is now at v1 🎉 - with Typescript and React support out of the box
+
+1. What does this mean ?
+
+   We have heard all your requests and bug reports, developed a stable and tested release of Medblocks UI that is production grade. We have used this version internally over the past few months and ironed out the bugs we encountered.
+
+2. What are the changes ?
+
+   The familiar syntax of using web components within your project continues with the v1 release. We have enhanced the developer experience by making it easy to use and get started.
+
+   - We have added Typescript support to all webcomponents fields and events which can be directly used
+   - React is the most popular frontend library and it has lacked web component suppport since its inception, which meant that some intelligent hacks were required to make it work with React. But with V1 React components are output by default with Typescript typing for all the elements. Which means that you can add Medblocks UI to your existing project with ease.
+
+To get started with React take a look at our documentation for React [here.](https://medblocks.com/docs/medblocks-ui/react)
+
+![Medblocks UI React component](https://cms.medblocks.com/assets/8d282bf8-dbfc-4f84-959e-0a625c498150.png)
+
+---
+
 ## Getting Started
 
 Medblocks UI is a web component library for building openEHR and FHIR UIs. It extends an array of web components that is compatible with all frameworks. You can use the Medblocks UI VSCode Extension to create the UI elements for you [here.](https://medblocks.com/docs/medblocks-ui/VSCode%20Extension)
 
-## Quick Start
+## Quick Start - For HTML
 
 ### Import the JS to your HTML file
 
