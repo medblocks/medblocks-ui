@@ -18,22 +18,22 @@
     <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('form1')
-        const input = document.getElementById('input1')
+        const form = document.getElementById('form1');
+        const input = document.getElementById('input1');
         input.addEventListener('mb-input', e => {
-          console.log(e.target.data)
-        })
+          console.log(e.target.data);
+        });
         form.hermes = axios.create({
-          baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1'
-        })
+          baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1',
+        });
         form.addEventListener('mb-submit', e => {
-          e.preventDefault()
-          console.log(e.detail)
-        })
-        const form2 = document.getElementById('form2')
+          e.preventDefault();
+          console.log(e.detail);
+        });
+        const form2 = document.getElementById('form2');
         form2.hermes = axios.create({
-          baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1'
-        })
+          baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1',
+        });
         // form2.addEventListener('mb-input', (e) => {
         //   const data = e.target.data
         //   if (data["chief_complaints"] === "fever")
@@ -56,7 +56,7 @@
         //   e.preventDefault()
         //   console.log(e.detail)
         // })
-      })
+      });
     </script>
   </head>
 

@@ -32,7 +32,7 @@ import {
 import { MbInputInputEvent } from '../../src/medblocks/text/input';
 
 export const TestRoot = () => {
-  const logFieldValue = (e) => {
+  const logFieldValue = (e: MbInputInputEvent) => {
     console.log(e.target.data);
     console.log(e.target.path);
   };
