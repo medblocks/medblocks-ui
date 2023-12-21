@@ -32,7 +32,7 @@ import {
 import { MbInputInputEvent } from '../../src/medblocks/text/input';
 
 export const TestRoot = () => {
-  const logFieldValue = (e: MbInputInputEvent) => {
+  const logFieldValue = (e) => {
     console.log(e.target.data);
     console.log(e.target.path);
   };
@@ -42,6 +42,7 @@ export const TestRoot = () => {
         onMbInput={logFieldValue}
         label="INPUT FIELD"
         data="hello world"
+        path="aql_path"
       />
       <MbBoolean label="Boolean" data={true} path="aql_path" />
       <MbSelect label="Select">

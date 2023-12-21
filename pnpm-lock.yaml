@@ -26,9 +26,6 @@ dependencies:
   react:
     specifier: ^18.2.0
     version: 18.2.0
-  reactify-wc:
-    specifier: ^4.0.0
-    version: 4.0.0(react@18.2.0)
 
 devDependencies:
   '@open-wc/eslint-config':
@@ -5239,14 +5236,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-
-  /reactify-wc@4.0.0(react@18.2.0):
-    resolution: {integrity: sha512-NLBk/0oYD3/v273xCvNbCWgAvlRYfBQX/k1BnPu0DTpE/Jwp8tTHzlc2vAmm1VO4DnOM81idSMeuVS78K4VXwQ==}
-    peerDependencies:
-      react: ^16.3.0
-    dependencies:
-      react: 18.2.0
-    dev: false
 
   /read-pkg-up@3.0.0:
     resolution: {integrity: sha512-YFzFrVvpC6frF1sz8psoHDBGF7fLPc+llq/8NB43oagqWkx8ar5zYtsTORtOjw9W2RHLpWP+zTWwBvf1bCmcSw==}

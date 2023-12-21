@@ -1,5 +1,5 @@
 import React from 'react';
-import { createComponent } from '@lit/react';
+import { createComponent, EventName } from '@lit/react';
 
 import MbBooleanTag from '../medblocks/boolean/checkbox';
 import MbSelectTag from '../medblocks/codedtext/select';
@@ -16,7 +16,7 @@ import MbQuantityTag from '../medblocks/quantity/quantity';
 import MbUnitTag from '../medblocks/quantity/unit';
 import MbPercentTag from '../medblocks/proportion/percent';
 import MbSubmitTag from '../medblocks/submit/submit';
-import MbInputTag from '../medblocks/text/input';
+import MbInputTag, { MbInputInputEvent } from '../medblocks/text/input';
 import MbButtonMultipleTag from '../medblocks/codedtext/buttons-multiple';
 import MbButtonTag from '../medblocks/codedtext/buttons';
 import MbSearchMultipleTag from '../medblocks/codedtext/search-multiple';
@@ -228,9 +228,9 @@ export const MbInput = createComponent({
   elementClass: MbInputTag,
   react: React,
   events: {
-    onMbInput: 'mb-input',
+    onMbInput: 'mb-input' as EventName<MbInputInputEvent>,
     onMbDisconnect: 'mb-disconnect',
-    onMbConnect: 'mb-connect',
+    onMbConnect: 'mb-connect'
   },
 });
 export const MbInputMultiple = createComponent({
