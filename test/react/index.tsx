@@ -34,6 +34,7 @@ import { MbInputInputEvent } from '../../src/medblocks/text/input';
 export const TestRoot = () => {
   const logFieldValue = (e: MbInputInputEvent) => {
     console.log(e.target.data);
+    console.log(e.target.path);
   };
   return (
     <MbForm>
@@ -66,7 +67,7 @@ export const TestRoot = () => {
       </MbSearch>
       <MbCheckBox label="Checkbox" data={true} />
       <MbContext label="Context" />
-      <MbCount label="Count" />
+      <MbCount path="blood_pressure/any_event:0/systolic" label="Count" />
       <MbDate label="Date" />
       <MbDuration label="Duration" />
       <MbQuantity
@@ -93,7 +94,8 @@ export const TestRoot = () => {
         <MbOption label="red" value="red"></MbOption>
         <MbOption label="blue" value="blue"></MbOption>
       </MbTextSelect>
-      <MbProportion label="proportion" path="proportion" />
+      <MbProportion path="proportion"
+        label="Waist-Hip Ratio (mb-proportion)" ></MbProportion>
     </MbForm>
   );
 };

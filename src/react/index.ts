@@ -185,7 +185,7 @@ export const MbMultimedia = createComponent({
   events: {},
 });
 export const MbProportion = createComponent({
-  tagName: 'mb-propotion',
+  tagName: 'mb-proportion',
   elementClass: MbProportionTag,
   react: React,
   events: {

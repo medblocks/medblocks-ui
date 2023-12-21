@@ -1,6 +1,4 @@
-![medblocks ui logo](https://i.imgur.com/pQ8MrTJ.png)
-
-# Medblocks UI
+# <img float="left" alt="medblocks UI Logo" src="https://i.imgur.com/pQ8MrTJ.png" /> Medblocks UI
 
 > [![Medblocks UI Web components demo](https://i.ytimg.com/vi/GRBIUEA_fc8/maxresdefault.jpg)](https://www.youtube.com/watch?v=GRBIUEA_fc8)
 > Click the image to watch the video
@@ -138,6 +136,6 @@ Contributors welcome! User Interface generation is an important problem to solve
 
 If you find this repository useful, fork it, use it! If you want to contribute, note the following:
 
-- This is a [Lit-Element](https://lit-element.polymer-project.org/guide) project written in typescript.
+- This is a [Lit-Element](https://lit-element.polymer-project.org/guide) project written in Typescript.
 - Most of the default components use [Shoelace](https://shoelace.style/) webcomponents. You can customize all the components the same way you [customize shoelace](https://shoelace.style/getting-started/customizing) `src/css/main.scss`.
 - For bug, or new feature requests, create an issue.
