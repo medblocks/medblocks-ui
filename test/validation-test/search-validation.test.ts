@@ -13,6 +13,8 @@ describe('search validation test', () => {
             </mb-form>
             `
     );
+    const search = querySelectorDeep('mb-search') as any;
+    search.searchTerm = '';
     await elementUpdated(form);
     expect(form.validate()).to.be.true;
   });
@@ -29,6 +31,19 @@ describe('search validation test', () => {
     await elementUpdated(form);
     expect(form.validate()).to.be.true;
   });
+  it('no searchTerm', async () => {
+    const form = await fixture<MbForm>(
+      `
+            <mb-form>
+                <mb-search path="test/1"></mb-search>
+            </mb-form>
+            `
+    );
+    const search = querySelectorDeep('mb-search') as any;
+    search.searchTerm = '';
+    await elementUpdated(form);
+    expect(form.validate()).to.be.true;
+  });
   it('required but empty', async () => {
     const form = await fixture<MbForm>(
       `
@@ -37,6 +52,45 @@ describe('search validation test', () => {
             </mb-form>
             `
     );
+    await elementUpdated(form);
+    expect(form.validate()).to.be.false;
+  });
+  it('required with no searchTerm', async () => {
+    const form = await fixture<MbForm>(
+      `
+            <mb-form>
+                <mb-search required path="test/1"></mb-search>
+            </mb-form>
+            `
+    );
+    const search = querySelectorDeep('mb-search') as any;
+    search.searchTerm = '';
+    await elementUpdated(form);
+    expect(form.validate()).to.be.false;
+  });
+  it('required with searcTerm and no data', async () => {
+    const form = await fixture<MbForm>(
+      `
+            <mb-form>
+                <mb-search required path="test/1"></mb-search>
+            </mb-form>
+            `
+    );
+    const search = querySelectorDeep('mb-search') as any;
+    search.searchTerm = 'testUnit';
+    await elementUpdated(form);
+    expect(form.validate()).to.be.false;
+  });
+  it('required with no searcTerm and no data', async () => {
+    const form = await fixture<MbForm>(
+      `
+            <mb-form>
+                <mb-search required path="test/1"></mb-search>
+            </mb-form>
+            `
+    );
+    const search = querySelectorDeep('mb-search') as any;
+    search.searchTerm = '';
     await elementUpdated(form);
     expect(form.validate()).to.be.false;
   });

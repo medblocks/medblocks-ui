@@ -337,6 +337,10 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   reportValidity() {
     const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    if(this.searchTerm) {
+      input.setCustomValidity('Please select a value from dropdown');
+      return input.reportValidity();
+    }
     if (typeof this.data !== 'string' && this.data?.length) return true;
     return input.reportValidity();
   }

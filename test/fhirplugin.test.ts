@@ -220,7 +220,6 @@ describe('FHIR Plugin', () => {
 
     setTimeout(() => form.handleSubmit());
     const data = await oneEvent(form, 'mb-submit');
-    console.log('data', data, data.detail);
     expect(data.detail).to.eql({
       resourceType: 'Patient',
       identifier: [

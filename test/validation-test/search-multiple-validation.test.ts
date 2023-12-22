@@ -40,6 +40,20 @@ describe('search validation test', () => {
     await elementUpdated(form);
     expect(form.validate()).to.be.false;
   });
+  it('required with searchTerm and no data', async () => {
+    const form = await fixture<MbForm>(
+      `
+            <mb-form>
+                <mb-search-multiple required path="test/1"></mb-search-multiple>
+            </mb-form>
+            `
+    );
+    const search = querySelectorDeep('mb-search-multiple') as any;
+    search.data = ['testUnit'];
+    search.searchTerm = 'test';
+    await elementUpdated(form);
+    expect(form.validate()).to.be.false;
+  });
   it('required with data', async () => {
     const form = await fixture<MbForm>(
       `
