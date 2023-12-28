@@ -1,6 +1,5 @@
 import React from 'react';
 import { createComponent, EventName } from '@lit/react';
-
 import MbBooleanTag, {
   MbCheckboxInputEvent,
 } from '../medblocks/boolean/checkbox';
@@ -56,6 +55,7 @@ export const MbBoolean = createComponent({
     onMbInput: 'mb-input' as EventName<MbCheckboxInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
 export const MbSelect = createComponent({
@@ -66,9 +66,9 @@ export const MbSelect = createComponent({
     onMbInput: 'mb-input' as EventName<MbSelectInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
-// documentation not present
 export const MbButtonMultiple = createComponent({
   tagName: 'mb-buttons-multiple',
   elementClass: MbButtonMultipleTag,
@@ -83,6 +83,7 @@ export const MbButton = createComponent({
     onMbInput: 'mb-input' as EventName<MbButtonsInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
 export const MbDropDown = createComponent({
@@ -103,7 +104,6 @@ export const MbFilter = createComponent({
   react: React,
   events: {},
 });
-// documentation not present
 export const MbSearchMultiple = createComponent({
   tagName: 'mb-search-multiple',
   elementClass: MbSearchMultipleTag,
@@ -118,6 +118,7 @@ export const MbSearch = createComponent({
     onMbInput: 'mb-input' as EventName<MbSearchInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
 export const MbCheckBox = createComponent({
@@ -128,6 +129,7 @@ export const MbCheckBox = createComponent({
     onMbInput: 'mb-input' as EventName<MbCheckboxAnyInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
 export const MbContext = createComponent({
@@ -138,17 +140,15 @@ export const MbContext = createComponent({
     onMbInput: 'mb-input' as EventName<MbContextInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
-// documentation not present
 export const MbCount = createComponent({
   tagName: 'mb-count',
   elementClass: MbCountTag,
   react: React,
   events: {
     onMbInput: 'mb-input' as EventName<MbCountInputEvent>,
-    onMbDisconnect: 'mb-disconnect',
-    onMbConnect: 'mb-connect',
   },
 });
 export const MbDate = createComponent({
@@ -159,6 +159,7 @@ export const MbDate = createComponent({
     onMbInput: 'mb-input' as EventName<MbDateInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
 export const MbDuration = createComponent({
@@ -169,6 +170,7 @@ export const MbDuration = createComponent({
     onMbInput: 'mb-input' as EventName<MbDurationInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
 export const MbForm = createComponent({
@@ -189,6 +191,7 @@ export const MbQuantity = createComponent({
     onMbInput: 'mb-input' as EventName<MbQuantityInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
 export const MbUnit = createComponent({
@@ -197,7 +200,6 @@ export const MbUnit = createComponent({
   react: React,
   events: {},
 });
-// documentation not present
 export const MbMultimedia = createComponent({
   tagName: 'mb-multimedia',
   elementClass: MbMultimediaTag,
@@ -212,6 +214,7 @@ export const MbProportion = createComponent({
     onMbInput: 'mb-input' as EventName<MbProportionInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
 export const MbPercent = createComponent({
@@ -222,9 +225,9 @@ export const MbPercent = createComponent({
     onMbInput: 'mb-input' as EventName<MbPercentInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
-// documentation not present
 export const MbRepeatableHeadless = createComponent({
   tagName: 'mb-repeatable-headless',
   elementClass: MbRepeatableHeadlessTag,
@@ -251,6 +254,7 @@ export const MbInput = createComponent({
     onMbInput: 'mb-input' as EventName<MbInputInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
 export const MbInputMultiple = createComponent({
@@ -261,6 +265,7 @@ export const MbInputMultiple = createComponent({
     onMbInput: 'mb-input' as EventName<MbInputMultipleInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
 export const MbTextSelect = createComponent({
@@ -271,7 +276,6 @@ export const MbTextSelect = createComponent({
     onMbInput: 'mb-input' as EventName<MbTextSelectInputEvent>,
     onMbDisconnect: 'mb-disconnect',
     onMbConnect: 'mb-connect',
+    onMbDependency: 'mb-dependency',
   },
 });
-
-
