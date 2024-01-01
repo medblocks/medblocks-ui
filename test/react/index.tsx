@@ -95,12 +95,14 @@ export const TestRoot = () => {
         <MbOption label="red" value="red"></MbOption>
         <MbOption label="blue" value="blue"></MbOption>
       </MbTextSelect>
-      <MbProportion path="proportion"
-        label="Waist-Hip Ratio (mb-proportion)" ></MbProportion>
+      <MbProportion
+        path="proportion"
+        label="Waist-Hip Ratio (mb-proportion)"
+      ></MbProportion>
     </MbForm>
   );
 };
 
-const htmlRoot = document.getElementById('root');
-const root = createRoot(htmlRoot!);
-root.render(<TestRoot />);
+// const htmlRoot = document.getElementById('root');
+// const root = createRoot(htmlRoot!);
+// root.render(<TestRoot />);
