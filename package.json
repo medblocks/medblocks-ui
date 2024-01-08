@@ -35,7 +35,7 @@
     "test": "tsc && wtr",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch \" \"wtr --watch\"",
     "validate-quantity": "tsc && wtr ./dist/test/validation-test/search-validation.test.js",
-    "bundle:react": "esbuild ./test/react/index.tsx --bundle --outfile=dist/bundle-react.js"
+    "bundle:react": "esbuild ./demo/demoReact.tsx --bundle --outfile=dist/bundle-react.js"
   },
   "dependencies": {
     "@lit/react": "^1.0.2",
