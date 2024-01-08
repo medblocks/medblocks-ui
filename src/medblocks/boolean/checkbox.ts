@@ -1,6 +1,6 @@
 import { SlCheckbox } from '@shoelace-style/shoelace';
 import '@shoelace-style/shoelace/dist/components/checkbox/checkbox';
-import { customElement, html, property } from 'lit-element';
+import { customElement, html, property, css } from 'lit-element';
 import EhrElement from '../EhrElement';
 
 @customElement('mb-checkbox')
@@ -38,6 +38,7 @@ export default class MbCheckBox extends EhrElement {
       ?checked=${this.data}
       ?indeterminate=${this.data == null}
       @sl-change=${this._handleChange}
+      style="--sl-toggle-size: 1rem; "
       >${this.label}</sl-checkbox
     >`;
   }

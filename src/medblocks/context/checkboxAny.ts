@@ -29,6 +29,7 @@ export default class MbCheckBox extends EhrElement {
       ?disabled=${this.disabled}
       ?checked=${!!this.data}
       @sl-change=${this._handleChange}
+      style="--sl-toggle-size: 1rem;"
       >${this.label}</sl-checkbox
     >`;
   }
