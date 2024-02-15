@@ -2,7 +2,7 @@
 
 # Medblocks UI
 
-[Documentation](https://docs.medblocks.org/medblocks-ui/quick-start)
+[Documentation](https://medblocks.com/docs/medblocks-ui)
 
 Web Components for rapid development of openEHR and FHIR systems.
 
