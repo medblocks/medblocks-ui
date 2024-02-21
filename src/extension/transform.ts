@@ -90,12 +90,49 @@ const transformations: { [rmType: string]: TransformFunction } = {
               </mb-quantity>`,
     },
   ],
-  DV_CODED_TEXT: n => [
-    {
-      name: 'Select',
-      html: `<mb-select path="${n.path}" label="${n.name || ''}" terminology="${
-        n.inputs[0].terminology || 'local'
-      }">
+  DV_CODED_TEXT: n => {
+    let templates;
+    if (n.max === -1) {
+      templates = [
+        {
+          name: 'Search-Multiple',
+          html: `<mb-search-multiple path="${n.path.slice(
+            0,
+            n.path.length - 2
+          )}" label="${n.name || ''}" terminology="${
+            n.inputs[0].terminology || 'local'
+          }">
+          <mb-filter label="Conditions" value="404684003"></mb-filter>
+        </mb-search-multiple>`,
+        },
+        {
+          name: 'Buttons-Multiple',
+          html: `<mb-buttons-multiple path="${n.path.slice(
+            0,
+            n.path.length - 2
+          )}" label="${n.name || ''}" terminology="${
+            n.inputs[0].terminology || 'local'
+          }">
+        ${
+          n.inputs && n.inputs[0] && n.inputs[0].list
+            ? n.inputs[0].list
+                .map(
+                  option =>
+                    `<mb-option value="${option.value}" label="${option.label}"></mb-option>`
+                )
+                .join('\n')
+            : ''
+        }
+        </mb-buttons-multiple>`,
+        },
+      ];
+    } else {
+      templates = [
+        {
+          name: 'Select',
+          html: `<mb-select path="${n.path}" label="${
+            n.name || ''
+          }" terminology="${n.inputs[0].terminology || 'local'}">
               ${
                 n.inputs && n.inputs[0] && n.inputs[0].list
                   ? n.inputs[0].list
@@ -107,12 +144,12 @@ const transformations: { [rmType: string]: TransformFunction } = {
                   : ''
               }
             </mb-select>`,
-    },
-    {
-      name: 'Buttons',
-      html: `<mb-buttons path="${n.path}" label="${
-        n.name || ''
-      }" terminology="${n.inputs[0].terminology || 'local'}">
+        },
+        {
+          name: 'Buttons',
+          html: `<mb-buttons path="${n.path}" label="${
+            n.name || ''
+          }" terminology="${n.inputs[0].terminology || 'local'}">
         ${
           n.inputs && n.inputs[0] && n.inputs[0].list
             ? n.inputs[0].list
@@ -124,24 +161,19 @@ const transformations: { [rmType: string]: TransformFunction } = {
             : ''
         }
         </mb-buttons>`,
-    },
-    {
-      name: 'Search',
-      html: `<mb-search path="${n.path}" label="${n.name || ''}" terminology="${
-        n.inputs[0].terminology || 'local'
-      }">
+        },
+        {
+          name: 'Search',
+          html: `<mb-search path="${n.path}" label="${
+            n.name || ''
+          }" terminology="${n.inputs[0].terminology || 'local'}">
           <mb-filter label="Conditions" value="404684003"></mb-filter>
         </mb-search>`,
-    },
-    {
-      name: 'Search-Multiple',
-      html: `<mb-search-multiple path="${n.path}" label="${
-        n.name || ''
-      }" terminology="${n.inputs[0].terminology || 'local'}">
-          <mb-filter label="Conditions" value="404684003"></mb-filter>
-        </mb-search>`,
-    },
-  ],
+        },
+      ];
+    }
+    return templates;
+  },
   DV_COUNT: n => [
     {
       name: 'Count',
@@ -170,25 +202,54 @@ const transformations: { [rmType: string]: TransformFunction } = {
           },
         ]
       : []),
-    // {
-    //   name: 'Mb-Percent',
-    //   html: `<mb-proportion path="${n.path}" label="${n.name || ''}" ></mb-proportion>`,
-    // },
   ],
-  DV_TEXT: n => [
-    {
-      name: 'Input',
-      html: `<mb-input path="${n.path}" label="${n.name || ''}"></mb-input>`,
-    },
-    {
-      name: 'Textarea',
-      html: `<mb-input textarea path="${n.path}" label="${
-        n.name || ''
-      }"></mb-input>`,
-    },
-    {
-      name: 'Text-Select',
-      html: `<mb-text-select path="${n.path}" label="${n.name || ''}">
+  DV_TEXT: n => {
+    let templates;
+    if (n.max === -1) {
+      templates = [
+        {
+          name: 'Input-Multiple',
+          html: `<mb-input-multiple path="${n.path.slice(
+            0,
+            n.path.length - 2
+          )}" label="${n.name || ''}"></mb-input-multiple>`,
+        },
+        {
+          name: 'Text-Select-Multiple',
+          html: `<mb-text-select multiple path="${n.path.slice(
+            0,
+            n.path.length - 2
+          )}" label="${n.name || ''}">
+          ${
+            n.inputs && n.inputs[0] && n.inputs[0].list
+              ? n.inputs[0].list
+                  .map(
+                    option =>
+                      `<mb-option value="${option.value}" label="${option.label}"></mb-option>`
+                  )
+                  .join('\n')
+              : ''
+          }
+        </mb-text-select>`,
+        },
+      ];
+    } else {
+      templates = [
+        {
+          name: 'Input',
+          html: `<mb-input path="${n.path}" label="${
+            n.name || ''
+          }"></mb-input>`,
+        },
+        {
+          name: 'Textarea',
+          html: `<mb-input textarea path="${n.path}" label="${
+            n.name || ''
+          }"></mb-input>`,
+        },
+        {
+          name: 'Text-Select',
+          html: `<mb-text-select path="${n.path}" label="${n.name || ''}">
               ${
                 n.inputs && n.inputs[0] && n.inputs[0].list
                   ? n.inputs[0].list
@@ -200,41 +261,28 @@ const transformations: { [rmType: string]: TransformFunction } = {
                   : ''
               }
             </mb-text-select>`,
-    },
-    {
-      name: 'Input-Multiple',
-      html: `<mb-input-multiple path="${n.path.slice(
-        0,
-        n.path.length - 2
-      )}" label="${n.name || ''}"></mb-input-multiple>`,
-    },
-    {
-      name: 'Text-Select-Multiple',
-      html: `<mb-text-select multiple path="${n.path.slice(
-        0,
-        n.path.length - 2
-      )}" label="${n.name || ''}">
-        ${
-          n.inputs && n.inputs[0] && n.inputs[0].list
-            ? n.inputs[0].list
-                .map(
-                  option =>
-                    `<mb-option value="${option.value}" label="${option.label}"></mb-option>`
-                )
-                .join('\n')
-            : ''
-        }
-      </mb-text-select>`,
-    },
-  ],
-  DV_DURATION: n => [
-    {
-      name: 'Duration',
-      html: `<mb-duration year month hour path="${n.path}" label="${
-        n.name || ''
-      }"></mb-duration>`,
-    },
-  ],
+        },
+      ];
+    }
+    return templates;
+  },
+  DV_DURATION: n => {
+    const suffixes: string[] = [];
+    n.inputs.forEach(input => {
+      if (input.suffix) {
+        suffixes.push(input.suffix);
+      }
+    });
+
+    return [
+      {
+        name: 'Duration',
+        html: `<mb-duration ${suffixes.join(' ')} path="${n.path}" label="${
+          n.name || ''
+        }"></mb-duration>`,
+      },
+    ];
+  },
   DV_DATE_TIME: n => [
     {
       name: 'Date & Time',
@@ -259,6 +307,14 @@ const transformations: { [rmType: string]: TransformFunction } = {
       html: `<mb-checkbox path="${n.path}" label="${
         n.name || ''
       }"></mb-checkbox>`,
+    },
+  ],
+  DV_URI: n => [
+    {
+      name: 'Multimedia',
+      html: `<mb-multimedia path="${n.path}" label="${
+        n.name || ''
+      }"></mb-multimedia>`,
     },
   ],
   DV_ORDINAL: n => [

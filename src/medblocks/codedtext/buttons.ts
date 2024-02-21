@@ -31,6 +31,13 @@ export default class CodedTextButtons extends CodedTextElement {
       color: var(--sl-input-label-color);
       margin-bottom: var(--sl-spacing-3x-small);
     }
+
+    .label-s {
+      font-size: var(--sl-input-label-font-size-small);
+      display: inline-block;
+      color: var(--sl-input-label-color);
+      margin-bottom: var(--sl-spacing-3x-small);
+    }
   `;
 
   @state() _options: MbOption[] = [];
@@ -101,7 +108,11 @@ export default class CodedTextButtons extends CodedTextElement {
     return html`
       <div style="position:relative;z-index:2" part="base">
         ${this.label
-          ? html`<label part="label" class="label">${this.label}</label>`
+          ? html`<label
+              part="label"
+              class=${this.variant === 'small' ? 'label-s' : 'label'}
+              >${this.label}</label
+            >`
           : null}
         <div class="buttons">
           ${this._options.map(

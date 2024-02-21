@@ -16,6 +16,12 @@ export default class MbDuration extends EhrElement {
       color: var(--sl-input-label-color);
       margin-bottom: var(--sl-spacing-xxx-small);
     }
+    .label-s {
+      font-size: var(--sl-input-label-font-size-small);
+      display: inline-block;
+      color: var(--sl-input-label-color);
+      margin-bottom: var(--sl-spacing-xxx-small);
+    }
     sl-input {
       width: 0;
       flex: 1 1 auto;
@@ -32,6 +38,9 @@ export default class MbDuration extends EhrElement {
         padding: 2px;
       }
       .label {
+        display: none;
+      }
+      .label-s {
         display: none;
       }
       .duration {
@@ -178,7 +187,11 @@ export default class MbDuration extends EhrElement {
     }
     return html`
       ${this.label
-        ? html`<label part="label" class="label">${this.label}</label>`
+        ? html`<label
+            part="label"
+            class=${this.variant === 'small' ? 'label-s' : 'label'}
+            >${this.label}</label
+          >`
         : null}
       <div class="duration">${this.getInputs()}</div>
       <p class="print-only">${this._state.day || '-'}</p>
