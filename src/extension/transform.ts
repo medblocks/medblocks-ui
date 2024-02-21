@@ -309,7 +309,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
       }"></mb-checkbox>`,
     },
   ],
-  DV_URI: n => [
+  DV_MULTIMEDIA: n => [
     {
       name: 'Multimedia',
       html: `<mb-multimedia path="${n.path}" label="${
