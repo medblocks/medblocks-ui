@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.186](https://github.com/medblocks/medblocks-ui/compare/v0.0.185...v0.0.186) (2024-02-21)
+
+
+### Bug Fixes
+
+* Addition to vscode extension + Labels UI fix ([6081ca6](https://github.com/medblocks/medblocks-ui/commit/6081ca6094ef0b502d29577704d09f379a7208c7))
+
 ### [0.0.185](https://github.com/medblocks/medblocks-ui/compare/v0.0.184...v0.0.185) (2023-12-22)
 
 ### [0.0.184](https://github.com/medblocks/medblocks-ui/compare/v0.0.183...v0.0.184) (2023-12-02)
