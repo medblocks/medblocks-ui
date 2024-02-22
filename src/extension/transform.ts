@@ -95,15 +95,24 @@ const transformations: { [rmType: string]: TransformFunction } = {
     if (n.max === -1) {
       templates = [
         {
-          name: 'Search-Multiple',
-          html: `<mb-search-multiple path="${n.path.slice(
+          name: 'Select-Multiple',
+          html: `<mb-select multiple path="${n.path.slice(
             0,
             n.path.length - 2
           )}" label="${n.name || ''}" terminology="${
             n.inputs[0].terminology || 'local'
           }">
-          <mb-filter label="Conditions" value="404684003"></mb-filter>
-        </mb-search-multiple>`,
+              ${
+                n.inputs && n.inputs[0] && n.inputs[0].list
+                  ? n.inputs[0].list
+                      .map(
+                        option =>
+                          `<mb-option value="${option.value}" label="${option.label}"></mb-option>`
+                      )
+                      .join('\n')
+                  : ''
+              }
+            </mb-select>`,
         },
         {
           name: 'Buttons-Multiple',
@@ -124,6 +133,17 @@ const transformations: { [rmType: string]: TransformFunction } = {
             : ''
         }
         </mb-buttons-multiple>`,
+        },
+        {
+          name: 'Search-Multiple',
+          html: `<mb-search-multiple path="${n.path.slice(
+            0,
+            n.path.length - 2
+          )}" label="${n.name || ''}" terminology="${
+            n.inputs[0].terminology || 'local'
+          }">
+          <mb-filter label="Conditions" value="404684003"></mb-filter>
+        </mb-search-multiple>`,
         },
       ];
     } else {
