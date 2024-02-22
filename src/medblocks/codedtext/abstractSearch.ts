@@ -200,6 +200,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
         searchString: this.searchTerm,
         axios,
         constraints: this._selectedFilters,
+        terminology: this.terminology,
       });
       const results = result.map(
         r =>
@@ -337,7 +338,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   reportValidity() {
     const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
-    if(this.searchTerm) {
+    if (this.searchTerm) {
       input.setCustomValidity('Please select a value from dropdown');
       return input.reportValidity();
     }
