@@ -136,13 +136,14 @@ const transformations: { [rmType: string]: TransformFunction } = {
         },
         {
           name: 'Search-Multiple',
-          html: `<mb-search-multiple path="${n.path.slice(
+          html: `<mb-search-multiple disablefallback path="${n.path.slice(
             0,
             n.path.length - 2
           )}" label="${n.name || ''}" terminology="${
-            n.inputs[0].terminology || 'local'
+            n.inputs[0].terminology ||
+            n?.annotations?.['MB_VALUESET'] ||
+            'local'
           }">
-          <mb-filter label="Conditions" value="404684003"></mb-filter>
         </mb-search-multiple>`,
         },
       ];
@@ -184,10 +185,13 @@ const transformations: { [rmType: string]: TransformFunction } = {
         },
         {
           name: 'Search',
-          html: `<mb-search path="${n.path}" label="${
+          html: `<mb-search disablefallback path="${n.path}" label="${
             n.name || ''
-          }" terminology="${n.inputs[0].terminology || 'local'}">
-          <mb-filter label="Conditions" value="404684003"></mb-filter>
+          }" terminology="${
+            n.inputs[0].terminology ||
+            n?.annotations?.['MB_VALUESET'] ||
+            'local'
+          }">
         </mb-search>`,
         },
       ];
@@ -227,6 +231,20 @@ const transformations: { [rmType: string]: TransformFunction } = {
     let templates;
     if (n.max === -1) {
       templates = [
+        ...(n?.annotations?.['MB_VALUESET']
+          ? [
+              {
+                name: 'Search-Multiple',
+                html: `<mb-search-multiple path="${n.path.slice(
+                  0,
+                  n.path.length - 2
+                )}" label="${n.name || ''}" terminology="${
+                  n?.annotations?.['MB_VALUESET']
+                }">
+                </mb-search-multiple>`,
+              },
+            ]
+          : []),
         {
           name: 'Input-Multiple',
           html: `<mb-input-multiple path="${n.path.slice(
@@ -255,6 +273,17 @@ const transformations: { [rmType: string]: TransformFunction } = {
       ];
     } else {
       templates = [
+        ...(n?.annotations?.['MB_VALUESET']
+          ? [
+              {
+                name: 'Search',
+                html: `<mb-search path="${n.path}" label="${
+                  n.name || ''
+                }" terminology="${n?.annotations?.['MB_VALUESET']}">
+            </mb-search>`,
+              },
+            ]
+          : []),
         {
           name: 'Input',
           html: `<mb-input path="${n.path}" label="${
