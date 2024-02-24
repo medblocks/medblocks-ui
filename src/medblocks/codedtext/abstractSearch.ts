@@ -390,6 +390,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
           ?clearable=${this._hasValue}
           @sl-clear=${this._handleClear}
           placeholder=${this.placeholder}
+          autocomplete="off"
         >
           ${this._hasValue
             ? null
