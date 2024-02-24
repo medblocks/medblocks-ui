@@ -79,6 +79,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: String }) filtersLabel = 'Filters';
 
+  @property({ type: String }) errorMessage = 'An unexpected error occurred';
+
   @property({ type: Boolean }) disablefallback = false;
 
   @property({ type: Boolean, reflect: true }) disablesearch = false;
@@ -217,7 +219,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     } catch (e) {
       return {
         result: [],
-        error: 'An unexpected error occurred',
+        error: this.errorMessage,
       };
     }
   }
@@ -240,7 +242,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
           slot="prefix"
           library="medblocks"
         ></sl-icon>
-        An unexpected error occurred
+        ${error}
       </sl-menu-item>`;
     }
 
