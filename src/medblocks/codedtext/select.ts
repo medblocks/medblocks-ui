@@ -26,7 +26,7 @@ export default class MbSelect extends CodedTextElement {
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) hoist: boolean = true;
+  @property({ type: Boolean, reflect: true }) hoist: boolean = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 

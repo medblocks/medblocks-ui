@@ -87,7 +87,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: Boolean, reflect: true }) required = false;
 
-  @property({ type: Boolean, reflect: true }) hoist: boolean = true;
+  @property({ type: Boolean, reflect: true }) hoist: boolean = false;
 
   @property({ type: Boolean, reflect: true }) fixfilters = false;
 

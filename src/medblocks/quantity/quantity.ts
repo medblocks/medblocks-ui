@@ -76,7 +76,7 @@ export default class MbQuantity extends QuantityElement {
   /** Hides the units. Make sure to set a default unit, or set it programatically. */
   @property({ type: Boolean, reflect: true }) hideunit: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) hoist: boolean = true;
+  @property({ type: Boolean, reflect: true }) hoist: boolean = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
