@@ -23,6 +23,8 @@ export default class MbTextSelect extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
+  @property({ type: Boolean, reflect: true }) hoist: boolean = true;
+
   @property({ type: String, reflect: true }) placeholder: string;
 
   @property({ type: String, reflect: true }) id: string = 'text_select';
@@ -69,6 +71,7 @@ export default class MbTextSelect extends EhrElement {
       </div> `;
     }
     return html`
+      ${this.hoist}
       <sl-select
         id=${this.id}
         exportparts="menu"
@@ -84,7 +87,7 @@ export default class MbTextSelect extends EhrElement {
           this.data = undefined;
           this._mbInput.emit();
         }}
-        .hoist=${true}
+        .hoist=${this.hoist}
         .value=${this.data || ''}
       >
         ${this._options.map(

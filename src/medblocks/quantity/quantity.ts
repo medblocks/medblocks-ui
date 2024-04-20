@@ -76,6 +76,8 @@ export default class MbQuantity extends QuantityElement {
   /** Hides the units. Make sure to set a default unit, or set it programatically. */
   @property({ type: Boolean, reflect: true }) hideunit: boolean = false;
 
+  @property({ type: Boolean, reflect: true }) hoist: boolean = true;
+
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
   @property({ type: Number, reflect: true }) step: number;
@@ -185,7 +187,7 @@ export default class MbQuantity extends QuantityElement {
         class="${this._disabled() || this.hideicon ? 'no-icon' : ''}"
         style="${this.hideunit ? 'display: none' : ''}"
         placeholder="Select units"
-        .hoist=${true}
+        .hoist=${this.hoist}
         .value=${this.displayUnit}
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         @sl-change=${this.handleInput}

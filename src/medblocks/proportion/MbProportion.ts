@@ -48,6 +48,8 @@ export default abstract class MbProportion extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
+  @property({ type: Boolean, reflect: true }) hoist: boolean = true;
+
   @property({ type: String, reflect: true }) step: string;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
@@ -125,7 +127,7 @@ export default abstract class MbProportion extends EhrElement {
         style="${this.hideunit ? 'display: none' : ''}"
         placeholder="Select units"
         class="no-icon"
-        .hoist=${true}
+        .hoist=${this.hoist}
         value="unit"
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         disabled

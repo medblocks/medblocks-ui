@@ -26,6 +26,8 @@ export default class MbSelect extends CodedTextElement {
 
   @property({ type: Boolean, reflect: true }) required: boolean = false;
 
+  @property({ type: Boolean, reflect: true }) hoist: boolean = true;
+
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
   @state() _options: MbOption[] = [];
@@ -134,7 +136,7 @@ export default class MbSelect extends CodedTextElement {
           this.data = undefined;
           this._mbInput.emit();
         }}
-        .hoist=${true}
+        .hoist=${this.hoist}
         .value=${this.getValue(this.data)}
       >
         ${this._options.map(

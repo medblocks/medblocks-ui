@@ -129,7 +129,7 @@ export default class MbInputMultiple extends EhrElement {
                 </sl-icon>`}
       </sl-input>
       <div>
-        ${this.data.map(
+        ${this.data?.map(
           (s, i) =>
             html`<sl-tag
               id=${`${this.id}_tag${i}`}

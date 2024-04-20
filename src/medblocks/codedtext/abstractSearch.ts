@@ -87,6 +87,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: Boolean, reflect: true }) required = false;
 
+  @property({ type: Boolean, reflect: true }) hoist: boolean = true;
+
   @property({ type: Boolean, reflect: true }) fixfilters = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
@@ -368,7 +370,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     return html`
       <mb-dropdown
         .containingElement=${this}
-        .hoist=${true}
+        .hoist=${this.hoist}
         .open=${true}
         .focusKeys=${['Enter']}
         .typeToSelect=${false}
