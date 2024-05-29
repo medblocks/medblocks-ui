@@ -5,6 +5,7 @@ import '@shoelace-style/shoelace/dist/components/icon/icon';
 import { AxiosInstance } from 'axios';
 import { supabaseStoragePlugin } from './mediaFunction';
 import EhrElement from '../EhrElement';
+import { watch } from '../../internal/decorators';
 
 @customElement('mb-multimedia')
 export default class MbMultimedia extends EhrElement {
@@ -67,12 +68,23 @@ export default class MbMultimedia extends EhrElement {
   }
 
   async handleInput() {
-    const axios = this.axios ? this.axios : this._parentAxios;
-    const downloadedFile = await this.plugin.storageAPI.download({
-      axios,
-      key: this.data?._root.split('///')[1],
-    });
-    this.src = downloadedFile;
+    this.loading = true;
+    try {
+      const axios = this.axios ? this.axios : this._parentAxios;
+      const downloadedFile = await this.plugin.storageAPI.download({
+        axios,
+        key: this.data?._root.split('///')[1],
+      });
+      this.src = downloadedFile;
+    } catch (e) {
+      this.src = '';
+    }
+    this.loading = false;
+  }
+
+  @watch('data')
+  getSrc() {
+    this.handleInput();
   }
 
   render() {
