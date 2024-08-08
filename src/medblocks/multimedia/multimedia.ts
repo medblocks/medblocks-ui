@@ -11,7 +11,8 @@ import { watch } from '../../internal/decorators';
 export default class MbMultimedia extends EhrElement {
   @property({ type: Object }) data:
     | {
-        _root: string;
+        _root?: string | undefined;
+        data?: string | undefined;
         mediatype: string | undefined;
         alternatetext: string | undefined;
         size: number | undefined;
@@ -28,6 +29,8 @@ export default class MbMultimedia extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) loading: boolean = false;
 
+  @property({ type: Boolean, reflect: true }) base64: boolean = false;
+
   @property({ type: Object }) axios: AxiosInstance;
 
   @property({ type: Object }) plugin = {
@@ -42,26 +45,39 @@ export default class MbMultimedia extends EhrElement {
   }
 
   async _handleChange(e: any) {
-    const axios = this.axios ? this.axios : this._parentAxios;
     const element = e.target as HTMLInputElement;
     const file = element.files?.[0];
-
-    if (file) {
-      this.loading = true;
-      const output = await this.plugin.storageAPI.upload({ axios, file });
-
-      if (e.target?.value === '') {
-        this.data = undefined;
-      } else {
-        this.data = {
-          _root: `s3:///${output}`,
-          mediatype: file?.type,
-          alternatetext: file?.name,
-          size: file?.size,
-        };
+    if (e.target?.value === '') {
+      this.data = undefined;
+    } else {
+      if (file) {
+        if (this.base64) {
+          const reader = new FileReader();
+          let base64Data = '';
+          reader.onload = event => {
+            base64Data = event.target?.result as string;
+            this.data = {
+              data: base64Data,
+              mediatype: file?.type,
+              alternatetext: file?.name,
+              size: file?.size,
+            };
+          };
+          reader.readAsDataURL(file);
+        } else {
+          const axios = this.axios ? this.axios : this._parentAxios;
+          this.loading = true;
+          const output = await this.plugin.storageAPI.upload({ axios, file });
+          this.data = {
+            _root: `s3:///${output}`,
+            mediatype: file?.type,
+            alternatetext: file?.name,
+            size: file?.size,
+          };
+        }
         this.handleInput();
+        this.loading = false;
       }
-      this.loading = false;
     }
 
     this._mbInput.emit();
@@ -69,15 +85,19 @@ export default class MbMultimedia extends EhrElement {
 
   async handleInput() {
     this.loading = true;
-    try {
-      const axios = this.axios ? this.axios : this._parentAxios;
-      const downloadedFile = await this.plugin.storageAPI.download({
-        axios,
-        key: this.data?._root.split('///')[1],
-      });
-      this.src = downloadedFile;
-    } catch (e) {
-      this.src = '';
+    if (this.base64) {
+      this.src = this.data?.data as string;
+    } else {
+      try {
+        const axios = this.axios ? this.axios : this._parentAxios;
+        const downloadedFile = await this.plugin.storageAPI.download({
+          axios,
+          key: this.data?._root?.split('///')[1],
+        });
+        this.src = downloadedFile;
+      } catch (e) {
+        this.src = '';
+      }
     }
     this.loading = false;
   }
@@ -99,6 +119,7 @@ export default class MbMultimedia extends EhrElement {
           @change=${this._handleChange}
         />
       </p>
+      ${this.data?.alternatetext || ''}
       ${this.loading
         ? html` <p>
             <img
