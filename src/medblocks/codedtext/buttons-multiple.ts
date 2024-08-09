@@ -19,6 +19,8 @@ export default class CodedTextButtons extends CodedTextElement {
 
   @property({ type: String, reflect: true }) id: string = 'buttons-multiple';
 
+  @property({ type: String, reflect: true }) placeholder: string = '';
+
   /** @ignore */
   static styles = css`
     .buttons {
@@ -142,7 +144,7 @@ export default class CodedTextButtons extends CodedTextElement {
                       name="check2"
                       slot="prefix"
                     ></sl-icon>`
-                  : null}${option.label}
+                  : null}${this.placeholder || option.label}
               </sl-button>`
           )}
         </div>
