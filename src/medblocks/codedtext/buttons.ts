@@ -16,8 +16,6 @@ export default class CodedTextButtons extends CodedTextElement {
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
   @property({ type: String, reflect: true }) id: string = 'buttons';
-  
-  @property({ type: String, reflect: true }) placeholder: string = '';
 
   /** @ignore */
   static styles = css`
@@ -125,7 +123,7 @@ export default class CodedTextButtons extends CodedTextElement {
                 ?disabled=${this.disabled}
                 @click=${() => this._handleInput(option)}
                 variant=${this.getVariant(option)}
-                >${this.placeholder || option.label}
+                >${option.placeholder || option.label}
               </sl-button>`
           )}
         </div>

@@ -6,6 +6,8 @@ export default class MbOption extends LitElement {
 
   @property({ type: String, reflect: true }) label: string;
 
+  @property({ type: String, reflect: true }) placeholder: string;
+
   @property({ type: Number, reflect: true }) ordinal: number;
 
   @property({ type: String, reflect: true }) type: string;
