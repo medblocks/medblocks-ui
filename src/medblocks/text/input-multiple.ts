@@ -10,11 +10,36 @@ export default class MbInputMultiple extends EhrElement {
   /** @ignore */
   static styles = css`
     :host {
+      display: block;
+      width: 100%;
+    }
+    .input-container {
+      width: 100%;
+    }
+    .tag-container {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: var(--sl-spacing-x-small);
     }
     sl-tag {
       margin: var(--sl-spacing-x-small) var(--sl-spacing-x-small) 0 0;
+      max-width: 100%;
+      --sl-tag-content-spacing: var(--sl-spacing-2x-small)
+        var(--sl-spacing-2x-small);
+    }
+    sl-tag::part(base) {
+      max-width: 100%;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      white-space: normal;
+      height: auto;
+      min-height: var(--sl-input-height-small);
+      line-height: 1.5;
+    }
+    sl-tag::part(content) {
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     sl-icon {
       font-size: var(--sl-font-size-large);
@@ -111,24 +136,26 @@ export default class MbInputMultiple extends EhrElement {
       </div>`;
     }
     return html`
-      <sl-input
-        id=${this.id}
-        .size=${this.variant === 'small' ? 'small' : 'medium'}
-        .disabled=${this.disabled}
-        ?required=${this.required}
-        help-text=${this.hidehelp
-          ? ''
-          : `Press enter to add ${this.placeholder}`}
-        @sl-input=${this.handleInput}
-        label=${this.label || ''}
-        .value=${this.value}
-        @sl-blur=${() => this.addValue()}
-      >
-        ${this.value &&
-        html`<sl-icon @click=${this.addValue} library="medblocks" name="arrow-right-circle" slot="suffix"></sl-icon>
+      <div class="input-container">
+        <sl-input
+          id=${this.id}
+          .size=${this.variant === 'small' ? 'small' : 'medium'}
+          .disabled=${this.disabled}
+          ?required=${this.required}
+          help-text=${this.hidehelp
+            ? ''
+            : `Press enter to add ${this.placeholder}`}
+          @sl-input=${this.handleInput}
+          label=${this.label || ''}
+          .value=${this.value}
+          @sl-blur=${() => this.addValue()}
+        >
+          ${this.value &&
+          html`<sl-icon @click=${this.addValue} library="medblocks" name="arrow-right-circle" slot="suffix"></sl-icon>
                 </sl-icon>`}
-      </sl-input>
-      <div>
+        </sl-input>
+      </div>
+      <div class="tag-container">
         ${this.data?.map(
           (s, i) =>
             html`<sl-tag
@@ -137,7 +164,7 @@ export default class MbInputMultiple extends EhrElement {
               size=${this.variant === 'small' ? 'small' : 'medium'}
               @sl-remove=${() => this.handleClear(i)}
               removable
-              >${s}</sl-tag
+              ><span>${s}</span></sl-tag
             >`
         )}
       </div>
