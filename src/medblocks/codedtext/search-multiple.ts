@@ -1,4 +1,4 @@
-import { customElement, html, property, state } from 'lit-element';
+import { customElement, html, property, state, css } from 'lit-element';
 
 import { CodedText } from './CodedTextElement';
 
@@ -10,6 +10,52 @@ import { SearchResult } from './searchFunctions';
 
 @customElement('mb-search-multiple')
 export default class MbSearchMultiple extends MbSearchAbstract {
+  static styles = css`
+    :host,
+    mb-dropdown {
+      display: block;
+    }
+    sl-input.pointer::part(base) {
+      cursor: default;
+    }
+    .tags {
+      padding: var(--sl-spacing-2x-small) var(--sl-spacing-x-small);
+    }
+    .more {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--sl-spacing-3x-small) var(--sl-spacing-small);
+    }
+    .tags sl-tag {
+      padding: var(--sl-spacing-2x-small);
+    }
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: var(--sl-spacing-x-small);
+    }
+    sl-tag {
+      margin: var(--sl-spacing-x-small) var(--sl-spacing-x-small) 0 0;
+      max-width: 100%;
+      --sl-tag-content-spacing: var(--sl-spacing-2x-small)
+        var(--sl-spacing-2x-small);
+    }
+    sl-tag::part(base) {
+      max-width: 100%;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      white-space: normal;
+      height: auto;
+      min-height: var(--sl-input-height-small);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+    sl-tag::part(content) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  `;
   @property({ type: Boolean }) multiple: boolean = true;
 
   @state() value: any = {};
@@ -71,13 +117,11 @@ export default class MbSearchMultiple extends MbSearchAbstract {
         ${this.data?.map(
           (s: any, i: any) =>
             html`<sl-tag
-              exportparts="base"
-              style="margin: var(--sl-spacing-x-small) var(--sl-spacing-x-small) 0 0;"
               variant=${typeof s === 'string' ? 'neutral' : 'primary'}
               size=${this.variant === 'small' ? 'small' : 'medium'}
               @sl-remove=${() => this.handleClear(i)}
               removable
-              >${typeof s === 'string' ? s : s.value}</sl-tag
+              ><span>${typeof s === 'string' ? s : s.value}</span></sl-tag
             >`
         )}
       </div>
