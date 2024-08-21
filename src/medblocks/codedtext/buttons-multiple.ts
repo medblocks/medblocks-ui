@@ -142,7 +142,7 @@ export default class CodedTextButtons extends CodedTextElement {
                       name="check2"
                       slot="prefix"
                     ></sl-icon>`
-                  : null}${option.placeholder || option.label}
+                  : null}${option.display || option.label}
               </sl-button>`
           )}
         </div>

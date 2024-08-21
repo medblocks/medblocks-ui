@@ -145,7 +145,7 @@ export default class MbSelect extends CodedTextElement {
               .value=${option.value}
               id=${`${this.id}-${option.value}`}
             >
-              ${option.label}
+              ${option.display || option.label}
             </sl-menu-item>`
         )}
       </sl-select>

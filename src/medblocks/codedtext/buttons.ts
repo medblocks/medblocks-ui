@@ -123,7 +123,7 @@ export default class CodedTextButtons extends CodedTextElement {
                 ?disabled=${this.disabled}
                 @click=${() => this._handleInput(option)}
                 variant=${this.getVariant(option)}
-                >${option.placeholder || option.label}
+                >${option.display || option.label}
               </sl-button>`
           )}
         </div>
