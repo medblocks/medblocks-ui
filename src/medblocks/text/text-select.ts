@@ -25,6 +25,8 @@ export default class MbTextSelect extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) hoist: boolean = false;
 
+  @property({ type: Boolean, reflect: true }) nonclearable: boolean;
+
   @property({ type: String, reflect: true }) placeholder: string;
 
   @property({ type: String, reflect: true }) id: string = 'text_select';
@@ -76,7 +78,7 @@ export default class MbTextSelect extends EhrElement {
         id=${this.id}
         exportparts="menu"
         .size=${this.variant === 'small' ? 'small' : 'medium'}
-        clearable
+        .clearable=${this.nonclearable ? false : true}
         .disabled=${this.disabled}
         ?required=${this.required}
         ?multiple=${this.multiple}

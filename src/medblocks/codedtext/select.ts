@@ -30,6 +30,8 @@ export default class MbSelect extends CodedTextElement {
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
+  @property({ type: Boolean, reflect: true }) nonclearable: boolean;
+
   @state() _options: MbOption[] = [];
 
   getLabel(code: string) {
@@ -126,7 +128,7 @@ export default class MbSelect extends CodedTextElement {
         id=${this.id}
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         .disabled=${this.disabled}
-        clearable
+        .clearable=${this.nonclearable ? false : true}
         ?required=${this.required}
         ?multiple=${this.multiple}
         placeholder=${this.placeholder ?? 'Please select'}
