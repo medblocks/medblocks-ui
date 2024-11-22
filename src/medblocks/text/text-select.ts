@@ -73,7 +73,6 @@ export default class MbTextSelect extends EhrElement {
       </div> `;
     }
     return html`
-      ${this.hoist}
       <sl-select
         id=${this.id}
         exportparts="menu"
