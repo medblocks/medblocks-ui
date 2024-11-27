@@ -6,8 +6,8 @@ import {
   elementUpdated,
 } from '@open-wc/testing';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import { SlInput } from '@shoelace-style/shoelace';
-import MbQuantity from '../src/medblocks/quantity/quantity';
+import type { SlInput } from '@shoelace-style/shoelace';
+import type MbQuantity from '../src/medblocks/quantity/quantity';
 import '../src/medblocks/quantity/quantity';
 
 describe('MbQuantity', () => {
@@ -24,13 +24,13 @@ describe('MbQuantity', () => {
     input.value = '234';
     select.value = 'cm';
     input.dispatchEvent(new CustomEvent('sl-input', { bubbles: true }));
-    const event: any = await oneEvent(mbquantity, 'mb-input');
+    const event: any = await oneEvent(mbquantity, 'mb-input', true);
     // console.log("quantity",event.target.data)
     expect(event.target.data).to.eql({ unit: 'cm', magnitude: 234 });
 
     input.value = '';
     input.dispatchEvent(new CustomEvent('sl-input', { bubbles: true }));
-    const event2: any = await oneEvent(mbquantity, 'mb-input');
+    const event2: any = await oneEvent(mbquantity, 'mb-input', true);
     expect(event2.target.data).to.eql(undefined);
   });
 
@@ -45,7 +45,7 @@ describe('MbQuantity', () => {
       'sl-select'
     ) as unknown as HTMLSelectElement;
     mbquantity.data = { magnitude: 334, unit: 'cm' };
-    await oneEvent(mbquantity, 'mb-input');
+    await oneEvent(mbquantity, 'mb-input', true);
     await elementUpdated(mbquantity);
     // console.log(input)
     // console.log("quantity",select)

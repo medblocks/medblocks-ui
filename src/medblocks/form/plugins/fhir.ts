@@ -1,8 +1,8 @@
-import { CodedTextElement } from '../../codedtext/CodedTextElement';
-import EhrElement from '../../EhrElement';
-import { MbPlugin } from './plugins';
+import type { CodedTextElement } from '../../codedtext/CodedTextElement';
+import type EhrElement from '../../EhrElement';
+import type { MbPlugin } from './plugins';
 import { flatten, unflatten } from '../utils';
-import MbContext from '../../context/context';
+import type MbContext from '../../context/context';
 
 const serialize = (mbElement: EhrElement) => {
   if (mbElement.datatype === 'CodableConcept') {
@@ -68,7 +68,7 @@ const isEmpty = (value: any): boolean => {
   return false;
 };
 
-function toInsertContext(path: String, nonNullPaths: string[]): boolean {
+function toInsertContext(path: string, nonNullPaths: string[]): boolean {
   if (path === 'resourceType') {
     return true;
   } // identifier[0].system
@@ -83,12 +83,13 @@ function toInsertContext(path: String, nonNullPaths: string[]): boolean {
 export const FHIRPlugin: MbPlugin = {
   serialize(mbElements) {
     const transformed: { [path: string]: any } = {};
-    Object.keys(mbElements).forEach(path => {
+
+    for (const path of Object.keys(mbElements)) {
       const value = mbElements[path];
       if (!isEmpty(value.data)) {
         transformed[path] = serialize(value);
       }
-    });
+    }
     const filtered = JSON.parse(JSON.stringify(transformed));
     return unflatten(filtered);
     // return mbElements
@@ -97,7 +98,8 @@ export const FHIRPlugin: MbPlugin = {
   parse(mbElements, data) {
     const flat = flatten(data);
     const newObj: any = {};
-    Object.keys(mbElements).forEach(path => {
+
+    for (const path of Object.keys(mbElements)) {
       const value = flat[path];
       if (value) {
         newObj[path] = deserialize(mbElements[path], value);
@@ -105,21 +107,23 @@ export const FHIRPlugin: MbPlugin = {
         // For paths that contain objects, so eg: contact[0].relationship[0] will want to include contact[0].relationship[0].coding[0].code
         const includesPath = Object.keys(flat).filter(p => p.startsWith(path));
         const simplifiedObject: any = {};
-        includesPath.forEach(p => {
+
+        for (const p of includesPath) {
           let simplifiedPath = p.replace(path, '');
           if (simplifiedPath.startsWith('.')) {
             simplifiedPath = simplifiedPath.replace('.', '');
           }
           simplifiedObject[simplifiedPath] = flat[p];
-        });
+        }
+
         const simplifiedUnflattened = unflatten(simplifiedObject);
         newObj[path] = deserialize(mbElements[path], simplifiedUnflattened);
       }
-    });
+    }
     return newObj;
   },
 
-  getContext(path, ctx = {}, nonNullPaths, mbElements) {
+  getContext(path, ctx, nonNullPaths, mbElements) {
     if (!toInsertContext(path, nonNullPaths)) {
       return;
     }

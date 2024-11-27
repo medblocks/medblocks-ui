@@ -1,5 +1,5 @@
 import { property } from 'lit-element';
-import { event, EventEmitter } from '../../internal/decorators';
+import { event, type EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 
 export interface CodedText {
@@ -27,9 +27,9 @@ export class CodedTextElement extends EhrElement {
   @property({ type: Object }) data: CodedText | string | undefined | any;
 
   /** Terminology of preference. Eg: SNOMED-CT, LOINC, local (for openEHR) */
-  @property({ type: String }) terminology: string = 'local';
+  @property({ type: String }) terminology = 'local';
 
-  @property({ type: String }) value: string = '';
+  @property({ type: String }) value = '';
 
   @event('mb-input') _mbInput: EventEmitter<CodedText>;
 }

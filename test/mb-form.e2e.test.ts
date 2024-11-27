@@ -1,13 +1,13 @@
 import { expect, html, fixture } from '@open-wc/testing';
 import { elementUpdated, oneEvent } from '@open-wc/testing-helpers';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import { SlInput } from '@shoelace-style/shoelace';
-import MbForm from '../src/medblocks/form/form';
+import type { SlInput } from '@shoelace-style/shoelace';
+import type MbForm from '../src/medblocks/form/form';
 import '../medblocks';
-import MbPercent from '../src/medblocks/proportion/percent';
-import MbCount from '../src/medblocks/count/count';
-import MbCheckBox from '../src/medblocks/boolean/checkbox';
-import MbInput from '../src/medblocks/text/input';
+import type MbPercent from '../src/medblocks/proportion/percent';
+import type MbCount from '../src/medblocks/count/count';
+import type MbCheckBox from '../src/medblocks/boolean/checkbox';
+import type MbInput from '../src/medblocks/text/input';
 
 describe('Form e2e', () => {
   it('should set the data property properly', async () => {

@@ -1,7 +1,7 @@
-import { SlMenuItem } from '@shoelace-style/shoelace';
+import type { SlMenuItem } from '@shoelace-style/shoelace';
 import { customElement, html } from 'lit-element';
 import MbSearchAbstract from './abstractSearch';
-import { SearchResult } from './searchFunctions';
+import type { SearchResult } from './searchFunctions';
 
 @customElement('mb-search')
 export default class MbSearch extends MbSearchAbstract {

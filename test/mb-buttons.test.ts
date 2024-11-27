@@ -1,6 +1,6 @@
 import { fixture, expect, oneEvent, elementUpdated } from '@open-wc/testing';
 import { querySelectorAllDeep } from 'query-selector-shadow-dom';
-import MbButtons from '../src/medblocks/codedtext/buttons';
+import type MbButtons from '../src/medblocks/codedtext/buttons';
 import '../src/medblocks/codedtext/buttons';
 import '../src/medblocks/codedtext/option';
 
@@ -17,7 +17,7 @@ describe('MbButtons', () => {
     setTimeout(() => {
       buttons[0].click();
     }, 0);
-    const event1: any = await oneEvent(mbbuttons, 'mb-input');
+    const event1: any = await oneEvent(mbbuttons, 'mb-input', true);
     expect(event1.target.data).to.eql({
       code: 'option1',
       value: 'Option 1',
@@ -26,7 +26,7 @@ describe('MbButtons', () => {
     setTimeout(() => {
       buttons[1].click();
     }, 0);
-    const event2: any = await oneEvent(mbbuttons, 'mb-input');
+    const event2: any = await oneEvent(mbbuttons, 'mb-input', true);
     expect(event2.target.data).to.eql({
       code: 'option2',
       value: 'Option 2',
@@ -35,7 +35,7 @@ describe('MbButtons', () => {
     setTimeout(() => {
       buttons[1].click();
     }, 0);
-    const event3: any = await oneEvent(mbbuttons, 'mb-input');
+    const event3: any = await oneEvent(mbbuttons, 'mb-input', true);
     expect(event3.target.data).to.eql(undefined);
   });
 
@@ -51,7 +51,7 @@ describe('MbButtons', () => {
     setTimeout(() => {
       buttons[0].click();
     }, 0);
-    const event1: any = await oneEvent(mbbuttons, 'mb-input');
+    const event1: any = await oneEvent(mbbuttons, 'mb-input', true);
     expect(event1.target.data).to.eql({
       code: 'option1',
       value: 'Option 1',
@@ -60,7 +60,7 @@ describe('MbButtons', () => {
     setTimeout(() => {
       buttons[1].click();
     }, 0);
-    const event2: any = await oneEvent(mbbuttons, 'mb-input');
+    const event2: any = await oneEvent(mbbuttons, 'mb-input', true);
     expect(event2.target.data).to.eql({
       code: 'option2',
       value: 'Option 2',

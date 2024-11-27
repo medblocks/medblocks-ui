@@ -8,9 +8,9 @@ import {
 
 import '../src/medblocks/proportion/percent';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import MbForm from '../src/medblocks/form/form';
+import type MbForm from '../src/medblocks/form/form';
 import '../medblocks';
-import MbSelect from '../src/medblocks/codedtext/select';
+import type MbSelect from '../src/medblocks/codedtext/select';
 
 describe('MbOrdinal', () => {
   it('emits data on input', async () => {
@@ -30,7 +30,7 @@ describe('MbOrdinal', () => {
     ) as unknown as HTMLSelectElement;
     select.value = 'at0096';
     select.dispatchEvent(new CustomEvent('sl-change'));
-    const event: any = await oneEvent(mbselect, 'mb-input');
+    const event: any = await oneEvent(mbselect, 'mb-input', true);
     expect(event.target.data).to.eql({
       code: 'at0096',
       value: 'Negative',
@@ -61,7 +61,7 @@ describe('MbOrdinal', () => {
         ordinal: 1,
       };
     }, 0);
-    await oneEvent(mbOrdinal, 'mb-input');
+    await oneEvent(mbOrdinal, 'mb-input', true);
     await elementUpdated(mbOrdinal);
     expect(select.value).to.eq('at0096');
   });

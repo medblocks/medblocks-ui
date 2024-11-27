@@ -1,6 +1,6 @@
 import { css, customElement, html, property, query, state } from 'lit-element';
-import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
-import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
+import type SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
+import type SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/menu/menu';
 import '@shoelace-style/shoelace/dist/components/select/select';
@@ -9,7 +9,7 @@ import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import QuantityElement from './QuantityElement';
-import MbUnit from './unit';
+import type MbUnit from './unit';
 /**
  * @inheritdoc
  * Quantity element with an input and select for units.
@@ -67,16 +67,16 @@ export default class MbQuantity extends QuantityElement {
   @property({ type: String, reflect: true }) default: string;
 
   /** Required form validation */
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
   @property({ type: Number, reflect: true }) max: number | string | null;
 
   @property({ type: Number, reflect: true }) min: number | string | null = 0;
 
   /** Hides the units. Make sure to set a default unit, or set it programatically. */
-  @property({ type: Boolean, reflect: true }) hideunit: boolean = false;
+  @property({ type: Boolean, reflect: true }) hideunit = false;
 
-  @property({ type: Boolean, reflect: true }) hoist: boolean = false;
+  @property({ type: Boolean, reflect: true }) hoist = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
@@ -84,12 +84,12 @@ export default class MbQuantity extends QuantityElement {
 
   @property({ type: String, reflect: true }) placeholder = '';
 
-  @property({ type: String, reflect: true }) id: string = 'quantity';
+  @property({ type: String, reflect: true }) id = 'quantity';
 
   @property({ type: Boolean }) hideicon = false;
 
   /** Automatically disables the unit if only a single unit is present */
-  @property({ type: Boolean, reflect: true }) enablesingleunit: boolean = false;
+  @property({ type: Boolean, reflect: true }) enablesingleunit = false;
 
   @state()
   units: MbUnit[] = [];
@@ -99,7 +99,7 @@ export default class MbQuantity extends QuantityElement {
   }
 
   reportValidity() {
-    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    const input = this.shadowRoot?.querySelector('sl-input') as SlInput;
     return input.reportValidity();
   }
 
@@ -125,7 +125,7 @@ export default class MbQuantity extends QuantityElement {
 
   handleInput() {
     const magnitude = this.inputElement.value
-      ? parseFloat(this.inputElement.value)
+      ? Number.parseFloat(this.inputElement.value)
       : undefined;
     const unit = (this.selectElement.value as string) || this.default;
     if (magnitude == null) {

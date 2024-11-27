@@ -1,9 +1,16 @@
-import { css, html, state, property, TemplateResult, query } from 'lit-element';
-import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
+import {
+  css,
+  html,
+  state,
+  property,
+  type TemplateResult,
+  query,
+} from 'lit-element';
+import type SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { until } from 'lit-html/directives/until.js';
 import { classMap } from 'lit-html/directives/class-map';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { AxiosInstance } from 'axios';
+import type { AxiosInstance } from 'axios';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
 import '@shoelace-style/shoelace/dist/components/menu/menu';
 import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
@@ -14,12 +21,16 @@ import '@shoelace-style/shoelace/dist/components/divider/divider';
 import '@shoelace-style/shoelace/dist/components/menu-label/menu-label';
 import '@shoelace-style/shoelace/dist/components/skeleton/skeleton';
 
-import SlMenuItem from '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
-import { hermesPlugin, SearchOptions, SearchResult } from './searchFunctions';
+import type SlMenuItem from '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
+import {
+  hermesPlugin,
+  type SearchOptions,
+  type SearchResult,
+} from './searchFunctions';
 import { CodedTextElement } from './CodedTextElement';
-import MbFilter from './filter';
-import SlDropdown from './dropdown';
-import { event, EventEmitter, watch } from '../../internal/decorators';
+import type MbFilter from './filter';
+import type SlDropdown from './dropdown';
+import { event, type EventEmitter, watch } from '../../internal/decorators';
 
 import './dropdown';
 
@@ -69,7 +80,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: Number }) hits = 10;
 
-  @property({ type: String }) parentAxiosKey: string = 'hermes';
+  @property({ type: String }) parentAxiosKey = 'hermes';
 
   @property({ type: String, reflect: true }) placeholder = 'Type to search';
 
@@ -87,7 +98,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: Boolean, reflect: true }) required = false;
 
-  @property({ type: Boolean, reflect: true }) hoist: boolean = false;
+  @property({ type: Boolean, reflect: true }) hoist = false;
 
   @property({ type: Boolean, reflect: true }) fixfilters = false;
 
@@ -98,9 +109,9 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: Object }) plugin = hermesPlugin;
 
-  @state() _moreHits: number = 0;
+  @state() _moreHits = 0;
 
-  @state() _debouncing: boolean = false;
+  @state() _debouncing = false;
 
   @state() _debounceTimeout: number;
 
@@ -330,9 +341,9 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   _handleFilterClick(tag: MbFilter, tags: MbFilter[]) {
     if (this.filterType === 'and') {
-      tags.forEach(t => {
+      for (const t of tags) {
         t.disabled = true;
-      });
+      }
       tag.disabled = false;
     } else {
       tag.disabled = !tag.disabled;
@@ -341,7 +352,7 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   }
 
   reportValidity() {
-    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    const input = this.shadowRoot?.querySelector('sl-input') as SlInput;
     if (this.searchTerm) {
       input.setCustomValidity('Please select a value from dropdown');
       return input.reportValidity();

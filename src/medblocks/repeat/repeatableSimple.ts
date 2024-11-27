@@ -6,8 +6,8 @@ import {
 } from 'lit-element';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
-import { event, EventEmitter } from '../../internal/decorators';
-import EhrElement from '../EhrElement';
+import { event, type EventEmitter } from '../../internal/decorators';
+import type EhrElement from '../EhrElement';
 import Repeatable from './Repeatable';
 /** Simple repeat component that copies the markup in the slot.
  * DOES NOT work with interactive if the elements have interactivity via JS (since outerHTML is copied through a string).
@@ -20,7 +20,7 @@ export default class MbRepeatable extends Repeatable {
   }
 
   _getSlotElements() {
-    const slot = this.shadowRoot!.querySelector('slot');
+    const slot = this.shadowRoot?.querySelector('slot');
     return slot?.assignedElements({ flatten: true });
   }
 
@@ -86,7 +86,7 @@ export default class MbRepeatable extends Repeatable {
   }
 
   @property({ type: String, reflect: true })
-  css: string = '';
+  css = '';
 
   render() {
     return html`

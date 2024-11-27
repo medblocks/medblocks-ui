@@ -1,5 +1,5 @@
 import { customElement, html, property, state, css } from 'lit-element';
-import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
+import type SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import EhrElement from '../EhrElement';
 
@@ -49,25 +49,25 @@ export default class MbDuration extends EhrElement {
     }
   `;
 
-  @property({ type: Boolean, reflect: true }) year: boolean = false;
+  @property({ type: Boolean, reflect: true }) year = false;
 
-  @property({ type: Boolean, reflect: true }) month: boolean = false;
+  @property({ type: Boolean, reflect: true }) month = false;
 
-  @property({ type: Boolean, reflect: true }) week: boolean = false;
+  @property({ type: Boolean, reflect: true }) week = false;
 
-  @property({ type: Boolean, reflect: true }) day: boolean = false;
+  @property({ type: Boolean, reflect: true }) day = false;
 
-  @property({ type: Boolean, reflect: true }) hour: boolean = false;
+  @property({ type: Boolean, reflect: true }) hour = false;
 
-  @property({ type: Boolean, reflect: true }) minute: boolean = false;
+  @property({ type: Boolean, reflect: true }) minute = false;
 
-  @property({ type: Boolean, reflect: true }) second: boolean = false;
+  @property({ type: Boolean, reflect: true }) second = false;
 
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
-  @property({ type: Boolean, reflect: true }) hidelabel: boolean = false;
+  @property({ type: Boolean, reflect: true }) hidelabel = false;
 
   @property({ type: String, reflect: true }) min = '1';
 
@@ -141,7 +141,7 @@ export default class MbDuration extends EhrElement {
   }
 
   reportValidity() {
-    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    const input = this.shadowRoot?.querySelector('sl-input') as SlInput;
     return input.reportValidity();
   }
 

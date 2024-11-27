@@ -3,8 +3,8 @@ import { expect } from '@open-wc/testing';
 import { elementUpdated, fixture } from '@open-wc/testing-helpers';
 // import { html } from 'lit-html';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import { SlInput } from '@shoelace-style/shoelace';
-import MbForm from '../../src/medblocks/form/form';
+import type { SlInput } from '@shoelace-style/shoelace';
+import type MbForm from '../../src/medblocks/form/form';
 // import { TemplateResult } from 'lit-html';
 
 describe('quantity validation test', () => {

@@ -1,6 +1,6 @@
 import { fixture, expect, oneEvent, elementUpdated } from '@open-wc/testing';
 import { querySelectorAllDeep } from 'query-selector-shadow-dom';
-import MbButtonsMultiple from '../src/medblocks/codedtext/buttons-multiple';
+import type MbButtonsMultiple from '../src/medblocks/codedtext/buttons-multiple';
 import '../src/medblocks/codedtext/buttons-multiple';
 import '../src/medblocks/codedtext/option';
 
@@ -17,14 +17,14 @@ describe('MbButtons-Multiple', () => {
     setTimeout(() => {
       buttons[0].click();
     });
-    const event1: any = await oneEvent(mbbuttons, 'mb-input');
+    const event1: any = await oneEvent(mbbuttons, 'mb-input', true);
     expect(event1.target.data).to.eql([
       { code: 'option1', value: 'Option 1', terminology: 'local' },
     ]);
     setTimeout(() => {
       buttons[1].click();
     });
-    const event2: any = await oneEvent(mbbuttons, 'mb-input');
+    const event2: any = await oneEvent(mbbuttons, 'mb-input', true);
     expect(event2.target.data).to.eql([
       { code: 'option1', value: 'Option 1', terminology: 'local' },
       { code: 'option2', value: 'Option 2', terminology: 'local' },
@@ -33,7 +33,7 @@ describe('MbButtons-Multiple', () => {
     setTimeout(() => {
       buttons[0].click();
     });
-    const event3: any = await oneEvent(mbbuttons, 'mb-input');
+    const event3: any = await oneEvent(mbbuttons, 'mb-input', true);
     expect(event3.target.data).to.eql([
       { code: 'option2', value: 'Option 2', terminology: 'local' },
     ]);
@@ -54,14 +54,14 @@ describe('MbButtons-Multiple', () => {
     setTimeout(() => {
       buttons[0].click();
     }, 0);
-    const event1: any = await oneEvent(mbbuttons, 'mb-input');
+    const event1: any = await oneEvent(mbbuttons, 'mb-input', true);
     expect(event1.target.data).to.eql([
       { code: 'option1', value: 'Option 1', terminology: 'SOME-TERMINOLOGY' },
     ]);
     setTimeout(() => {
       buttons[1].click();
     }, 0);
-    const event2: any = await oneEvent(mbbuttons, 'mb-input');
+    const event2: any = await oneEvent(mbbuttons, 'mb-input', true);
     expect(event2.target.data).to.eql([
       { code: 'option1', value: 'Option 1', terminology: 'SOME-TERMINOLOGY' },
       { code: 'option2', value: 'Option 2', terminology: 'SOME-TERMINOLOGY' },

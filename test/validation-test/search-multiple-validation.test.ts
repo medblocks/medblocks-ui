@@ -2,7 +2,7 @@ import '../../medblocks';
 import { expect } from '@open-wc/testing';
 import { elementUpdated, fixture } from '@open-wc/testing-helpers';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import MbForm from '../../src/medblocks/form/form';
+import type MbForm from '../../src/medblocks/form/form';
 
 describe('search validation test', () => {
   it('with empty', async () => {

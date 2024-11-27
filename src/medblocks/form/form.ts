@@ -6,17 +6,20 @@ import {
   LitElement,
   property,
 } from 'lit-element';
-import { AxiosInstance } from 'axios';
-import { event, EventEmitter, watch } from '../../internal/decorators';
-import EhrElement, { Variant } from '../EhrElement';
+import type { AxiosInstance } from 'axios';
+import { event, type EventEmitter, watch } from '../../internal/decorators';
+import type EhrElement from '../EhrElement';
+import type { Variant } from '../EhrElement';
 import MbContext from '../context/context';
-import { Data } from './utils';
+import type { Data } from './utils';
 import { unflattenComposition, openEHRFlatPlugin } from './plugins/openEHRFlat';
-import { MbPlugin } from './plugins/plugins';
-import MbSubmit from '../submit/submit';
-import SuggestWrapper, { SuggestEvent } from '../suggestionWrapper';
-import Repeatable, { getRepeatableRegex } from '../repeat/Repeatable';
-import MbHide from '../hide';
+import type { MbPlugin } from './plugins/plugins';
+import type MbSubmit from '../submit/submit';
+import type SuggestWrapper from '../suggestionWrapper';
+import type { SuggestEvent } from '../suggestionWrapper';
+import type Repeatable from '../repeat/Repeatable';
+import { getRepeatableRegex } from '../repeat/Repeatable';
+import type MbHide from '../hide';
 
 /**
  * Reactive form that responds to changes in custom elements nested inside.
@@ -37,15 +40,15 @@ export default class MedblockForm extends LitElement {
   @property({ type: Object }) ctx: any;
 
   /** Context will not be automatically inferd. What you pass in will be directly reflected. */
-  @property({ type: Boolean, reflect: true }) overwritectx: boolean = false;
+  @property({ type: Boolean, reflect: true }) overwritectx = false;
 
   /** Skip validation of form */
-  @property({ type: Boolean, reflect: true }) novalidate: boolean = false;
+  @property({ type: Boolean, reflect: true }) novalidate = false;
 
-  @property({ type: String, reflect: true }) templateId: string = '';
+  @property({ type: String, reflect: true }) templateId = '';
 
   /** Should sending suggestions be disabled? */
-  @property({ type: Boolean, reflect: true }) nosuggest: boolean = false;
+  @property({ type: Boolean, reflect: true }) nosuggest = false;
 
   @property({ type: String, reflect: true }) variant: Variant = 'normal';
 
@@ -69,8 +72,7 @@ export default class MedblockForm extends LitElement {
   @property({ type: Object }) hermes: AxiosInstance;
 
   /** Should data points that are set, but don't have a corresponding EhrElement be serialized? */
-  @property({ type: Boolean, reflect: true }) serializeDeferredData: boolean =
-    true;
+  @property({ type: Boolean, reflect: true }) serializeDeferredData = true;
 
   /** The child elements are loaded  */
   @state() mbElementSet: Set<EhrElement> = new Set();

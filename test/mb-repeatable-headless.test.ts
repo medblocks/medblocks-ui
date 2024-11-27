@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { elementUpdated, fixture, oneEvent } from '@open-wc/testing-helpers';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import MbForm from '../src/medblocks/form/form';
+import type MbForm from '../src/medblocks/form/form';
 import '../src/medblocks/form/form';
 import '../src/medblocks/text/input';
-import MbRepeatable from '../src/medblocks/repeat/repeatableHeadless';
+import type MbRepeatable from '../src/medblocks/repeat/repeatableHeadless';
 import '../src/medblocks/repeat/repeatableHeadless';
 
 describe('mb-repeatale-headless', () => {

@@ -1,5 +1,5 @@
 import { css, html, property } from 'lit-element';
-import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
+import type SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import EhrElement from '../EhrElement';
 
@@ -46,9 +46,9 @@ export default abstract class MbProportion extends EhrElement {
       }
     | undefined = undefined;
 
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
-  @property({ type: Boolean, reflect: true }) hoist: boolean = false;
+  @property({ type: Boolean, reflect: true }) hoist = false;
 
   @property({ type: String, reflect: true }) step: string;
 
@@ -66,7 +66,7 @@ export default abstract class MbProportion extends EhrElement {
       this.data = undefined;
     } else {
       this.data = {
-        numerator: parseFloat(inputElement.value),
+        numerator: Number.parseFloat(inputElement.value),
         denominator: this.type === 'unitary' ? 1 : 100,
         type: this.type === 'unitary' ? 1 : 2,
       };
@@ -75,7 +75,7 @@ export default abstract class MbProportion extends EhrElement {
   }
 
   reportValidity() {
-    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    const input = this.shadowRoot?.querySelector('sl-input') as SlInput;
     return input.reportValidity();
   }
 

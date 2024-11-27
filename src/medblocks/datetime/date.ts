@@ -1,7 +1,7 @@
 import { css, customElement, html, property } from 'lit-element';
-import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
+import type SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
-import { event, EventEmitter } from '../../internal/decorators';
+import { event, type EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 
 @customElement('mb-date')
@@ -18,21 +18,21 @@ export default class MbDateTime extends EhrElement {
 
   @property({ type: String }) data: string | undefined;
 
-  @property({ type: String, reflect: true }) label: string = '';
+  @property({ type: String, reflect: true }) label = '';
 
-  @property({ type: String, reflect: true }) max: string = '';
+  @property({ type: String, reflect: true }) max = '';
 
-  @property({ type: String, reflect: true }) min: string = '';
+  @property({ type: String, reflect: true }) min = '';
 
-  @property({ type: Boolean, reflect: true }) time: boolean = false;
+  @property({ type: Boolean, reflect: true }) time = false;
 
-  @property({ type: Boolean, reflect: true }) dvdatetime: boolean = false;
+  @property({ type: Boolean, reflect: true }) dvdatetime = false;
 
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
-  @property({ type: String, reflect: true }) id: string = 'date';
+  @property({ type: String, reflect: true }) id = 'date';
 
   @event('mb-input') _mbInput: EventEmitter<any>;
 
@@ -51,7 +51,7 @@ export default class MbDateTime extends EhrElement {
   }
 
   reportValidity() {
-    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    const input = this.shadowRoot?.querySelector('sl-input') as SlInput;
     return input.reportValidity();
   }
 

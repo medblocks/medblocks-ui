@@ -6,11 +6,11 @@ import {
   elementUpdated,
 } from '@open-wc/testing';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import { SlSelect } from '@shoelace-style/shoelace';
-import MbSelect from '../src/medblocks/codedtext/select';
+import type { SlSelect } from '@shoelace-style/shoelace';
+import type MbSelect from '../src/medblocks/codedtext/select';
 import '../src/medblocks/codedtext/select';
 import '../src/medblocks/codedtext/option';
-import MedblockForm from '../src/medblocks/form/form';
+import type MedblockForm from '../src/medblocks/form/form';
 import '../src/medblocks/form/form';
 
 describe('MbSelect', () => {
@@ -25,7 +25,7 @@ describe('MbSelect', () => {
     ) as unknown as HTMLSelectElement;
     select.value = 'testUnit';
     select.dispatchEvent(new CustomEvent('sl-change'));
-    const event: any = await oneEvent(mbselect, 'mb-input');
+    const event: any = await oneEvent(mbselect, 'mb-input', true);
     expect(event.target.data).to.eql({
       code: 'testUnit',
       value: 'Test Unit',
@@ -44,7 +44,7 @@ describe('MbSelect', () => {
     ) as unknown as HTMLSelectElement;
     select.value = 'testUnit';
     select.dispatchEvent(new CustomEvent('sl-change'));
-    const event: any = await oneEvent(mbselect, 'mb-input');
+    const event: any = await oneEvent(mbselect, 'mb-input', true);
     expect(event.target.data).to.eql({
       code: 'testUnit',
       value: 'Test Unit',
@@ -65,7 +65,7 @@ describe('MbSelect', () => {
       value: 'Test Unit',
       terminology: 'SOME-TERMINOLOGY',
     };
-    await oneEvent(mbselect, 'mb-input');
+    await oneEvent(mbselect, 'mb-input', true);
     await elementUpdated(mbselect);
     expect(select.value).to.eq('testUnit');
   });
@@ -89,7 +89,7 @@ describe('MbSelect', () => {
       select.value = ['testUnit', 'testUnit2'];
       select.dispatchEvent(new CustomEvent('sl-change'));
     });
-    const event: any = await oneEvent(mbselect, 'mb-input');
+    const event: any = await oneEvent(mbselect, 'mb-input', true);
 
     expect(event.target.data).to.eql([
       {
@@ -159,9 +159,9 @@ describe('MbSelect', () => {
       select.value = ['testUnit', 'testUnit2'];
       select.dispatchEvent(new CustomEvent('sl-change'));
     });
-    await oneEvent(form, 'mb-input');
+    await oneEvent(form, 'mb-input', true);
     setTimeout(() => form.handleSubmit(), 0);
-    const data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit', true);
     expect(data.detail).to.eql({
       'mbselect:0/multiple|code': 'testUnit',
       'mbselect:0/multiple|value': 'Test Unit',
@@ -193,9 +193,9 @@ describe('MbSelect', () => {
       select.value = ['testUnit', 'testUnit2'];
       select.dispatchEvent(new CustomEvent('sl-change'));
     });
-    await oneEvent(form, 'mb-input');
+    await oneEvent(form, 'mb-input', true);
     setTimeout(() => form.handleSubmit(), 0);
-    const data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit', true);
     expect(data.detail).to.eql({
       'mbselect:0/multiple:0|code': 'testUnit',
       'mbselect:0/multiple:0|value': 'Test Unit',

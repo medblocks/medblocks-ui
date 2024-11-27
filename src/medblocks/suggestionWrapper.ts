@@ -1,6 +1,6 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 import '@shoelace-style/shoelace/dist/components/tag/tag';
-import { event, EventEmitter } from '../internal/decorators';
+import { event, type EventEmitter } from '../internal/decorators';
 
 export interface Suggestion {
   data: any;
@@ -60,9 +60,9 @@ export default class SuggestWrapper extends LitElement {
 
   @property({ type: Array }) suggestions: Suggestion[] = [];
 
-  @property({ type: Boolean, reflect: true }) global: boolean = false;
+  @property({ type: Boolean, reflect: true }) global = false;
 
-  @property({ type: String, reflect: true }) label: string = '';
+  @property({ type: String, reflect: true }) label = '';
 
   render() {
     return html`

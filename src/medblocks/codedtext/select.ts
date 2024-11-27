@@ -1,9 +1,9 @@
 import { customElement, property, state } from 'lit-element';
 import { html } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
-import MbOption from './option';
-import { CodedTextElement, CodedText } from './CodedTextElement';
+import type SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
+import type MbOption from './option';
+import { CodedTextElement, type CodedText } from './CodedTextElement';
 
 import '@shoelace-style/shoelace/dist/components/menu/menu';
 import '@shoelace-style/shoelace/dist/components/select/select';
@@ -17,16 +17,15 @@ export default class MbSelect extends CodedTextElement {
 
   @property({ type: Object }) data: CodedText | CodedText[] | undefined;
 
-  @property({ type: String, reflect: true }) placeholder: string =
-    'Please select';
+  @property({ type: String, reflect: true }) placeholder = 'Please select';
 
-  @property({ type: String, reflect: true }) id: string = 'select';
+  @property({ type: String, reflect: true }) id = 'select';
 
-  @property({ type: Boolean, reflect: true }) multiple: boolean = false;
+  @property({ type: Boolean, reflect: true }) multiple = false;
 
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
-  @property({ type: Boolean, reflect: true }) hoist: boolean = false;
+  @property({ type: Boolean, reflect: true }) hoist = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
@@ -60,7 +59,7 @@ export default class MbSelect extends CodedTextElement {
         };
         const ordinal = this.getOrdinal(item);
         if (ordinal) {
-          codedtext = { ...codedtext, ordinal: parseInt(ordinal as any, 10) };
+          codedtext = { ...codedtext, ordinal };
         }
         return codedtext;
       });
@@ -76,7 +75,7 @@ export default class MbSelect extends CodedTextElement {
       };
       const ordinal = this.getOrdinal(select.value);
       if (ordinal) {
-        data = { ...data, ordinal: parseInt(ordinal as any, 10) };
+        data = { ...data, ordinal };
       }
       this.data = data;
       this._mbInput.emit();
@@ -105,7 +104,7 @@ export default class MbSelect extends CodedTextElement {
   }
 
   reportValidity() {
-    const select = this.shadowRoot!.querySelector('sl-select') as SlSelect;
+    const select = this.shadowRoot?.querySelector('sl-select') as SlSelect;
     return select.reportValidity();
   }
 
@@ -128,7 +127,7 @@ export default class MbSelect extends CodedTextElement {
         id=${this.id}
         .size=${this.variant === 'small' ? 'small' : 'medium'}
         .disabled=${this.disabled}
-        .clearable=${this.nonclearable ? false : true}
+        .clearable=${!this.nonclearable}
         ?required=${this.required}
         ?multiple=${this.multiple}
         placeholder=${this.placeholder ?? 'Please select'}

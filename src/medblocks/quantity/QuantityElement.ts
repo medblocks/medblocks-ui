@@ -1,5 +1,5 @@
 import { property } from 'lit-element';
-import { event, EventEmitter } from '../../internal/decorators';
+import { event, type EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 
 interface Quantity {

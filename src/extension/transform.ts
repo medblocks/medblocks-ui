@@ -140,9 +140,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
             0,
             n.path.length - 2
           )}" label="${n.name || ''}" terminology="${
-            n.inputs[0].terminology ||
-            n?.annotations?.['MB_VALUESET'] ||
-            'local'
+            n.inputs[0].terminology || n?.annotations?.MB_VALUESET || 'local'
           }">
         </mb-search-multiple>`,
         },
@@ -188,9 +186,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
           html: `<mb-search disablefallback path="${n.path}" label="${
             n.name || ''
           }" terminology="${
-            n.inputs[0].terminology ||
-            n?.annotations?.['MB_VALUESET'] ||
-            'local'
+            n.inputs[0].terminology || n?.annotations?.MB_VALUESET || 'local'
           }">
         </mb-search>`,
         },
@@ -231,7 +227,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
     let templates;
     if (n.max === -1) {
       templates = [
-        ...(n?.annotations?.['MB_VALUESET']
+        ...(n?.annotations?.MB_VALUESET
           ? [
               {
                 name: 'Search-Multiple',
@@ -239,7 +235,7 @@ const transformations: { [rmType: string]: TransformFunction } = {
                   0,
                   n.path.length - 2
                 )}" label="${n.name || ''}" terminology="${
-                  n?.annotations?.['MB_VALUESET']
+                  n?.annotations?.MB_VALUESET
                 }">
                 </mb-search-multiple>`,
               },
@@ -273,13 +269,13 @@ const transformations: { [rmType: string]: TransformFunction } = {
       ];
     } else {
       templates = [
-        ...(n?.annotations?.['MB_VALUESET']
+        ...(n?.annotations?.MB_VALUESET
           ? [
               {
                 name: 'Search',
                 html: `<mb-search path="${n.path}" label="${
                   n.name || ''
-                }" terminology="${n?.annotations?.['MB_VALUESET']}">
+                }" terminology="${n?.annotations?.MB_VALUESET}">
             </mb-search>`,
               },
             ]

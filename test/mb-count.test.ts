@@ -1,6 +1,6 @@
 import { fixture, expect, oneEvent, elementUpdated } from '@open-wc/testing';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import MbCount from '../src/medblocks/count/count';
+import type MbCount from '../src/medblocks/count/count';
 import '../src/medblocks/count/count';
 
 describe('MbCount', () => {
@@ -18,7 +18,7 @@ describe('MbCount', () => {
       input.value = '3';
       input.dispatchEvent(new Event('input'));
     }, 0);
-    const event: any = await oneEvent(mbcount, 'mb-input');
+    const event: any = await oneEvent(mbcount, 'mb-input', true);
     expect(event.target.data).to.eq(3);
   });
 
@@ -27,7 +27,7 @@ describe('MbCount', () => {
       input.dispatchEvent(new Event('input'));
       mbcount.data = 1;
     }, 0);
-    await oneEvent(mbcount, 'mb-input');
+    await oneEvent(mbcount, 'mb-input', true);
     await elementUpdated(mbcount);
     expect(input.value).to.eq('1');
   });
@@ -36,7 +36,7 @@ describe('MbCount', () => {
       input.value = '0';
       input.dispatchEvent(new Event('input'));
     }, 0);
-    const event: any = await oneEvent(mbcount, 'mb-input');
+    const event: any = await oneEvent(mbcount, 'mb-input', true);
     expect(event.target.data).to.eq(0);
   });
 
@@ -45,7 +45,7 @@ describe('MbCount', () => {
       input.dispatchEvent(new Event('input'));
       mbcount.data = 0;
     }, 0);
-    await oneEvent(mbcount, 'mb-input');
+    await oneEvent(mbcount, 'mb-input', true);
     await elementUpdated(mbcount);
     expect(input.value).to.eq('0');
   });

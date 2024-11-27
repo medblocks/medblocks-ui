@@ -1,4 +1,4 @@
-import { SlMenuItem } from '@shoelace-style/shoelace';
+import type { SlMenuItem } from '@shoelace-style/shoelace';
 import SlDropdown from '@shoelace-style/shoelace/dist/components/dropdown/dropdown';
 import { customElement, property } from 'lit-element';
 

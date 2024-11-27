@@ -4,10 +4,10 @@ import {
   querySelectorAllDeep,
   querySelectorDeep,
 } from 'query-selector-shadow-dom';
-import MbForm from '../src/medblocks/form/form';
-import MbSuggest from '../src/medblocks/suggestionWrapper';
+import type MbForm from '../src/medblocks/form/form';
+import type MbSuggest from '../src/medblocks/suggestionWrapper';
 import '../medblocks';
-import MbInput from '../src/medblocks/text/input';
+import type MbInput from '../src/medblocks/text/input';
 
 describe('mb-suggest', () => {
   it('archetype level suggestion binding with replace operation', async () => {

@@ -1,4 +1,4 @@
-import { SlInput } from '@shoelace-style/shoelace';
+import type { SlInput } from '@shoelace-style/shoelace';
 import { customElement, property, html, state, css } from 'lit-element';
 import EhrElement from '../EhrElement';
 import '@shoelace-style/shoelace/dist/components/input/input';
@@ -67,19 +67,19 @@ export default class MbInputMultiple extends EhrElement {
 
   @property({ type: Array }) data: string[] = [];
 
-  @property({ type: Boolean }) multiple: boolean = true;
+  @property({ type: Boolean }) multiple = true;
 
-  @property({ type: Boolean, reflect: true }) hidehelp: boolean = false;
+  @property({ type: Boolean, reflect: true }) hidehelp = false;
 
-  @property({ type: String, reflect: true }) placeholder: string = '';
+  @property({ type: String, reflect: true }) placeholder = '';
 
-  @property({ type: String, reflect: true }) id: string = 'input_multiple';
+  @property({ type: String, reflect: true }) id = 'input_multiple';
 
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
-  @state() value: string = '';
+  @state() value = '';
 
   handleClear(tagIndex: number) {
     if (!this.disabled) {
@@ -120,7 +120,7 @@ export default class MbInputMultiple extends EhrElement {
   }
 
   reportValidity() {
-    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    const input = this.shadowRoot?.querySelector('sl-input') as SlInput;
     if (this.data.length > 0) {
       return true;
     }

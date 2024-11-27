@@ -2,8 +2,8 @@ import '../../medblocks';
 import { expect } from '@open-wc/testing';
 import { elementUpdated, fixture } from '@open-wc/testing-helpers';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import MbForm from '../../src/medblocks/form/form';
-import MbSelect from '../../src/medblocks/codedtext/select';
+import type MbForm from '../../src/medblocks/form/form';
+import type MbSelect from '../../src/medblocks/codedtext/select';
 
 describe('select validation test', () => {
   it('empty', async () => {

@@ -1,6 +1,6 @@
 import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import MbSubmit from '../src/medblocks/submit/submit';
+import type MbSubmit from '../src/medblocks/submit/submit';
 import '../medblocks';
 
 describe('Submit', () => {
@@ -16,7 +16,7 @@ describe('Submit', () => {
     setTimeout(() => {
       button?.click();
     });
-    const e = await oneEvent(submit, 'mb-trigger-submit');
+    const e = await oneEvent(submit, 'mb-trigger-submit', true);
     expect(e).to.not.be.undefined;
   });
   it('should emit mb-trigger-submit event with sl-button', async () => {
@@ -31,7 +31,7 @@ describe('Submit', () => {
     setTimeout(() => {
       button?.click();
     });
-    const e = await oneEvent(submit, 'mb-trigger-submit');
+    const e = await oneEvent(submit, 'mb-trigger-submit', true);
     expect(e).to.not.be.undefined;
   });
 });

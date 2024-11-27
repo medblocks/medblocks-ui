@@ -1,11 +1,11 @@
 /* eslint-disable max-classes-per-file */
 import { elementUpdated } from '@open-wc/testing-helpers';
 import { expect, html, fixture } from '@open-wc/testing';
-import { LitElement, property } from 'lit-element';
+import { LitElement, property, html as litHtml } from 'lit-element';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
 import EhrElement from '../src/medblocks/EhrElement';
 import '../src/medblocks/form/form';
-import MbForm from '../src/medblocks/form/form';
+import type MbForm from '../src/medblocks/form/form';
 import MedblockForm from '../src/medblocks/form/form';
 import { toFlat } from '../src/medblocks/form/plugins/openEHRFlat';
 
@@ -17,30 +17,30 @@ class TestComponent extends LitElement {
   @property({ type: Array }) paths: string[];
 
   render() {
-    return html`<mb-form>
-      ${this.paths.map(path => html`<base-ehr path=${path}></base-ehr>`)}
+    return litHtml`<mb-form>
+      ${this.paths.map(path => litHtml`<base-ehr path=${path}></base-ehr>`)}
     </mb-form>`;
   }
 }
 class RepeateableTest extends LitElement {
-  @property({ type: Number }) i: number = 2;
+  @property({ type: Number }) i = 2;
 
   render() {
-    return html`<mb-form>
+    return litHtml`<mb-form>
       ${[...Array(this.i)].map(
-        (_, i) => html`<base-ehr path=${`path/${i}`}> </base-ehr>`
+        (_, i) => litHtml`<base-ehr path=${`path/${i}`}> </base-ehr>`
       )}
     </mb-form>`;
   }
 }
 
 class RepeateableTest2 extends LitElement {
-  @property({ type: Number }) i: number = 2;
+  @property({ type: Number }) i = 2;
 
   render() {
-    return html`<mb-form>
+    return litHtml`<mb-form>
       ${[...Array(this.i)].map(
-        (_, i) => html`<div>
+        (_, i) => litHtml`<div>
           <base-ehr path=${`path/${i}`}> </base-ehr>
         </div>`
       )}

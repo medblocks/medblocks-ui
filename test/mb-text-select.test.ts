@@ -9,8 +9,8 @@ import {
   querySelectorDeep,
   querySelectorAllDeep,
 } from 'query-selector-shadow-dom';
-import { SlMenuItem, SlSelect } from '@shoelace-style/shoelace';
-import MbTextSelect from '../src/medblocks/text/text-select';
+import type { SlMenuItem, SlSelect } from '@shoelace-style/shoelace';
+import type MbTextSelect from '../src/medblocks/text/text-select';
 import '../src/medblocks/text/text-select';
 import '../src/medblocks/codedtext/option';
 
@@ -27,7 +27,7 @@ describe('MbTextSelect', () => {
     ) as unknown as HTMLSelectElement;
     select.value = 'testUnit';
     select.dispatchEvent(new CustomEvent('sl-change'));
-    const event: any = await oneEvent(mbtextselect, 'mb-input');
+    const event: any = await oneEvent(mbtextselect, 'mb-input', true);
     expect(event.target.data).to.eql('testUnit');
   });
 
@@ -42,7 +42,7 @@ describe('MbTextSelect', () => {
       'sl-select'
     ) as unknown as HTMLSelectElement;
     mbtextselect.data = 'testUnit';
-    await oneEvent(mbtextselect, 'mb-input');
+    await oneEvent(mbtextselect, 'mb-input', true);
     await elementUpdated(mbtextselect);
     expect(select.value).to.eq('testUnit');
   });
@@ -57,11 +57,11 @@ describe('MbTextSelect', () => {
     const menuItem = querySelectorAllDeep('sl-menu-item');
     const select = querySelectorDeep('sl-select') as SlSelect;
     menuItem[0].click();
-    await oneEvent(mbtextselect, 'mb-input');
+    await oneEvent(mbtextselect, 'mb-input', true);
     await elementUpdated(mbtextselect);
     expect(mbtextselect.data).to.eql(['testUnit']);
     menuItem[1].click();
-    await oneEvent(mbtextselect, 'mb-input');
+    await oneEvent(mbtextselect, 'mb-input', true);
     await elementUpdated(mbtextselect);
     expect(mbtextselect.data).to.eql(['testUnit', 'testUnit1']);
     expect(select.value).to.eql(['testUnit', 'testUnit1']);

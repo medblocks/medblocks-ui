@@ -9,10 +9,10 @@ import {
   querySelectorAllDeep,
   querySelectorDeep,
 } from 'query-selector-shadow-dom';
-import { SlInput, SlTag } from '@shoelace-style/shoelace';
-import MbInputMultiple from '../src/medblocks/text/input-multiple';
+import type { SlInput, SlTag } from '@shoelace-style/shoelace';
+import type MbInputMultiple from '../src/medblocks/text/input-multiple';
 import '../src/medblocks/text/input-multiple';
-import MedblockForm from '../src/medblocks/form/form';
+import type MedblockForm from '../src/medblocks/form/form';
 import '../src/medblocks/form/form';
 import { toInsertContext } from '../src/medblocks/form/plugins/openEHRFlat';
 
@@ -31,7 +31,7 @@ describe('MbInputMultiple', async () => {
         })
       );
     });
-    await oneEvent(mbinputmultiple, 'mb-input');
+    await oneEvent(mbinputmultiple, 'mb-input', true);
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1']);
     setTimeout(() => {
@@ -43,7 +43,7 @@ describe('MbInputMultiple', async () => {
         })
       );
     });
-    await oneEvent(mbinputmultiple, 'mb-input');
+    await oneEvent(mbinputmultiple, 'mb-input', true);
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1', 'testUnit2']);
   });
@@ -87,7 +87,7 @@ describe('MbInputMultiple', async () => {
         })
       );
     });
-    await oneEvent(mbinputmultiple, 'mb-input');
+    await oneEvent(mbinputmultiple, 'mb-input', true);
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1']);
     setTimeout(() => {
@@ -99,11 +99,11 @@ describe('MbInputMultiple', async () => {
         })
       );
     });
-    await oneEvent(mbinputmultiple, 'mb-input');
+    await oneEvent(mbinputmultiple, 'mb-input', true);
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1', 'testUnit2']);
     setTimeout(() => form.handleSubmit(), 0);
-    const data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit', true);
     expect(data.detail).to.eql({
       'mbselect:0/multiple': 'testUnit1',
       'mbselect:1/multiple': 'testUnit2',
@@ -136,7 +136,7 @@ describe('MbInputMultiple', async () => {
         })
       );
     });
-    await oneEvent(mbinputmultiple, 'mb-input');
+    await oneEvent(mbinputmultiple, 'mb-input', true);
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1']);
     setTimeout(() => {
@@ -148,11 +148,11 @@ describe('MbInputMultiple', async () => {
         })
       );
     });
-    await oneEvent(mbinputmultiple, 'mb-input');
+    await oneEvent(mbinputmultiple, 'mb-input', true);
     await elementUpdated(mbinputmultiple);
     expect(mbinputmultiple.data).to.eql(['testUnit1', 'testUnit2']);
     setTimeout(() => form.handleSubmit(), 0);
-    const data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit', true);
     expect(data.detail).to.eql({
       'mbselect:0/multiple:0': 'testUnit1',
       'mbselect:0/multiple:1': 'testUnit2',
@@ -235,7 +235,7 @@ it('on multiple select with prefix and suffix , emits correct context', async ()
       })
     );
   });
-  await oneEvent(mbinputmultiple, 'mb-input');
+  await oneEvent(mbinputmultiple, 'mb-input', true);
   await elementUpdated(mbinputmultiple);
   expect(mbinputmultiple.data).to.eql(['testUnit1']);
   setTimeout(() => {
@@ -247,7 +247,7 @@ it('on multiple select with prefix and suffix , emits correct context', async ()
       })
     );
   });
-  await oneEvent(mbinputmultiple, 'mb-input');
+  await oneEvent(mbinputmultiple, 'mb-input', true);
   await elementUpdated(mbinputmultiple);
   expect(mbinputmultiple.data).to.eql(['testUnit1', 'testUnit2']);
 
@@ -259,7 +259,7 @@ it('on multiple select with prefix and suffix , emits correct context', async ()
 
   expect(shouldBeTrue).true;
   setTimeout(() => form.handleSubmit(), 0);
-  const data = await oneEvent(form, 'mb-submit');
+  const data = await oneEvent(form, 'mb-submit', true);
   expect(data.detail).to.eql({
     'mbselect/multiple:0/path': 'testUnit1',
     'mbselect/multiple:1/path': 'testUnit2',

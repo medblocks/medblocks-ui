@@ -1,8 +1,8 @@
 import { customElement, property, state } from 'lit-element';
-import SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
+import type SlSelect from '@shoelace-style/shoelace/dist/components/select/select';
 import { html } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import MbOption from '../codedtext/option';
+import type MbOption from '../codedtext/option';
 
 import '@shoelace-style/shoelace/dist/components/menu/menu';
 import '@shoelace-style/shoelace/dist/components/select/select';
@@ -77,7 +77,7 @@ export default class MbTextSelect extends EhrElement {
         id=${this.id}
         exportparts="menu"
         .size=${this.variant === 'small' ? 'small' : 'medium'}
-        .clearable=${this.nonclearable ? false : true}
+        .clearable=${!this.nonclearable}
         .disabled=${this.disabled}
         ?required=${this.required}
         ?multiple=${this.multiple}

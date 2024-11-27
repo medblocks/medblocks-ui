@@ -1,12 +1,12 @@
 import { customElement, html, property, state, css } from 'lit-element';
 
-import { CodedText } from './CodedTextElement';
+import type { CodedText } from './CodedTextElement';
 
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/tag/tag';
 import MbSearchAbstract from './abstractSearch';
-import { SearchResult } from './searchFunctions';
+import type { SearchResult } from './searchFunctions';
 
 @customElement('mb-search-multiple')
 export default class MbSearchMultiple extends MbSearchAbstract {
@@ -56,7 +56,8 @@ export default class MbSearchMultiple extends MbSearchAbstract {
       text-overflow: ellipsis;
     }
   `;
-  @property({ type: Boolean }) multiple: boolean = true;
+
+  @property({ type: Boolean }) multiple = true;
 
   @state() value: any = {};
 
@@ -93,7 +94,7 @@ export default class MbSearchMultiple extends MbSearchAbstract {
 
   handleClear(tagIndex: number) {
     if (!this.disabled) {
-      this.data = this.data.filter((_: any, i: any) => i !== tagIndex);
+      this.data = this.data.filter((_: any, i: number) => i !== tagIndex);
       this._mbInput.emit();
     }
   }
@@ -115,7 +116,7 @@ export default class MbSearchMultiple extends MbSearchAbstract {
       ${this._searchBar()}
       <div>
         ${this.data?.map(
-          (s: any, i: any) =>
+          (s: any, i: number) =>
             html`<sl-tag
               variant=${typeof s === 'string' ? 'neutral' : 'primary'}
               size=${this.variant === 'small' ? 'small' : 'medium'}

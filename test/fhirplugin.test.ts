@@ -1,5 +1,5 @@
 import { expect, oneEvent, fixture, html } from '@open-wc/testing';
-import MbForm from '../src/medblocks/form/fhirForm';
+import type MbForm from '../src/medblocks/form/fhirForm';
 import '../medblocks';
 
 describe('FHIR Plugin', () => {
@@ -219,7 +219,7 @@ describe('FHIR Plugin', () => {
     `);
 
     setTimeout(() => form.handleSubmit());
-    const data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit', true);
     expect(data.detail).to.eql({
       resourceType: 'Patient',
       identifier: [
@@ -309,7 +309,7 @@ describe('FHIR Plugin', () => {
     `);
 
     setTimeout(() => form.handleSubmit());
-    const data = await oneEvent(form, 'mb-submit');
+    const data = await oneEvent(form, 'mb-submit', true);
     console.log(data.detail);
     expect(data.detail).to.eql({
       resourceType: 'Patient',

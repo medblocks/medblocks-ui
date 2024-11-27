@@ -1,15 +1,15 @@
 import { LitElement, property } from 'lit-element';
-import { event, EventEmitter, watch } from '../../internal/decorators';
+import { event, type EventEmitter, watch } from '../../internal/decorators';
 
 export function getRepeatableRegex(path: string) {
   return new RegExp(`(${path}):(\\d+)`, 'g');
 }
 
 export default class Repeatable extends LitElement {
-  isRepeatable: boolean = true;
+  isRepeatable = true;
 
   @property({ type: Number, reflect: true })
-  count: number = 0;
+  count = 0;
 
   @property({ type: String, reflect: true })
   path: string;

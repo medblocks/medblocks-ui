@@ -1,15 +1,15 @@
-import { SlCheckbox } from '@shoelace-style/shoelace';
+import type { SlCheckbox } from '@shoelace-style/shoelace';
 import '@shoelace-style/shoelace/dist/components/checkbox/checkbox';
 import { customElement, html, property } from 'lit-element';
 import EhrElement from '../EhrElement';
 
 @customElement('mb-checkbox-any')
 export default class MbCheckBox extends EhrElement {
-  @property() data: any = undefined;
+  @property() data = undefined;
 
-  @property() bind: any = undefined;
+  @property() bind = undefined;
 
-  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
   _handleChange(e: CustomEvent) {
     const checkbox = e.target as SlCheckbox;

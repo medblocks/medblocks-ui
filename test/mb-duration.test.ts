@@ -6,8 +6,8 @@ import {
   elementUpdated,
 } from '@open-wc/testing';
 import { querySelectorAllDeep } from 'query-selector-shadow-dom';
-import { SlInput } from '@shoelace-style/shoelace';
-import MbDuration from '../src/medblocks/duration/duration';
+import type { SlInput } from '@shoelace-style/shoelace';
+import type MbDuration from '../src/medblocks/duration/duration';
 import '../src/medblocks/duration/duration';
 
 describe('MbDuration', () => {
@@ -20,7 +20,7 @@ describe('MbDuration', () => {
       // year[0].value = '2';
       year[0].dispatchEvent(new Event('input'));
     }, 0);
-    const event: any = await oneEvent(mbDuration, 'mb-input');
+    const event: any = await oneEvent(mbDuration, 'mb-input', true);
     expect(event.target.data).to.eq(undefined);
   });
 
@@ -33,7 +33,7 @@ describe('MbDuration', () => {
       year[0].value = '2';
       year[0].dispatchEvent(new Event('input'));
     }, 0);
-    const event: any = await oneEvent(mbDuration, 'mb-input');
+    const event: any = await oneEvent(mbDuration, 'mb-input', true);
     expect(event.target.data).to.eq('P2Y');
   });
 
@@ -46,7 +46,7 @@ describe('MbDuration', () => {
       year[0].dispatchEvent(new Event('input'));
       mbDuration.data = 'P3Y4M';
     });
-    await oneEvent(mbDuration, 'mb-input');
+    await oneEvent(mbDuration, 'mb-input', true);
     await elementUpdated(mbDuration);
     expect(year[0].value).to.eq('3');
   });
@@ -59,7 +59,7 @@ describe('MbDuration', () => {
       year[1].dispatchEvent(new Event('input'));
       mbDuration.data = 'P3Y4M';
     });
-    await oneEvent(mbDuration, 'mb-input');
+    await oneEvent(mbDuration, 'mb-input', true);
     await elementUpdated(mbDuration);
     expect(year[1].value).to.eq('4');
   });

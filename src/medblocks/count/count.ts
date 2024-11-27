@@ -1,8 +1,8 @@
 import { customElement, html, property } from 'lit-element';
-import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
+import type SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
-import { event, EventEmitter } from '../../internal/decorators';
+import { event, type EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 
 /**
@@ -13,13 +13,13 @@ import EhrElement from '../EhrElement';
 export default class MbCount extends EhrElement {
   @property({ type: Number }) data: number;
 
-  @property({ type: String }) label: string = '';
+  @property({ type: String }) label = '';
 
-  @property({ type: String, reflect: true }) placeholder: string = '';
+  @property({ type: String, reflect: true }) placeholder = '';
 
-  @property({ type: String, reflect: true }) id: string = 'count';
+  @property({ type: String, reflect: true }) id = 'count';
 
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
@@ -32,12 +32,12 @@ export default class MbCount extends EhrElement {
 
   handleInput(e: CustomEvent) {
     const inputElement = e.target as SlInput;
-    this.data = parseFloat(inputElement.value);
+    this.data = Number.parseFloat(inputElement.value);
     this._mbInput.emit();
   }
 
   reportValidity() {
-    const input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+    const input = this.shadowRoot?.querySelector('sl-input') as SlInput;
     return input.reportValidity();
   }
 

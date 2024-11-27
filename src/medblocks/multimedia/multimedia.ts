@@ -49,32 +49,31 @@ export default class MbMultimedia extends EhrElement {
     const file = element.files?.[0];
     if (e.target?.value === '') {
       this.data = undefined;
-    } else {
-      if (file) {
-        if (this.base64) {
-          const reader = new FileReader();
-          let base64Data = '';
-          reader.onload = event => {
-            base64Data = event.target?.result as string;
-            this.data = {
-              data: base64Data,
-              mediatype: file?.type,
-              alternatetext: file?.name,
-              size: file?.size,
-            };
-          };
-          reader.readAsDataURL(file);
-        } else {
-          const axios = this.axios ? this.axios : this._parentAxios;
-          this.loading = true;
-          const output = await this.plugin.storageAPI.upload({ axios, file });
+    } else if (file) {
+      if (this.base64) {
+        const reader = new FileReader();
+        let base64Data = '';
+        reader.onload = event => {
+          base64Data = event.target?.result as string;
           this.data = {
-            _root: `s3:///${output}`,
+            data: base64Data,
             mediatype: file?.type,
             alternatetext: file?.name,
             size: file?.size,
           };
-        }
+        };
+        reader.readAsDataURL(file);
+      } else {
+        const axios = this.axios ? this.axios : this._parentAxios;
+        this.loading = true;
+        const output = await this.plugin.storageAPI.upload({ axios, file });
+        this.data = {
+          _root: `s3:///${output}`,
+          mediatype: file?.type,
+          alternatetext: file?.name,
+          size: file?.size,
+        };
+
         this.handleInput();
         this.loading = false;
       }

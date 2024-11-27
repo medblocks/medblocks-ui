@@ -1,10 +1,10 @@
 import { customElement, html, property, css } from 'lit-element';
-import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
-import SlTextarea from '@shoelace-style/shoelace/dist/components/textarea/textarea';
+import type SlInput from '@shoelace-style/shoelace/dist/components/input/input';
+import type SlTextarea from '@shoelace-style/shoelace/dist/components/textarea/textarea';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
 import '@shoelace-style/shoelace/dist/components/textarea/textarea';
-import { event, EventEmitter } from '../../internal/decorators';
+import { event, type EventEmitter } from '../../internal/decorators';
 import EhrElement from '../EhrElement';
 
 /**
@@ -36,17 +36,17 @@ export default class MbInput extends EhrElement {
 
   @property({ type: String }) data: string | undefined;
 
-  @property({ type: Boolean, reflect: true }) textarea: boolean = false;
+  @property({ type: Boolean, reflect: true }) textarea = false;
 
-  @property({ type: String }) label: string = '';
+  @property({ type: String }) label = '';
 
-  @property({ type: String, reflect: true }) id: string = 'input';
+  @property({ type: String, reflect: true }) id = 'input';
 
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
   @property({ type: String, reflect: true }) type: string;
 
-  @property({ type: String, reflect: true }) placeholder: string = '';
+  @property({ type: String, reflect: true }) placeholder = '';
 
   @property({ type: Number, reflect: true }) min: number;
 
@@ -72,11 +72,11 @@ export default class MbInput extends EhrElement {
   }
 
   reportValidity() {
-    let input;
+    let input = null;
     if (this.textarea) {
-      input = this.shadowRoot!.querySelector('sl-textarea') as SlTextarea;
+      input = this.shadowRoot?.querySelector('sl-textarea') as SlTextarea;
     } else {
-      input = this.shadowRoot!.querySelector('sl-input') as SlInput;
+      input = this.shadowRoot?.querySelector('sl-input') as SlInput;
     }
     return input.reportValidity();
   }
@@ -115,7 +115,7 @@ export default class MbInput extends EhrElement {
             .max=${this.max}
             .maxlength=${this.maxlength}
             .minlength=${this.minlength}
-            .type=${this.type as any}
+            .type=${this.type}
             ?required=${this.required}
             label=${this.label}
             placeholder=${this.placeholder}

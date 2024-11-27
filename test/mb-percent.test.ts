@@ -6,9 +6,9 @@ import {
   elementUpdated,
 } from '@open-wc/testing';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import MbPercent from '../src/medblocks/proportion/percent';
+import type MbPercent from '../src/medblocks/proportion/percent';
 import '../src/medblocks/proportion/percent';
-import MbForm from '../src/medblocks/form/form';
+import type MbForm from '../src/medblocks/form/form';
 import '../medblocks';
 
 describe('MbPercent', () => {
@@ -20,7 +20,7 @@ describe('MbPercent', () => {
     setTimeout(() => {
       input.dispatchEvent(new Event('input'));
     });
-    const event: any = await oneEvent(mbPercent, 'mb-input');
+    const event: any = await oneEvent(mbPercent, 'mb-input', true);
     expect(event.target.data).to.eq(undefined);
   });
 
@@ -33,7 +33,7 @@ describe('MbPercent', () => {
       input.value = '2';
       input.dispatchEvent(new Event('input'));
     });
-    const event: any = await oneEvent(mbPercent, 'mb-input');
+    const event: any = await oneEvent(mbPercent, 'mb-input', true);
     expect(event.target.data).to.eql({
       numerator: 2,
       denominator: 100,
@@ -50,7 +50,7 @@ describe('MbPercent', () => {
       input.dispatchEvent(new Event('input'));
       mbPercent.data = { numerator: 3, denominator: 100, type: 3 };
     }, 0);
-    await oneEvent(mbPercent, 'mb-input');
+    await oneEvent(mbPercent, 'mb-input', true);
     await elementUpdated(mbPercent);
     expect(input.value).to.eq('3');
   });

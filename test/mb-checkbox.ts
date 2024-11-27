@@ -2,9 +2,9 @@ import { fixture, expect, oneEvent, elementUpdated } from '@open-wc/testing';
 
 import '../src/medblocks/proportion/percent';
 import { querySelectorDeep } from 'query-selector-shadow-dom';
-import MbForm from '../src/medblocks/form/form';
+import type MbForm from '../src/medblocks/form/form';
 import '../medblocks';
-import MbSelect from '../src/medblocks/codedtext/select';
+import type MbSelect from '../src/medblocks/codedtext/select';
 
 describe('MbSelect', () => {
   // it('data if not provided', async () => {
@@ -15,7 +15,7 @@ describe('MbSelect', () => {
   //   setTimeout(() => {
   //     input.dispatchEvent(new Event('input'));
   //   });
-  //   const event: any = await oneEvent(mbPercent, 'mb-input');
+  //   const event: any = await oneEvent(mbPercent, 'mb-input',true);
   //   expect(event.target.data).to.eq(undefined);
   // });
 
@@ -29,7 +29,7 @@ describe('MbSelect', () => {
     ) as unknown as HTMLSelectElement;
     select.value = 'at0096';
     select.dispatchEvent(new CustomEvent('sl-change'));
-    const event: any = await oneEvent(mbselect, 'mb-input');
+    const event: any = await oneEvent(mbselect, 'mb-input', true);
     // console.log(event.target.data)
     expect(event.target.data).to.eql({
       code: 'at0096',
@@ -54,7 +54,7 @@ describe('MbSelect', () => {
         ordinal: 1,
       };
     }, 0);
-    await oneEvent(mbOrdinal, 'mb-input');
+    await oneEvent(mbOrdinal, 'mb-input', true);
     await elementUpdated(mbOrdinal);
     expect(select.value).to.eq('at0096');
   });

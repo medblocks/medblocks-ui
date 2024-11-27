@@ -1,6 +1,6 @@
 import { html, LitElement, property } from 'lit-element';
-import { event, EventEmitter, watch } from '../internal/decorators';
-import MedblockForm from './form/form';
+import { event, type EventEmitter, watch } from '../internal/decorators';
+import type MedblockForm from './form/form';
 
 export type Variant = 'small' | 'text' | 'normal';
 /** This is an abstract base class to extend other elements from
@@ -30,7 +30,7 @@ export default abstract class EhrElement extends LitElement {
   /** Data of the element. Setting this will emit an input event automatically. */
   abstract data: any;
 
-  isMbElement: boolean = true;
+  isMbElement = true;
 
   /** An internal representation of type to handle serializing */
   @property({ type: String, reflect: true })

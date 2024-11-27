@@ -3,19 +3,19 @@ import '@shoelace-style/shoelace/dist/components/button/button';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
 // import { SlSelect } from '@shoelace-style/shoelace';
 import { property } from 'lit-element';
-import { CodedText, CodedTextElement } from './CodedTextElement';
-import MbOption from './option';
+import { type CodedText, CodedTextElement } from './CodedTextElement';
+import type MbOption from './option';
 /**
  * An array of buttons to choose from. Expects nested mb-options to actually render buttons.
  * @inheritdoc
  */
 @customElement('mb-buttons')
 export default class CodedTextButtons extends CodedTextElement {
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
-  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
-  @property({ type: String, reflect: true }) id: string = 'buttons';
+  @property({ type: String, reflect: true }) id = 'buttons';
 
   /** @ignore */
   static styles = css`
@@ -62,7 +62,7 @@ export default class CodedTextButtons extends CodedTextElement {
   }
 
   reportValidity() {
-    const input = this.shadowRoot!.querySelector('input') as HTMLInputElement;
+    const input = this.shadowRoot?.querySelector('input') as HTMLInputElement;
     return input.reportValidity();
   }
 
@@ -73,7 +73,7 @@ export default class CodedTextButtons extends CodedTextElement {
       terminology: this.terminology,
     };
     if (option.ordinal) {
-      data = { ...data, ordinal: parseInt(option.ordinal as any, 10) };
+      data = { ...data, ordinal: option.ordinal };
     }
     if (this.data?.code === data.code) {
       this.data = undefined;
