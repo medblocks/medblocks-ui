@@ -19,17 +19,17 @@ export default class MbTextSelect extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
-  @property({ type: Boolean, reflect: true }) multiple: boolean = false;
+  @property({ type: Boolean, reflect: true }) multiple = false;
 
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
-  @property({ type: Boolean, reflect: true }) hoist: boolean = false;
+  @property({ type: Boolean, reflect: true }) hoist = false;
 
   @property({ type: Boolean, reflect: true }) nonclearable: boolean;
 
   @property({ type: String, reflect: true }) placeholder: string;
 
-  @property({ type: String, reflect: true }) id: string = 'text_select';
+  @property({ type: String, reflect: true }) id = 'text_select';
 
   @state() _options: MbOption[] = [];
 
@@ -61,7 +61,7 @@ export default class MbTextSelect extends EhrElement {
   }
 
   reportValidity() {
-    const select = this.shadowRoot!.querySelector('sl-select') as SlSelect;
+    const select = this.shadowRoot?.querySelector('sl-select') as SlSelect;
     return select.reportValidity();
   }
 

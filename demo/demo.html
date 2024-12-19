@@ -17,23 +17,566 @@
     <script type="module" src="../dist/medblocks.js"></script>
     <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script>
+      const webTemplate = {
+        templateId: 'medication_order_ignite.v0',
+        version: '2.3',
+        defaultLanguage: 'en',
+        languages: ['en'],
+        tree: {
+          id: 'medication_order_ignite.v0',
+          name: 'medication_order_ignite.v0',
+          localizedName: 'medication_order_ignite.v0',
+          rmType: 'COMPOSITION',
+          nodeId: 'openEHR-EHR-COMPOSITION.encounter.v1',
+          min: 1,
+          max: 1,
+          localizedNames: {
+            en: 'medication_order_ignite.v0',
+          },
+          localizedDescriptions: {
+            en: 'Interaction, contact or care event between a subject of care and healthcare provider(s).',
+          },
+          children: [
+            {
+              id: 'category',
+              name: 'category',
+              localizedName: 'category',
+              rmType: 'DV_CODED_TEXT',
+              min: 1,
+              max: 1,
+              aqlPath: '/category',
+              inputs: [
+                {
+                  suffix: 'code',
+                  type: 'CODED_TEXT',
+                  list: [
+                    {
+                      value: '433',
+                      label: 'event',
+                      localizedLabels: {
+                        en: 'event',
+                      },
+                    },
+                  ],
+                  terminology: 'openehr',
+                },
+              ],
+              inContext: true,
+            },
+            {
+              id: 'context',
+              name: 'context',
+              localizedName: 'context',
+              rmType: 'EVENT_CONTEXT',
+              min: 1,
+              max: 1,
+              aqlPath: '/context',
+              children: [
+                {
+                  id: 'start_time',
+                  name: 'start_time',
+                  rmType: 'DV_DATE_TIME',
+                  min: 1,
+                  max: 1,
+                  aqlPath: '/context/start_time',
+                  inputs: [
+                    {
+                      type: 'DATETIME',
+                    },
+                  ],
+                  inContext: true,
+                },
+                {
+                  id: 'setting',
+                  name: 'setting',
+                  rmType: 'DV_CODED_TEXT',
+                  min: 1,
+                  max: 1,
+                  aqlPath: '/context/setting',
+                  inputs: [
+                    {
+                      suffix: 'code',
+                      type: 'TEXT',
+                    },
+                    {
+                      suffix: 'value',
+                      type: 'TEXT',
+                    },
+                  ],
+                  inContext: true,
+                },
+              ],
+            },
+            {
+              id: 'medication_order',
+              name: 'Medication order',
+              localizedName: 'Medication order',
+              rmType: 'INSTRUCTION',
+              nodeId: 'openEHR-EHR-INSTRUCTION.medication_order.v3',
+              min: 0,
+              max: -1,
+              localizedNames: {
+                en: 'Medication order',
+              },
+              localizedDescriptions: {
+                en: 'An order for a medication, vaccine, nutritional product or other therapeutic item for an identified individual.',
+              },
+              aqlPath: '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]',
+              children: [
+                {
+                  id: 'order',
+                  name: 'Order',
+                  localizedName: 'Order',
+                  rmType: 'ACTIVITY',
+                  nodeId: 'at0001',
+                  min: 0,
+                  max: -1,
+                  localizedNames: {
+                    en: 'Order',
+                  },
+                  localizedDescriptions: {
+                    en: 'Details of the requested order.',
+                  },
+                  aqlPath:
+                    '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]',
+                  children: [
+                    {
+                      id: 'medication_item',
+                      name: 'Medication item',
+                      localizedName: 'Medication item',
+                      rmType: 'DV_TEXT',
+                      nodeId: 'at0070',
+                      min: 1,
+                      max: 1,
+                      localizedNames: {
+                        en: 'Medication item',
+                      },
+                      localizedDescriptions: {
+                        en: 'Name of the medication, vaccine or other therapeutic/prescribable item being ordered.',
+                      },
+                      aqlPath:
+                        '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/description[at0002]/items[at0070]/value',
+                      inputs: [
+                        {
+                          type: 'TEXT',
+                        },
+                      ],
+                      annotations: {
+                        comment:
+                          "Depending on the prescribing context this field could be used for either generic- or product-based prescribing. This data field can be used to record tightly bound orders of different medications when they are prescribed as a single pack. It is strongly recommended that the 'Medication item' be coded with a terminology capable of triggering decision support, where possible. The extent of coding may vary from the simple name of the medication item through to structured details about the actual medication pack to be used. Free text entry should only be used if there is no appropriate terminology available.",
+                      },
+                    },
+                    {
+                      id: 'medication',
+                      name: 'Medication',
+                      localizedName: 'Medication',
+                      rmType: 'CLUSTER',
+                      nodeId: 'openEHR-EHR-CLUSTER.medication.v1',
+                      min: 0,
+                      max: 1,
+                      localizedNames: {
+                        en: 'Medication',
+                      },
+                      localizedDescriptions: {
+                        en: 'Details about a medication or component of a medication, including strength, form and details of any specific constituents.',
+                      },
+                      aqlPath:
+                        '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.medication.v1]',
+                      children: [
+                        {
+                          id: 'name',
+                          name: 'Name',
+                          localizedName: 'Name',
+                          rmType: 'DV_TEXT',
+                          nodeId: 'at0132',
+                          min: 0,
+                          max: 1,
+                          localizedNames: {
+                            en: 'Name',
+                          },
+                          localizedDescriptions: {
+                            en: 'The name of the medication or medication component.',
+                          },
+                          aqlPath:
+                            '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.medication.v1]/items[at0132]/value',
+                          inputs: [
+                            {
+                              type: 'TEXT',
+                            },
+                          ],
+                          annotations: {
+                            comment:
+                              "For example: 'Zinacef 750 mg powder' or 'cefuroxim'. This item should be coded if possible, using for example, RxNorm, DM+D, Australian Medicines Terminology or FEST. Usage of this element will vary according to context of use. This element may be omitted where the name of the medication is recorded in the parent INSTRUCTION or ACTION archetype, and this archetype is only used to record that the form must be or was 'liquid'.",
+                          },
+                        },
+                        {
+                          id: 'form',
+                          name: 'Form',
+                          localizedName: 'Form',
+                          rmType: 'DV_TEXT',
+                          nodeId: 'at0071',
+                          min: 0,
+                          max: -1,
+                          localizedNames: {
+                            en: 'Form',
+                          },
+                          localizedDescriptions: {
+                            en: 'The formulation or presentation of the medication or medication component.',
+                          },
+                          aqlPath:
+                            '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.medication.v1]/items[at0071]/value',
+                          inputs: [
+                            {
+                              type: 'TEXT',
+                            },
+                          ],
+                          annotations: {
+                            comment:
+                              "For example: 'tablet', 'capsule', 'cream', 'infusion fluid' or 'inhalation powder'. Coding of the form with a terminology is preferred, where possible. Medicines catalogues may differentiate between administrable form 'solution for injection' and product form 'powder for solution for injection'. The recorded form will depend on the exact context of use but administrable form is likely to be used in most instances.",
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      id: 'route',
+                      name: 'Route',
+                      localizedName: 'Route',
+                      rmType: 'DV_CODED_TEXT',
+                      nodeId: 'at0091',
+                      min: 0,
+                      max: -1,
+                      localizedNames: {
+                        en: 'Route',
+                      },
+                      localizedDescriptions: {
+                        en: "The route by which the ordered item is to be administered into the subject's body.",
+                      },
+                      aqlPath:
+                        '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/description[at0002]/items[at0091]/value',
+                      inputs: [
+                        {
+                          suffix: 'value',
+                          type: 'TEXT',
+                        },
+                        {
+                          suffix: 'code',
+                          type: 'TEXT',
+                        },
+                      ],
+                      annotations: {
+                        comment:
+                          "For example: 'oral', 'intravenous', or 'topical'.\r\nCoding of the route with a terminology is preferred, where possible. Multiple potential routes may be specified.",
+                      },
+                    },
+                    {
+                      id: 'dosage',
+                      name: 'Dosage',
+                      localizedName: 'Dosage',
+                      rmType: 'CLUSTER',
+                      nodeId: 'openEHR-EHR-CLUSTER.dosage.v2',
+                      min: 0,
+                      max: 1,
+                      localizedNames: {
+                        en: 'Dosage',
+                      },
+                      localizedDescriptions: {
+                        en: 'The combination of a medication amount and administration timing for a single day, in the context of a medication order or medication management.',
+                      },
+                      aqlPath:
+                        '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.dosage.v2]',
+                      children: [
+                        {
+                          id: 'dose',
+                          name: 'Dose',
+                          localizedName: 'Dose',
+                          rmType: 'DV_QUANTITY',
+                          nodeId: 'at0144',
+                          min: 0,
+                          max: 1,
+                          localizedNames: {
+                            en: 'Dose',
+                          },
+                          localizedDescriptions: {
+                            en: 'The amount of medication administered at one time.',
+                          },
+                          aqlPath:
+                            '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.dosage.v2]/items[at0144]/value',
+                          inputs: [
+                            {
+                              suffix: 'magnitude',
+                              type: 'DECIMAL',
+                            },
+                            {
+                              suffix: 'unit',
+                              type: 'CODED_TEXT',
+                            },
+                          ],
+                          annotations: {
+                            comment:
+                              'For example: 1 mg, 1.5 ml, 0.125 g; or 1-2 ml, 12.5-20.5 mg.',
+                          },
+                        },
+                        {
+                          id: 'timing_-_daily',
+                          name: 'Timing - daily',
+                          localizedName: 'Timing - daily',
+                          rmType: 'CLUSTER',
+                          nodeId: 'openEHR-EHR-CLUSTER.timing_daily.v1',
+                          min: 0,
+                          max: 1,
+                          localizedNames: {
+                            en: 'Timing - daily',
+                          },
+                          localizedDescriptions: {
+                            en: 'Structured information about the intended timing of a therapeutic or diagnostic activity within any 24 hour period.',
+                          },
+                          aqlPath:
+                            '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.dosage.v2]/items[openEHR-EHR-CLUSTER.timing_daily.v1]',
+                          children: [
+                            {
+                              id: 'specific_time',
+                              name: 'Specific time',
+                              localizedName: 'Specific time',
+                              rmType: 'DV_TIME',
+                              nodeId: 'at0004',
+                              min: 0,
+                              max: -1,
+                              localizedNames: {
+                                en: 'Specific time',
+                              },
+                              localizedDescriptions: {
+                                en: 'A specific time or interval of time when the activity should occur.',
+                              },
+                              aqlPath:
+                                '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.dosage.v2]/items[openEHR-EHR-CLUSTER.timing_daily.v1]/items[at0004]/value',
+                              inputs: [
+                                {
+                                  type: 'TIME',
+                                },
+                              ],
+                              annotations: {
+                                comment:
+                                  'For example: "08:00" or "15:00-16:00".',
+                              },
+                            },
+                            {
+                              id: 'timing_description',
+                              name: 'Timing description',
+                              localizedName: 'Timing description',
+                              rmType: 'DV_MULTIMEDIA',
+                              nodeId: 'at0027',
+                              min: 0,
+                              max: 1,
+                              localizedNames: {
+                                en: 'Timing description',
+                              },
+                              localizedDescriptions: {
+                                en: 'Text description of the daily timing. This element is intended to allow implementers to use the structures for different timings without necessarily specifying the timings in a structured way.',
+                              },
+                              aqlPath:
+                                '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.dosage.v2]/items[openEHR-EHR-CLUSTER.timing_daily.v1]/items[at0027]/value',
+                              inputs: [
+                                {
+                                  type: 'TEXT',
+                                },
+                              ],
+                              annotations: {
+                                comment:
+                                  'For example: "Take morning and evening".',
+                              },
+                            },
+                          ],
+                        },
+                      ],
+                      annotations: {
+                        comment:
+                          "For example: '2 tablets at 6pm' or '20 mg three times per day'. Please note: this cluster allows multiple occurrences to enable representation of a complete set of dose patterns for a single dose direction.",
+                      },
+                    },
+                    {
+                      id: 'timing',
+                      name: 'timing',
+                      rmType: 'DV_PARSABLE',
+                      min: 0,
+                      max: 1,
+                      aqlPath:
+                        '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/timing',
+                      inputs: [
+                        {
+                          suffix: 'value',
+                          type: 'TEXT',
+                        },
+                        {
+                          suffix: 'formalism',
+                          type: 'TEXT',
+                        },
+                      ],
+                      inContext: true,
+                    },
+                    {
+                      id: 'action_archetype_id',
+                      name: 'action_archetype_id',
+                      rmType: 'STRING',
+                      min: 1,
+                      max: 1,
+                      aqlPath:
+                        '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/action_archetype_id',
+                      inputs: [
+                        {
+                          type: 'TEXT',
+                        },
+                      ],
+                      inContext: true,
+                    },
+                  ],
+                },
+                {
+                  id: 'subject',
+                  name: 'subject',
+                  rmType: 'PARTY_PROXY',
+                  min: 1,
+                  max: 1,
+                  aqlPath:
+                    '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/subject',
+                  inputs: [
+                    {
+                      suffix: 'id',
+                      type: 'TEXT',
+                    },
+                    {
+                      suffix: 'id_scheme',
+                      type: 'TEXT',
+                    },
+                    {
+                      suffix: 'id_namespace',
+                      type: 'TEXT',
+                    },
+                    {
+                      suffix: 'name',
+                      type: 'TEXT',
+                    },
+                  ],
+                  inContext: true,
+                },
+                {
+                  id: 'narrative',
+                  name: 'narrative',
+                  rmType: 'DV_TEXT',
+                  min: 1,
+                  max: 1,
+                  aqlPath:
+                    '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/narrative',
+                  inputs: [
+                    {
+                      type: 'TEXT',
+                    },
+                  ],
+                  inContext: true,
+                },
+                {
+                  id: 'language',
+                  name: 'language',
+                  rmType: 'CODE_PHRASE',
+                  min: 1,
+                  max: 1,
+                  aqlPath:
+                    '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/language',
+                  inContext: true,
+                },
+                {
+                  id: 'encoding',
+                  name: 'encoding',
+                  rmType: 'CODE_PHRASE',
+                  min: 1,
+                  max: 1,
+                  aqlPath:
+                    '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/encoding',
+                  inContext: true,
+                },
+                {
+                  id: 'expiry_time',
+                  name: 'expiry_time',
+                  rmType: 'DV_DATE_TIME',
+                  min: 0,
+                  max: 1,
+                  aqlPath:
+                    '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/expiry_time',
+                  inputs: [
+                    {
+                      type: 'DATETIME',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              id: 'composer',
+              name: 'composer',
+              rmType: 'PARTY_PROXY',
+              min: 1,
+              max: 1,
+              aqlPath: '/composer',
+              inputs: [
+                {
+                  suffix: 'id',
+                  type: 'TEXT',
+                },
+                {
+                  suffix: 'id_scheme',
+                  type: 'TEXT',
+                },
+                {
+                  suffix: 'id_namespace',
+                  type: 'TEXT',
+                },
+                {
+                  suffix: 'name',
+                  type: 'TEXT',
+                },
+              ],
+              inContext: true,
+            },
+            {
+              id: 'language',
+              name: 'language',
+              rmType: 'CODE_PHRASE',
+              min: 1,
+              max: 1,
+              aqlPath: '/language',
+              inContext: true,
+            },
+            {
+              id: 'territory',
+              name: 'territory',
+              rmType: 'CODE_PHRASE',
+              min: 1,
+              max: 1,
+              aqlPath: '/territory',
+              inContext: true,
+            },
+          ],
+        },
+      };
       document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('form1')
-        const input = document.getElementById('input1')
+        const form = document.getElementById('form1');
+        const input = document.getElementById('input1');
         input.addEventListener('mb-input', e => {
-          console.log(e.target.data)
-        })
+          console.log(e.target.data);
+        });
         form.hermes = axios.create({
-          baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1'
-        })
+          baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1',
+        });
         form.addEventListener('mb-submit', e => {
-          e.preventDefault()
-          console.log(e.detail)
-        })
-        const form2 = document.getElementById('form2')
-        form2.hermes = axios.create({
-          baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1'
-        })
+          e.preventDefault();
+          console.log(e.detail);
+        });
+        // const form2 = document.getElementById('form2');
+        // form2.hermes = axios.create({
+        //   baseURL: 'https://hermes-2-kbsdxvq3bq-el.a.run.app/v1',
+        // });
+        const autoForm = document.getElementById('mb-auto');
+        autoForm.webTemplate = webTemplate;
+
         // form2.addEventListener('mb-input', (e) => {
         //   const data = e.target.data
         //   if (data["chief_complaints"] === "fever")
@@ -56,11 +599,12 @@
         //   e.preventDefault()
         //   console.log(e.detail)
         // })
-      })
+      });
     </script>
   </head>
 
   <body>
+    <mb-auto-form id="mb-auto" templateid="your-template-id"></mb-auto-form>
     <sl-textarea rows="1"> </sl-textarea>
     <sl-textarea size="small" rows="1"> </sl-textarea>
     <div style="max-width: 700px">
@@ -270,7 +814,12 @@
             <mb-option value="d" label="None" ordinal="1"></mb-option>
           </mb-select>
           <p>DV_URI</p>
-          <mb-multimedia id="multimedia" path="document_upload.v0/document_reference:0/media_file/content" label="Content" variant="small"></mb-multimedia>
+          <mb-multimedia
+            id="multimedia"
+            path="document_upload.v0/document_reference:0/media_file/content"
+            label="Content"
+            variant="small"
+          ></mb-multimedia>
           <p>CONTEXT</p>
           <mb-checkbox-any
             path="checkbox/any"

@@ -2,7 +2,7 @@ import { customElement, html, property } from 'lit-element';
 // import SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/input/input';
 import '@shoelace-style/shoelace/dist/components/icon/icon';
-import { AxiosInstance } from 'axios';
+import type { AxiosInstance } from 'axios';
 import { supabaseStoragePlugin } from './mediaFunction';
 import EhrElement from '../EhrElement';
 import { watch } from '../../internal/decorators';
@@ -21,15 +21,15 @@ export default class MbMultimedia extends EhrElement {
 
   @property({ type: String }) src: string;
 
-  @property({ type: String }) label: string = '';
+  @property({ type: String }) label = '';
 
-  @property({ type: String }) parentAxiosKey: string = 'storage-api';
+  @property({ type: String }) parentAxiosKey = 'storage-api';
 
-  @property({ type: Boolean, reflect: true }) required: boolean = false;
+  @property({ type: Boolean, reflect: true }) required = false;
 
-  @property({ type: Boolean, reflect: true }) loading: boolean = false;
+  @property({ type: Boolean, reflect: true }) loading = false;
 
-  @property({ type: Boolean, reflect: true }) base64: boolean = false;
+  @property({ type: Boolean, reflect: true }) base64 = false;
 
   @property({ type: Object }) axios: AxiosInstance;
 
@@ -44,6 +44,7 @@ export default class MbMultimedia extends EhrElement {
     return dependencyEvent.detail.value;
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   async _handleChange(e: any) {
     const element = e.target as HTMLInputElement;
     const file = element.files?.[0];

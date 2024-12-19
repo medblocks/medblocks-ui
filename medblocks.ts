@@ -3,6 +3,7 @@
 import { registerIcons } from './src/internal/icons';
 
 import './src/medblocks/form/form';
+import './src/medblocks/form/autoForm';
 import './src/medblocks/form/fhirForm';
 
 import './src/medblocks/codedtext/search';
