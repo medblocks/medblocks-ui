@@ -137,7 +137,12 @@ export default class MedblockForm extends LitElement {
     this.data = this.parse(data);
   }
 
-  export = this.serialize.bind(this);
+  export() {
+    if (this.validate()) {
+      this.insertContext();
+      return this.serialize();
+    }
+  }
 
   getStructured(flat: Data, path?: string) {
     return unflattenComposition(flat, path);

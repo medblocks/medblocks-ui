@@ -1,5 +1,4 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
-import { querySelectorAllDeep } from 'query-selector-shadow-dom';
 import type { AxiosInstance } from 'axios';
 import {
   bindRepeatables,
@@ -113,10 +112,10 @@ export class MedblocksAutoForm extends LitElement {
     }
   }
 
-  bindValue(composition: MBComposition) {
-    const mbForm = querySelectorAllDeep('mb-form')[0] as MedblockForm;
+  import(composition: MBComposition) {
+    const mbForm = this.renderRoot.querySelector('mb-form') as MedblockForm;
     mbForm.data = {};
-    const container = querySelectorAllDeep('#autoForm')[0] as Element;
+    const container = mbForm.querySelector('#autoForm') as Element;
     const formNode = container.children[1];
     const mbRepeatables = [
       ...formNode.querySelectorAll('mb-repeatable-headless'),
@@ -134,12 +133,11 @@ export class MedblocksAutoForm extends LitElement {
   }
 
   // Method to get form value
-  submit() {
+  export() {
     const mbForm = this.renderRoot.querySelector('mb-form') as MedblockForm;
     if (mbForm.validate()) {
       mbForm.insertContext();
-      const data = mbForm.serialize();
-      return data;
+      return mbForm.serialize();
     }
   }
 
