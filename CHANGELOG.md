@@ -3,8 +3,14 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 ### [0.0.207](https://github.com/medblocks/medblocks-ui/compare/v0.0.206...v0.0.207) (2024-12-29)
+- Breaking changes :
+    export is now a function, that can be used to get the composition out of both mb-form and mb-auto-form.
+- Other changes :
+  import(composition) : binds the composition to both mb-form and mb-auto-form
+
 
 ### [0.0.206](https://github.com/medblocks/medblocks-ui/compare/v0.0.205...v0.0.206) (2024-12-19)
+- Added mb-auto-form component : Users can now pass a webTemplate and render basic mb-form with ease
 
 ### [0.0.205](https://github.com/medblocks/medblocks-ui/compare/v0.0.204...v0.0.205) (2024-11-27)
 
