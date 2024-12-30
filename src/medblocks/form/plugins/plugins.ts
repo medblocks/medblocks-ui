@@ -1,4 +1,4 @@
-import EhrElement from '../../EhrElement';
+import type EhrElement from '../../EhrElement';
 
 /*
  * On submit, `getContext` for all empty context first runs, then the `export` runs.

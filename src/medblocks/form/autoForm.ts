@@ -113,6 +113,10 @@ export class MedblocksAutoForm extends LitElement {
   }
 
   import(composition: MBComposition) {
+    this.bindValue(composition);
+  }
+
+  bindValue(composition: MBComposition) {
     const mbForm = this.renderRoot.querySelector('mb-form') as MedblockForm;
     mbForm.data = {};
     const container = mbForm.querySelector('#autoForm') as Element;
@@ -132,8 +136,11 @@ export class MedblocksAutoForm extends LitElement {
     }, 10);
   }
 
-  // Method to get form value
   export() {
+    return this.submit();
+  }
+
+  submit() {
     const mbForm = this.renderRoot.querySelector('mb-form') as MedblockForm;
     if (mbForm.validate()) {
       mbForm.insertContext();

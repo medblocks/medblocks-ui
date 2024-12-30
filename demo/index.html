@@ -18,17 +18,64 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       console.log('onload');
-      const form = document.getElementById("form1");
-      form.addEventListener("mb-submit", (e) => {
+      const form = document.getElementById('form1');
+      form.addEventListener('mb-submit', e => {
         e.preventDefault();
-        console.log(e.detail)
-      })
+        console.log(e.detail);
+      });
     });
   </script>
 
   <body>
-    <div style="max-width: 700px;">
-      <mb-form
+    <div style="max-width: 700px">
+      <mb-form id="form1">
+        <mb-context path="vital_signs.v0/context/start_time"></mb-context>
+        <mb-context path="vital_signs.v0/context/setting"></mb-context>
+
+        <mb-quantity
+          default="/min"
+          path="vital_signs.v0/pulse_heart_beat/any_event:0/rate"
+          label="Rate"
+        >
+          <mb-unit unit="/min" label="/min" min="" max="1000"></mb-unit>
+        </mb-quantity>
+        <mb-context
+          path="vital_signs.v0/pulse_heart_beat/any_event:0/time"
+        ></mb-context>
+        <mb-context
+          path="vital_signs.v0/pulse_heart_beat/language"
+        ></mb-context>
+        <mb-context
+          path="vital_signs.v0/pulse_heart_beat/encoding"
+        ></mb-context>
+        <mb-context path="vital_signs.v0/pulse_heart_beat/subject"></mb-context>
+        <div class="blood-pressure-container">
+          <mb-quantity
+            default="mm[Hg]"
+            path="vital_signs.v0/blood_pressure/systolic"
+            label="Systolic"
+          >
+            <mb-unit unit="mm[Hg]" label="mm[Hg]" min="" max="1000"></mb-unit>
+          </mb-quantity>
+          <mb-quantity
+            default="mm[Hg]"
+            path="vital_signs.v0/blood_pressure/diastolic"
+            label="Diastolic"
+          >
+            <mb-unit unit="mm[Hg]" label="mm[Hg]" min="" max="1000"></mb-unit>
+          </mb-quantity>
+        </div>
+        <mb-input path="vital_signs.v0/blood_pressure/time/value" />
+        <mb-context path="vital_signs.v0/blood_pressure/time"></mb-context>
+        <mb-context path="vital_signs.v0/blood_pressure/language"></mb-context>
+        <mb-context path="vital_signs.v0/blood_pressure/encoding"></mb-context>
+        <mb-context path="vital_signs.v0/blood_pressure/subject"></mb-context>
+        <mb-context path="vital_signs.v0/category"></mb-context>
+        <mb-context path="vital_signs.v0/language"></mb-context>
+        <mb-context path="vital_signs.v0/territory"></mb-context>
+        <mb-context path="vital_signs.v0/composer"></mb-context>
+      </mb-form>
+      <!-- <mb-form
         id="form1"
         style="display: flex; gap:15px; flex-direction: column"
         templateid="testing_template.v0"
@@ -66,7 +113,7 @@
             <sl-button>Save</sl-button>
           </mb-submit>
         </div>
-      </mb-form>
+      </mb-form> -->
     </div>
     <div>
       <pre></pre>
