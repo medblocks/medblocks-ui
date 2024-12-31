@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.208](https://github.com/medblocks/medblocks-ui/compare/v0.0.207...v0.0.208) (2024-12-31)
+
 ### [0.0.207](https://github.com/medblocks/medblocks-ui/compare/v0.0.206...v0.0.207) (2024-12-29)
 - Breaking changes :
     export is now a function, that can be used to get the composition out of both mb-form and mb-auto-form.
