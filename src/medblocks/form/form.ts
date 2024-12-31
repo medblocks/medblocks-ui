@@ -235,6 +235,20 @@ export default class MedblockForm extends LitElement {
       });
   }
 
+  async ensureContextsRegistered() {
+    // Wait for initial render
+    await new Promise(resolve => setTimeout(resolve, 0));
+    // Find all context elements
+    const contexts = Array.from(this.querySelectorAll('mb-context'));
+    // Ensure each context is in mbElements
+    contexts.forEach(context => {
+      const path = context.getAttribute('path');
+      if (path && !this.mbElements[path]) {
+        this.mbElementSet.add(context as EhrElement);
+      }
+    });
+  }
+
   get submitButton(): MbSubmit | null {
     return this.querySelector('mb-submit');
   }
@@ -497,6 +511,16 @@ export default class MedblockForm extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
+
+    // Ensure contexts are registered after form connection
+    if (Object.keys(this.deferredData).length > 0) {
+      const contextElements = this.dataToContextElements(this.deferredData);
+      Object.entries(contextElements).forEach(([path, element]) => {
+        console.log('Registering context:', path);
+        this.mbElementSet.add(element);
+      });
+    }
+
     // this.observer = new MutationObserver((mutationList, _) => {
     //   const deletedPaths = getDeletedPaths(mutationList);
     //   console.log({ deletedPaths });
@@ -535,6 +559,7 @@ export default class MedblockForm extends LitElement {
     if (window.top && !this.nosuggest) {
       window.addEventListener('message', this.handleParentMessage);
     }
+    await this.ensureContextsRegistered();
     this.load.emit();
   }
 
