@@ -586,20 +586,20 @@ function addMbElements(node: ProcessedTree) {
   } else handleLeafNode(node);
   return node;
 }
-function createAutoFormTree(webTemplate: Tree) {
+function createAutoFormTree(webTemplate: Tree, addContext = false) {
   const baseTree = webTemplate?.tree;
-  const contextTree = addIgniteContext(baseTree);
-  const pathTree = addPathToChildren(contextTree, '');
-  const finalTree = addMbElements(pathTree);
-  return finalTree;
+  const treeWithContext = addContext ? addIgniteContext(baseTree) : baseTree;
+  const treeWithPaths = addPathToChildren(treeWithContext, '');
+  return addMbElements(treeWithPaths);
 }
 
 export function createAutoFormByTemplateId(
   config: MBElementConfig,
-  webTemplate: Tree
+  webTemplate: Tree,
+  addContext = false
 ): void {
   const container = querySelectorDeep('#autoForm');
-  const newTree = createAutoFormTree(webTemplate);
+  const newTree = createAutoFormTree(webTemplate, addContext);
   if (container) container.innerHTML = '';
   traverse(newTree, container, document, true, config); // this is for preserving the webTemplate as it is. Hidden in DOM
   traverse(newTree, container, document, false, config); // Rendered in UI

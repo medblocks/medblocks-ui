@@ -83,6 +83,8 @@ export class MedblocksAutoForm extends LitElement {
 
   @property({ type: String, reflect: true }) variant = 'small';
 
+  @property({ type: Boolean, reflect: true }) addContext = false;
+
   @property({ type: Object }) axios: AxiosInstance;
 
   // Input handler method (placeholder for custom input handling)
@@ -105,7 +107,7 @@ export class MedblocksAutoForm extends LitElement {
   generateAutoForm() {
     if (this.webTemplate) {
       try {
-        createAutoFormByTemplateId(this.config, this.webTemplate);
+        createAutoFormByTemplateId(this.config, this.webTemplate,this.addContext);
       } catch (error) {
         console.error('Error generating auto form:', error);
       }
@@ -114,6 +116,10 @@ export class MedblocksAutoForm extends LitElement {
 
   import(composition: MBComposition) {
     this.bindValue(composition);
+  }
+
+  clear() {
+    this.bindValue({});
   }
 
   bindValue(composition: MBComposition) {

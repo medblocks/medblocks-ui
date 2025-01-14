@@ -144,6 +144,10 @@ export default class MedblockForm extends LitElement {
     }
   }
 
+  clear() {
+    this.data = this.parse({});
+  }
+
   getStructured(flat: Data, path?: string) {
     return unflattenComposition(flat, path);
   }
