@@ -10,7 +10,6 @@ import type SlInput from '@shoelace-style/shoelace/dist/components/input/input';
 import { until } from 'lit-html/directives/until.js';
 import { classMap } from 'lit-html/directives/class-map';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import type { AxiosInstance } from 'axios';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner';
 import '@shoelace-style/shoelace/dist/components/menu/menu';
 import '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
@@ -22,10 +21,10 @@ import '@shoelace-style/shoelace/dist/components/menu-label/menu-label';
 import '@shoelace-style/shoelace/dist/components/skeleton/skeleton';
 
 import type SlMenuItem from '@shoelace-style/shoelace/dist/components/menu-item/menu-item';
-import {
-  hermesPlugin,
-  type SearchOptions,
-  type SearchResult,
+import type {
+  InternalSearchResult,
+  SearchOptions,
+  SearchResult,
 } from './searchFunctions';
 import { CodedTextElement } from './CodedTextElement';
 import type MbFilter from './filter';
@@ -74,13 +73,9 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: Array }) mock: string[] = [];
 
-  @property({ type: Object }) axios: AxiosInstance;
-
   @property({ type: Number }) debounceInterval = 150;
 
   @property({ type: Number }) hits = 10;
-
-  @property({ type: String }) parentAxiosKey = 'hermes';
 
   @property({ type: String, reflect: true }) placeholder = 'Type to search';
 
@@ -106,8 +101,6 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
 
   @property({ type: String, attribute: 'filter-type', reflect: true })
   filterType: 'or' | 'and' = 'or';
-
-  @property({ type: Object }) plugin = hermesPlugin;
 
   @state() _moreHits = 0;
 
@@ -146,7 +139,6 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     const searchOptions: SearchOptions = {
       maxHits: this._maxHits,
       searchString: this.searchTerm,
-      axios: this.axios || this._parentAxios,
       terminology: this.terminology,
       constraints: this._selectedFilters,
     };
@@ -181,11 +173,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     </div>`;
   }
 
-  get _parentAxios(): AxiosInstance {
-    const dependencyEvent = this._mbDependency.emit({
-      detail: { key: this.parentAxiosKey },
-    });
-    return dependencyEvent.detail.value;
+  transformResult(result: SearchResult): InternalSearchResult {
+    return result;
   }
 
   /** Function to get results from an external source */
@@ -209,12 +198,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
       };
     }
     try {
-      const axios = this.axios ? this.axios : this._parentAxios;
-      const result = await this.plugin({
-        maxHits: this._maxHits,
+      const result = await this.handleSearch({
         searchString: this.searchTerm,
-        axios,
-        constraints: this._selectedFilters,
         terminology: this.terminology,
       });
       const results = result.map(
@@ -285,7 +270,10 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
     )}`;
   }
 
-  abstract _handleSelect(data: SearchResult, menuItem: SlMenuItem): void;
+  abstract _handleSelect(
+    data: InternalSearchResult,
+    menuItem: SlMenuItem
+  ): void;
 
   // eslint-disable-next-line consistent-return
   _handleSlSelect(e: CustomEvent) {
@@ -306,7 +294,6 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
   connectedCallback() {
     super.connectedCallback();
     // Emit register event
-    // Get axios instance from parent
     // If not, default or error
     const observer = new MutationObserver(() => {
       this._handleChildChange();

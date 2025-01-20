@@ -23,8 +23,20 @@
         e.preventDefault();
         console.log(e.detail);
       });
+      async function handleSearch({ searchString, terminology }) {
+        const localData = [
+          { code: 'at001', value: 'Paracetamol', terminology: 'local' },
+          { code: 'at0022', value: 'Dolo', terminology: 'local' },
+        ];
+
+        return localData.filter(item =>
+          item.value.toLowerCase().includes(searchString.toLowerCase())
+        );
+      }
+      form.handleSearch = handleSearch;
 
       const form1 = document.getElementById('mbform');
+      form1.handleSearch = handleSearch;
       form1.webTemplate = {
         templateId: 'vital_signs.v1',
         semVer: '0.2.0',
@@ -47,6 +59,37 @@
           },
           aqlPath: '',
           children: [
+            {
+              id: 'route',
+              name: 'Route',
+              localizedName: 'Route',
+              rmType: 'DV_CODED_TEXT',
+              nodeId: 'at0091',
+              min: 0,
+              max: 1,
+              localizedNames: {
+                en: 'Route',
+              },
+              localizedDescriptions: {
+                en: "The route by which the ordered item is to be administered into the subject's body.",
+              },
+              aqlPath:
+                '/content[openEHR-EHR-INSTRUCTION.medication_order.v3]/activities[at0001]/description[at0002]/items[at0091]/value',
+              inputs: [
+                {
+                  suffix: 'value',
+                  type: 'TEXT',
+                },
+                {
+                  suffix: 'code',
+                  type: 'TEXT',
+                },
+              ],
+              annotations: {
+                comment:
+                  "For example: 'oral', 'intravenous', or 'topical'.\r\nCoding of the route with a terminology is preferred, where possible. Multiple potential routes may be specified.",
+              },
+            },
             {
               id: 'context',
               rmType: 'EVENT_CONTEXT',

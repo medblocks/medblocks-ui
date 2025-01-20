@@ -2,8 +2,6 @@ import {
   querySelectorAllDeep,
   querySelectorDeep,
 } from 'query-selector-shadow-dom';
-import type { AxiosInstance } from 'axios';
-import type { SearchFunction } from '../codedtext/searchFunctions';
 import type { StoragePlugin } from '../multimedia/mediaFunction';
 import {
   count,
@@ -29,49 +27,6 @@ interface MBElementConfig {
   MB_VALUESET?: string[];
   // Add other config properties as needed
 }
-export const expandFhirValueSet = async (
-  axios: AxiosInstance,
-  valueSetUrl: string,
-  query: string,
-  fhirServer = '/fhir'
-) => {
-  const response = await axios.get(
-    `${fhirServer}/ValueSet/$expand?url=${valueSetUrl}&filter=${query}`
-  );
-  const fhirValues = response.data.expansion?.contains;
-  return fhirValues.map(
-    (value: { code: string; display: string; system: string }) => ({
-      code: value.code,
-      value: value.display,
-      terminology: value.system,
-    })
-  );
-};
-
-// Needs to be redefined to use the new search API
-const searchPluginFromValueSet: SearchFunction = async options => {
-  const { searchString, terminology, axios } = options;
-  const searchTerm = searchString;
-  const valueSetUri = terminology?.includes('$expand?url=')
-    ? terminology.split('$expand?url=')[1]
-    : terminology;
-  if (!searchTerm || !valueSetUri) return [];
-  try {
-    const fhirValues = await expandFhirValueSet(
-      axios as AxiosInstance,
-      valueSetUri,
-      searchTerm
-    );
-    return fhirValues;
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  } catch (e: any) {
-    console.error(e);
-    if (e.response?.status === 404) {
-      return e;
-    }
-    throw e;
-  }
-};
 
 const storageAPI: StoragePlugin = {
   upload: async ({ file, axios }) => {
@@ -103,31 +58,6 @@ function handleMediaPlugin(element: any) {
   element.plugin = storageApiPlugin;
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-function handleSearchPlugin(element: any, config: MBElementConfig) {
-  element.terminology =
-    element?.terminology === 'local'
-      ? config?.MB_VALUESET || 'local'
-      : element?.terminology;
-  const valueSetUri = element?.terminology?.includes('$expand?url=')
-    ? element?.terminology.split('$expand?url=')[1]
-    : element?.terminology;
-
-  if (valueSetUri) {
-    element.plugin = searchPluginFromValueSet;
-  }
-  // This check may not be needed.
-  // Checks if the value set is configured in the server.
-  // If not, then value set not found error is shown automatically.
-  // axios
-  //   .get(`/fhir/ValueSet/$expand?url=${valueSetUri}`)
-  //   .then((res) => {
-  //     element.plugin = searchPluginFromValueSet;
-  //   })
-  //   .catch(() => {
-  //     element.errorMessage = "Failed to fetch Value set";
-  //   });
-}
 const healthCareFacilityContextNode = {
   id: '_health_care_facility',
   name: '_health_care_facility',
@@ -277,10 +207,8 @@ function updateElementPath(element: MBElement, newId: string): void {
   }
 }
 
-function handlePlugins(element: MBElement, config: MBElementConfig): void {
+function handlePlugins(element: MBElement): void {
   const plugins = {
-    'MB-SEARCH': () => handleSearchPlugin(element, config),
-    'MB-SEARCH-MULTIPLE': () => handleSearchPlugin(element, config),
     'MB-MULTIMEDIA': () => handleMediaPlugin(element),
   };
 
@@ -315,7 +243,6 @@ function setupButtons(
 function processChildDiv(
   childDiv: HTMLElement,
   baseIdPath: string,
-  config: MBElementConfig
 ): void {
   childDiv.classList.remove('reference', 'hidden');
 
@@ -327,20 +254,19 @@ function processChildDiv(
   const firstChild = childDiv.children[0] as MBElement;
   if (firstChild) {
     updateElementPath(firstChild, newId);
-    handlePlugins(firstChild, config);
+    handlePlugins(firstChild);
   }
 }
 
 function processChildElements(
   cloneDiv: HTMLElement,
   baseId: string,
-  config: MBElementConfig
 ): void {
   const childDivs = cloneDiv.querySelectorAll('div');
   const baseIdPath = `${baseId}/`;
 
   for (const childDiv of childDivs) {
-    processChildDiv(childDiv as HTMLElement, baseIdPath, config);
+    processChildDiv(childDiv as HTMLElement, baseIdPath);
   }
 }
 
@@ -399,12 +325,6 @@ function noChildrenCondition(
   div.innerHTML = tree.mbElement;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const innerDiv = div.childNodes[0] as any;
-  if (
-    innerDiv?.tagName === 'MB-SEARCH' ||
-    innerDiv?.tagName === 'MB-SEARCH-MULTIPLE'
-  ) {
-    handleSearchPlugin(innerDiv, config);
-  }
   if (innerDiv?.tagName === 'MB-MULTIMEDIA') {
     handleMediaPlugin(innerDiv);
   }
@@ -431,7 +351,7 @@ function runAddEventListener(div: HTMLElement, config: MBElementConfig) {
 
   const cloneDiv = prepareClonedDiv(div.id, elementId);
 
-  processChildElements(cloneDiv, elementId, config);
+  processChildElements(cloneDiv, elementId);
 
   // when repeatable, replace the index in p tag with index + 1
   const pTag = cloneDiv.querySelector('p.label') as HTMLElement;

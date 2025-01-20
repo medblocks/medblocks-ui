@@ -1,5 +1,4 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
-import type { AxiosInstance } from 'axios';
 import {
   bindRepeatables,
   createAutoFormByTemplateId,
@@ -7,6 +6,7 @@ import {
 } from './autoform-utils';
 import { watch } from '../../internal/decorators';
 import type MedblockForm from './form';
+import type { SearchFunction } from '../codedtext/searchFunctions';
 
 @customElement('mb-auto-form')
 export class MedblocksAutoForm extends LitElement {
@@ -85,7 +85,9 @@ export class MedblocksAutoForm extends LitElement {
 
   @property({ type: Boolean, reflect: true }) addContext = false;
 
-  @property({ type: Object }) axios: AxiosInstance;
+  @property({ type: Function })
+  handleSearch: SearchFunction;
+
 
   // Input handler method (placeholder for custom input handling)
   handleInput(event: CustomEvent) {
@@ -163,6 +165,7 @@ export class MedblocksAutoForm extends LitElement {
         .ctx=${this.ctx}
         overwritectx
         @mb-input=${this.handleInput}
+        .handleSearch=${this.handleSearch}
       >
         <div id="autoForm"></div>
       </mb-form>

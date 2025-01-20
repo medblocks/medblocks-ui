@@ -6,7 +6,6 @@ import {
   LitElement,
   property,
 } from 'lit-element';
-import type { AxiosInstance } from 'axios';
 import { event, type EventEmitter, watch } from '../../internal/decorators';
 import type EhrElement from '../EhrElement';
 import type { Variant } from '../EhrElement';
@@ -20,6 +19,7 @@ import type { SuggestEvent } from '../suggestionWrapper';
 import type Repeatable from '../repeat/Repeatable';
 import { getRepeatableRegex } from '../repeat/Repeatable';
 import type MbHide from '../hide';
+import type { SearchFunction } from '../codedtext/searchFunctions';
 
 /**
  * Reactive form that responds to changes in custom elements nested inside.
@@ -52,11 +52,22 @@ export default class MedblockForm extends LitElement {
 
   @property({ type: String, reflect: true }) variant: Variant = 'normal';
 
+  @property({ type: Function })
+  handleSearch: SearchFunction;
+
   @watch('variant')
   handleVariantChange(_: Variant, newVariant: Variant) {
     this.mbElementSet.forEach(el => {
       if (!el.variant) {
         el.variant = newVariant;
+      }
+    });
+  }
+  @watch('handleSearch')
+  handleSearchChange(_: Variant, newHandleSearch: SearchFunction) {
+    this.mbElementSet.forEach(el => {
+      if (!el.handleSearch) {
+        el.handleSearch = newHandleSearch;
       }
     });
   }
@@ -67,9 +78,6 @@ export default class MedblockForm extends LitElement {
 
   /** Plugin to handle serialization and parsing of the input. openEHR and FHIR Plugins are built-in. */
   @property({ type: Object }) plugin: MbPlugin = openEHRFlatPlugin;
-
-  /** Hermes instance to communicate with for SNOMED CT search elements. */
-  @property({ type: Object }) hermes: AxiosInstance;
 
   /** Should data points that are set, but don't have a corresponding EhrElement be serialized? */
   @property({ type: Boolean, reflect: true }) serializeDeferredData = true;
@@ -414,13 +422,13 @@ export default class MedblockForm extends LitElement {
     // this.updates.push(todo);
   }
 
-  handleDependency(e: CustomEvent<{ key: string; value: any }>) {
-    const dependencies: { [key: string]: any } = {
-      hermes: this.hermes,
-    };
+  // handleDependency(e: CustomEvent<{ key: string; value: any }>) {
+  //   const dependencies: { [key: string]: any } = {
+  //     hermes: this.hermes,
+  //   };
 
-    e.detail.value = dependencies[e.detail.key];
-  }
+  //   e.detail.value = dependencies[e.detail.key];
+  // }
 
   addSuggestion(data: any) {
     const suggestElements = Object.keys(data)
@@ -557,7 +565,7 @@ export default class MedblockForm extends LitElement {
     );
     // Only for mb-repeat. Otherwise using MutationObserver
     this.addEventListener('mb-disconnect', this.handleChildDisconnect);
-    this.addEventListener('mb-dependency', this.handleDependency);
+    // this.addEventListener('mb-dependency', this.handleDependency);
     this.addEventListener('mb-path-change', this.handleChildPathChange);
     this.addEventListener('mb-suggestion', this.handleSuggestion);
     if (window.top && !this.nosuggest) {
@@ -575,7 +583,7 @@ export default class MedblockForm extends LitElement {
       this.handleRepeatableConnect
     );
     this.removeEventListener('mb-disconnect', this.handleChildDisconnect);
-    this.removeEventListener('mb-dependency', this.handleDependency);
+    // this.removeEventListener('mb-dependency', this.handleDependency);
     this.removeEventListener('mb-path-change', this.handleChildPathChange);
     this.removeEventListener('mb-suggestion', this.handleSuggestion);
     if (window.top && !this.nosuggest) {

@@ -1,6 +1,7 @@
 import { html, LitElement, property } from 'lit-element';
 import { event, type EventEmitter, watch } from '../internal/decorators';
 import type MedblockForm from './form/form';
+import type { SearchFunction } from './codedtext/searchFunctions';
 
 export type Variant = 'small' | 'text' | 'normal';
 /** This is an abstract base class to extend other elements from
@@ -24,6 +25,9 @@ export default abstract class EhrElement extends LitElement {
 
   /** Display variant. 'normal' by default. 'small' renders everything more compactly, 'text' displays everything in its textual representation. */
   @property({ type: String, reflect: true }) variant: Variant = 'normal';
+
+  @property({ type: Function })
+  handleSearch: SearchFunction;
 
   mbForm: MedblockForm;
 
