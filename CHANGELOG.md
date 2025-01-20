@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.211](https://github.com/medblocks/medblocks-ui/compare/v0.0.210...v0.0.211) (2025-01-20)
+
 ### [0.0.210](https://github.com/medblocks/medblocks-ui/compare/v0.0.209...v0.0.210) (2025-01-20)
 
 ### [0.0.209](https://github.com/medblocks/medblocks-ui/compare/v0.0.208...v0.0.209) (2025-01-14)
