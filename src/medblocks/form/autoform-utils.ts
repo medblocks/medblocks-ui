@@ -219,13 +219,14 @@ function handlePlugins(element: MBElement): void {
 function setupButtons(
   cloneDiv: HTMLElement,
   originalDiv: HTMLElement,
+  handleSearch: Function,
   config: MBElementConfig
 ): void {
   // all add buttons inside cloneDiv should have eventListeners attached
   const addButtons = cloneDiv.querySelectorAll('.addButton');
   for (const buttons of addButtons) {
     const parentNode = buttons?.parentNode?.parentNode as HTMLElement;
-    addButtonEventListener(buttons, parentNode, config);
+    addButtonEventListener(buttons, parentNode, handleSearch, config);
   }
 
   // configure delete button
@@ -243,6 +244,7 @@ function setupButtons(
 function processChildDiv(
   childDiv: HTMLElement,
   baseIdPath: string,
+  handleSearch: Function
 ): void {
   childDiv.classList.remove('reference', 'hidden');
 
@@ -254,6 +256,12 @@ function processChildDiv(
   const firstChild = childDiv.children[0] as MBElement;
   if (firstChild) {
     updateElementPath(firstChild, newId);
+    if (
+      firstChild?.tagName === 'MB-SEARCH' ||
+      firstChild?.tagName === 'MB-SEARCH-MULTIPLE'
+    ) {
+      (firstChild as any).handleSearch = handleSearch;
+    }
     handlePlugins(firstChild);
   }
 }
@@ -261,12 +269,13 @@ function processChildDiv(
 function processChildElements(
   cloneDiv: HTMLElement,
   baseId: string,
+  handleSearch: Function
 ): void {
   const childDivs = cloneDiv.querySelectorAll('div');
   const baseIdPath = `${baseId}/`;
 
   for (const childDiv of childDivs) {
-    processChildDiv(childDiv as HTMLElement, baseIdPath);
+    processChildDiv(childDiv as HTMLElement, baseIdPath, handleSearch);
   }
 }
 
@@ -317,6 +326,7 @@ function treeChildrenPTag(tree: Tree, div: HTMLElement, depth: number) {
 function noChildrenCondition(
   tree: Tree,
   div: HTMLElement,
+  handleSearch: Function,
   config: MBElementConfig
 ) {
   if (!tree.mbElement) return;
@@ -325,6 +335,12 @@ function noChildrenCondition(
   div.innerHTML = tree.mbElement;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const innerDiv = div.childNodes[0] as any;
+  if (
+    innerDiv?.tagName === 'MB-SEARCH' ||
+    innerDiv?.tagName === 'MB-SEARCH-MULTIPLE'
+  ) {
+    innerDiv.handleSearch = handleSearch;
+  }
   if (innerDiv?.tagName === 'MB-MULTIMEDIA') {
     handleMediaPlugin(innerDiv);
   }
@@ -335,7 +351,11 @@ function noChildrenCondition(
     innerDiv.textarea = true;
 }
 
-function runAddEventListener(div: HTMLElement, config: MBElementConfig) {
+function runAddEventListener(
+  div: HTMLElement,
+  handleSearch: Function,
+  config: MBElementConfig
+) {
   // need to split the last index number of the div id
   let elementId = stripIndex(div?.id);
   const children = div?.parentNode?.children as HTMLCollection;
@@ -351,7 +371,7 @@ function runAddEventListener(div: HTMLElement, config: MBElementConfig) {
 
   const cloneDiv = prepareClonedDiv(div.id, elementId);
 
-  processChildElements(cloneDiv, elementId);
+  processChildElements(cloneDiv, elementId, handleSearch);
 
   // when repeatable, replace the index in p tag with index + 1
   const pTag = cloneDiv.querySelector('p.label') as HTMLElement;
@@ -359,7 +379,7 @@ function runAddEventListener(div: HTMLElement, config: MBElementConfig) {
   pTagArray[0] = `${divsWithPrefix?.length + 1}`;
   pTag.textContent = pTagArray.join(' . ');
 
-  setupButtons(cloneDiv, div, config);
+  setupButtons(cloneDiv, div, handleSearch, config);
   // append the div after the parent div
   const parentNode = div?.parentNode as Element;
   parentNode?.insertBefore(cloneDiv, div.nextSibling);
@@ -384,6 +404,7 @@ function addMBRepeatables(tree: Tree, container: HTMLElement | null) {
 function createRepeatableButtons(
   tree: Tree,
   div: HTMLDivElement,
+  handleSearch: Function,
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   config: Record<string, any>
 ): HTMLDivElement {
@@ -392,7 +413,7 @@ function createRepeatableButtons(
   addButton.size = 'small';
   addButton.className = 'addButton';
   addButton.addEventListener('click', () => {
-    runAddEventListener(div, config);
+    runAddEventListener(div, handleSearch, config);
   });
 
   const deleteButton = document.createElement('sl-button');
@@ -411,10 +432,11 @@ function createRepeatableButtons(
 function addButtonEventListener(
   button: Element,
   div: HTMLElement,
+  handleSearch: Function,
   config: MBElementConfig
 ) {
   button?.addEventListener('click', () => {
-    runAddEventListener(div, config);
+    runAddEventListener(div, handleSearch, config);
   });
 }
 
@@ -423,6 +445,7 @@ function traverse(
   container: HTMLElement | null,
   document: Document,
   reference: boolean,
+  handleSearch: Function,
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   config: Record<string, any>,
   depth = -1
@@ -443,16 +466,32 @@ function traverse(
     pTag.innerHTML = `${Number(index) + 1} . ${encodeText(tree.name)}`;
 
     for (const child of tree.children || []) {
-      traverse(child, div, document, reference, config, depth + 1);
+      traverse(
+        child,
+        div,
+        document,
+        reference,
+        handleSearch,
+        config,
+        depth + 1
+      );
     }
 
-    div.append(createRepeatableButtons(tree, div, config));
+    div.append(createRepeatableButtons(tree, div, handleSearch, config));
   } else if (tree.children?.length) {
     treeChildrenPTag(tree, div, depth + 1);
     for (const child of tree.children || []) {
-      traverse(child, div, document, reference, config, depth + 1);
+      traverse(
+        child,
+        div,
+        document,
+        reference,
+        handleSearch,
+        config,
+        depth + 1
+      );
     }
-  } else noChildrenCondition(tree, div, config);
+  } else noChildrenCondition(tree, div, handleSearch, config);
 
   if (reference)
     div.className = `${encodeText(div.className)} reference hidden`;
@@ -514,15 +553,16 @@ function createAutoFormTree(webTemplate: Tree, addContext = false) {
 }
 
 export function createAutoFormByTemplateId(
-  config: MBElementConfig,
   webTemplate: Tree,
+  handleSearch: Function,
+  config: MBElementConfig,
   addContext = false
 ): void {
   const container = querySelectorDeep('#autoForm');
   const newTree = createAutoFormTree(webTemplate, addContext);
   if (container) container.innerHTML = '';
-  traverse(newTree, container, document, true, config); // this is for preserving the webTemplate as it is. Hidden in DOM
-  traverse(newTree, container, document, false, config); // Rendered in UI
+  traverse(newTree, container, document, true, handleSearch, config); // this is for preserving the webTemplate as it is. Hidden in DOM
+  traverse(newTree, container, document, false, handleSearch, config); // Rendered in UI
 }
 
 export function bindRepeatables(
@@ -530,6 +570,7 @@ export function bindRepeatables(
   repeatableArray: Element[],
   formNode: Element,
   composition: MBComposition,
+  handleSearch: Function,
   config: MBElementConfig
 ) {
   for (const repeatable of repeatableArray) {
@@ -553,7 +594,7 @@ export function bindRepeatables(
         ] as HTMLButtonElement;
         const buttonParentNode = targetAddButton?.parentNode
           ?.parentNode as HTMLElement;
-        runAddEventListener(buttonParentNode, config);
+        runAddEventListener(buttonParentNode, handleSearch, config);
       });
     }
   }
@@ -574,6 +615,7 @@ export function bindRepeatables(
         newArray,
         formNode,
         composition,
+        handleSearch,
         config
       );
   });

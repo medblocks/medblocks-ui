@@ -88,7 +88,6 @@ export class MedblocksAutoForm extends LitElement {
   @property({ type: Function })
   handleSearch: SearchFunction;
 
-
   // Input handler method (placeholder for custom input handling)
   handleInput(event: CustomEvent) {
     this.dispatchEvent(
@@ -109,7 +108,12 @@ export class MedblocksAutoForm extends LitElement {
   generateAutoForm() {
     if (this.webTemplate) {
       try {
-        createAutoFormByTemplateId(this.config, this.webTemplate,this.addContext);
+        createAutoFormByTemplateId(
+          this.webTemplate,
+          this.handleSearch,
+          this.config,
+          this.addContext
+        );
       } catch (error) {
         console.error('Error generating auto form:', error);
       }
@@ -137,6 +141,7 @@ export class MedblocksAutoForm extends LitElement {
       mbRepeatables,
       formNode,
       composition,
+      this.handleSearch,
       this.config
     );
     setTimeout(() => {
