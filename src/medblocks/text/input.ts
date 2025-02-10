@@ -58,6 +58,8 @@ export default class MbInput extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
+  @property({ type: Boolean, reflect: true }) autocomplete = false;
+
   @property({ type: String }) rows = '3';
 
   @property({ type: String, reflect: true }) resize = 'auto';
@@ -103,6 +105,7 @@ export default class MbInput extends EhrElement {
             value=${this.data || ''}
             rows=${this.rows}
             resize=${this.resize}
+            autocomplete=${this.autocomplete ? 'on' : 'off'}
           ></sl-textarea>
           <p class="print-only">${this.data || '-'}</p>
         `
@@ -121,6 +124,7 @@ export default class MbInput extends EhrElement {
             placeholder=${this.placeholder}
             @sl-input=${this.handleInput}
             value=${this.data || ''}
+            autocomplete=${this.autocomplete ? 'on' : 'off'}
           ></sl-input>
           <p class="print-only">${this.data || '-'}</p>
         `;

@@ -48,6 +48,8 @@ export default abstract class MbProportion extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) required = false;
 
+  @property({ type: Boolean, reflect: true }) autocomplete = false;
+
   @property({ type: Boolean, reflect: true }) hoist = false;
 
   @property({ type: String, reflect: true }) step: string;
@@ -120,6 +122,7 @@ export default abstract class MbProportion extends EhrElement {
         class=${this.hideunit ? '' : 'margin-xs'}
         .value=${this.data?.numerator?.toString() || ''}
         placeholder=${this.placeholder}
+        autocomplete=${this.autocomplete ? 'on' : 'off'}
       >
       </sl-input>
       <sl-select

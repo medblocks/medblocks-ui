@@ -21,6 +21,8 @@ export default class MbCount extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) required = false;
 
+  @property({ type: Boolean, reflect: true }) autocomplete = false;
+
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
   @property({ type: Number, reflect: true }) max: number | string | null;
@@ -61,6 +63,7 @@ export default class MbCount extends EhrElement {
         @sl-input=${this.handleInput}
         value=${this.data >= Number(this.min || 0) ? this.data : ''}
         placeholder=${this.placeholder}
+        autocomplete=${this.autocomplete ? 'on' : 'off'}
       ></sl-input>
     `;
   }

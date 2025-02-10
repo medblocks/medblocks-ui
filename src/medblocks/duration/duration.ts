@@ -65,6 +65,8 @@ export default class MbDuration extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) required = false;
 
+  @property({ type: Boolean, reflect: true }) autocomplete = false;
+
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
   @property({ type: Boolean, reflect: true }) hidelabel = false;
@@ -172,6 +174,7 @@ export default class MbDuration extends EhrElement {
         help-text=${this.hidelabel ? '' : this.formatDuration(a)}
         .value=${this._state[a] || ''}
         @sl-input=${(e: CustomEvent) => this.handleInput(a, e)}
+        autocomplete=${this.autocomplete ? 'on' : 'off'}
       ></sl-input>`
     );
   }

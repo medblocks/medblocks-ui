@@ -76,6 +76,8 @@ export default class MbQuantity extends QuantityElement {
   /** Hides the units. Make sure to set a default unit, or set it programatically. */
   @property({ type: Boolean, reflect: true }) hideunit = false;
 
+  @property({ type: Boolean, reflect: true }) autocomplete = false;
+
   @property({ type: Boolean, reflect: true }) hoist = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
@@ -179,6 +181,7 @@ export default class MbQuantity extends QuantityElement {
         @sl-input=${this.handleInput}
         .value=${this.data?.magnitude?.toString() || ''}
         placeholder=${this.placeholder}
+        autocomplete=${this.autocomplete ? 'on' : 'off'}
       ></sl-input>
       <sl-select
         id=${`${this.id}-unit`}

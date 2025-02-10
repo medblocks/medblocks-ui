@@ -77,6 +77,8 @@ export default class MbInputMultiple extends EhrElement {
 
   @property({ type: Boolean, reflect: true }) required = false;
 
+  @property({ type: Boolean, reflect: true }) autocomplete = false;
+
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
   @state() value = '';
@@ -148,6 +150,7 @@ export default class MbInputMultiple extends EhrElement {
           label=${this.label || ''}
           .value=${this.value}
           @sl-blur=${() => this.addValue()}
+          autocomplete=${this.autocomplete ? 'on' : 'off'}
         >
           ${this.value &&
           html`<sl-icon @click=${this.addValue} library="medblocks" name="arrow-right-circle" slot="suffix"></sl-icon>
