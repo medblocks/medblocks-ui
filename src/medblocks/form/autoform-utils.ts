@@ -319,7 +319,7 @@ function treeChildrenPTag(tree: Tree, div: HTMLElement, depth: number) {
     const p = document.createElement('p');
     p.className = getDepthClass(depth);
     p.innerHTML = encodeText(tree.name);
-    div.appendChild(p);
+    div?.appendChild(p);
   }
 }
 
@@ -397,8 +397,8 @@ function addMBRepeatables(tree: Tree, container: HTMLElement | null) {
     innerHTML: tree.mbElement,
   });
 
-  fragment.appendChild(newDiv);
-  container.appendChild(fragment);
+  fragment?.appendChild(newDiv);
+  container?.appendChild(fragment);
 }
 
 function createRepeatableButtons(
@@ -453,7 +453,7 @@ function traverse(
   if (!tree || !document) return;
   if (!tree.path || (!tree.children?.length && !tree.mbElement)) return;
   const fragment = document.createDocumentFragment();
-  const div = fragment.appendChild(document.createElement('div'));
+  const div = fragment?.appendChild(document.createElement('div'));
 
   div.id = encodeText(tree.path);
 
