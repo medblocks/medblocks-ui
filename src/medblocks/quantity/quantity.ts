@@ -98,6 +98,28 @@ export default class MbQuantity extends QuantityElement {
 
   handleChildChange() {
     this.units = [...(this.querySelectorAll('mb-unit') as NodeListOf<MbUnit>)];
+
+    if (this.units.length === 0) return;
+
+    // Find the selected unit using the first matching condition
+    const selectedUnit =
+      (this.selectElement?.value &&
+        this.units.find(unit => unit.unit === this.selectElement.value)) ||
+      (this.data?.unit &&
+        this.units.find(unit => unit.unit === this.data?.unit)) ||
+      (this.default && this.units.find(unit => unit.unit === this.default)) ||
+      this.units[0];
+
+    // Update min/max values if a unit was found
+    if (selectedUnit) {
+      this.min = selectedUnit.min ?? null;
+      this.max = selectedUnit.max ?? null;
+
+      if (this.inputElement) {
+        this.inputElement.min = String(this.min || '');
+        this.inputElement.max = String(this.max || '');
+      }
+    }
   }
 
   reportValidity() {
@@ -138,15 +160,26 @@ export default class MbQuantity extends QuantityElement {
         magnitude,
       };
     }
-    const Unit = this.units.filter(
-      un => un.unit === this.selectElement.value
-    )[0];
-    this.max = Unit?.max ? Unit.max : null;
-    this.min = Unit?.min ? Unit.min : null;
+
+    const selectedUnit = this.units.find(un => un.unit === unit);
+    if (selectedUnit) {
+      // Update min/max properties
+      this.min = selectedUnit.min ? selectedUnit.min : null;
+      this.max = selectedUnit.max ? selectedUnit.max : null;
+      if (this.inputElement) {
+        this.inputElement.min = String(this.min || '');
+        this.inputElement.max = String(this.max || '');
+      }
+    }
+
     this._mbInput.emit();
   }
 
   get displayUnit() {
+    // First check if the select element has a value
+    if (this.selectElement && this.selectElement.value) {
+      return this.selectElement.value;
+    }
     if (this.data?.unit) {
       return this.data?.unit;
     }
