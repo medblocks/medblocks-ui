@@ -101,13 +101,12 @@ export default class MbQuantity extends QuantityElement {
 
     if (this.units.length === 0) return;
 
-    // Find the selected unit using the first matching condition
+    let unitToUse = this.default;
+    if (this.data?.unit) {
+      unitToUse = this.data.unit;
+    }
     const selectedUnit =
-      (this.selectElement?.value &&
-        this.units.find(unit => unit.unit === this.selectElement.value)) ||
-      (this.data?.unit &&
-        this.units.find(unit => unit.unit === this.data?.unit)) ||
-      (this.default && this.units.find(unit => unit.unit === this.default)) ||
+      (unitToUse && this.units.find(unit => unit.unit === unitToUse)) ||
       this.units[0];
 
     // Update min/max values if a unit was found

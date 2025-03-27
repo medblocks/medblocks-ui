@@ -28,9 +28,14 @@ describe('MbQuantity', () => {
     // console.log("quantity",event.target.data)
     expect(event.target.data).to.eql({ unit: 'cm', magnitude: 234 });
 
+    // Set up the listener before clearing the input
+    const eventPromise = oneEvent(mbquantity, 'mb-input', true);
+    // Clear the input and dispatch the event
     input.value = '';
     input.dispatchEvent(new CustomEvent('sl-input', { bubbles: true }));
-    const event2: any = await oneEvent(mbquantity, 'mb-input', true);
+    await elementUpdated(mbquantity);
+    // Wait for the event
+    const event2: any = await eventPromise;
     expect(event2.target.data).to.eql(undefined);
   });
 
