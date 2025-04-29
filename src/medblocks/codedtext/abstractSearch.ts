@@ -201,6 +201,8 @@ export default abstract class MbSearchAbstract extends CodedTextElement {
       const result = await this.handleSearch({
         searchString: this.searchTerm,
         terminology: this.terminology,
+        constraints: this._selectedFilters,
+        maxHits: this._maxHits,
       });
       const results = result.map(
         r =>
