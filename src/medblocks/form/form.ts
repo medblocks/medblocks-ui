@@ -63,6 +63,7 @@ export default class MedblockForm extends LitElement {
       }
     });
   }
+
   @watch('handleSearch')
   handleSearchChange(_: Variant, newHandleSearch: SearchFunction) {
     this.mbElementSet.forEach(el => {
@@ -145,11 +146,11 @@ export default class MedblockForm extends LitElement {
     this.data = this.parse(data);
   }
 
-  export() {
-    if (this.validate()) {
-      this.insertContext();
-      return this.serialize();
-    }
+  /** Serializes the form data and inserts context. */
+  export(validate = false) {
+    if (validate) this.validate();
+    this.insertContext();
+    return this.serialize();
   }
 
   clear() {
