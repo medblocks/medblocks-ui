@@ -6,6 +6,10 @@
 
 Web Components for rapid development of openEHR and FHIR systems.
 
+## Documentation
+
+For detailed documentation on Medblocks UI components, architecture, and usage, please refer to the [documentation here](./documentation/README.md).
+
 [![Medblocks UI Web components demo](https://img.youtube.com/vi/ng9lkQKa2KE/0.jpg)](https://www.youtube.com/watch?v=ng9lkQKa2KE)
 
 ## Testing with Web Test Runner
